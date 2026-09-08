@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Mantenimiento — Inversiones Montolivo</title>
+<style>
+:root{
+  --maroon-dark:#52101E;
+  --maroon:#7A1A2E;
+  --maroon-hover:#8f2038;
+  --maroon-wash:rgba(122,26,46,0.07);
+  --cream:#F8F3EE;
+  --card:#FFFFFF;
+  --ink:#241B1D;
+  --ink-2:#6B5F5C;
+  --ink-3:#9A8F8B;
+  --border:#E7DFD8;
+  --good:#16A34A; --good-text:#15803D; --good-bg:#F0FDF4; --good-border:#BBF0CC;
+  --warn:#D97706; --warn-text:#92400E; --warn-bg:#FFFBEB; --warn-border:#FCE3B0;
+  --bad:#DC2626;  --bad-text:#991B1B;  --bad-bg:#FEF2F2;  --bad-border:#F8C9C9;
+  --chart-1:#2a78d6;
+  --chart-2:#eb6834;
+  --chart-3:#1baf7a;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:14px;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+
+/* ---------- Header ---------- */
+.topbar{
+  background:linear-gradient(135deg,var(--maroon-dark),var(--maroon));
+  color:#fff;
+  padding:16px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.topbar-left{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.topbar-left h1{font-size:20px;margin:0;font-weight:700;letter-spacing:0.2px;}
+.topbar-left .sep{opacity:0.5;}
+.topbar-left .sub{font-size:13px;font-weight:600;opacity:0.92;}
+.topbar-left .tag{display:block;font-size:10.5px;letter-spacing:1.2px;opacity:0.7;margin-top:2px;text-transform:uppercase;}
+.topbar-right{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.14);padding:6px 12px;border-radius:20px;font-size:12.5px;font-weight:600;}
+.dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;display:inline-block;}
+
+/* ---------- Tabs ---------- */
+.tabs{
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  overflow-x:auto;
+  padding:0 20px;
+}
+.tab-btn{
+  border:none;background:none;cursor:pointer;
+  padding:13px 16px;font-size:13px;font-weight:600;color:var(--ink-2);
+  border-bottom:3px solid transparent;white-space:nowrap;
+}
+.tab-btn:hover{color:var(--maroon);}
+.tab-btn.active{color:var(--maroon);border-bottom-color:var(--maroon);}
+
+/* ---------- Filter bar ---------- */
+.filterbar{
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  font-size:12.5px;
+}
+.filterbar label{color:var(--ink-2);font-weight:600;margin-right:6px;}
+.filterbar select, .filterbar input[type=date], .filterbar input[type=text]{
+  border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-size:12.5px;
+  background:#fff;color:var(--ink);font-family:inherit;
+}
+.filterbar .grp{display:flex;align-items:center;}
+.btn{
+  border:1px solid var(--maroon);background:var(--maroon);color:#fff;
+  border-radius:6px;padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;
+}
+.btn:hover{background:var(--maroon-hover);}
+.btn.ghost{background:#fff;color:var(--maroon);}
+.btn.ghost:hover{background:var(--maroon-wash);}
+.presetrow{display:flex;gap:6px;}
+.chip{border:1px solid var(--border);background:#fff;border-radius:14px;padding:5px 11px;font-size:12px;cursor:pointer;color:var(--ink-2);font-weight:600;}
+.chip.active{background:var(--maroon);color:#fff;border-color:var(--maroon);}
+
+/* ---------- Layout ---------- */
+main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
+.tabpanel{display:none;}
+.tabpanel.active{display:block;}
+.section-title{
+  display:flex;align-items:center;gap:9px;margin:26px 0 12px;font-size:15px;font-weight:700;
+}
+.section-title:first-child{margin-top:4px;}
+.section-title .bar{width:4px;height:16px;background:var(--maroon);border-radius:2px;}
+.section-note{font-size:12px;color:var(--ink-3);margin:-6px 0 14px;padding-left:13px;}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:8px;}
+.kpi-card{
+  background:var(--card);border:1px solid var(--border);border-left:4px solid var(--maroon);
+  border-radius:8px;padding:14px 16px;
+}
+.kpi-card.good{border-left-color:var(--good);}
+.kpi-card.warn{border-left-color:var(--warn);}
+.kpi-card.bad{border-left-color:var(--bad);}
+.kpi-label{font-size:10.5px;letter-spacing:0.6px;text-transform:uppercase;color:var(--ink-3);font-weight:700;display:flex;align-items:center;gap:6px;}
+.kpi-value{font-size:26px;font-weight:800;margin-top:4px;line-height:1.1;}
+.kpi-value.good{color:var(--good-text);}
+.kpi-value.warn{color:var(--warn-text);}
+.kpi-value.bad{color:var(--bad-text);}
+.kpi-sub{font-size:11.5px;color:var(--ink-2);margin-top:5px;}
+.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;}
+.status-dot.good{background:var(--good);}
+.status-dot.warn{background:var(--warn);}
+.status-dot.bad{background:var(--bad);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:18px;}
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.card-head h3{font-size:13.5px;margin:0;font-weight:700;}
+.pill{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--ink-2);}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+thead th{
+  background:var(--maroon);color:#fff;text-align:left;padding:8px 10px;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.4px;font-weight:700;white-space:nowrap;
+}
+thead th:first-child{border-top-left-radius:6px;}
+thead th:last-child{border-top-right-radius:6px;}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:var(--maroon-wash);}
+tbody tr:nth-child(even){background:#FBF8F5;}
+tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
+.num{text-align:right;font-variant-numeric:tabular-nums;}
+.rank{color:var(--ink-3);font-weight:700;width:28px;}
+.barwrap{width:120px;background:var(--border);border-radius:3px;height:7px;overflow:hidden;}
+.barfill{height:100%;background:var(--maroon);border-radius:3px;}
+.tablewrap{overflow-x:auto;}
+.badge{padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:700;}
+.badge.good{background:var(--good-bg);color:var(--good-text);border:1px solid var(--good-border);}
+.badge.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border);}
+.badge.bad{background:var(--bad-bg);color:var(--bad-text);border:1px solid var(--bad-border);}
+.badge.neutral{background:var(--cream);color:var(--ink-2);border:1px solid var(--border);}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media (max-width:900px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+.chartbox{height:220px;display:flex;align-items:flex-end;gap:10px;padding:10px 4px 0;}
+.chartcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;}
+.chartbars{display:flex;gap:3px;align-items:flex-end;height:170px;width:100%;justify-content:center;}
+.bar-seg{width:16px;border-radius:3px 3px 0 0;position:relative;}
+.chartcol .lbl{font-size:10.5px;color:var(--ink-2);font-weight:600;white-space:nowrap;}
+.legend{display:flex;gap:16px;font-size:11.5px;color:var(--ink-2);margin-top:6px;flex-wrap:wrap;}
+.legend .sw{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle;}
+
+.callout{border:1px solid var(--warn-border);background:var(--warn-bg);color:var(--warn-text);border-radius:8px;padding:11px 14px;font-size:12px;margin-bottom:16px;line-height:1.5;}
+.callout b{color:var(--warn-text);}
+.callout.info{border-color:var(--border);background:#F2EEE9;color:var(--ink-2);}
+
+.pager{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:12px;color:var(--ink-2);}
+.pager button{border:1px solid var(--border);background:#fff;border-radius:5px;padding:4px 9px;cursor:pointer;font-size:12px;}
+.pager button:disabled{opacity:0.4;cursor:default;}
+.searchbox{flex:1;min-width:160px;}
+.footer-note{text-align:center;color:var(--ink-3);font-size:11px;padding:20px 0 6px;}
+.empty{color:var(--ink-3);font-size:12.5px;padding:20px;text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <h1>Inversiones Montolivo</h1>
+      <span class="tag">Dashboard de Mantenimiento</span>
+    </div>
+  </div>
+  <div class="topbar-right"><span class="dot"></span><span id="hdrDate">—</span></div>
+</div>
+
+<nav class="tabs" id="tabs"></nav>
+
+<div class="filterbar">
+  <div class="grp"><label>Desde</label><input type="date" id="fDesde"></div>
+  <div class="grp"><label>Hasta</label><input type="date" id="fHasta"></div>
+  <div class="presetrow" id="presets"></div>
+  <button class="btn ghost" id="btnLimpiar">↺ Limpiar</button>
+  <span class="pill" id="rangoResumen"></span>
+</div>
+
+<main id="main"></main>
+
+<div class="footer-note">Generado a partir de exportes de OT, SS, Disponibilidad y Criticidad de equipos · Datos de referencia, sujetos a validación con el jefe de mantenimiento</div>
+
+<script id="dashboard-data" type="application/json">
+__DATA_JSON__
+</script>
+
+<script>
+const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+
+/* ============ Helpers ============ */
+function parseD(s){ return s ? new Date(s) : null; }
+function fmtDate(s){ if(!s) return '—'; const d=parseD(s); return d.toLocaleDateString('es-CO',{year:'numeric',month:'2-digit',day:'2-digit'})+' '+d.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}); }
+function fmtMoney(n){ if(n==null) return '—'; return '$ '+Math.round(n).toLocaleString('es-CO'); }
+function fmtPct(n,d=1){ if(n==null||isNaN(n)) return '—'; return n.toFixed(d)+'%'; }
+function fmtH(n){ if(n==null||isNaN(n)) return '—'; return n.toFixed(1)+' h'; }
+function inRange(dateStr, desde, hasta){
+  if(!dateStr) return false;
+  const d = parseD(dateStr);
+  if(desde && d < desde) return false;
+  if(hasta && d > hasta) return false;
+  return true;
+}
+function esc(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function shortTecnico(s){
+  if(!s) return '—';
+  return s.split(',').map(n=>{ n=n.trim(); const p=n.split(' '); return p.length>=2? (p[0][0]+p[0].slice(1).toLowerCase()+' '+p[1][0].toUpperCase()+'.') : n; }).join(', ');
+}
+function statusClass(value, thresholds, inverse){
+  // thresholds = {good, warn} numeric cutoffs
+  if(value==null||isNaN(value)) return 'neutral';
+  if(!inverse){
+    if(value>=thresholds.good) return 'good';
+    if(value>=thresholds.warn) return 'warn';
+    return 'bad';
+  } else {
+    if(value<=thresholds.good) return 'good';
+    if(value<=thresholds.warn) return 'warn';
+    return 'bad';
+  }
+}
+
+/* ============ Global filter state ============ */
+let FILTER = { desde:null, hasta:null };
+
+function getFilteredOT(){ return DATA.ot.filter(r=>inRange(r.fecha_creacion, FILTER.desde, FILTER.hasta)); }
+function getFilteredSS(){ return DATA.ss.filter(r=>inRange(r.fecha_ss, FILTER.desde, FILTER.hasta)); }
+function getFilteredParos(){ return DATA.paros.filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta)); }
+
+/* ============ Tabs config ============ */
+const TABS = [
+  {id:'resumen', label:'Resumen Gerencial', render: renderResumen},
+  {id:'fallas', label:'Fallas y Severidad', render: renderFallas},
+  {id:'tiempos', label:'Tiempos de Respuesta', render: renderTiempos},
+  {id:'ot', label:'Órdenes de Trabajo', render: renderOT},
+  {id:'paros', label:'Paros por Equipo', render: renderParos},
+  {id:'disponibilidad', label:'Disponibilidad y Criticidad', render: renderDisponibilidad},
+  {id:'ss', label:'Solicitudes de Servicio', render: renderSS},
+  {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
+  {id:'preventivo', label:'Cumplimiento Preventivo', render: renderPreventivo},
+  {id:'mtbf', label:'MTBF', render: renderMTBF},
+];
+
+function buildTabsNav(){
+  const nav = document.getElementById('tabs');
+  nav.innerHTML = TABS.map((t,i)=>`<button class="tab-btn${i===0?' active':''}" data-tab="${t.id}">${t.label}</button>`).join('');
+  nav.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      nav.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
+      document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+}
+function buildPanels(){
+  const main = document.getElementById('main');
+  main.innerHTML = TABS.map((t,i)=>`<section class="tabpanel${i===0?' active':''}" id="panel-${t.id}"></section>`).join('');
+}
+function renderAll(){
+  TABS.forEach(t=>{ t.render(document.getElementById('panel-'+t.id)); });
+  const dr = document.getElementById('rangoResumen');
+  const d = FILTER.desde ? FILTER.desde.toLocaleDateString('es-CO') : 'inicio';
+  const h = FILTER.hasta ? FILTER.hasta.toLocaleDateString('es-CO') : 'hoy';
+  dr.textContent = `Rango: ${d} → ${h}`;
+}
+
+/* ============ Filter bar wiring ============ */
+function setupFilterBar(){
+  const fDesde = document.getElementById('fDesde');
+  const fHasta = document.getElementById('fHasta');
+  fDesde.addEventListener('change', ()=>{ FILTER.desde = fDesde.value? new Date(fDesde.value+'T00:00:00'):null; setActivePreset(null); renderAll(); });
+  fHasta.addEventListener('change', ()=>{ FILTER.hasta = fHasta.value? new Date(fHasta.value+'T23:59:59'):null; setActivePreset(null); renderAll(); });
+  document.getElementById('btnLimpiar').addEventListener('click', ()=>{
+    FILTER = {desde:null, hasta:null}; fDesde.value=''; fHasta.value='';
+    setActivePreset('todo'); renderAll();
+  });
+
+  const presets = [
+    {id:'todo', label:'Todo el periodo', fn:()=>({desde:null,hasta:null})},
+    {id:'30d', label:'Últimos 30 días', fn:()=>{ const h=new Date(); const d=new Date(); d.setDate(d.getDate()-30); return {desde:d,hasta:h}; }},
+    {id:'mes', label:'Este mes', fn:()=>{ const h=new Date(); const d=new Date(h.getFullYear(),h.getMonth(),1); return {desde:d,hasta:h}; }},
+    {id:'semana', label:'Últimos 7 días', fn:()=>{ const h=new Date(); const d=new Date(); d.setDate(d.getDate()-7); return {desde:d,hasta:h}; }},
+  ];
+  const row = document.getElementById('presets');
+  row.innerHTML = presets.map(p=>`<span class="chip" data-p="${p.id}">${p.label}</span>`).join('');
+  row.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const p = presets.find(x=>x.id===chip.dataset.p);
+      FILTER = p.fn();
+      fDesde.value = FILTER.desde? FILTER.desde.toISOString().slice(0,10) : '';
+      fHasta.value = FILTER.hasta? FILTER.hasta.toISOString().slice(0,10) : '';
+      setActivePreset(p.id);
+      renderAll();
+    });
+  });
+  setActivePreset('todo');
+}
+function setActivePreset(id){
+  document.querySelectorAll('#presets .chip').forEach(c=>c.classList.toggle('active', c.dataset.p===id));
+}
+
+/* ============ Reusable render helpers ============ */
+function kpiCard({label, value, sub, status}){
+  const st = status || '';
+  return `<div class="kpi-card ${st}">
+    <div class="kpi-label">${status?`<span class="status-dot ${st}"></span>`:''}${label}</div>
+    <div class="kpi-value ${st}">${value}</div>
+    ${sub?`<div class="kpi-sub">${sub}</div>`:''}
+  </div>`;
+}
+function sectionTitle(text, note){
+  return `<div class="section-title"><span class="bar"></span>${text}</div>${note?`<div class="section-note">${note}</div>`:''}`;
+}
+function rankedTable(rows, {labelKey, countKey, extraCols=[]}){
+  const max = Math.max(...rows.map(r=>r[countKey]||0), 1);
+  return `<div class="tablewrap"><table><thead><tr><th>#</th><th>${labelKey.label}</th>${extraCols.map(c=>`<th class="num">${c.label}</th>`).join('')}<th>${countKey.label||'Cantidad'}</th><th>Barra</th></tr></thead><tbody>
+  ${rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(r[labelKey.key])}</td>${extraCols.map(c=>`<td class="num">${c.fmt?c.fmt(r[c.key]):r[c.key]}</td>`).join('')}<td class="num">${r[countKey.key]}</td><td><div class="barwrap"><div class="barfill" style="width:${(r[countKey.key]/max*100).toFixed(0)}%"></div></div></td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+function groupCount(arr, keyFn){
+  const m = new Map();
+  arr.forEach(x=>{ const k=keyFn(x); if(k==null) return; m.set(k, (m.get(k)||0)+1); });
+  return [...m.entries()].map(([k,v])=>({key:k,count:v})).sort((a,b)=>b.count-a.count);
+}
+function groupSum(arr, keyFn, valFn){
+  const m = new Map();
+  arr.forEach(x=>{ const k=keyFn(x); if(k==null) return; m.set(k, (m.get(k)||0)+(valFn(x)||0)); });
+  return [...m.entries()].map(([k,v])=>({key:k,sum:v})).sort((a,b)=>b.sum-a.sum);
+}
+function monthKey(dateStr){ if(!dateStr) return null; const d=parseD(dateStr); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+function monthLabel(k){ const [y,m]=k.split('-'); const names=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']; return names[parseInt(m)-1]+' '+y.slice(2); }
+
+function groupedBarChart(months, series, colors){
+  // months: [k1,k2,...] sorted; series: [{label, values:{k:v}}]
+  const allVals = months.flatMap(m=>series.map(s=>s.values[m]||0));
+  const max = Math.max(...allVals, 1);
+  const cols = months.map(m=>{
+    const bars = series.map((s,i)=>{
+      const v = s.values[m]||0;
+      const h = Math.max(2, Math.round(v/max*160));
+      return `<div class="bar-seg" title="${s.label}: ${v}" style="height:${h}px;background:${colors[i]}"></div>`;
+    }).join('');
+    return `<div class="chartcol"><div class="chartbars">${bars}</div><div class="lbl">${monthLabel(m)}</div></div>`;
+  }).join('');
+  const legend = series.map((s,i)=>`<span><span class="sw" style="background:${colors[i]}"></span>${s.label}</span>`).join('');
+  return `<div class="chartbox">${cols}</div><div class="legend">${legend}</div>`;
+}
+
+/* generic paginated + searchable table for large datasets */
+function buildPagedTable(containerId, allRows, columns, opts={}){
+  const pageSize = opts.pageSize || 15;
+  let page = 0;
+  let filtered = allRows;
+  function applyFilter(term){
+    if(!term){ filtered = allRows; }
+    else{
+      const t = term.toLowerCase();
+      filtered = allRows.filter(r => columns.some(c => String(r[c.key]??'').toLowerCase().includes(t)));
+    }
+    page = 0; draw();
+  }
+  function draw(){
+    const start = page*pageSize;
+    const rows = filtered.slice(start, start+pageSize);
+    const tbl = `<div class="tablewrap"><table><thead><tr>${columns.map(c=>`<th${c.num?' class="num"':''}>${c.label}</th>`).join('')}</tr></thead><tbody>
+      ${rows.length? rows.map(r=>`<tr>${columns.map(c=>`<td${c.num?' class="num"':''}>${c.fmt? c.fmt(r[c.key],r) : esc(r[c.key]??'—')}</td>`).join('')}</tr>`).join('') : `<tr><td colspan="${columns.length}" class="empty">Sin resultados</td></tr>`}
+      </tbody></table></div>
+      <div class="pager">
+        <button id="${containerId}-prev" ${page===0?'disabled':''}>← Anterior</button>
+        <span>Página ${filtered.length?page+1:0} de ${Math.max(1,Math.ceil(filtered.length/pageSize))} · ${filtered.length} registros</span>
+        <button id="${containerId}-next" ${(start+pageSize)>=filtered.length?'disabled':''}>Siguiente →</button>
+      </div>`;
+    document.getElementById(containerId).innerHTML = tbl;
+    const prev = document.getElementById(containerId+'-prev'); if(prev) prev.onclick=()=>{page--;draw();};
+    const next = document.getElementById(containerId+'-next'); if(next) next.onclick=()=>{page++;draw();};
+  }
+  draw();
+  return { setFilter: applyFilter, refresh: (newRows)=>{ allRows=newRows; filtered=newRows; page=0; draw(); } };
+}
+
+/* ============ TAB: Resumen Gerencial ============ */
+function renderResumen(el){
+  const ot = getFilteredOT();
+  const paros = getFilteredParos();
+  const correctivas = ot.filter(r=>r.tipo==='Correctivo');
+  const preventivas = ot.filter(r=>r.tipo==='Preventivo');
+  const averiasCriticas = correctivas.filter(r=>r.criticidad==='Alta').length;
+
+  const cerradasPrev = preventivas.filter(r=>r.estado==='Cerrada');
+  const cumplidasPrev = cerradasPrev.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
+  const cumplimientoPrev = preventivas.length? (cumplidasPrev.length/preventivas.length*100) : null;
+
+  const cerradasTotal = ot.filter(r=>r.estado==='Cerrada');
+  const aTiempo = cerradasTotal.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
+  const otif = cerradasTotal.length? (aTiempo.length/cerradasTotal.length*100) : null;
+
+  const horasHabilTotal = DATA.equipos.reduce((s,e)=>s+0,0); // no usamos por equipo aqui
+  const horasParoCorrectivo = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
+  const horasHabilPeriodo = 3360; // referencia del export de disponibilidad (ver nota)
+  const pctParadasNoProg = horasHabilPeriodo? (horasParoCorrectivo/horasHabilPeriodo*100) : null;
+
+  const dispProm = DATA.equipos.length? DATA.equipos.reduce((s,e)=>s+(e.disponibilidad_pct||0),0)/DATA.equipos.length*100 : null;
+
+  const costoTotal = ot.reduce((s,r)=>s+(r.costo_real||0),0);
+  const costoCorrectivo = correctivas.reduce((s,r)=>s+(r.costo_real||0),0);
+  const costoPreventivo = preventivas.reduce((s,r)=>s+(r.costo_real||0),0);
+
+  const stAverias = statusClass(averiasCriticas, {good:0.5, warn:2.5}, true);
+  const stCumpl = statusClass(cumplimientoPrev, {good:90, warn:75});
+  const stOtif = statusClass(otif, {good:90, warn:75});
+  const stParadas = statusClass(pctParadasNoProg, {good:5, warn:10}, true);
+  const stDisp = statusClass(dispProm, {good:95, warn:90});
+
+  el.innerHTML = `
+  ${sectionTitle('Indicadores clave del periodo')}
+  <div class="kpi-row">
+    ${kpiCard({label:'Averías equipos críticos', value:averiasCriticas, sub:`de ${correctivas.length} correctivas totales`, status:stAverias})}
+    ${kpiCard({label:'Disponibilidad promedio', value:fmtPct(dispProm), sub:`${DATA.equipos.length} equipos mantenibles`, status:stDisp})}
+    ${kpiCard({label:'Cumplimiento preventivo', value:fmtPct(cumplimientoPrev), sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
+    ${kpiCard({label:'% Paradas no programadas', value:fmtPct(pctParadasNoProg), sub:`${horasParoCorrectivo.toFixed(1)} h de paro correctivo`, status:stParadas})}
+    ${kpiCard({label:'OTIF mantenimiento', value:fmtPct(otif), sub:`${aTiempo.length} de ${cerradasTotal.length} OT cerradas a tiempo`, status:stOtif})}
+    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`})}
+  </div>
+  <div class="callout"><b>Nota de calidad de dato:</b> Disponibilidad y OTIF pueden estar sobreestimados — el archivo de disponibilidad aún no registra paros reales para todos los equipos, y algunas fechas programadas de OT se cargan igual a la fecha real de ejecución. Ver pestañas "Disponibilidad" y "Órdenes de Trabajo" para el detalle.</div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head"><h3>OT por tipo — tendencia mensual</h3></div>
+      ${chartOTPorMes(ot)}
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Top lugares con más averías correctivas</h3><span class="pill">${correctivas.length} correctivas</span></div>
+      ${topLugaresAverias(correctivas)}
+    </div>
+  </div>
+  `;
+}
+function chartOTPorMes(ot){
+  const months = [...new Set(ot.map(r=>monthKey(r.fecha_creacion)).filter(Boolean))].sort();
+  if(!months.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
+  const correctivo = {label:'Correctivo', values:{}};
+  const preventivo = {label:'Preventivo', values:{}};
+  months.forEach(m=>{ correctivo.values[m]=0; preventivo.values[m]=0; });
+  ot.forEach(r=>{ const m=monthKey(r.fecha_creacion); if(!m) return; if(r.tipo==='Correctivo') correctivo.values[m]++; else preventivo.values[m]++; });
+  return groupedBarChart(months, [correctivo, preventivo], ['var(--chart-1)','var(--chart-2)']);
+}
+function topLugaresAverias(correctivas){
+  const g = groupCount(correctivas, r=>r.lugar).slice(0,8);
+  if(!g.length) return '<div class="empty">Sin correctivas en el rango seleccionado</div>';
+  return rankedTable(g.map(x=>({lugar:x.key, n:x.count})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Averías'}});
+}
+
+/* ============ TAB: Fallas y Severidad ============ */
+function renderFallas(el){
+  const ot = getFilteredOT();
+  const correctivo = ot.filter(r=>r.tipo==='Correctivo').length;
+  const preventivo = ot.filter(r=>r.tipo==='Preventivo').length;
+  const alta = ot.filter(r=>r.severidad==='Alta').length;
+  const media = ot.filter(r=>r.severidad==='Media').length;
+
+  const cruce = {};
+  ['Correctivo','Preventivo'].forEach(t=>{ cruce[t]={Alta:0,Media:0}; });
+  ot.forEach(r=>{ if(cruce[r.tipo]) cruce[r.tipo][r.severidad] = (cruce[r.tipo][r.severidad]||0)+1; });
+
+  el.innerHTML = `
+  ${sectionTitle('Fallas por tipo y severidad')}
+  <div class="kpi-row">
+    ${kpiCard({label:'Total OT en el rango', value:ot.length})}
+    ${kpiCard({label:'Correctivo', value:correctivo})}
+    ${kpiCard({label:'Preventivo (sistemático)', value:preventivo})}
+    ${kpiCard({label:'Severidad Alta', value:alta})}
+    ${kpiCard({label:'Severidad Media', value:media})}
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head"><h3>Tendencia mensual por tipo</h3></div>
+      ${chartOTPorMes(ot)}
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Cruce tipo × severidad</h3></div>
+      <div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">Alta</th><th class="num">Media</th><th class="num">Total</th></tr></thead><tbody>
+      ${Object.entries(cruce).map(([t,v])=>`<tr><td>${t}</td><td class="num">${v.Alta}</td><td class="num">${v.Media}</td><td class="num">${v.Alta+v.Media}</td></tr>`).join('')}
+      </tbody></table></div>
+    </div>
+  </div>
+  `;
+}
+
+/* ============ TAB: Tiempos de Respuesta ============ */
+function renderTiempos(el){
+  const ot = getFilteredOT();
+  const ss = getFilteredSS();
+
+  function avgDesvioInicio(rows){
+    const vals = rows.map(r=>{ if(!r.inicio_real||!r.inicio_programado) return null; return (new Date(r.inicio_real)-new Date(r.inicio_programado))/3600000; }).filter(v=>v!=null);
+    return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+  }
+  function avgDuracion(rows){
+    const vals = rows.map(r=>{ if(!r.inicio_real||!r.fin_real) return null; return (new Date(r.fin_real)-new Date(r.inicio_real))/3600000; }).filter(v=>v!=null);
+    return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+  }
+  const porTipo = ['Correctivo','Preventivo'].map(t=>{
+    const rows = ot.filter(r=>r.tipo===t);
+    return {tipo:t, n:rows.length, desvio:avgDesvioInicio(rows), duracion:avgDuracion(rows)};
+  });
+  const porSeveridad = ['Alta','Media'].map(s=>{
+    const rows = ot.filter(r=>r.severidad===s);
+    return {sev:s, n:rows.length, desvio:avgDesvioInicio(rows), duracion:avgDuracion(rows)};
+  });
+
+  const ssConRespuesta = ss.filter(r=>r.fecha_respuesta);
+  const tRespSS = ssConRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
+  const promRespSS = tRespSS.length? tRespSS.reduce((a,b)=>a+b,0)/tRespSS.length : null;
+
+  el.innerHTML = `
+  ${sectionTitle('Tiempos promedio de respuesta y ejecución')}
+  <div class="callout info">"Desvío de inicio" = diferencia entre el inicio real y el inicio programado de la OT (positivo = empezó después de lo programado). "Tiempo de respuesta SS" = desde que se radica la solicitud hasta que el sistema registra una respuesta — solo ${ssConRespuesta.length} de ${ss.length} SS en el rango tienen fecha de respuesta registrada.</div>
+  <div class="kpi-row">
+    ${kpiCard({label:'Tiempo de respuesta SS (prom.)', value:fmtH(promRespSS), sub:`sobre ${ssConRespuesta.length} SS respondidas`})}
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head"><h3>Por tipo de OT</h3></div>
+      <div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">OT</th><th class="num">Desvío inicio</th><th class="num">Duración ejec.</th></tr></thead><tbody>
+      ${porTipo.map(r=>`<tr><td>${r.tipo}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracion)}</td></tr>`).join('')}
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Por severidad</h3></div>
+      <div class="tablewrap"><table><thead><tr><th>Severidad</th><th class="num">OT</th><th class="num">Desvío inicio</th><th class="num">Duración ejec.</th></tr></thead><tbody>
+      ${porSeveridad.map(r=>`<tr><td>${r.sev}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracion)}</td></tr>`).join('')}
+      </tbody></table></div>
+    </div>
+  </div>
+  `;
+}
+
+/* ============ TAB: Órdenes de Trabajo ============ */
+let otPager = null;
+function renderOT(el){
+  const all = getFilteredOT();
+  el.innerHTML = `
+  ${sectionTitle('Listado completo de Órdenes de Trabajo', `${all.length} OT en el rango seleccionado`)}
+  <div class="card">
+    <div class="card-head">
+      <input class="searchbox" type="text" id="otSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
+      <select id="otEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
+      <select id="otTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
+    </div>
+    <div id="otTableWrap"></div>
+  </div>
+  `;
+  const cols = [
+    {key:'ot', label:'OT'},
+    {key:'tipo', label:'Tipo'},
+    {key:'severidad', label:'Sever.'},
+    {key:'viene_ss', label:'¿SS?', fmt:v=>v?'Sí':'No'},
+    {key:'fecha_creacion', label:'Creación OT', fmt:fmtDate},
+    {key:'inicio_programado', label:'Inicio prog.', fmt:fmtDate},
+    {key:'fin_programado', label:'Fin prog.', fmt:fmtDate},
+    {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Cerrada'?'good':'warn'}">${v}</span>`},
+    {key:'avance', label:'Avance', num:true, fmt:v=>v+'%'},
+    {key:'lugar', label:'Lugar'},
+    {key:'equipo', label:'Equipo'},
+    {key:'tecnico', label:'Técnico', fmt:shortTecnico},
+    {key:'costo_real', label:'Costo', num:true, fmt:fmtMoney},
+  ];
+  function currentFiltered(){
+    const term = document.getElementById('otSearch').value;
+    const est = document.getElementById('otEstado').value;
+    const tip = document.getElementById('otTipo').value;
+    let rows = all;
+    if(est) rows = rows.filter(r=>r.estado===est);
+    if(tip) rows = rows.filter(r=>r.tipo===tip);
+    return rows;
+  }
+  otPager = buildPagedTable('otTableWrap', all, cols, {pageSize:12});
+  function refresh(){
+    const rows = currentFiltered();
+    otPager.refresh(rows);
+    const term = document.getElementById('otSearch').value;
+    if(term) otPager.setFilter(term);
+  }
+  document.getElementById('otSearch').addEventListener('input', refresh);
+  document.getElementById('otEstado').addEventListener('change', refresh);
+  document.getElementById('otTipo').addEventListener('change', refresh);
+}
+
+/* ============ TAB: Paros por Equipo ============ */
+function renderParos(el){
+  const paros = getFilteredParos();
+  const totalH = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
+  const promH = paros.length? totalH/paros.filter(p=>p.duracion_h!=null).length : null;
+
+  const porLugar = groupSum(paros, p=>p.lugar, p=>p.duracion_h||0).map(x=>{
+    const n = paros.filter(p=>p.lugar===x.key).length;
+    return {lugar:x.key, n, horas:x.sum};
+  }).sort((a,b)=>b.n-a.n);
+
+  const pendientes = paros.filter(p=>!p.iniciado).length;
+  const enCurso = paros.filter(p=>p.iniciado && p.duracion_h==null).length;
+  const finalizados = paros.filter(p=>p.duracion_h!=null).length;
+
+  el.innerHTML = `
+  ${sectionTitle('Paros por equipo', `${paros.length} paros identificados a partir de OT correctivas — el módulo de paros del sistema aún no reporta datos propios`)}
+  <div class="kpi-row">
+    ${kpiCard({label:'Total de paros', value:paros.length})}
+    ${kpiCard({label:'Horas totales de paro', value:fmtH(totalH)})}
+    ${kpiCard({label:'Duración promedio (finalizados)', value:fmtH(promH)})}
+    ${kpiCard({label:'Pendientes de iniciar', value:pendientes, status: pendientes>0?'warn':'good'})}
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head"><h3>Paros por lugar</h3></div>
+      ${porLugar.length? rankedTable(porLugar, {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Paros'}, extraCols:[{key:'horas',label:'Horas',fmt:fmtH}]}) : '<div class="empty">Sin paros en el rango</div>'}
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Detalle de paros</h3></div>
+      <div id="parosDetalle"></div>
+    </div>
+  </div>
+  `;
+  const cols = [
+    {key:'ot', label:'OT'},
+    {key:'equipo', label:'Equipo/Activo'},
+    {key:'lugar', label:'Lugar'},
+    {key:'inicio', label:'Inicio', fmt:fmtDate},
+    {key:'estado_paro', label:'Estado', fmt:(v,r)=>{
+        if(!r.iniciado) return '<span class="badge warn">Pendiente de iniciar</span>';
+        if(r.duracion_h==null) return '<span class="badge warn">En curso</span>';
+        return '<span class="badge good">Finalizado</span>';
+      }},
+    {key:'duracion_h', label:'Duración', num:true, fmt:(v,r)=>{
+        if(!r.iniciado) return '—';
+        if(v==null) return 'en curso';
+        return fmtH(v);
+      }},
+    {key:'tecnico', label:'Técnico', fmt:shortTecnico},
+  ];
+  buildPagedTable('parosDetalle', paros, cols, {pageSize:8});
+}
+
+/* ============ TAB: Disponibilidad y Criticidad ============ */
+function renderDisponibilidad(el){
+  const crit = DATA.criticidad_totales;
+  el.innerHTML = `
+  ${sectionTitle('Disponibilidad y criticidad de equipos')}
+  <div class="callout"><b>Nota de calidad de dato:</b> el export de disponibilidad muestra 100% para todos los equipos y 0 horas de paro registradas — no refleja aún los paros reales (ver pestaña "Paros por Equipo"). Esta pestaña sirve hoy principalmente como directorio de equipos, lugar y criticidad; el % de disponibilidad se debe tomar como referencial hasta que ese módulo se alimente correctamente.</div>
+  <div class="kpi-row">
+    ${kpiCard({label:'Equipos mantenibles', value:DATA.equipos.length, sub:`de ${DATA.total_equipos_maestro} activos totales en el maestro`})}
+    ${kpiCard({label:'Criticidad Alta', value:crit.Alta||0, status:'bad'})}
+    ${kpiCard({label:'Criticidad Media', value:crit.Media||0, status:'warn'})}
+    ${kpiCard({label:'Criticidad Baja', value:crit.Baja||0, status:'good'})}
+  </div>
+  <div class="card">
+    <div class="card-head">
+      <h3>Directorio de equipos</h3>
+      <input class="searchbox" type="text" id="eqSearch" placeholder="Buscar equipo, código o lugar...">
+      <select id="eqCrit"><option value="">Toda criticidad</option><option>Alta</option><option>Media</option><option>Baja</option></select>
+    </div>
+    <div id="eqTableWrap"></div>
+  </div>
+  `;
+  const cols = [
+    {key:'codigo', label:'Código'},
+    {key:'equipo', label:'Equipo'},
+    {key:'lugar', label:'Lugar'},
+    {key:'criticidad', label:'Criticidad', fmt:v=>`<span class="badge ${v==='Alta'?'bad':v==='Media'?'warn':'good'}">${v}</span>`},
+    {key:'disponibilidad_pct', label:'Disponibilidad', num:true, fmt:v=>fmtPct((v||0)*100)},
+  ];
+  let eqPager = buildPagedTable('eqTableWrap', DATA.equipos, cols, {pageSize:15});
+  function refresh(){
+    const critVal = document.getElementById('eqCrit').value;
+    let rows = DATA.equipos;
+    if(critVal) rows = rows.filter(r=>r.criticidad===critVal);
+    eqPager.refresh(rows);
+    const term = document.getElementById('eqSearch').value;
+    if(term) eqPager.setFilter(term);
+  }
+  document.getElementById('eqSearch').addEventListener('input', refresh);
+  document.getElementById('eqCrit').addEventListener('change', refresh);
+}
+
+/* ============ TAB: Solicitudes de Servicio ============ */
+function renderSS(el){
+  const all = getFilteredSS();
+  const pendientes = all.filter(r=>r.estado==='Creada').length;
+  const conRespuesta = all.filter(r=>r.fecha_respuesta);
+  const tResp = conRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
+  const promResp = tResp.length? tResp.reduce((a,b)=>a+b,0)/tResp.length : null;
+
+  el.innerHTML = `
+  ${sectionTitle('Histórico de Solicitudes de Servicio (SS)', `${all.length} SS en el rango — usa los filtros de fecha arriba para acotar el periodo`)}
+  <div class="kpi-row">
+    ${kpiCard({label:'Total SS', value:all.length})}
+    ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
+    ${kpiCard({label:'Tiempo de solución promedio', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta`})}
+  </div>
+  <div class="card">
+    <div class="card-head">
+      <input class="searchbox" type="text" id="ssSearch" placeholder="Buscar por SS, equipo, lugar...">
+      <select id="ssEstado"><option value="">Todos los estados</option>${[...new Set(DATA.ss.map(r=>r.estado))].map(e=>`<option>${e}</option>`).join('')}</select>
+      <select id="ssTipo"><option value="">Todos los tipos</option>${[...new Set(DATA.ss.map(r=>r.tipo))].map(e=>`<option>${e}</option>`).join('')}</select>
+    </div>
+    <div id="ssTableWrap"></div>
+  </div>
+  `;
+  const cols = [
+    {key:'ss', label:'SS'},
+    {key:'tipo', label:'Tipo'},
+    {key:'severidad', label:'Sever.'},
+    {key:'equipo', label:'Equipo'},
+    {key:'lugar', label:'Lugar'},
+    {key:'fecha_ss', label:'Fecha SS', fmt:fmtDate},
+    {key:'estado', label:'Estado', fmt:v=>`<span class="badge neutral">${v}</span>`},
+    {key:'ot_asociada', label:'OT'},
+  ];
+  let ssPager = buildPagedTable('ssTableWrap', all, cols, {pageSize:15});
+  function refresh(){
+    const est = document.getElementById('ssEstado').value;
+    const tip = document.getElementById('ssTipo').value;
+    let rows = all;
+    if(est) rows = rows.filter(r=>r.estado===est);
+    if(tip) rows = rows.filter(r=>r.tipo===tip);
+    ssPager.refresh(rows);
+    const term = document.getElementById('ssSearch').value;
+    if(term) ssPager.setFilter(term);
+  }
+  document.getElementById('ssSearch').addEventListener('input', refresh);
+  document.getElementById('ssEstado').addEventListener('change', refresh);
+  document.getElementById('ssTipo').addEventListener('change', refresh);
+}
+
+/* ============ TAB: Costos ============ */
+function renderCostos(el){
+  const ot = getFilteredOT();
+  const correctivo = ot.filter(r=>r.tipo==='Correctivo');
+  const preventivo = ot.filter(r=>r.tipo==='Preventivo');
+  const total = ot.reduce((s,r)=>s+(r.costo_real||0),0);
+  const cCorr = correctivo.reduce((s,r)=>s+(r.costo_real||0),0);
+  const cPrev = preventivo.reduce((s,r)=>s+(r.costo_real||0),0);
+  const promOT = ot.length? total/ot.length : null;
+
+  const porLugar = groupSum(ot, r=>r.lugar, r=>r.costo_real||0).slice(0,10);
+
+  el.innerHTML = `
+  ${sectionTitle('Costos de mantenimiento')}
+  <div class="callout info">El costo mostrado corresponde al campo "Total Real" de cada OT (mano de obra + materiales cuando aplica); los valores en $0 son costos reales en cero, no datos faltantes.</div>
+  <div class="kpi-row">
+    ${kpiCard({label:'Costo total', value:fmtMoney(total)})}
+    ${kpiCard({label:'Costo correctivo', value:fmtMoney(cCorr), sub:`${correctivo.length} OT`})}
+    ${kpiCard({label:'Costo preventivo', value:fmtMoney(cPrev), sub:`${preventivo.length} OT`})}
+    ${kpiCard({label:'Costo promedio por OT', value:fmtMoney(promOT)})}
+  </div>
+  <div class="card">
+    <div class="card-head"><h3>Top 10 lugares por costo</h3></div>
+    ${porLugar.length? rankedTable(porLugar.map(x=>({lugar:x.key, costo:x.sum})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'costo',label:'Costo'}}) : '<div class="empty">Sin datos</div>'}
+  </div>
+  `;
+}
+
+/* ============ TAB: Cumplimiento Preventivo ============ */
+function renderPreventivo(el){
+  const ot = getFilteredOT();
+  const prev = ot.filter(r=>r.tipo==='Preventivo');
+  const cerradas = prev.filter(r=>r.estado==='Cerrada');
+  const aTiempo = cerradas.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
+  const cumplCerradas = cerradas.length? aTiempo.length/cerradas.length*100 : null;
+  const cumplTotal = prev.length? aTiempo.length/prev.length*100 : null;
+  const abiertas = prev.length - cerradas.length;
+
+  el.innerHTML = `
+  ${sectionTitle('Cumplimiento y eficiencia del mantenimiento preventivo')}
+  <div class="callout info">"Cumplimiento" compara la fecha fin programada vs. la fecha fin real de cada OT preventiva (sistemática). Las OT preventivas todavía abiertas cuentan como "no cumplidas aún" en el cálculo sobre el total.</div>
+  <div class="kpi-row">
+    ${kpiCard({label:'OT preventivas en el rango', value:prev.length})}
+    ${kpiCard({label:'Cerradas a tiempo', value:aTiempo.length, sub:`de ${cerradas.length} cerradas`})}
+    ${kpiCard({label:'Cumplimiento (sobre cerradas)', value:fmtPct(cumplCerradas), status:statusClass(cumplCerradas,{good:90,warn:75})})}
+    ${kpiCard({label:'Cumplimiento (sobre el total)', value:fmtPct(cumplTotal), sub:`${abiertas} aún abiertas`, status:statusClass(cumplTotal,{good:90,warn:75})})}
+  </div>
+  <div class="card">
+    <div class="card-head"><h3>Detalle de OT preventivas</h3></div>
+    <div id="prevTableWrap"></div>
+  </div>
+  `;
+  const cols = [
+    {key:'ot', label:'OT'},
+    {key:'equipo', label:'Equipo'},
+    {key:'lugar', label:'Lugar'},
+    {key:'fin_programado', label:'Fin programado', fmt:fmtDate},
+    {key:'fin_real', label:'Fin real', fmt:fmtDate},
+    {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Cerrada'?'good':'warn'}">${v}</span>`},
+  ];
+  buildPagedTable('prevTableWrap', prev, cols, {pageSize:12});
+}
+
+/* ============ TAB: MTBF ============ */
+function renderMTBF(el){
+  const ot = getFilteredOT();
+  const correctivas = ot.filter(r=>r.tipo==='Correctivo' && r.equipo_cod);
+  const porEquipo = groupCount(correctivas, r=>r.equipo_cod);
+  const HORAS_REF = 3360; // horas de referencia del periodo exportado en disponibilidad
+  const rows = porEquipo.map(x=>{
+    const eqInfo = correctivas.find(r=>r.equipo_cod===x.key);
+    return { equipo: eqInfo? eqInfo.equipo : x.key, fallas:x.count, mtbf: HORAS_REF/x.count };
+  }).sort((a,b)=>a.mtbf-b.mtbf);
+  const mtbfGlobal = correctivas.length? HORAS_REF/correctivas.length : null;
+
+  el.innerHTML = `
+  ${sectionTitle('MTBF — Tiempo medio entre fallas')}
+  <div class="callout"><b>Nota de calidad de dato:</b> se usa como "horas de operación" la referencia de ${HORAS_REF} h del export de disponibilidad (periodo 2026-01-01 a 2026-09-07), ya que ese archivo aún no descuenta paros reales. En cuanto el módulo de disponibilidad registre paros reales, este cálculo se vuelve más preciso.</div>
+  <div class="kpi-row">
+    ${kpiCard({label:'MTBF global (referencial)', value:fmtH(mtbfGlobal), sub:`sobre ${correctivas.length} averías con equipo identificado`})}
+  </div>
+  <div class="card">
+    <div class="card-head"><h3>MTBF por equipo (menor a mayor)</h3></div>
+    <div class="tablewrap"><table><thead><tr><th>Equipo</th><th class="num">Averías</th><th class="num">MTBF (h, referencial)</th></tr></thead><tbody>
+    ${rows.length? rows.map(r=>`<tr><td>${esc(r.equipo)}</td><td class="num">${r.fallas}</td><td class="num">${fmtH(r.mtbf)}</td></tr>`).join('') : '<tr><td colspan="3" class="empty">Sin averías con equipo identificado en el rango</td></tr>'}
+    </tbody></table></div>
+  </div>
+  `;
+}
+
+/* ============ Init ============ */
+function init(){
+  document.getElementById('hdrDate').textContent = new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'});
+  buildTabsNav();
+  buildPanels();
+  setupFilterBar();
+  renderAll();
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Exports crudos del CMMS (contienen datos operativos, no van al repo)
+*.xlsx
+!datos_nuevos/.gitkeep
+
+# Carpeta donde Mariana coloca los exports nuevos de cada actualización
+datos_nuevos/*
+!datos_nuevos/.gitkeep
+
+__pycache__/
+*.pyc
