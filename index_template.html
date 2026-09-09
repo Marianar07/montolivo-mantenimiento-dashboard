@@ -361,12 +361,35 @@ function otPorMes(mes){
   return DATA.ot.filter(r=>inRange(r.fecha_creacion, desde, hasta));
 }
 
+/* ============ Filtro de categoria propio de la pestana "Tecnicos" ============ */
+let tecnicosCategoria = null;
+function categoriaEquipo(nombre){
+  if(!nombre) return null;
+  const p = String(nombre).trim().split(/\s+/)[0];
+  return p ? p.toUpperCase() : null;
+}
+function splitTecnicos(str){
+  if(!str) return [];
+  return String(str).split(',').map(s=>s.trim()).filter(Boolean);
+}
+function duracionRealOT(r){
+  return (r.inicio_real && r.fin_real) ? (new Date(r.fin_real)-new Date(r.inicio_real))/3600000 : null;
+}
+function rangoEfectivoOT(){
+  if(FILTER.desde && FILTER.hasta) return {desde:FILTER.desde, hasta:FILTER.hasta};
+  const fechas = DATA.ot.map(r=>r.fecha_creacion).filter(Boolean).map(s=>new Date(s));
+  const minF = fechas.length? new Date(Math.min(...fechas)) : new Date();
+  const maxF = fechas.length? new Date(Math.max(...fechas)) : new Date();
+  return { desde: FILTER.desde || minF, hasta: FILTER.hasta || maxF };
+}
+
 /* ============ Tabs config ============ */
 const TABS = [
   {id:'resumen', label:'Resumen Gerencial', render: renderResumen},
   {id:'fallas', label:'Fallas y Severidad', render: renderFallas},
   {id:'ot', label:'Órdenes de Trabajo', render: renderOT},
   {id:'paros', label:'Paros por Equipo', render: renderParos},
+  {id:'tecnicos', label:'Técnicos', render: renderTecnicos},
   {id:'disponibilidad', label:'Equipos', render: renderDisponibilidad},
   {id:'ss', label:'Solicitudes de Servicio', render: renderSS},
   {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
@@ -611,10 +634,6 @@ function topLugaresAverias(correctivas){
 /* ============ TAB: Fallas y Severidad ============ */
 function renderFallas(el){
   const ot = getFilteredOT();
-  const correctivo = ot.filter(r=>r.tipo==='Correctivo').length;
-  const preventivo = ot.filter(r=>r.tipo==='Preventivo').length;
-  const alta = ot.filter(r=>r.severidad==='Alta').length;
-  const media = ot.filter(r=>r.severidad==='Media').length;
 
   const cruce = {};
   ['Correctivo','Preventivo'].forEach(t=>{ cruce[t]={Alta:0,Media:0}; });
@@ -622,13 +641,6 @@ function renderFallas(el){
 
   el.innerHTML = `
   ${sectionTitle('Fallas por tipo y severidad')}
-  <div class="kpi-row">
-    ${kpiCard({label:'Total OT en el rango', value:ot.length})}
-    ${kpiCard({label:'Correctivo', value:correctivo})}
-    ${kpiCard({label:'Preventivo (sistemático)', value:preventivo})}
-    ${kpiCard({label:'Severidad Alta', value:alta})}
-    ${kpiCard({label:'Severidad Media', value:media})}
-  </div>
   <div class="grid2">
     <div class="card">
       <div class="card-head"><h3>Tendencia mensual por tipo</h3></div>
@@ -814,6 +826,87 @@ function renderParos(el){
     {key:'tecnico', label:'Técnico', fmt:shortTecnico},
   ];
   buildPagedTable('parosDetalle', paros, cols, {pageSize:8});
+}
+
+/* ============ TAB: Técnicos ============ */
+function renderTecnicos(el){
+  const ot = getFilteredOT();
+  const {desde, hasta} = rangoEfectivoOT();
+  const dias = Math.max((hasta-desde)/86400000, 1);
+  const semanas = dias/7;
+  const HORAS_SEMANALES = 42;
+  const horasDisponibles = HORAS_SEMANALES * semanas;
+
+  const capMap = new Map();
+  ot.forEach(r=>{
+    const dur = duracionRealOT(r);
+    if(dur==null) return;
+    splitTecnicos(r.tecnico).forEach(t=>{
+      if(!capMap.has(t)) capMap.set(t, {horas:0, ot:0});
+      const c = capMap.get(t);
+      c.horas += dur;
+      c.ot += 1;
+    });
+  });
+  const capRows = [...capMap.entries()].map(([tecnico,c])=>{
+    const ocupacion = horasDisponibles? (c.horas/horasDisponibles*100) : null;
+    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, ocupacion, libres:horasDisponibles-c.horas};
+  }).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
+
+  const categorias = [...new Set(ot.map(r=>categoriaEquipo(r.equipo)).filter(Boolean))].sort();
+  if(!tecnicosCategoria || !categorias.includes(tecnicosCategoria)) tecnicosCategoria = categorias[0] || null;
+
+  el.innerHTML = `
+  ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
+  <div class="callout info"><b>Horas disponibles</b> = 42 h semanales × semanas que cubre el rango seleccionado. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
+  <div class="card">
+    <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
+    <div id="capTecnicosWrap"></div>
+  </div>
+  ${sectionTitle('Comparación de tiempos por tipo de equipo y técnico', 'Cantidad de OT y duración promedio de ejecución por técnico, para la categoría de equipo seleccionada')}
+  <div class="card">
+    <div class="card-head">
+      <h3>Tiempos por técnico</h3>
+      <select id="tecCategoria">${categorias.map(c=>`<option value="${esc(c)}"${c===tecnicosCategoria?' selected':''}>${esc(c)}</option>`).join('')}</select>
+    </div>
+    <div id="tecCategoriaWrap"></div>
+  </div>
+  `;
+
+  const capCols = [
+    {key:'tecnico', label:'Técnico'},
+    {key:'ot', label:'OT con duración', num:true},
+    {key:'horasDisp', label:'Horas disponibles', num:true, fmt:fmtH},
+    {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
+    {key:'ocupacion', label:'% Ocupación', num:true, fmt:v=>{ if(v==null) return '—'; const cls = v>110?'bad':v>90?'warn':'good'; return `<span class="badge ${cls}">${fmtPct(v)}</span>`; }},
+    {key:'libres', label:'Horas libres', num:true, fmt:fmtH},
+  ];
+  buildPagedTable('capTecnicosWrap', capRows, capCols, {pageSize:15});
+
+  function renderCategoriaWrap(){
+    const cat = document.getElementById('tecCategoria').value;
+    const rowsCat = ot.filter(r=>categoriaEquipo(r.equipo)===cat);
+    const map = new Map();
+    rowsCat.forEach(r=>{
+      const dur = duracionRealOT(r);
+      splitTecnicos(r.tecnico).forEach(t=>{
+        if(!map.has(t)) map.set(t, {n:0, sumDur:0, nDur:0});
+        const c = map.get(t);
+        c.n += 1;
+        if(dur!=null){ c.sumDur += dur; c.nDur += 1; }
+      });
+    });
+    const rows = [...map.entries()].map(([tecnico,c])=>({tecnico, n:c.n, dur: c.nDur? c.sumDur/c.nDur : null})).sort((a,b)=>b.n-a.n);
+    document.getElementById('tecCategoriaWrap').innerHTML = rows.length? `<div class="tablewrap"><table><thead><tr><th>Técnico</th><th class="num">OT</th><th class="num">Duración promedio</th></tr></thead><tbody>
+      ${rows.map(r=>`<tr><td>${esc(r.tecnico)}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.dur)}</td></tr>`).join('')}
+      </tbody></table></div>` : '<div class="empty">Sin OT en esta categoría dentro del rango seleccionado</div>';
+  }
+  if(document.getElementById('tecCategoria')){
+    renderCategoriaWrap();
+    document.getElementById('tecCategoria').addEventListener('change', ()=>{ tecnicosCategoria = document.getElementById('tecCategoria').value; renderCategoriaWrap(); });
+  } else {
+    document.getElementById('tecCategoriaWrap').innerHTML = '<div class="empty">Sin equipos con técnico asignado en el rango seleccionado</div>';
+  }
 }
 
 /* ============ TAB: Equipos ============ */
