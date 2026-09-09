@@ -901,16 +901,6 @@ function renderTecnicos(el){
   const categorias = [...new Set(ot.map(r=>categoriaEquipo(r.equipo)).filter(Boolean))].sort();
   if(!tecnicosCategoria || !categorias.includes(tecnicosCategoria)) tecnicosCategoria = categorias[0] || null;
 
-  const equipoMap = new Map();
-  ot.forEach(r=>{
-    const dur = duracionRealOT(r);
-    if(dur==null || !r.equipo) return;
-    if(!equipoMap.has(r.equipo)) equipoMap.set(r.equipo, {equipo:r.equipo, n:0, sum:0});
-    const c = equipoMap.get(r.equipo);
-    c.n += 1; c.sum += dur;
-  });
-  const equipoRows = [...equipoMap.values()].map(c=>({equipo:c.equipo, n:c.n, prom:c.sum/c.n})).sort((a,b)=>b.n-a.n);
-
   const equiposUnicos = [...new Set(ot.map(r=>r.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   if(tecnicosEquipoFiltro && !equiposUnicos.includes(tecnicosEquipoFiltro)) tecnicosEquipoFiltro = null;
 
@@ -920,14 +910,6 @@ function renderTecnicos(el){
   <div class="card">
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
-  </div>
-  <div class="card section-block">
-    <div class="card-head"><h3>Tiempo promedio de mantenimiento por equipo</h3></div>
-    ${simpleTable(equipoRows, [
-      {key:'equipo', label:'Equipo'},
-      {key:'n', label:'Mantenimientos', num:true},
-      {key:'prom', label:'Tiempo promedio de ejecución', num:true, fmt:fmtH},
-    ], {scroll:true})}
   </div>
   <div class="card section-block">
     <div class="card-head">
@@ -964,26 +946,21 @@ function renderTecnicos(el){
       return;
     }
     const rowsEq = ot.filter(r=>r.equipo===val && duracionRealOT(r)!=null);
-    const map = new Map();
+    const promGeneral = rowsEq.length? rowsEq.reduce((s,r)=>s+duracionRealOT(r),0)/rowsEq.length : null;
+    const detalle = [];
     rowsEq.forEach(r=>{
       const dur = duracionRealOT(r);
       splitTecnicos(r.tecnico).forEach(t=>{
-        if(!map.has(t)) map.set(t, {n:0, sum:0, min:dur, max:dur});
-        const c = map.get(t);
-        c.n += 1;
-        c.sum += dur;
-        if(dur<c.min) c.min = dur;
-        if(dur>c.max) c.max = dur;
+        detalle.push({tecnico:t, fecha:r.inicio_real, prom:promGeneral, dur});
       });
     });
-    const rows = [...map.entries()].map(([tecnico,c])=>({tecnico, n:c.n, prom:c.sum/c.n, min:c.min, max:c.max})).sort((a,b)=>b.n-a.n);
+    detalle.sort((a,b)=> new Date(b.fecha) - new Date(a.fecha));
     const titulo = `<div style="font-size:12.5px;font-weight:700;color:var(--ink-2);margin-bottom:10px;">Técnicos — ${esc(val)}</div>`;
-    wrap.innerHTML = titulo + simpleTable(rows, [
+    wrap.innerHTML = titulo + simpleTable(detalle, [
       {key:'tecnico', label:'Técnico'},
-      {key:'n', label:'Mantenimientos', num:true},
+      {key:'fecha', label:'Fecha', fmt:fmtDate},
       {key:'prom', label:'Tiempo promedio de ejecución', num:true, fmt:fmtH},
-      {key:'min', label:'Mínimo', num:true, fmt:fmtH},
-      {key:'max', label:'Máximo', num:true, fmt:fmtH},
+      {key:'dur', label:'Tiempo real de la ejecución', num:true, fmt:fmtH},
     ], {scroll:true});
   }
   renderEquipoWrap();
