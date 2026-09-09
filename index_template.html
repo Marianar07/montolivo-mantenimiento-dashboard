@@ -864,13 +864,9 @@ function renderSS(el){
   const tResp = conRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
   const promResp = tResp.length? tResp.reduce((a,b)=>a+b,0)/tResp.length : null;
 
-  const ssAbiertas = all.filter(r=>!r.fecha_respuesta).slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss));
-  const now = new Date();
-  function diasAbierta(fecha){ return Math.floor((now-new Date(fecha))/86400000); }
-
   el.innerHTML = `
   ${sectionTitle('Histórico de Solicitudes de Servicio (SS)', `${all.length} SS en el rango — usa los filtros de fecha arriba para acotar el periodo`)}
-  <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Evaluada</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Las SS en estado Creada, Leída, Programada en O.T. o Validada siguen abiertas y no tienen Fecha de respuesta (ver "Novedades abiertas" más abajo).</div>
+  <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Evaluada</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Las SS en estado Creada, Leída, Programada en O.T. o Validada siguen abiertas y no tienen Fecha de respuesta.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
@@ -884,23 +880,7 @@ function renderSS(el){
     </div>
     <div id="ssTableWrap"></div>
   </div>
-  <div class="card section-block">
-    <div class="card-head"><h3>Novedades abiertas</h3><span class="pill">${ssAbiertas.length} SS sin Fecha de respuesta</span></div>
-    <div id="ssAbiertasWrap"></div>
-  </div>
   `;
-
-  const colsAbiertas = [
-    {key:'ss', label:'Código'},
-    {key:'tipo', label:'Tipo'},
-    {key:'severidad', label:'Severidad'},
-    {key:'equipo', label:'Equipo'},
-    {key:'lugar', label:'Lugar'},
-    {key:'fecha_ss', label:'Fecha de solicitud', fmt:fmtDate},
-    {key:'dias_abierta', label:'Días abierta', num:true},
-  ];
-  const ssAbiertasRows = ssAbiertas.map(r=>Object.assign({}, r, {dias_abierta: diasAbierta(r.fecha_ss)}));
-  buildPagedTable('ssAbiertasWrap', ssAbiertasRows, colsAbiertas, {pageSize:12});
 
   const cols = [
     {key:'ss', label:'SS'},
