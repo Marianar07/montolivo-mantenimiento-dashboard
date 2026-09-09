@@ -217,6 +217,8 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 .barwrap{width:120px;background:var(--border);border-radius:3px;height:7px;overflow:hidden;}
 .barfill{height:100%;background:var(--maroon);border-radius:3px;}
 .tablewrap{overflow-x:auto;}
+.tablewrap-scroll{overflow-x:auto;max-height:360px;overflow-y:auto;}
+.tablewrap-scroll thead th{position:sticky;top:0;z-index:1;}
 .badge{padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:700;}
 .badge.good{background:var(--good-bg);color:var(--good-text);border:1px solid var(--good-border);}
 .badge.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border);}
@@ -487,6 +489,38 @@ function groupSum(arr, keyFn, valFn){
   arr.forEach(x=>{ const k=keyFn(x); if(k==null) return; m.set(k, (m.get(k)||0)+(valFn(x)||0)); });
   return [...m.entries()].map(([k,v])=>({key:k,sum:v})).sort((a,b)=>b.sum-a.sum);
 }
+function simpleTable(rows, columns, opts={}){
+  const cls = opts.scroll ? 'tablewrap tablewrap-scroll' : 'tablewrap';
+  return `<div class="${cls}"><table><thead><tr>${columns.map(c=>`<th${c.num?' class="num"':''}>${c.label}</th>`).join('')}</tr></thead><tbody>
+  ${rows.length? rows.map(r=>`<tr>${columns.map(c=>`<td${c.num?' class="num"':''}>${c.fmt?c.fmt(r[c.key],r):esc(r[c.key]??'—')}</td>`).join('')}</tr>`).join('') : `<tr><td colspan="${columns.length}" class="empty">Sin datos</td></tr>`}
+  </tbody></table></div>`;
+}
+function groupSSPorLugar(rows){
+  const map = new Map();
+  rows.forEach(r=>{
+    const key = r.lugar || 'Sin dato';
+    if(!map.has(key)) map.set(key, {lugar:key, total:0, abiertas:0});
+    const c = map.get(key);
+    c.total++;
+    if(!r.fecha_respuesta) c.abiertas++;
+  });
+  return [...map.values()].map(c=>({...c, pct: c.total? (c.abiertas/c.total*100) : null})).sort((a,b)=>b.total-a.total);
+}
+function groupOTPorLugar(rows){
+  const map = new Map();
+  rows.forEach(r=>{
+    const key = r.lugar || 'Sin dato';
+    if(!map.has(key)) map.set(key, {lugar:key, total:0, trabajando:0, sinIniciar:0, cerradas:0});
+    const c = map.get(key);
+    c.total++;
+    if(r.estado==='Abierta'){
+      if(r.avance>0) c.trabajando++; else c.sinIniciar++;
+    } else if(r.estado==='Cerrada'){
+      c.cerradas++;
+    }
+  });
+  return [...map.values()].sort((a,b)=>b.total-a.total);
+}
 function monthKey(dateStr){ if(!dateStr) return null; const d=parseD(dateStr); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
 function monthLabel(k){ const [y,m]=k.split('-'); const names=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']; return names[parseInt(m)-1]+' '+y.slice(2); }
 
@@ -727,6 +761,16 @@ function renderOT(el){
       ${porSeveridad.map(r=>`<tr><td>${r.sev}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracion)}</td></tr>`).join('')}
       </tbody></table></div>
     </div>
+  </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>O.T. por punto de venta</h3></div>
+    ${simpleTable(groupOTPorLugar(all), [
+      {key:'lugar', label:'Punto de venta'},
+      {key:'total', label:'Total O.T.', num:true},
+      {key:'trabajando', label:'Trabajando', num:true},
+      {key:'sinIniciar', label:'Abiertas sin iniciar', num:true},
+      {key:'cerradas', label:'Cerradas', num:true},
+    ], {scroll:true})}
   </div>
   <div class="card section-block">
     <div class="card-head">
@@ -972,6 +1016,15 @@ function renderSS(el){
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
     ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
+  </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>SS por punto de venta</h3></div>
+    ${simpleTable(groupSSPorLugar(all), [
+      {key:'lugar', label:'Punto de venta'},
+      {key:'total', label:'Total SS', num:true},
+      {key:'abiertas', label:'SS abiertas', num:true},
+      {key:'pct', label:'% abiertas', num:true, fmt:v=>fmtPct(v)},
+    ], {scroll:true})}
   </div>
   <div class="card">
     <div class="card-head">
