@@ -78,22 +78,37 @@ a{color:inherit;}
 }
 .tab-btn:hover{color:var(--maroon);}
 .tab-btn.active{color:var(--maroon);border-bottom-color:var(--maroon);}
-.tabs-select{
+.tabs-select-wrap{
   display:none;
-  width:100%;
-  border:none;
+  position:relative;
   border-bottom:1px solid var(--border);
   background:var(--card);
+}
+.tabs-select-wrap::before{
+  content:'☰';
+  position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  color:var(--maroon);font-size:14px;pointer-events:none;
+}
+.tabs-select-wrap::after{
+  content:'▾';
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  color:var(--maroon);font-size:13px;pointer-events:none;
+}
+.tabs-select{
+  width:100%;
+  border:none;
+  background:transparent;
   color:var(--maroon);
   font-family:inherit;
   font-size:14px;
   font-weight:700;
-  padding:13px 20px;
+  padding:13px 40px;
   -webkit-appearance:none;appearance:none;
+  cursor:pointer;
 }
 @media (max-width:640px){
   .tabs{display:none;}
-  .tabs-select{display:block;}
+  .tabs-select-wrap{display:block;}
 }
 
 /* ---------- Filter bar ---------- */
@@ -248,7 +263,9 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 </div>
 
 <nav class="tabs" id="tabs"></nav>
-<select class="tabs-select" id="tabsSelect"></select>
+<div class="tabs-select-wrap">
+  <select class="tabs-select" id="tabsSelect"></select>
+</div>
 
 <div class="filterbar">
   <div class="grp"><label>Desde</label><input type="date" id="fDesde"></div>
