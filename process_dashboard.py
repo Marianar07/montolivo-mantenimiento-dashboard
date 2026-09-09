@@ -318,23 +318,21 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
 # TRANSFORMACIÓN SS
 # ============================================================
 
-def codigo_ot_desde_id(ot_id, id_a_codigo):
-    """Traduce el Id interno del CMMS (columna 'OTs' del export de SS) al
-    Código O.T. visible, usando la columna 'Id' del archivo de OT. Si el Id
-    no aparece en el export de OT actual (por ejemplo, quedó fuera del rango
-    exportado), se muestra 'No disponible' en vez del número interno."""
-    if pd.isna(ot_id):
-        return None
-    codigo = id_a_codigo.get(int(ot_id))
-    if codigo is None or (isinstance(codigo, float) and pd.isna(codigo)):
-        return "No disponible"
-    return str(codigo)
-
-
-def construir_ss(ss, disp_by_code, lugar_to_ai, ot_raw):
-    # "OTs" en el export de SS trae el Id interno del CMMS (no el Código
-    # O.T. visible) - se traduce con la columna "Id" del archivo de OT.
-    id_a_codigo = ot_raw.set_index("Id")["Código O.T."]
+def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
+    """NOTA IMPORTANTE (verificado con datos reales, no borrar este
+    comentario): la columna cruda "OTs" del export de SS NO es confiable
+    para saber qué OT resolvió una solicitud. Ejemplo real: la SS 00004
+    trae OTs=8; la OT con Id=8 es la 000005 (un horno, equipo totalmente
+    distinto). La OT que en realidad resolvió la SS 00004 es la 000008 -
+    se sabe porque es sobre el mismo equipo (Sistema de Extracción) y su
+    Descripción cita textualmente "SS-00004". O sea, ni el Id ni ningún
+    otro campo directo de "OTs" apunta de forma confiable a la OT correcta.
+    En su lugar, usamos la referencia de texto "SS-XXXXX" que ya se extrae
+    de la Descripción de cada OT (columna `ss_codigo` de `ot_df`, calculada
+    en `construir_ot`) y armamos el cruce en la dirección contraria
+    (SS -> OT). NO reintroducir un mapeo basado en la columna "OTs" cruda.
+    """
+    ot_por_ss = {r["ss_codigo"]: r["ot"] for r in ot_df.to_dict(orient="records") if r["viene_ss"]}
 
     registros = []
     for _, r in ss.iterrows():
@@ -357,7 +355,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_raw):
             "fecha_ss": a_iso(r["Fecha de solicitud"]),
             "fecha_respuesta": a_iso(r["Fecha de respuesta"]),
             "estado": r["Estado"],
-            "ot_asociada": codigo_ot_desde_id(r["OTs"], id_a_codigo),
+            "ot_asociada": ot_por_ss.get(r["Código"]),
         })
     return pd.DataFrame(registros)
 
@@ -454,7 +452,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path):
     disp_by_code, crit_by_code, lugar_to_ai = construir_indices(disp, crit)
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
-    ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_raw)
+    ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
     paros = construir_paros(ot_df, ot_raw)
     equipos, total_maestro = construir_equipos(disp, crit)
     criticidad_totales = construir_criticidad_totales(crit)

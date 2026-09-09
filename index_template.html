@@ -365,7 +365,6 @@ function otPorMes(mes){
 const TABS = [
   {id:'resumen', label:'Resumen Gerencial', render: renderResumen},
   {id:'fallas', label:'Fallas y Severidad', render: renderFallas},
-  {id:'tiempos', label:'Tiempos de Respuesta', render: renderTiempos},
   {id:'ot', label:'Órdenes de Trabajo', render: renderOT},
   {id:'paros', label:'Paros por Equipo', render: renderParos},
   {id:'disponibilidad', label:'Disponibilidad y Criticidad', render: renderDisponibilidad},
@@ -643,7 +642,7 @@ function renderFallas(el){
     </div>
   </div>
   <div class="card section-block">
-    <div class="card-head"><h3>Top 10 equipos con más novedades</h3></div>
+    <div class="card-head"><h3>Top 10 equipos con más novedades</h3><span class="pill" id="topEquiposPill"></span></div>
     <div id="topEquiposNovedadesWrap"></div>
   </div>
   `;
@@ -651,61 +650,60 @@ function renderFallas(el){
 }
 function renderTopEquiposNovedadesWrap(){
   const wrap = document.getElementById('topEquiposNovedadesWrap');
+  const pill = document.getElementById('topEquiposPill');
   if(!wrap) return;
   const meses = mesesDisponiblesOT();
   if(!topEquiposMes || !meses.includes(topEquiposMes)) topEquiposMes = meses[0] || null;
   const otMes = otPorMes(topEquiposMes);
   const g = groupCount(otMes, r=>r.equipo).slice(0,10);
+  if(pill) pill.textContent = `${otMes.length} OT en el mes`;
   wrap.innerHTML = `
-    <div class="card-subhead">
-      <div class="chip-row">
-        <span class="chip-row-label">Mes:</span>
-        <select id="topEquiposMesSelect" class="chip-select">${meses.map(m=>`<option value="${m}"${m===topEquiposMes?' selected':''}>${labelMes(m)}</option>`).join('')}</select>
-      </div>
-      <span class="pill">${otMes.length} OT en el mes</span>
+    <div class="chip-row" style="margin-bottom:12px;">
+      <span class="chip-row-label">Mes:</span>
+      <select id="topEquiposMesSelect" class="chip-select">${meses.map(m=>`<option value="${m}"${m===topEquiposMes?' selected':''}>${labelMes(m)}</option>`).join('')}</select>
     </div>
-    ${g.length? rankedTable(g.map(x=>({equipo:x.key, n:x.count})), {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'n',label:'Novedades'}}) : '<div class="empty">Sin OT en el mes seleccionado</div>'}
+    ${g.length? rankedTable(g.map(x=>({equipo:x.key, n:x.count})), {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'n',label:'Novedades'}, noBar:true}) : '<div class="empty">Sin OT en el mes seleccionado</div>'}
   `;
   const mesSelect = document.getElementById('topEquiposMesSelect');
   if(mesSelect) mesSelect.addEventListener('change', ()=>{ topEquiposMes = mesSelect.value; renderTopEquiposNovedadesWrap(); });
 }
 
-/* ============ TAB: Tiempos de Respuesta ============ */
-function renderTiempos(el){
-  const ot = getFilteredOT();
-  const ss = getFilteredSS();
+/* ============ TAB: Órdenes de Trabajo ============ */
+let otPager = null;
+function avgDesvioInicio(rows){
+  const vals = rows.map(r=>{ if(!r.inicio_real||!r.inicio_programado) return null; return (new Date(r.inicio_real)-new Date(r.inicio_programado))/3600000; }).filter(v=>v!=null);
+  return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
+function avgDuracion(rows){
+  const vals = rows.map(r=>{ if(!r.inicio_real||!r.fin_real) return null; return (new Date(r.fin_real)-new Date(r.inicio_real))/3600000; }).filter(v=>v!=null);
+  return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
+function renderOT(el){
+  const all = getFilteredOT();
+  const abiertas = all.filter(r=>r.estado==='Abierta');
+  const sinIniciar = abiertas.filter(r=>!(r.avance>0)).length;
+  const conAvance = abiertas.filter(r=>r.avance>0).length;
+  const abiertasCorrectivas = abiertas.filter(r=>r.tipo==='Correctivo').length;
+  const abiertasPreventivas = abiertas.filter(r=>r.tipo==='Preventivo').length;
 
-  function avgDesvioInicio(rows){
-    const vals = rows.map(r=>{ if(!r.inicio_real||!r.inicio_programado) return null; return (new Date(r.inicio_real)-new Date(r.inicio_programado))/3600000; }).filter(v=>v!=null);
-    return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
-  }
-  function avgDuracion(rows){
-    const vals = rows.map(r=>{ if(!r.inicio_real||!r.fin_real) return null; return (new Date(r.fin_real)-new Date(r.inicio_real))/3600000; }).filter(v=>v!=null);
-    return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
-  }
   const porTipo = ['Correctivo','Preventivo'].map(t=>{
-    const rows = ot.filter(r=>r.tipo===t);
+    const rows = all.filter(r=>r.tipo===t);
     return {tipo:t, n:rows.length, desvio:avgDesvioInicio(rows), duracion:avgDuracion(rows)};
   });
   const porSeveridad = ['Alta','Media'].map(s=>{
-    const rows = ot.filter(r=>r.severidad===s);
+    const rows = all.filter(r=>r.severidad===s);
     return {sev:s, n:rows.length, desvio:avgDesvioInicio(rows), duracion:avgDuracion(rows)};
   });
 
-  const ssConRespuesta = ss.filter(r=>r.fecha_respuesta);
-  const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss));
-  function horasSolucion(r){ return (new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000; }
-  const tRespSS = ssConRespuesta.map(horasSolucion);
-  const promRespSS = tRespSS.length? tRespSS.reduce((a,b)=>a+b,0)/tRespSS.length : null;
-  const now = new Date();
-  function diasAbierta(fecha){ return Math.floor((now-new Date(fecha))/86400000); }
-
   el.innerHTML = `
-  ${sectionTitle('Tiempos promedio de respuesta y ejecución')}
-  <div class="callout info"><b>Desvío de inicio</b> (OT) = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado).<br><b>Tiempo de solución SS</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Evaluada</b> o <b>No aprobada</b> — ${ssConRespuesta.length} de ${ss.length} SS en el rango. Las SS en estado Creada, Leída, Programada en O.T. o Validada siguen abiertas y no tienen Fecha de respuesta (ver "Novedades abiertas" más abajo).</div>
+  ${sectionTitle('Listado completo de Órdenes de Trabajo', `${all.length} OT en el rango seleccionado`)}
   <div class="kpi-row">
-    ${kpiCard({label:'Tiempo promedio de solución (SS cerradas)', value:fmtH(promRespSS), sub:`sobre ${ssConRespuesta.length} de ${ss.length} SS en el rango — muestra chica`})}
+    ${kpiCard({label:'Total de OT', value:all.length})}
+    ${kpiCard({label:'Total de OT abiertas', value:abiertas.length, sub:`${abiertasCorrectivas} correctivas · ${abiertasPreventivas} preventivas`})}
+    ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
+    ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
   </div>
+  <div class="callout info"><b>Desvío de inicio</b> = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado).</div>
   <div class="grid2">
     <div class="card">
       <div class="card-head"><h3>Por tipo de OT</h3></div>
@@ -721,40 +719,6 @@ function renderTiempos(el){
     </div>
   </div>
   <div class="card section-block">
-    <div class="card-head"><h3>Novedades abiertas</h3><span class="pill">${ssAbiertas.length} SS sin Fecha de respuesta</span></div>
-    <div id="ssAbiertasWrap"></div>
-  </div>
-  `;
-
-  const colsAbiertas = [
-    {key:'ss', label:'Código'},
-    {key:'tipo', label:'Tipo'},
-    {key:'severidad', label:'Severidad'},
-    {key:'equipo', label:'Equipo'},
-    {key:'lugar', label:'Lugar'},
-    {key:'fecha_ss', label:'Fecha de solicitud', fmt:fmtDate},
-    {key:'dias_abierta', label:'Días abierta', num:true},
-  ];
-  const ssAbiertasRows = ssAbiertas.map(r=>Object.assign({}, r, {dias_abierta: diasAbierta(r.fecha_ss)}));
-  buildPagedTable('ssAbiertasWrap', ssAbiertasRows, colsAbiertas, {pageSize:12});
-}
-
-/* ============ TAB: Órdenes de Trabajo ============ */
-let otPager = null;
-function renderOT(el){
-  const all = getFilteredOT();
-  const abiertas = all.filter(r=>r.estado==='Abierta');
-  const sinIniciar = abiertas.filter(r=>!(r.avance>0)).length;
-  const conAvance = abiertas.filter(r=>r.avance>0).length;
-  el.innerHTML = `
-  ${sectionTitle('Listado completo de Órdenes de Trabajo', `${all.length} OT en el rango seleccionado`)}
-  <div class="kpi-row">
-    ${kpiCard({label:'Total de OT', value:all.length})}
-    ${kpiCard({label:'Total de OT abiertas', value:abiertas.length})}
-    ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
-    ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
-  </div>
-  <div class="card">
     <div class="card-head">
       <input class="searchbox" type="text" id="otSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
       <select id="otEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
@@ -768,6 +732,7 @@ function renderOT(el){
     {key:'tipo', label:'Tipo'},
     {key:'severidad', label:'Sever.'},
     {key:'viene_ss', label:'¿SS?', fmt:v=>v?'Sí':'No'},
+    {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
     {key:'fecha_creacion', label:'Creación OT', fmt:fmtDate},
     {key:'inicio_programado', label:'Inicio prog.', fmt:fmtDate},
     {key:'fin_programado', label:'Fin prog.', fmt:fmtDate},
@@ -902,12 +867,17 @@ function renderSS(el){
   const tResp = conRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
   const promResp = tResp.length? tResp.reduce((a,b)=>a+b,0)/tResp.length : null;
 
+  const ssAbiertas = all.filter(r=>!r.fecha_respuesta).slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss));
+  const now = new Date();
+  function diasAbierta(fecha){ return Math.floor((now-new Date(fecha))/86400000); }
+
   el.innerHTML = `
   ${sectionTitle('Histórico de Solicitudes de Servicio (SS)', `${all.length} SS en el rango — usa los filtros de fecha arriba para acotar el periodo`)}
+  <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Evaluada</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Las SS en estado Creada, Leída, Programada en O.T. o Validada siguen abiertas y no tienen Fecha de respuesta (ver "Novedades abiertas" más abajo).</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
-    ${kpiCard({label:'Tiempo de solución promedio', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta`})}
+    ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
   </div>
   <div class="card">
     <div class="card-head">
@@ -917,7 +887,24 @@ function renderSS(el){
     </div>
     <div id="ssTableWrap"></div>
   </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>Novedades abiertas</h3><span class="pill">${ssAbiertas.length} SS sin Fecha de respuesta</span></div>
+    <div id="ssAbiertasWrap"></div>
+  </div>
   `;
+
+  const colsAbiertas = [
+    {key:'ss', label:'Código'},
+    {key:'tipo', label:'Tipo'},
+    {key:'severidad', label:'Severidad'},
+    {key:'equipo', label:'Equipo'},
+    {key:'lugar', label:'Lugar'},
+    {key:'fecha_ss', label:'Fecha de solicitud', fmt:fmtDate},
+    {key:'dias_abierta', label:'Días abierta', num:true},
+  ];
+  const ssAbiertasRows = ssAbiertas.map(r=>Object.assign({}, r, {dias_abierta: diasAbierta(r.fecha_ss)}));
+  buildPagedTable('ssAbiertasWrap', ssAbiertasRows, colsAbiertas, {pageSize:12});
+
   const cols = [
     {key:'ss', label:'SS'},
     {key:'tipo', label:'Tipo'},
@@ -955,11 +942,15 @@ function renderCostos(el){
   const promOT = ot.length? total/ot.length : null;
 
   const porLugar = groupSum(ot, r=>r.lugar, r=>r.costo_real||0).slice(0,10);
-  const porEquipo = groupSum(ot, r=>r.equipo, r=>r.costo_real||0).slice(0,10);
+  const porEquipo = groupSum(ot, r=>r.equipo, r=>r.costo_real||0).slice(0,10).map(x=>{
+    const n = ot.filter(r=>r.equipo===x.key).length;
+    return {equipo:x.key, n, costo:x.sum};
+  });
 
   el.innerHTML = `
   ${sectionTitle('Costos de mantenimiento')}
   <div class="callout info">El costo mostrado corresponde al campo "Total Real" de cada OT (mano de obra + materiales cuando aplica); los valores en $0 son costos reales en cero, no datos faltantes.</div>
+  <div class="callout info">El <b>Costo total</b> es la suma de todos los mantenimientos (correctivos y preventivos) realizados dentro del rango de fechas seleccionado arriba.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Costo total', value:fmtMoney(total)})}
     ${kpiCard({label:'Costo correctivo', value:fmtMoney(cCorr), sub:`${correctivo.length} OT`})}
@@ -973,7 +964,7 @@ function renderCostos(el){
     </div>
     <div class="card">
       <div class="card-head"><h3>Top 10 equipos por costo</h3></div>
-      ${porEquipo.length? rankedTable(porEquipo.map(x=>({equipo:x.key, costo:x.sum})), {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'costo',label:'Costo'}, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
+      ${porEquipo.length? rankedTable(porEquipo, {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'costo',label:'Costo total'}, extraCols:[{key:'n',label:'Mantenimientos'}], noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
     </div>
   </div>
   `;
