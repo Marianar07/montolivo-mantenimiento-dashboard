@@ -189,6 +189,8 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .status-dot.warn{background:var(--warn);}
 .status-dot.bad{background:var(--bad);}
 
+.section-block{margin-top:30px;}
+
 .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:18px;}
 .card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
 .card-head h3{font-size:13.5px;margin:0;font-weight:700;}
@@ -430,11 +432,6 @@ function groupSum(arr, keyFn, valFn){
   arr.forEach(x=>{ const k=keyFn(x); if(k==null) return; m.set(k, (m.get(k)||0)+(valFn(x)||0)); });
   return [...m.entries()].map(([k,v])=>({key:k,sum:v})).sort((a,b)=>b.sum-a.sum);
 }
-function groupAvg(arr, keyFn, valFn){
-  const m = new Map();
-  arr.forEach(x=>{ const k=keyFn(x); if(k==null) return; const v=valFn(x); if(v==null||isNaN(v)) return; if(!m.has(k)) m.set(k,[]); m.get(k).push(v); });
-  return [...m.entries()].map(([k,vals])=>({key:k, n:vals.length, avg:vals.reduce((a,b)=>a+b,0)/vals.length})).sort((a,b)=>b.n-a.n);
-}
 function monthKey(dateStr){ if(!dateStr) return null; const d=parseD(dateStr); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
 function monthLabel(k){ const [y,m]=k.split('-'); const names=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']; return names[parseInt(m)-1]+' '+y.slice(2); }
 
@@ -621,8 +618,6 @@ function renderTiempos(el){
   function horasSolucion(r){ return (new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000; }
   const tRespSS = ssConRespuesta.map(horasSolucion);
   const promRespSS = tRespSS.length? tRespSS.reduce((a,b)=>a+b,0)/tRespSS.length : null;
-  const ssPorTipo = groupAvg(ssConRespuesta, r=>r.tipo, horasSolucion);
-  const ssPorSeveridad = groupAvg(ssConRespuesta, r=>r.severidad, horasSolucion);
   const now = new Date();
   function diasAbierta(fecha){ return Math.floor((now-new Date(fecha))/86400000); }
 
@@ -646,21 +641,7 @@ function renderTiempos(el){
       </tbody></table></div>
     </div>
   </div>
-  <div class="grid2">
-    <div class="card">
-      <div class="card-head"><h3>Tiempo de solución SS por tipo</h3><span class="pill">${ssConRespuesta.length} SS cerradas</span></div>
-      ${ssPorTipo.length? `<div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">SS</th><th class="num">Tiempo de solución</th></tr></thead><tbody>
-      ${ssPorTipo.map(r=>`<tr><td>${esc(r.key)}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.avg)}</td></tr>`).join('')}
-      </tbody></table></div>` : '<div class="empty">Sin SS cerradas en el rango seleccionado</div>'}
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>Tiempo de solución SS por severidad</h3><span class="pill">${ssConRespuesta.length} SS cerradas</span></div>
-      ${ssPorSeveridad.length? `<div class="tablewrap"><table><thead><tr><th>Severidad</th><th class="num">SS</th><th class="num">Tiempo de solución</th></tr></thead><tbody>
-      ${ssPorSeveridad.map(r=>`<tr><td>${esc(r.key)}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.avg)}</td></tr>`).join('')}
-      </tbody></table></div>` : '<div class="empty">Sin SS cerradas en el rango seleccionado</div>'}
-    </div>
-  </div>
-  <div class="card">
+  <div class="card section-block">
     <div class="card-head"><h3>Novedades abiertas</h3><span class="pill">${ssAbiertas.length} SS sin Fecha de respuesta</span></div>
     <div id="ssAbiertasWrap"></div>
   </div>
