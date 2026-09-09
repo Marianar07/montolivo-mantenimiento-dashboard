@@ -948,7 +948,8 @@ function renderMTBF(el){
 
 /* ============ Init ============ */
 function init(){
-  document.getElementById('hdrDate').textContent = new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'});
+  const fechaGenerado = DATA.generado ? new Date(DATA.generado) : null;
+  document.getElementById('hdrDate').textContent = 'Última actualización: ' + (fechaGenerado ? fechaGenerado.toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'}) : '—');
   buildTabsNav();
   buildPanels();
   setupFilterBar();
