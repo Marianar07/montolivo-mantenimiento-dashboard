@@ -370,7 +370,6 @@ const TABS = [
   {id:'disponibilidad', label:'Disponibilidad y Criticidad', render: renderDisponibilidad},
   {id:'ss', label:'Solicitudes de Servicio', render: renderSS},
   {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
-  {id:'preventivo', label:'Cumplimiento Preventivo', render: renderPreventivo},
   {id:'mtbf', label:'MTBF', render: renderMTBF},
 ];
 
@@ -683,8 +682,6 @@ function renderOT(el){
   const abiertas = all.filter(r=>r.estado==='Abierta');
   const sinIniciar = abiertas.filter(r=>!(r.avance>0)).length;
   const conAvance = abiertas.filter(r=>r.avance>0).length;
-  const abiertasCorrectivas = abiertas.filter(r=>r.tipo==='Correctivo').length;
-  const abiertasPreventivas = abiertas.filter(r=>r.tipo==='Preventivo').length;
 
   const porTipo = ['Correctivo','Preventivo'].map(t=>{
     const rows = all.filter(r=>r.tipo===t);
@@ -699,10 +696,10 @@ function renderOT(el){
   ${sectionTitle('Listado completo de Órdenes de Trabajo', `${all.length} OT en el rango seleccionado`)}
   <div class="kpi-row">
     ${kpiCard({label:'Total de OT', value:all.length})}
-    ${kpiCard({label:'Total de OT abiertas', value:abiertas.length, sub:`${abiertasCorrectivas} correctivas · ${abiertasPreventivas} preventivas`})}
     ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
     ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
   </div>
+  ${sectionTitle('Tiempos de ejecución por tipo y severidad de OT', 'Desvío de inicio y duración de ejecución')}
   <div class="callout info"><b>Desvío de inicio</b> = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado).</div>
   <div class="grid2">
     <div class="card">
@@ -939,7 +936,6 @@ function renderCostos(el){
   const total = ot.reduce((s,r)=>s+(r.costo_real||0),0);
   const cCorr = correctivo.reduce((s,r)=>s+(r.costo_real||0),0);
   const cPrev = preventivo.reduce((s,r)=>s+(r.costo_real||0),0);
-  const promOT = ot.length? total/ot.length : null;
 
   const porLugar = groupSum(ot, r=>r.lugar, r=>r.costo_real||0).slice(0,10);
   const porEquipo = groupSum(ot, r=>r.equipo, r=>r.costo_real||0).slice(0,10).map(x=>{
@@ -955,7 +951,6 @@ function renderCostos(el){
     ${kpiCard({label:'Costo total', value:fmtMoney(total)})}
     ${kpiCard({label:'Costo correctivo', value:fmtMoney(cCorr), sub:`${correctivo.length} OT`})}
     ${kpiCard({label:'Costo preventivo', value:fmtMoney(cPrev), sub:`${preventivo.length} OT`})}
-    ${kpiCard({label:'Costo promedio por OT', value:fmtMoney(promOT)})}
   </div>
   <div class="grid2">
     <div class="card">
@@ -968,41 +963,6 @@ function renderCostos(el){
     </div>
   </div>
   `;
-}
-
-/* ============ TAB: Cumplimiento Preventivo ============ */
-function renderPreventivo(el){
-  const ot = getFilteredOT();
-  const prev = ot.filter(r=>r.tipo==='Preventivo');
-  const cerradas = prev.filter(r=>r.estado==='Cerrada');
-  const aTiempo = cerradas.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
-  const cumplCerradas = cerradas.length? aTiempo.length/cerradas.length*100 : null;
-  const cumplTotal = prev.length? aTiempo.length/prev.length*100 : null;
-  const abiertas = prev.length - cerradas.length;
-
-  el.innerHTML = `
-  ${sectionTitle('Cumplimiento y eficiencia del mantenimiento preventivo')}
-  <div class="callout info">"Cumplimiento" compara la fecha fin programada vs. la fecha fin real de cada OT preventiva (sistemática). Las OT preventivas todavía abiertas cuentan como "no cumplidas aún" en el cálculo sobre el total.</div>
-  <div class="kpi-row">
-    ${kpiCard({label:'OT preventivas en el rango', value:prev.length})}
-    ${kpiCard({label:'Cerradas a tiempo', value:aTiempo.length, sub:`de ${cerradas.length} cerradas`})}
-    ${kpiCard({label:'Cumplimiento (sobre cerradas)', value:fmtPct(cumplCerradas), status:statusClass(cumplCerradas,{good:90,warn:75})})}
-    ${kpiCard({label:'Cumplimiento (sobre el total)', value:fmtPct(cumplTotal), sub:`${abiertas} aún abiertas`, status:statusClass(cumplTotal,{good:90,warn:75})})}
-  </div>
-  <div class="card">
-    <div class="card-head"><h3>Detalle de OT preventivas</h3></div>
-    <div id="prevTableWrap"></div>
-  </div>
-  `;
-  const cols = [
-    {key:'ot', label:'OT'},
-    {key:'equipo', label:'Equipo'},
-    {key:'lugar', label:'Lugar'},
-    {key:'fin_programado', label:'Fin programado', fmt:fmtDate},
-    {key:'fin_real', label:'Fin real', fmt:fmtDate},
-    {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Cerrada'?'good':'warn'}">${v}</span>`},
-  ];
-  buildPagedTable('prevTableWrap', prev, cols, {pageSize:12});
 }
 
 /* ============ TAB: MTBF ============ */
