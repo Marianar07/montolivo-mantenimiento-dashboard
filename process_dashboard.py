@@ -318,7 +318,24 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
 # TRANSFORMACIÓN SS
 # ============================================================
 
-def construir_ss(ss, disp_by_code, lugar_to_ai):
+def codigo_ot_desde_id(ot_id, id_a_codigo):
+    """Traduce el Id interno del CMMS (columna 'OTs' del export de SS) al
+    Código O.T. visible, usando la columna 'Id' del archivo de OT. Si el Id
+    no aparece en el export de OT actual (por ejemplo, quedó fuera del rango
+    exportado), se muestra 'No disponible' en vez del número interno."""
+    if pd.isna(ot_id):
+        return None
+    codigo = id_a_codigo.get(int(ot_id))
+    if codigo is None or (isinstance(codigo, float) and pd.isna(codigo)):
+        return "No disponible"
+    return str(codigo)
+
+
+def construir_ss(ss, disp_by_code, lugar_to_ai, ot_raw):
+    # "OTs" en el export de SS trae el Id interno del CMMS (no el Código
+    # O.T. visible) - se traduce con la columna "Id" del archivo de OT.
+    id_a_codigo = ot_raw.set_index("Id")["Código O.T."]
+
     registros = []
     for _, r in ss.iterrows():
         entidad_full = r["Entidad"]
@@ -340,7 +357,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai):
             "fecha_ss": a_iso(r["Fecha de solicitud"]),
             "fecha_respuesta": a_iso(r["Fecha de respuesta"]),
             "estado": r["Estado"],
-            "ot_asociada": None if pd.isna(r["OTs"]) else str(r["OTs"]),
+            "ot_asociada": codigo_ot_desde_id(r["OTs"], id_a_codigo),
         })
     return pd.DataFrame(registros)
 
@@ -437,7 +454,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path):
     disp_by_code, crit_by_code, lugar_to_ai = construir_indices(disp, crit)
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
-    ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai)
+    ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_raw)
     paros = construir_paros(ot_df, ot_raw)
     equipos, total_maestro = construir_equipos(disp, crit)
     criticidad_totales = construir_criticidad_totales(crit)

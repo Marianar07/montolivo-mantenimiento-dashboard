@@ -343,11 +343,22 @@ function labelMes(key){
   const s = d.toLocaleDateString('es-CO',{month:'long',year:'numeric'});
   return s.charAt(0).toUpperCase()+s.slice(1);
 }
+function rangoMes(mes){
+  const [y,m] = mes.split('-').map(Number);
+  return {desde:new Date(y,m-1,1), hasta:new Date(y,m,0,23,59,59)};
+}
 function correctivasPorMes(mes){
   if(!mes) return [];
-  const [y,m] = mes.split('-').map(Number);
-  const desde = new Date(y,m-1,1), hasta = new Date(y,m,0,23,59,59);
+  const {desde,hasta} = rangoMes(mes);
   return DATA.ot.filter(r=>r.tipo==='Correctivo' && inRange(r.fecha_creacion, desde, hasta));
+}
+
+/* ============ Filtro de mes propio de la tarjeta "Top equipos con mas novedades" ============ */
+let topEquiposMes = null;
+function otPorMes(mes){
+  if(!mes) return [];
+  const {desde,hasta} = rangoMes(mes);
+  return DATA.ot.filter(r=>inRange(r.fecha_creacion, desde, hasta));
 }
 
 /* ============ Tabs config ============ */
@@ -439,10 +450,10 @@ function kpiCard({label, value, sub, status}){
 function sectionTitle(text, note){
   return `<div class="section-title"><span class="bar"></span>${text}</div>${note?`<div class="section-note">${note}</div>`:''}`;
 }
-function rankedTable(rows, {labelKey, countKey, extraCols=[], noBar=false}){
-  const max = Math.max(...rows.map(r=>r[countKey]||0), 1);
+function rankedTable(rows, {labelKey, countKey, extraCols=[], noBar=false, countFmt}){
+  const max = Math.max(...rows.map(r=>r[countKey.key]||0), 1);
   return `<div class="tablewrap"><table><thead><tr><th>#</th><th>${labelKey.label}</th>${extraCols.map(c=>`<th class="num">${c.label}</th>`).join('')}<th>${countKey.label||'Cantidad'}</th>${noBar?'':'<th>Barra</th>'}</tr></thead><tbody>
-  ${rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(r[labelKey.key])}</td>${extraCols.map(c=>`<td class="num">${c.fmt?c.fmt(r[c.key]):r[c.key]}</td>`).join('')}<td class="num">${r[countKey.key]}</td>${noBar?'':`<td><div class="barwrap"><div class="barfill" style="width:${(r[countKey.key]/max*100).toFixed(0)}%"></div></div></td>`}</tr>`).join('')}
+  ${rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(r[labelKey.key])}</td>${extraCols.map(c=>`<td class="num">${c.fmt?c.fmt(r[c.key]):r[c.key]}</td>`).join('')}<td class="num">${countFmt?countFmt(r[countKey.key]):r[countKey.key]}</td>${noBar?'':`<td><div class="barwrap"><div class="barfill" style="width:${(r[countKey.key]/max*100).toFixed(0)}%"></div></div></td>`}</tr>`).join('')}
   </tbody></table></div>`;
 }
 function groupCount(arr, keyFn){
@@ -631,7 +642,32 @@ function renderFallas(el){
       </tbody></table></div>
     </div>
   </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>Top 10 equipos con más novedades</h3></div>
+    <div id="topEquiposNovedadesWrap"></div>
+  </div>
   `;
+  renderTopEquiposNovedadesWrap();
+}
+function renderTopEquiposNovedadesWrap(){
+  const wrap = document.getElementById('topEquiposNovedadesWrap');
+  if(!wrap) return;
+  const meses = mesesDisponiblesOT();
+  if(!topEquiposMes || !meses.includes(topEquiposMes)) topEquiposMes = meses[0] || null;
+  const otMes = otPorMes(topEquiposMes);
+  const g = groupCount(otMes, r=>r.equipo).slice(0,10);
+  wrap.innerHTML = `
+    <div class="card-subhead">
+      <div class="chip-row">
+        <span class="chip-row-label">Mes:</span>
+        <select id="topEquiposMesSelect" class="chip-select">${meses.map(m=>`<option value="${m}"${m===topEquiposMes?' selected':''}>${labelMes(m)}</option>`).join('')}</select>
+      </div>
+      <span class="pill">${otMes.length} OT en el mes</span>
+    </div>
+    ${g.length? rankedTable(g.map(x=>({equipo:x.key, n:x.count})), {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'n',label:'Novedades'}}) : '<div class="empty">Sin OT en el mes seleccionado</div>'}
+  `;
+  const mesSelect = document.getElementById('topEquiposMesSelect');
+  if(mesSelect) mesSelect.addEventListener('change', ()=>{ topEquiposMes = mesSelect.value; renderTopEquiposNovedadesWrap(); });
 }
 
 /* ============ TAB: Tiempos de Respuesta ============ */
@@ -707,8 +743,17 @@ function renderTiempos(el){
 let otPager = null;
 function renderOT(el){
   const all = getFilteredOT();
+  const abiertas = all.filter(r=>r.estado==='Abierta');
+  const sinIniciar = abiertas.filter(r=>!(r.avance>0)).length;
+  const conAvance = abiertas.filter(r=>r.avance>0).length;
   el.innerHTML = `
   ${sectionTitle('Listado completo de Órdenes de Trabajo', `${all.length} OT en el rango seleccionado`)}
+  <div class="kpi-row">
+    ${kpiCard({label:'Total de OT', value:all.length})}
+    ${kpiCard({label:'Total de OT abiertas', value:abiertas.length})}
+    ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
+    ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
+  </div>
   <div class="card">
     <div class="card-head">
       <input class="searchbox" type="text" id="otSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
@@ -910,6 +955,7 @@ function renderCostos(el){
   const promOT = ot.length? total/ot.length : null;
 
   const porLugar = groupSum(ot, r=>r.lugar, r=>r.costo_real||0).slice(0,10);
+  const porEquipo = groupSum(ot, r=>r.equipo, r=>r.costo_real||0).slice(0,10);
 
   el.innerHTML = `
   ${sectionTitle('Costos de mantenimiento')}
@@ -920,9 +966,15 @@ function renderCostos(el){
     ${kpiCard({label:'Costo preventivo', value:fmtMoney(cPrev), sub:`${preventivo.length} OT`})}
     ${kpiCard({label:'Costo promedio por OT', value:fmtMoney(promOT)})}
   </div>
-  <div class="card">
-    <div class="card-head"><h3>Top 10 lugares por costo</h3></div>
-    ${porLugar.length? rankedTable(porLugar.map(x=>({lugar:x.key, costo:x.sum})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'costo',label:'Costo'}}) : '<div class="empty">Sin datos</div>'}
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head"><h3>Costo por sede</h3></div>
+      ${porLugar.length? rankedTable(porLugar.map(x=>({lugar:x.key, costo:x.sum})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'costo',label:'Costo'}, noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Top 10 equipos por costo</h3></div>
+      ${porEquipo.length? rankedTable(porEquipo.map(x=>({equipo:x.key, costo:x.sum})), {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'costo',label:'Costo'}, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
+    </div>
   </div>
   `;
 }

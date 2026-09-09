@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-09T11:21:15",
+  "generado": "2026-09-09T12:11:48",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-09",
   "ot": [
     {
@@ -1987,7 +1987,7 @@
       "fecha_ss": "2026-05-19T10:51:00",
       "fecha_respuesta": "2026-05-19T11:50:00",
       "estado": "Evaluada",
-      "ot_asociada": "1.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00002",
@@ -2009,7 +2009,7 @@
       "fecha_ss": "2026-08-21T15:20:00",
       "fecha_respuesta": "2026-08-22T10:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "8.0"
+      "ot_asociada": "000005"
     },
     {
       "ss": "00007",
@@ -2020,7 +2020,7 @@
       "fecha_ss": "2026-08-21T18:19:00",
       "fecha_respuesta": "2026-08-22T10:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "12.0"
+      "ot_asociada": "000007"
     },
     {
       "ss": "00003",
@@ -2031,7 +2031,7 @@
       "fecha_ss": "2026-08-21T09:02:00",
       "fecha_respuesta": "2026-08-31T16:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "32.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00006",
@@ -2042,7 +2042,7 @@
       "fecha_ss": "2026-08-21T16:08:00",
       "fecha_respuesta": "2026-08-22T12:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "9.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00008",
@@ -2053,7 +2053,7 @@
       "fecha_ss": "2026-08-26T10:42:00",
       "fecha_respuesta": "2026-08-26T12:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "13.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00009",
@@ -2064,7 +2064,7 @@
       "fecha_ss": "2026-08-26T14:47:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "14.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00005",
@@ -2141,7 +2141,7 @@
       "fecha_ss": "2026-09-01T11:14:19",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "86.0"
+      "ot_asociada": "000038"
     },
     {
       "ss": "00029",
@@ -2262,7 +2262,7 @@
       "fecha_ss": "2026-09-05T06:01:52",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "70.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00049",
@@ -2284,7 +2284,7 @@
       "fecha_ss": "2026-09-04T15:35:06",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "66.0"
+      "ot_asociada": "000024"
     },
     {
       "ss": "00044",
@@ -2317,7 +2317,7 @@
       "fecha_ss": "2026-09-05T06:46:27",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "85.0"
+      "ot_asociada": "000037"
     },
     {
       "ss": "00054",
@@ -2328,7 +2328,7 @@
       "fecha_ss": "2026-09-05T06:49:54",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "84.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00053",
@@ -2416,7 +2416,7 @@
       "fecha_ss": "2026-09-06T16:53:46",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "71.0"
+      "ot_asociada": "No disponible"
     },
     {
       "ss": "00065",
@@ -2471,7 +2471,7 @@
       "fecha_ss": "2026-09-07T07:49:05",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "72.0"
+      "ot_asociada": "000028"
     },
     {
       "ss": "00073",
@@ -2581,7 +2581,7 @@
       "fecha_ss": "2026-09-07T11:45:11",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "92.0"
+      "ot_asociada": "000044"
     },
     {
       "ss": "00085",
@@ -2691,7 +2691,7 @@
       "fecha_ss": "2026-09-07T11:11:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "68.0"
+      "ot_asociada": "000026"
     },
     {
       "ss": "00107",
@@ -2746,7 +2746,7 @@
       "fecha_ss": "2026-09-07T16:17:34",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "82.0"
+      "ot_asociada": "000035"
     },
     {
       "ss": "00110",
@@ -3032,7 +3032,7 @@
       "fecha_ss": "2026-09-06T08:56:49",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "83.0"
+      "ot_asociada": "000036"
     },
     {
       "ss": "00068",
