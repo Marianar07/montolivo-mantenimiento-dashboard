@@ -195,6 +195,11 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
 .card-head h3{font-size:13.5px;margin:0;font-weight:700;}
 .pill{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--ink-2);}
+.card-subhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.chip-row .chip{padding:4px 10px;font-size:11.5px;}
+.chip-select{border:1px solid var(--border);border-radius:14px;padding:4px 10px;font-size:11.5px;font-weight:600;color:var(--ink-2);background:#fff;cursor:pointer;}
+.chip-row-label{font-size:11.5px;font-weight:700;color:var(--ink-2);}
 
 table{width:100%;border-collapse:collapse;font-size:12.5px;}
 thead th{
@@ -327,6 +332,24 @@ function getFilteredOT(){ return DATA.ot.filter(r=>inRange(r.fecha_creacion, FIL
 function getFilteredSS(){ return DATA.ss.filter(r=>inRange(r.fecha_ss, FILTER.desde, FILTER.hasta)); }
 function getFilteredParos(){ return DATA.paros.filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta)); }
 
+/* ============ Filtro de mes propio de la tarjeta "Top lugares" (independiente del filtro general) ============ */
+let topLugaresMes = null; // 'YYYY-MM', se fija al mes mas reciente disponible en el primer render
+function mesesDisponiblesOT(){
+  return [...new Set(DATA.ot.map(r=>monthKey(r.fecha_creacion)).filter(Boolean))].sort().reverse();
+}
+function labelMes(key){
+  const [y,m] = key.split('-').map(Number);
+  const d = new Date(y, m-1, 1);
+  const s = d.toLocaleDateString('es-CO',{month:'long',year:'numeric'});
+  return s.charAt(0).toUpperCase()+s.slice(1);
+}
+function correctivasPorMes(mes){
+  if(!mes) return [];
+  const [y,m] = mes.split('-').map(Number);
+  const desde = new Date(y,m-1,1), hasta = new Date(y,m,0,23,59,59);
+  return DATA.ot.filter(r=>r.tipo==='Correctivo' && inRange(r.fecha_creacion, desde, hasta));
+}
+
 /* ============ Tabs config ============ */
 const TABS = [
   {id:'resumen', label:'Resumen Gerencial', render: renderResumen},
@@ -416,10 +439,10 @@ function kpiCard({label, value, sub, status}){
 function sectionTitle(text, note){
   return `<div class="section-title"><span class="bar"></span>${text}</div>${note?`<div class="section-note">${note}</div>`:''}`;
 }
-function rankedTable(rows, {labelKey, countKey, extraCols=[]}){
+function rankedTable(rows, {labelKey, countKey, extraCols=[], noBar=false}){
   const max = Math.max(...rows.map(r=>r[countKey]||0), 1);
-  return `<div class="tablewrap"><table><thead><tr><th>#</th><th>${labelKey.label}</th>${extraCols.map(c=>`<th class="num">${c.label}</th>`).join('')}<th>${countKey.label||'Cantidad'}</th><th>Barra</th></tr></thead><tbody>
-  ${rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(r[labelKey.key])}</td>${extraCols.map(c=>`<td class="num">${c.fmt?c.fmt(r[c.key]):r[c.key]}</td>`).join('')}<td class="num">${r[countKey.key]}</td><td><div class="barwrap"><div class="barfill" style="width:${(r[countKey.key]/max*100).toFixed(0)}%"></div></div></td></tr>`).join('')}
+  return `<div class="tablewrap"><table><thead><tr><th>#</th><th>${labelKey.label}</th>${extraCols.map(c=>`<th class="num">${c.label}</th>`).join('')}<th>${countKey.label||'Cantidad'}</th>${noBar?'':'<th>Barra</th>'}</tr></thead><tbody>
+  ${rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(r[labelKey.key])}</td>${extraCols.map(c=>`<td class="num">${c.fmt?c.fmt(r[c.key]):r[c.key]}</td>`).join('')}<td class="num">${r[countKey.key]}</td>${noBar?'':`<td><div class="barwrap"><div class="barfill" style="width:${(r[countKey.key]/max*100).toFixed(0)}%"></div></div></td>`}</tr>`).join('')}
   </tbody></table></div>`;
 }
 function groupCount(arr, keyFn){
@@ -534,11 +557,31 @@ function renderResumen(el){
       ${chartOTPorMes(ot)}
     </div>
     <div class="card">
-      <div class="card-head"><h3>Top lugares con más averías correctivas</h3><span class="pill">${correctivas.length} correctivas</span></div>
-      ${topLugaresAverias(correctivas)}
+      <div class="card-head"><h3>Top lugares con más averías correctivas</h3></div>
+      <div id="topLugaresWrap"></div>
     </div>
   </div>
   `;
+  renderTopLugaresWrap();
+}
+function renderTopLugaresWrap(){
+  const wrap = document.getElementById('topLugaresWrap');
+  if(!wrap) return;
+  const meses = mesesDisponiblesOT();
+  if(!topLugaresMes || !meses.includes(topLugaresMes)) topLugaresMes = meses[0] || null;
+  const correctivasCard = correctivasPorMes(topLugaresMes);
+  wrap.innerHTML = `
+    <div class="card-subhead">
+      <div class="chip-row">
+        <span class="chip-row-label">Mes:</span>
+        <select id="topLugaresMesSelect" class="chip-select">${meses.map(m=>`<option value="${m}"${m===topLugaresMes?' selected':''}>${labelMes(m)}</option>`).join('')}</select>
+      </div>
+      <span class="pill">${correctivasCard.length} correctivas</span>
+    </div>
+    ${topLugaresAverias(correctivasCard)}
+  `;
+  const mesSelect = document.getElementById('topLugaresMesSelect');
+  if(mesSelect) mesSelect.addEventListener('change', ()=>{ topLugaresMes = mesSelect.value; renderTopLugaresWrap(); });
 }
 function chartOTPorMes(ot){
   const months = [...new Set(ot.map(r=>monthKey(r.fecha_creacion)).filter(Boolean))].sort();
@@ -551,8 +594,8 @@ function chartOTPorMes(ot){
 }
 function topLugaresAverias(correctivas){
   const g = groupCount(correctivas, r=>r.lugar).slice(0,8);
-  if(!g.length) return '<div class="empty">Sin correctivas en el rango seleccionado</div>';
-  return rankedTable(g.map(x=>({lugar:x.key, n:x.count})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Averías'}});
+  if(!g.length) return '<div class="empty">Sin correctivas en el periodo seleccionado</div>';
+  return rankedTable(g.map(x=>({lugar:x.key, n:x.count})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Averías'}, noBar:true});
 }
 
 /* ============ TAB: Fallas y Severidad ============ */
