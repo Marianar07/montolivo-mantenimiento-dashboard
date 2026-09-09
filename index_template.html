@@ -367,7 +367,7 @@ const TABS = [
   {id:'fallas', label:'Fallas y Severidad', render: renderFallas},
   {id:'ot', label:'Órdenes de Trabajo', render: renderOT},
   {id:'paros', label:'Paros por Equipo', render: renderParos},
-  {id:'disponibilidad', label:'Disponibilidad y Criticidad', render: renderDisponibilidad},
+  {id:'disponibilidad', label:'Equipos', render: renderDisponibilidad},
   {id:'ss', label:'Solicitudes de Servicio', render: renderSS},
   {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
   {id:'mtbf', label:'MTBF', render: renderMTBF},
@@ -531,12 +531,13 @@ function renderResumen(el){
   const aTiempo = cerradasTotal.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
   const otif = cerradasTotal.length? (aTiempo.length/cerradasTotal.length*100) : null;
 
-  const horasHabilTotal = DATA.equipos.reduce((s,e)=>s+0,0); // no usamos por equipo aqui
+  const equiposMantenibles = DATA.equipos.filter(e=>e.mantenible);
+  const horasHabilTotal = equiposMantenibles.reduce((s,e)=>s+0,0); // no usamos por equipo aqui
   const horasParoCorrectivo = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
   const horasHabilPeriodo = 3360; // referencia del export de disponibilidad (ver nota)
   const pctParadasNoProg = horasHabilPeriodo? (horasParoCorrectivo/horasHabilPeriodo*100) : null;
 
-  const dispProm = DATA.equipos.length? DATA.equipos.reduce((s,e)=>s+(e.disponibilidad_pct||0),0)/DATA.equipos.length*100 : null;
+  const dispProm = equiposMantenibles.length? equiposMantenibles.reduce((s,e)=>s+(e.disponibilidad_pct||0),0)/equiposMantenibles.length*100 : null;
 
   const costoTotal = ot.reduce((s,r)=>s+(r.costo_real||0),0);
   const costoCorrectivo = correctivas.reduce((s,r)=>s+(r.costo_real||0),0);
@@ -552,7 +553,7 @@ function renderResumen(el){
   ${sectionTitle('Indicadores clave del periodo')}
   <div class="kpi-row">
     ${kpiCard({label:'Averías equipos críticos', value:averiasCriticas, sub:`de ${correctivas.length} correctivas totales`, status:stAverias})}
-    ${kpiCard({label:'Disponibilidad promedio', value:fmtPct(dispProm), sub:`${DATA.equipos.length} equipos mantenibles`, status:stDisp})}
+    ${kpiCard({label:'Disponibilidad promedio', value:fmtPct(dispProm), sub:`${equiposMantenibles.length} equipos mantenibles`, status:stDisp})}
     ${kpiCard({label:'Cumplimiento preventivo', value:fmtPct(cumplimientoPrev), sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
     ${kpiCard({label:'% Paradas no programadas', value:fmtPct(pctParadasNoProg), sub:`${horasParoCorrectivo.toFixed(1)} h de paro correctivo`, status:stParadas})}
     ${kpiCard({label:'OTIF mantenimiento', value:fmtPct(otif), sub:`${aTiempo.length} de ${cerradasTotal.length} OT cerradas a tiempo`, status:stOtif})}
@@ -815,14 +816,15 @@ function renderParos(el){
   buildPagedTable('parosDetalle', paros, cols, {pageSize:8});
 }
 
-/* ============ TAB: Disponibilidad y Criticidad ============ */
+/* ============ TAB: Equipos ============ */
 function renderDisponibilidad(el){
   const crit = DATA.criticidad_totales;
+  const equiposMantenibles = DATA.equipos.filter(e=>e.mantenible);
   el.innerHTML = `
   ${sectionTitle('Disponibilidad y criticidad de equipos')}
   <div class="callout"><b>Nota de calidad de dato:</b> el export de disponibilidad muestra 100% para todos los equipos y 0 horas de paro registradas — no refleja aún los paros reales (ver pestaña "Paros por Equipo"). Esta pestaña sirve hoy principalmente como directorio de equipos, lugar y criticidad; el % de disponibilidad se debe tomar como referencial hasta que ese módulo se alimente correctamente.</div>
   <div class="kpi-row">
-    ${kpiCard({label:'Equipos mantenibles', value:DATA.equipos.length, sub:`de ${DATA.total_equipos_maestro} activos totales en el maestro`})}
+    ${kpiCard({label:'Equipos mantenibles', value:equiposMantenibles.length, sub:`de ${DATA.total_equipos_maestro} activos totales en el maestro`})}
     ${kpiCard({label:'Criticidad Alta', value:crit.Alta||0, status:'bad'})}
     ${kpiCard({label:'Criticidad Media', value:crit.Media||0, status:'warn'})}
     ${kpiCard({label:'Criticidad Baja', value:crit.Baja||0, status:'good'})}
@@ -831,6 +833,7 @@ function renderDisponibilidad(el){
     <div class="card-head">
       <h3>Directorio de equipos</h3>
       <input class="searchbox" type="text" id="eqSearch" placeholder="Buscar equipo, código o lugar...">
+      <select id="eqMantenible"><option value="mantenible">Mantenibles</option><option value="no_mantenible">No mantenibles</option><option value="">Todos</option></select>
       <select id="eqCrit"><option value="">Toda criticidad</option><option>Alta</option><option>Media</option><option>Baja</option></select>
     </div>
     <div id="eqTableWrap"></div>
@@ -840,19 +843,24 @@ function renderDisponibilidad(el){
     {key:'codigo', label:'Código'},
     {key:'equipo', label:'Equipo'},
     {key:'lugar', label:'Lugar'},
-    {key:'criticidad', label:'Criticidad', fmt:v=>`<span class="badge ${v==='Alta'?'bad':v==='Media'?'warn':'good'}">${v}</span>`},
+    {key:'mantenible', label:'Tipo', fmt:v=>v?'Mantenible':'No mantenible'},
+    {key:'criticidad', label:'Criticidad', fmt:v=>v?`<span class="badge ${v==='Alta'?'bad':v==='Media'?'warn':'good'}">${v}</span>`:'—'},
     {key:'disponibilidad_pct', label:'Disponibilidad', num:true, fmt:v=>fmtPct((v||0)*100)},
   ];
-  let eqPager = buildPagedTable('eqTableWrap', DATA.equipos, cols, {pageSize:15});
+  let eqPager = buildPagedTable('eqTableWrap', equiposMantenibles, cols, {pageSize:15});
   function refresh(){
+    const mantVal = document.getElementById('eqMantenible').value;
     const critVal = document.getElementById('eqCrit').value;
     let rows = DATA.equipos;
+    if(mantVal==='mantenible') rows = rows.filter(r=>r.mantenible);
+    else if(mantVal==='no_mantenible') rows = rows.filter(r=>!r.mantenible);
     if(critVal) rows = rows.filter(r=>r.criticidad===critVal);
     eqPager.refresh(rows);
     const term = document.getElementById('eqSearch').value;
     if(term) eqPager.setFilter(term);
   }
   document.getElementById('eqSearch').addEventListener('input', refresh);
+  document.getElementById('eqMantenible').addEventListener('change', refresh);
   document.getElementById('eqCrit').addEventListener('change', refresh);
 }
 

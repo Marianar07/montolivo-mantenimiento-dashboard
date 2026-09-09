@@ -414,8 +414,7 @@ def construir_equipos(disp, crit):
     total_maestro = len(disp)
     for _, r in disp.iterrows():
         instalacion = r["Instalación de Proceso"]
-        if isinstance(instalacion, str) and instalacion.startswith("ANM"):
-            continue  # activo no mantenible - se excluye del directorio operativo
+        mantenible = not (isinstance(instalacion, str) and instalacion.startswith("ANM"))
         criticidad = None
         if r["Código"] in crit_idx.index:
             fila_crit = crit_idx.loc[r["Código"]]
@@ -429,6 +428,7 @@ def construir_equipos(disp, crit):
             "equipo": r["Equipo"],
             "lugar": lugar_desde_instalacion(instalacion),
             "criticidad": criticidad,
+            "mantenible": mantenible,
             "disponibilidad_pct": None if pd.isna(disponibilidad_pct) else float(disponibilidad_pct),
             "horas_paro_correctivo": float(r["Tiempo Paro Correctivo [Horas]"]) if pd.notna(r["Tiempo Paro Correctivo [Horas]"]) else 0.0,
         })
@@ -477,7 +477,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path):
     print(f"Paros identificados: {len(paros)} "
           f"({sum(1 for p in paros if p['iniciado'])} iniciados, "
           f"{sum(1 for p in paros if not p['iniciado'])} pendientes de iniciar)")
-    print(f"Equipos en directorio (mantenibles): {len(equipos)} de {total_maestro} en el maestro")
+    mantenibles = sum(1 for e in equipos if e["mantenible"])
+    print(f"Equipos en directorio: {len(equipos)} de {total_maestro} en el maestro ({mantenibles} mantenibles, {len(equipos)-mantenibles} no mantenibles)")
     print(f"Criticidad: {criticidad_totales}")
 
     return data
