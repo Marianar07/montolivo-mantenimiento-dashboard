@@ -430,6 +430,11 @@ function groupSum(arr, keyFn, valFn){
   arr.forEach(x=>{ const k=keyFn(x); if(k==null) return; m.set(k, (m.get(k)||0)+(valFn(x)||0)); });
   return [...m.entries()].map(([k,v])=>({key:k,sum:v})).sort((a,b)=>b.sum-a.sum);
 }
+function groupAvg(arr, keyFn, valFn){
+  const m = new Map();
+  arr.forEach(x=>{ const k=keyFn(x); if(k==null) return; const v=valFn(x); if(v==null||isNaN(v)) return; if(!m.has(k)) m.set(k,[]); m.get(k).push(v); });
+  return [...m.entries()].map(([k,vals])=>({key:k, n:vals.length, avg:vals.reduce((a,b)=>a+b,0)/vals.length})).sort((a,b)=>b.n-a.n);
+}
 function monthKey(dateStr){ if(!dateStr) return null; const d=parseD(dateStr); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
 function monthLabel(k){ const [y,m]=k.split('-'); const names=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']; return names[parseInt(m)-1]+' '+y.slice(2); }
 
@@ -612,14 +617,20 @@ function renderTiempos(el){
   });
 
   const ssConRespuesta = ss.filter(r=>r.fecha_respuesta);
-  const tRespSS = ssConRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
+  const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss));
+  function horasSolucion(r){ return (new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000; }
+  const tRespSS = ssConRespuesta.map(horasSolucion);
   const promRespSS = tRespSS.length? tRespSS.reduce((a,b)=>a+b,0)/tRespSS.length : null;
+  const ssPorTipo = groupAvg(ssConRespuesta, r=>r.tipo, horasSolucion);
+  const ssPorSeveridad = groupAvg(ssConRespuesta, r=>r.severidad, horasSolucion);
+  const now = new Date();
+  function diasAbierta(fecha){ return Math.floor((now-new Date(fecha))/86400000); }
 
   el.innerHTML = `
   ${sectionTitle('Tiempos promedio de respuesta y ejecución')}
-  <div class="callout info">"Desvío de inicio" = diferencia entre el inicio real y el inicio programado de la OT (positivo = empezó después de lo programado). "Tiempo de respuesta SS" = desde que se radica la solicitud hasta que el sistema registra una respuesta — solo ${ssConRespuesta.length} de ${ss.length} SS en el rango tienen fecha de respuesta registrada.</div>
+  <div class="callout info"><b>Desvío de inicio</b> (OT) = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado).<br><b>Tiempo de solución SS</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Evaluada</b> o <b>No aprobada</b> — ${ssConRespuesta.length} de ${ss.length} SS en el rango. Las SS en estado Creada, Leída, Programada en O.T. o Validada siguen abiertas y no tienen Fecha de respuesta (ver "Novedades abiertas" más abajo).</div>
   <div class="kpi-row">
-    ${kpiCard({label:'Tiempo de respuesta SS (prom.)', value:fmtH(promRespSS), sub:`sobre ${ssConRespuesta.length} SS respondidas`})}
+    ${kpiCard({label:'Tiempo promedio de solución (SS cerradas)', value:fmtH(promRespSS), sub:`sobre ${ssConRespuesta.length} de ${ss.length} SS en el rango — muestra chica`})}
   </div>
   <div class="grid2">
     <div class="card">
@@ -635,7 +646,37 @@ function renderTiempos(el){
       </tbody></table></div>
     </div>
   </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head"><h3>Tiempo de solución SS por tipo</h3><span class="pill">${ssConRespuesta.length} SS cerradas</span></div>
+      ${ssPorTipo.length? `<div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">SS</th><th class="num">Tiempo de solución</th></tr></thead><tbody>
+      ${ssPorTipo.map(r=>`<tr><td>${esc(r.key)}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.avg)}</td></tr>`).join('')}
+      </tbody></table></div>` : '<div class="empty">Sin SS cerradas en el rango seleccionado</div>'}
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Tiempo de solución SS por severidad</h3><span class="pill">${ssConRespuesta.length} SS cerradas</span></div>
+      ${ssPorSeveridad.length? `<div class="tablewrap"><table><thead><tr><th>Severidad</th><th class="num">SS</th><th class="num">Tiempo de solución</th></tr></thead><tbody>
+      ${ssPorSeveridad.map(r=>`<tr><td>${esc(r.key)}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.avg)}</td></tr>`).join('')}
+      </tbody></table></div>` : '<div class="empty">Sin SS cerradas en el rango seleccionado</div>'}
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3>Novedades abiertas</h3><span class="pill">${ssAbiertas.length} SS sin Fecha de respuesta</span></div>
+    <div id="ssAbiertasWrap"></div>
+  </div>
   `;
+
+  const colsAbiertas = [
+    {key:'ss', label:'Código'},
+    {key:'tipo', label:'Tipo'},
+    {key:'severidad', label:'Severidad'},
+    {key:'equipo', label:'Equipo'},
+    {key:'lugar', label:'Lugar'},
+    {key:'fecha_ss', label:'Fecha de solicitud', fmt:fmtDate},
+    {key:'dias_abierta', label:'Días abierta', num:true},
+  ];
+  const ssAbiertasRows = ssAbiertas.map(r=>Object.assign({}, r, {dias_abierta: diasAbierta(r.fecha_ss)}));
+  buildPagedTable('ssAbiertasWrap', ssAbiertasRows, colsAbiertas, {pageSize:12});
 }
 
 /* ============ TAB: Órdenes de Trabajo ============ */
