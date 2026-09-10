@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-10T11:38:24",
+  "generado": "2026-09-10T11:55:46",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -1629,16 +1629,16 @@
       "fecha_creacion": "2026-09-07T15:35:14",
       "inicio_programado": "2026-09-08T08:00:00",
       "fin_programado": "2026-09-08T12:00:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-10T08:00:00",
+      "fin_real": "2026-09-10T10:55:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "VIVA ENVIGADO",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "equipo_cod": "HP-0047",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 0.0
+      "costo_real": 71246.03
     },
     {
       "ot": "000078",
@@ -1965,16 +1965,16 @@
       "fecha_creacion": "2026-09-08T16:08:58",
       "inicio_programado": "2026-09-09T07:00:00",
       "fin_programado": "2026-09-09T10:00:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-09T07:00:00",
+      "fin_real": "2026-09-09T09:45:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "BASE DE OPERACIONES",
       "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO DE PRODUCCION",
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 0.0
+      "costo_real": 37013.6
     },
     {
       "ot": "000094",
@@ -2028,16 +2028,16 @@
       "fecha_creacion": "2026-09-09T14:47:58",
       "inicio_programado": "2026-09-09T09:30:00",
       "fin_programado": "2026-09-09T10:30:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-09T10:00:00",
+      "fin_real": "2026-09-09T12:15:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "PREMIUM PLAZA",
       "equipo": "ADECUACIÓN E INSTALACIÓN PREMIUM PLAZA",
       "equipo_cod": "AI-0104",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 0.0
+      "costo_real": 30283.85
     },
     {
       "ot": "000097",
@@ -2142,6 +2142,90 @@
       "equipo_cod": "AI-0115",
       "criticidad": "Baja",
       "tecnico": null,
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000102",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00104",
+      "fecha_creacion_ss": "2026-09-07T17:58:17",
+      "fecha_creacion": "2026-09-10T09:51:28",
+      "inicio_programado": "2026-09-09T00:00:00",
+      "fin_programado": "2026-09-09T01:00:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "EL TESORO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "equipo_cod": "AI-0132",
+      "criticidad": "Baja",
+      "tecnico": "JUAN JOSE MOSQUERA VARGAS, ANDRES FELIPE LONDOÑO GUERRA",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000103",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00110",
+      "fecha_creacion_ss": "2026-09-07T18:07:45",
+      "fecha_creacion": "2026-09-10T10:51:12",
+      "inicio_programado": "2026-09-07T08:00:00",
+      "fin_programado": "2026-09-07T11:00:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "EL TESORO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "equipo_cod": "AI-0132",
+      "criticidad": "Baja",
+      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000104",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00040",
+      "fecha_creacion_ss": "2026-09-04T13:11:38",
+      "fecha_creacion": "2026-09-10T11:09:43",
+      "inicio_programado": "2026-09-10T07:00:00",
+      "fin_programado": "2026-09-10T09:00:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "UNICENTRO BOGOTÁ",
+      "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO BOGOTA",
+      "equipo_cod": "AI-0145",
+      "criticidad": "Baja",
+      "tecnico": "JONATHAN RESTREPO RAMIREZ",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000105",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00143",
+      "fecha_creacion_ss": "2026-09-10T04:50:00",
+      "fecha_creacion": "2026-09-10T11:13:29",
+      "inicio_programado": "2026-10-23T00:00:00",
+      "fin_programado": "2026-10-23T01:00:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "DISTRITO VERA",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "equipo_cod": "AI-0141",
+      "criticidad": "Baja",
+      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
       "costo_real": 0.0
     }
   ],
@@ -2378,26 +2462,15 @@
       "ot_asociada": null
     },
     {
-      "ss": "00058",
-      "tipo": "Mejora Programada",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-05T10:10:59",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00051",
+      "ss": "00050",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-05T06:43:54",
-      "fecha_respuesta": "2026-09-05T11:11:26",
-      "estado": "No aprobada",
-      "ot_asociada": null
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-05T06:01:52",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000070"
     },
     {
       "ss": "00043",
@@ -2444,15 +2517,15 @@
       "ot_asociada": null
     },
     {
-      "ss": "00050",
+      "ss": "00051",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-05T06:01:52",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000070"
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-05T06:43:54",
+      "fecha_respuesta": "2026-09-05T11:11:26",
+      "estado": "No aprobada",
+      "ot_asociada": null
     },
     {
       "ss": "00066",
@@ -2506,8 +2579,8 @@
       "lugar": "UNICENTRO BOGOTÁ",
       "fecha_ss": "2026-09-04T13:11:38",
       "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000104"
     },
     {
       "ss": "00035",
@@ -2518,17 +2591,6 @@
       "fecha_ss": "2026-09-03T14:29:08",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00048",
-      "tipo": "Correctivo Programado",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
-      "lugar": "GRAN PLAZA",
-      "fecha_ss": "2026-09-04T20:42:14",
-      "fecha_respuesta": null,
-      "estado": "Creada",
       "ot_asociada": null
     },
     {
@@ -2543,15 +2605,15 @@
       "ot_asociada": null
     },
     {
-      "ss": "00067",
-      "tipo": "Correctivos de emergencia",
+      "ss": "00048",
+      "tipo": "Correctivo Programado",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-06T16:53:46",
+      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
+      "lugar": "GRAN PLAZA",
+      "fecha_ss": "2026-09-04T20:42:14",
       "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000071"
+      "estado": "Creada",
+      "ot_asociada": null
     },
     {
       "ss": "00069",
@@ -2560,28 +2622,6 @@
       "equipo": "SISTEMA DE EXTRACCION",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-06T20:22:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00065",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-06T12:52:13",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00063",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN LA COLINA",
-      "lugar": "LA COLINA",
-      "fecha_ss": "2026-09-06T11:38:37",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2607,6 +2647,39 @@
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
+    },
+    {
+      "ss": "00063",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN LA COLINA",
+      "lugar": "LA COLINA",
+      "fecha_ss": "2026-09-06T11:38:37",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00065",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-06T12:52:13",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00067",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-06T16:53:46",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000071"
     },
     {
       "ss": "00082",
@@ -2862,26 +2935,26 @@
       "ot_asociada": null
     },
     {
-      "ss": "00099",
+      "ss": "00107",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-07T16:17:34",
-      "fecha_respuesta": "2026-09-08T12:30:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000082"
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-07T18:03:47",
+      "fecha_respuesta": null,
+      "estado": "Leída",
+      "ot_asociada": null
     },
     {
-      "ss": "00100",
+      "ss": "00110",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
-      "lugar": "MALL PLAZA MANIZALES",
-      "fecha_ss": "2026-09-07T16:19:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-07T18:07:45",
       "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000103"
     },
     {
       "ss": "00101",
@@ -2895,14 +2968,36 @@
       "ot_asociada": null
     },
     {
-      "ss": "00103",
+      "ss": "00100",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
+      "lugar": "MALL PLAZA MANIZALES",
+      "fecha_ss": "2026-09-07T16:19:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00099",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-07T16:17:34",
+      "fecha_respuesta": "2026-09-08T12:30:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000082"
+    },
+    {
+      "ss": "00108",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T17:54:19",
+      "fecha_ss": "2026-09-07T18:05:45",
       "fecha_respuesta": null,
-      "estado": "Leída",
+      "estado": "Validada",
       "ot_asociada": null
     },
     {
@@ -2913,40 +3008,18 @@
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T18:01:57",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Validada",
       "ot_asociada": null
     },
     {
-      "ss": "00107",
+      "ss": "00103",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T18:03:47",
+      "fecha_ss": "2026-09-07T17:54:19",
       "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00108",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T18:05:45",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00110",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T18:07:45",
-      "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Validada",
       "ot_asociada": null
     },
     {
@@ -3071,12 +3144,12 @@
       "ot_asociada": null
     },
     {
-      "ss": "00130",
+      "ss": "00129",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
       "lugar": "GRAN PLAZA",
-      "fecha_ss": "2026-09-08T19:13:35",
+      "fecha_ss": "2026-09-08T19:12:35",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3104,23 +3177,34 @@
       "ot_asociada": null
     },
     {
-      "ss": "00129",
+      "ss": "00130",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
       "lugar": "GRAN PLAZA",
-      "fecha_ss": "2026-09-08T19:12:35",
+      "fecha_ss": "2026-09-08T19:13:35",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
     },
     {
-      "ss": "00140",
-      "tipo": "Mejora Programada",
+      "ss": "00142",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-09T18:56:10",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-10T04:46:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00137",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
+      "lugar": "FUNDADORES",
+      "fecha_ss": "2026-09-09T17:04:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3132,17 +3216,6 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PARQUE ARBOLEDA",
       "lugar": "PARQUE ARBOLEDA",
       "fecha_ss": "2026-09-09T16:55:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00137",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
-      "lugar": "FUNDADORES",
-      "fecha_ss": "2026-09-09T17:04:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3228,11 +3301,11 @@
       "ss": "00055",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-05T08:41:37",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-05T08:41:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Editada",
       "ot_asociada": null
     },
     {
@@ -3247,17 +3320,6 @@
       "ot_asociada": null
     },
     {
-      "ss": "00057",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-05T10:09:33",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
       "ss": "00059",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
@@ -3266,6 +3328,17 @@
       "fecha_ss": "2026-09-05T10:41:02",
       "fecha_respuesta": null,
       "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00071",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-06T22:25:58",
+      "fecha_respuesta": "2026-09-07T11:15:22",
+      "estado": "No aprobada",
       "ot_asociada": null
     },
     {
@@ -3280,28 +3353,6 @@
       "ot_asociada": null
     },
     {
-      "ss": "00062",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
-      "lugar": "FABRICATO",
-      "fecha_ss": "2026-09-06T08:56:49",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000083"
-    },
-    {
-      "ss": "00071",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-06T22:25:58",
-      "fecha_respuesta": "2026-09-07T11:15:22",
-      "estado": "No aprobada",
-      "ot_asociada": null
-    },
-    {
       "ss": "00068",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
@@ -3311,6 +3362,17 @@
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
+    },
+    {
+      "ss": "00062",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "lugar": "FABRICATO",
+      "fecha_ss": "2026-09-06T08:56:49",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000083"
     },
     {
       "ss": "00081",
@@ -3364,8 +3426,8 @@
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T17:58:17",
       "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000102"
     },
     {
       "ss": "00102",
@@ -3374,17 +3436,6 @@
       "equipo": null,
       "lugar": null,
       "fecha_ss": "2026-09-07T17:37:31",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00121",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-08T14:19:24",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3401,12 +3452,12 @@
       "ot_asociada": null
     },
     {
-      "ss": "00124",
+      "ss": "00121",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
       "equipo": null,
       "lugar": null,
-      "fecha_ss": "2026-09-08T14:20:54",
+      "fecha_ss": "2026-09-08T14:19:24",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3418,6 +3469,17 @@
       "equipo": null,
       "lugar": null,
       "fecha_ss": "2026-09-08T14:20:24",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00124",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-08T14:20:54",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3437,66 +3499,22 @@
       "ss": "00132",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-09T14:12:55",
+      "equipo": "ADECUACIÓN E INSTALACIÓN ARKADIA",
+      "lugar": "ARKADIA",
+      "fecha_ss": "2026-09-09T14:12:00",
       "fecha_respuesta": null,
-      "estado": "Leída",
+      "estado": "Editada",
       "ot_asociada": null
     },
     {
-      "ss": "00138",
+      "ss": "00140",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-09T18:54:14",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-09T18:56:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00139",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-09T18:55:12",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00141",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-09T18:57:41",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00142",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-10T04:46:42",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null
-    },
-    {
-      "ss": "00143",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-10T04:50:36",
-      "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Editada",
       "ot_asociada": null
     },
     {
@@ -3508,6 +3526,94 @@
       "fecha_ss": "2026-09-09T16:03:42",
       "fecha_respuesta": null,
       "estado": "Leída",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00143",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-10T04:50:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000105"
+    },
+    {
+      "ss": "00149",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-10T11:30:38",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00151",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-10T11:31:38",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00150",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-10T11:31:08",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00153",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-10T11:32:38",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00152",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-10T11:32:08",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00155",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-10T11:33:38",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null
+    },
+    {
+      "ss": "00154",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-10T11:33:08",
+      "fecha_respuesta": null,
+      "estado": "Creada",
       "ot_asociada": null
     },
     {
