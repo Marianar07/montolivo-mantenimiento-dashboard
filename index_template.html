@@ -363,14 +363,8 @@ function otPorMes(mes){
   return DATA.ot.filter(r=>inRange(r.fecha_creacion, desde, hasta));
 }
 
-/* ============ Filtro de categoria propio de la pestana "Tecnicos" ============ */
-let tecnicosCategoria = null;
+/* ============ Filtro de equipo propio de la pestana "Tecnicos" ============ */
 let tecnicosEquipoFiltro = null;
-function categoriaEquipo(nombre){
-  if(!nombre) return null;
-  const p = String(nombre).trim().split(/\s+/)[0];
-  return p ? p.toUpperCase() : null;
-}
 function splitTecnicos(str){
   if(!str) return [];
   return String(str).split(',').map(s=>s.trim()).filter(Boolean);
@@ -883,23 +877,24 @@ function renderTecnicos(el){
   const horasDisponibles = HORAS_SEMANALES * semanas;
 
   const capMap = new Map();
+  DATA.ot.forEach(r=>{
+    splitTecnicos(r.tecnico).forEach(t=>{
+      if(!capMap.has(t)) capMap.set(t, {horas:0, ot:0, otsList:[]});
+    });
+  });
   ot.forEach(r=>{
     const dur = duracionRealOT(r);
-    if(dur==null) return;
     splitTecnicos(r.tecnico).forEach(t=>{
-      if(!capMap.has(t)) capMap.set(t, {horas:0, ot:0});
       const c = capMap.get(t);
-      c.horas += dur;
-      c.ot += 1;
+      if(dur!=null){ c.horas += dur; c.ot += 1; }
+      c.otsList.push({codigo:r.ot, dur, fecha:r.inicio_real||r.inicio_programado||r.fecha_creacion});
     });
   });
   const capRows = [...capMap.entries()].map(([tecnico,c])=>{
     const ocupacion = horasDisponibles? (c.horas/horasDisponibles*100) : null;
-    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, ocupacion, libres:horasDisponibles-c.horas};
+    const otsList = [...c.otsList].sort((a,b)=> new Date(b.fecha||0) - new Date(a.fecha||0));
+    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, ocupacion, libres:horasDisponibles-c.horas, otsList};
   }).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
-
-  const categorias = [...new Set(ot.map(r=>categoriaEquipo(r.equipo)).filter(Boolean))].sort();
-  if(!tecnicosCategoria || !categorias.includes(tecnicosCategoria)) tecnicosCategoria = categorias[0] || null;
 
   const equiposUnicos = [...new Set(ot.map(r=>r.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   if(tecnicosEquipoFiltro && !equiposUnicos.includes(tecnicosEquipoFiltro)) tecnicosEquipoFiltro = null;
@@ -918,14 +913,6 @@ function renderTecnicos(el){
     </div>
     <div id="tecEquipoWrap"></div>
   </div>
-  ${sectionTitle('Comparación de tiempos por tipo de equipo y técnico', 'Cantidad de OT y duración promedio de ejecución por técnico, para la categoría de equipo seleccionada')}
-  <div class="card">
-    <div class="card-head">
-      <h3>Tiempos por técnico</h3>
-      <select id="tecCategoria">${categorias.map(c=>`<option value="${esc(c)}"${c===tecnicosCategoria?' selected':''}>${esc(c)}</option>`).join('')}</select>
-    </div>
-    <div id="tecCategoriaWrap"></div>
-  </div>
   `;
 
   const capCols = [
@@ -935,8 +922,24 @@ function renderTecnicos(el){
     {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
     {key:'ocupacion', label:'% Ocupación', num:true, fmt:v=>{ if(v==null) return '—'; const cls = v>110?'bad':v>90?'warn':'good'; return `<span class="badge ${cls}">${fmtPct(v)}</span>`; }},
     {key:'libres', label:'Horas libres', num:true, fmt:fmtH},
+    {key:'otsList', label:'Filtrar OT trabajada', fmt:(v,row)=> row.otsList.length
+      ? `<select class="tec-ot-select" style="font-size:12px;padding:3px 6px;"><option value="">Selecciona OT...</option>${row.otsList.map(o=>`<option value="${esc(o.codigo)}" data-dur="${o.dur!=null?o.dur:''}">${esc(o.codigo)}</option>`).join('')}</select>`
+      : `<span style="color:var(--ink-3);font-size:12px;">Sin OT</span>` },
+    {key:'_dur', label:'Duración O.T.', fmt:()=> `<span class="tec-dur">—</span>` },
   ];
   buildPagedTable('capTecnicosWrap', capRows, capCols, {pageSize:15});
+  const capTecnicosWrapEl = document.getElementById('capTecnicosWrap');
+  capTecnicosWrapEl.addEventListener('change', (e)=>{
+    const sel = e.target.closest('.tec-ot-select');
+    if(!sel) return;
+    const tr = sel.closest('tr');
+    const durSpan = tr ? tr.querySelector('.tec-dur') : null;
+    if(!durSpan) return;
+    const opt = sel.selectedOptions[0];
+    if(!opt || !opt.value){ durSpan.textContent = '—'; return; }
+    const durAttr = opt.getAttribute('data-dur');
+    durSpan.textContent = durAttr ? fmtH(parseFloat(durAttr)) : 'En curso / pendiente';
+  });
 
   function renderEquipoWrap(){
     const val = document.getElementById('tecEquipoFiltro').value;
@@ -965,31 +968,6 @@ function renderTecnicos(el){
   }
   renderEquipoWrap();
   document.getElementById('tecEquipoFiltro').addEventListener('change', ()=>{ tecnicosEquipoFiltro = document.getElementById('tecEquipoFiltro').value; renderEquipoWrap(); });
-
-  function renderCategoriaWrap(){
-    const cat = document.getElementById('tecCategoria').value;
-    const rowsCat = ot.filter(r=>categoriaEquipo(r.equipo)===cat);
-    const map = new Map();
-    rowsCat.forEach(r=>{
-      const dur = duracionRealOT(r);
-      splitTecnicos(r.tecnico).forEach(t=>{
-        if(!map.has(t)) map.set(t, {n:0, sumDur:0, nDur:0});
-        const c = map.get(t);
-        c.n += 1;
-        if(dur!=null){ c.sumDur += dur; c.nDur += 1; }
-      });
-    });
-    const rows = [...map.entries()].map(([tecnico,c])=>({tecnico, n:c.n, dur: c.nDur? c.sumDur/c.nDur : null})).sort((a,b)=>b.n-a.n);
-    document.getElementById('tecCategoriaWrap').innerHTML = rows.length? `<div class="tablewrap"><table><thead><tr><th>Técnico</th><th class="num">OT</th><th class="num">Duración promedio</th></tr></thead><tbody>
-      ${rows.map(r=>`<tr><td>${esc(r.tecnico)}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.dur)}</td></tr>`).join('')}
-      </tbody></table></div>` : '<div class="empty">Sin OT en esta categoría dentro del rango seleccionado</div>';
-  }
-  if(document.getElementById('tecCategoria')){
-    renderCategoriaWrap();
-    document.getElementById('tecCategoria').addEventListener('change', ()=>{ tecnicosCategoria = document.getElementById('tecCategoria').value; renderCategoriaWrap(); });
-  } else {
-    document.getElementById('tecCategoriaWrap').innerHTML = '<div class="empty">Sin equipos con técnico asignado en el rango seleccionado</div>';
-  }
 }
 
 /* ============ TAB: Equipos ============ */
