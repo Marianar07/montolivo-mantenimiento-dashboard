@@ -948,6 +948,11 @@ function renderTecnicos(el){
   const esInterno = tecnico => tecnicosInternosSet ? tecnicosInternosSet.has(tecnico) : true;
 
   const capMap = new Map();
+  if(DATA.tecnicos_internos){
+    DATA.tecnicos_internos.forEach(t=>{
+      if(!capMap.has(t)) capMap.set(t, {horas:0, horasExtra:0, ot:0, otsList:[]});
+    });
+  }
   DATA.ot.forEach(r=>{
     splitTecnicos(r.tecnico).forEach(t=>{
       if(!capMap.has(t)) capMap.set(t, {horas:0, horasExtra:0, ot:0, otsList:[]});
