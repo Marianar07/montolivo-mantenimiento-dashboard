@@ -231,12 +231,21 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 @media (max-width:900px){.grid2,.grid3{grid-template-columns:1fr;}}
 
-.chartbox{height:220px;display:flex;align-items:flex-end;gap:10px;padding:10px 4px 0;}
-.chartcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;}
-.chartbars{display:flex;gap:3px;align-items:flex-end;height:170px;width:100%;justify-content:center;}
-.bar-seg{width:16px;border-radius:3px 3px 0 0;position:relative;}
-.chartcol .lbl{font-size:10.5px;color:var(--ink-2);font-weight:600;white-space:nowrap;}
-.legend{display:flex;gap:16px;font-size:11.5px;color:var(--ink-2);margin-top:6px;flex-wrap:wrap;}
+.chartwrap{display:flex;align-items:flex-start;gap:8px;}
+.chart-axis{width:30px;flex-shrink:0;position:relative;height:170px;}
+.chart-axis-tick{position:absolute;left:0;right:2px;transform:translateY(50%);font-size:10px;color:var(--ink-3);text-align:right;}
+.chart-plot{position:relative;height:170px;flex:1;min-width:0;}
+.chart-gridline{position:absolute;left:0;right:0;border-top:1px dashed var(--border);}
+.chartbox{position:relative;height:170px;display:flex;align-items:flex-end;gap:24px;padding:0 8px;}
+.chartcol{width:64px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
+.chartbars{display:flex;gap:4px;align-items:flex-end;justify-content:center;width:100%;}
+.bar-seg{width:22px;border-radius:3px 3px 0 0;position:relative;cursor:pointer;transition:filter .1s;}
+.bar-seg:hover{filter:brightness(1.08);}
+.bar-seg .bar-val{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:5px;font-size:11px;font-weight:700;color:var(--ink);background:var(--card);padding:1px 6px;border-radius:4px;border:1px solid var(--border);white-space:nowrap;display:none;box-shadow:0 1px 4px rgba(0,0,0,.12);z-index:2;}
+.bar-seg.active .bar-val{display:block;}
+.chart-xlabels{display:flex;gap:24px;padding:0 8px;margin-left:38px;margin-top:8px;}
+.chart-xlabels .lbl{width:64px;flex-shrink:0;text-align:center;font-size:11px;font-weight:600;color:var(--ink-2);}
+.legend{display:flex;gap:16px;font-size:11.5px;color:var(--ink-2);margin-top:10px;margin-left:38px;flex-wrap:wrap;}
 .legend .sw{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle;}
 
 .callout{border:1px solid var(--warn-border);background:var(--warn-bg);color:var(--warn-text);border-radius:8px;padding:11px 14px;font-size:12px;margin-bottom:16px;line-height:1.5;}
@@ -534,20 +543,60 @@ function groupOTPorLugar(rows){
 function monthKey(dateStr){ if(!dateStr) return null; const d=parseD(dateStr); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
 function monthLabel(k){ const [y,m]=k.split('-'); const names=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']; return names[parseInt(m)-1]+' '+y.slice(2); }
 
-function groupedBarChart(months, series, colors){
-  // months: [k1,k2,...] sorted; series: [{label, values:{k:v}}]
-  const allVals = months.flatMap(m=>series.map(s=>s.values[m]||0));
-  const max = Math.max(...allVals, 1);
-  const cols = months.map(m=>{
+function niceAxis(max, targetTicks){
+  targetTicks = targetTicks || 4;
+  if(max<=0) return {niceMax:1, ticks:[0,1]};
+  const rawStep = max/targetTicks;
+  const mag = Math.pow(10, Math.floor(Math.log10(rawStep)));
+  const norm = rawStep/mag;
+  const step = (norm<=1?1:norm<=2?2:norm<=5?5:10)*mag;
+  const niceMax = Math.ceil(max/step)*step;
+  const ticks = [];
+  for(let v=0; v<=niceMax+1e-9; v+=step) ticks.push(Math.round(v*100)/100);
+  return {niceMax, ticks};
+}
+/* Gráfica de barras agrupadas con eje Y (líneas de referencia + valores) y
+   clic en cada barra para mostrar su cantidad exacta (además del tooltip
+   nativo al pasar el mouse). categories: [k1,k2,...]; series: [{label,
+   values:{k:v}}]; opts.labelFn formatea cada categoría para el eje X. */
+function groupedBarChart(categories, series, colors, opts){
+  opts = opts || {};
+  const labelFn = opts.labelFn || (c=>c);
+  const PLOT_H = 170;
+  const allVals = categories.flatMap(c=>series.map(s=>s.values[c]||0));
+  const rawMax = Math.max(...allVals, 0);
+  const {niceMax, ticks} = niceAxis(rawMax);
+  const axisHtml = ticks.map(t=>`<div class="chart-axis-tick" style="bottom:${(t/niceMax*100).toFixed(2)}%">${t}</div>`).join('');
+  const gridHtml = ticks.map(t=>`<div class="chart-gridline" style="bottom:${(t/niceMax*100).toFixed(2)}%"></div>`).join('');
+  const cols = categories.map(c=>{
     const bars = series.map((s,i)=>{
-      const v = s.values[m]||0;
-      const h = Math.max(2, Math.round(v/max*160));
-      return `<div class="bar-seg" title="${s.label}: ${v}" style="height:${h}px;background:${colors[i]}"></div>`;
+      const v = s.values[c]||0;
+      const h = niceMax? Math.round(v/niceMax*PLOT_H) : 0;
+      return `<div class="bar-seg" title="${esc(s.label)}: ${v}" style="height:${h}px;background:${colors[i]}"><span class="bar-val">${esc(s.label)}: ${v}</span></div>`;
     }).join('');
-    return `<div class="chartcol"><div class="chartbars">${bars}</div><div class="lbl">${monthLabel(m)}</div></div>`;
+    return `<div class="chartcol"><div class="chartbars">${bars}</div></div>`;
   }).join('');
-  const legend = series.map((s,i)=>`<span><span class="sw" style="background:${colors[i]}"></span>${s.label}</span>`).join('');
-  return `<div class="chartbox">${cols}</div><div class="legend">${legend}</div>`;
+  const xlabels = categories.map(c=>`<div class="lbl">${esc(labelFn(c))}</div>`).join('');
+  const legend = series.map((s,i)=>`<span><span class="sw" style="background:${colors[i]}"></span>${esc(s.label)}</span>`).join('');
+  return `
+  <div class="chartwrap">
+    <div class="chart-axis">${axisHtml}</div>
+    <div class="chart-plot">
+      <div>${gridHtml}</div>
+      <div class="chartbox">${cols}</div>
+    </div>
+  </div>
+  <div class="chart-xlabels">${xlabels}</div>
+  <div class="legend">${legend}</div>`;
+}
+function wireBarClicks(chartwrapEl){
+  chartwrapEl.addEventListener('click', e=>{
+    const seg = e.target.closest('.bar-seg');
+    if(!seg) return;
+    const wasActive = seg.classList.contains('active');
+    chartwrapEl.querySelectorAll('.bar-seg.active').forEach(s=>s.classList.remove('active'));
+    if(!wasActive) seg.classList.add('active');
+  });
 }
 
 /* generic paginated + searchable table for large datasets */
@@ -630,8 +679,8 @@ function renderResumen(el){
 
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>OT por tipo — tendencia mensual</h3></div>
-      ${chartOTPorMes(ot)}
+      <div class="card-head"><h3>OT por tipo y severidad</h3></div>
+      ${chartTipoSeveridad(ot)}
     </div>
     <div class="card">
       <div class="card-head"><h3>Top lugares con más averías correctivas</h3></div>
@@ -639,6 +688,7 @@ function renderResumen(el){
     </div>
   </div>
   `;
+  el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
   renderTopLugaresWrap();
 }
 function renderTopLugaresWrap(){
@@ -660,14 +710,20 @@ function renderTopLugaresWrap(){
   const mesSelect = document.getElementById('topLugaresMesSelect');
   if(mesSelect) mesSelect.addEventListener('change', ()=>{ topLugaresMes = mesSelect.value; renderTopLugaresWrap(); });
 }
-function chartOTPorMes(ot){
-  const months = [...new Set(ot.map(r=>monthKey(r.fecha_creacion)).filter(Boolean))].sort();
-  if(!months.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
+const ORDEN_SEVERIDAD = {Alta:0, Media:1, Baja:2};
+function chartTipoSeveridad(ot){
+  const severidades = [...new Set(ot.map(r=>r.severidad).filter(Boolean))]
+    .sort((a,b)=> (ORDEN_SEVERIDAD[a]??99)-(ORDEN_SEVERIDAD[b]??99) || a.localeCompare(b));
+  if(!severidades.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
   const correctivo = {label:'Correctivo', values:{}};
   const preventivo = {label:'Preventivo', values:{}};
-  months.forEach(m=>{ correctivo.values[m]=0; preventivo.values[m]=0; });
-  ot.forEach(r=>{ const m=monthKey(r.fecha_creacion); if(!m) return; if(r.tipo==='Correctivo') correctivo.values[m]++; else preventivo.values[m]++; });
-  return groupedBarChart(months, [correctivo, preventivo], ['var(--chart-1)','var(--chart-2)']);
+  severidades.forEach(sv=>{ correctivo.values[sv]=0; preventivo.values[sv]=0; });
+  ot.forEach(r=>{
+    if(!r.severidad) return;
+    if(r.tipo==='Correctivo') correctivo.values[r.severidad]++;
+    else if(r.tipo==='Preventivo') preventivo.values[r.severidad]++;
+  });
+  return groupedBarChart(severidades, [correctivo, preventivo], ['var(--chart-1)','var(--chart-2)']);
 }
 function topLugaresAverias(correctivas){
   const g = groupCount(correctivas, r=>r.lugar).slice(0,8);
@@ -687,8 +743,8 @@ function renderFallas(el){
   ${sectionTitle('Fallas por tipo y severidad')}
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>Tendencia mensual por tipo</h3></div>
-      ${chartOTPorMes(ot)}
+      <div class="card-head"><h3>OT por tipo y severidad</h3></div>
+      ${chartTipoSeveridad(ot)}
     </div>
     <div class="card">
       <div class="card-head"><h3>Cruce tipo × severidad</h3></div>
@@ -702,6 +758,7 @@ function renderFallas(el){
     <div id="topEquiposNovedadesWrap"></div>
   </div>
   `;
+  el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
   renderTopEquiposNovedadesWrap();
 }
 function renderTopEquiposNovedadesWrap(){
