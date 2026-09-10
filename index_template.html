@@ -905,48 +905,49 @@ function renderParos(el){
 }
 
 /* ============ TAB: Técnicos ============ */
-function diasLaborables(desde, hasta){
-  // cuenta días lunes a sábado (excluye domingo) entre dos fechas, inclusive
-  let count = 0;
+// Horas hábiles por día de semana (Date.getDay(): 0=domingo...6=sábado).
+// Lunes a jueves 8h, viernes 7h, sábado 3h = 42h/semana. Domingo no es
+// laborable - si un técnico trabaja ese día, cuenta como hora extra (ver
+// más abajo), no como parte de las horas disponibles.
+const HORAS_POR_DIA = {0:0, 1:8, 2:8, 3:8, 4:8, 5:7, 6:3};
+function horasDisponiblesRango(desde, hasta){
+  let total = 0;
   const cur = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
   const fin = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
   while(cur <= fin){
-    if(cur.getDay() !== 0) count++; // 0 = domingo
+    total += HORAS_POR_DIA[cur.getDay()];
     cur.setDate(cur.getDate()+1);
   }
-  return count;
+  return total;
 }
 function renderTecnicos(el){
   const ot = getFilteredOT();
   const {desde, hasta} = rangoEfectivoOT();
-  // 42 h se reparten entre 6 días (lunes a sábado) - contar días calendario
-  // /7 subestima el disponible en rangos cortos porque incluye domingos
-  // (no laborables) en el divisor. Ver nota de "Disponibilidad de técnicos"
-  // en CLAUDE.md. Sin piso en 1: un rango que caiga solo en domingo(s) sí
-  // debe dar 0 h disponibles (ocupacion queda en null, no divide por cero).
-  const dias = diasLaborables(desde, hasta);
-  const semanas = dias/6;
-  const HORAS_SEMANALES = 42;
-  const horasDisponibles = HORAS_SEMANALES * semanas;
+  const horasDisponibles = horasDisponiblesRango(desde, hasta);
+  const semanas = horasDisponibles/42; // solo para mostrar un "N semanas" aproximado
 
   const capMap = new Map();
   DATA.ot.forEach(r=>{
     splitTecnicos(r.tecnico).forEach(t=>{
-      if(!capMap.has(t)) capMap.set(t, {horas:0, ot:0, otsList:[]});
+      if(!capMap.has(t)) capMap.set(t, {horas:0, horasExtra:0, ot:0, otsList:[]});
     });
   });
   ot.forEach(r=>{
     const dur = duracionRealOT(r);
+    const esDomingo = r.inicio_real ? new Date(r.inicio_real).getDay()===0 : false;
     splitTecnicos(r.tecnico).forEach(t=>{
       const c = capMap.get(t);
-      if(dur!=null){ c.horas += dur; c.ot += 1; }
-      c.otsList.push({codigo:r.ot, dur, fecha:r.inicio_real||r.inicio_programado||r.fecha_creacion});
+      if(dur!=null){
+        if(esDomingo) c.horasExtra += dur; else c.horas += dur;
+        c.ot += 1;
+      }
+      c.otsList.push({codigo:r.ot, dur, extra:esDomingo, fecha:r.inicio_real||r.inicio_programado||r.fecha_creacion});
     });
   });
   const capRows = [...capMap.entries()].map(([tecnico,c])=>{
     const ocupacion = horasDisponibles? (c.horas/horasDisponibles*100) : null;
     const otsList = [...c.otsList].sort((a,b)=> new Date(b.fecha||0) - new Date(a.fecha||0));
-    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, ocupacion, libres:horasDisponibles-c.horas, otsList};
+    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, horasExtra:c.horasExtra, ocupacion, libres:horasDisponibles-c.horas, otsList};
   }).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
 
   const equiposUnicos = [...new Set(ot.map(r=>r.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
@@ -954,7 +955,7 @@ function renderTecnicos(el){
 
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
-  <div class="callout info"><b>Horas disponibles</b> = 42 h semanales × (días lunes a sábado que cubre el rango seleccionado ÷ 6) — los domingos no cuentan porque no son laborables. Los técnicos no tienen un horario fijo — trabajan de lunes a sábado según la carga del día — pero deben completar 42 h esa semana, por eso se usa ese número sin importar cómo se repartan los días. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
+  <div class="callout info"><b>Horas disponibles</b> = suma de las horas hábiles de cada día del rango seleccionado: lunes a jueves 8 h, viernes 7 h, sábado 3 h (42 h/semana en total). El domingo no es laborable y no suma horas disponibles. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores, excluyendo las que caen en domingo. <b>Horas extra</b> = esa misma duración, pero de las OT cuya Fecha Inicio Real cae en domingo — se muestran aparte porque son trabajo fuera del horario disponible, no se restan de "Horas libres" ni cuentan en el % de ocupación. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
   <div class="card">
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
@@ -973,10 +974,11 @@ function renderTecnicos(el){
     {key:'ot', label:'OT con duración', num:true},
     {key:'horasDisp', label:'Horas disponibles', num:true, fmt:fmtH},
     {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
+    {key:'horasExtra', label:'Horas extra (domingo)', num:true, fmt:v=> v>0? `<span class="badge warn">${fmtH(v)}</span>` : fmtH(v)},
     {key:'ocupacion', label:'% Ocupación', num:true, fmt:v=>{ if(v==null) return '—'; const cls = v>110?'bad':v>90?'warn':'good'; return `<span class="badge ${cls}">${fmtPct(v)}</span>`; }},
     {key:'libres', label:'Horas libres', num:true, fmt:fmtH},
     {key:'otsList', label:'Filtrar OT trabajada', fmt:(v,row)=> row.otsList.length
-      ? `<select class="tec-ot-select" style="font-size:12px;padding:3px 6px;"><option value="">Selecciona OT...</option>${row.otsList.map(o=>`<option value="${esc(o.codigo)}" data-dur="${o.dur!=null?o.dur:''}">${esc(o.codigo)}</option>`).join('')}</select>`
+      ? `<select class="tec-ot-select" style="font-size:12px;padding:3px 6px;"><option value="">Selecciona OT...</option>${row.otsList.map(o=>`<option value="${esc(o.codigo)}" data-dur="${o.dur!=null?o.dur:''}">${esc(o.codigo)}${o.extra?' (domingo)':''}</option>`).join('')}</select>`
       : `<span style="color:var(--ink-3);font-size:12px;">Sin OT</span>` },
     {key:'_dur', label:'Duración O.T.', fmt:()=> `<span class="tec-dur">—</span>` },
   ];

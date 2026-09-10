@@ -169,23 +169,35 @@ chica — no ocultarlo, mostrar siempre el "N sobre el cual se calculó".
 
 ### Disponibilidad de técnicos (pestaña "Técnicos")
 
-Los técnicos **no tienen un horario fijo por día** — trabajan de lunes a
-sábado según la carga de trabajo que haya (el horario "normal" de
-referencia es lunes a jueves 7am-4pm, viernes 7am-3pm y sábado 7am-10am,
-pero no están sujetos a eso). Lo único fijo es que deben completar **42
-horas semanales** entre lunes y sábado (el domingo no es laborable). Por
-eso `renderTecnicos()` usa `HORAS_SEMANALES = 42` y calcula
-`horasDisponibles = 42 × (días lunes-a-sábado del rango / 6)` — cuenta
-solo días laborables (`diasLaborables()`, que excluye domingos) en vez de
-dividir por 7 días calendario. Esto importa sobre todo en rangos cortos:
-dividir por 7 subestima el disponible porque el domingo (no laborable)
-cuenta igual que cualquier otro día — p. ej. un solo día seleccionado daba
-42/7 = 6.0 h fijo sin importar si era laborable, en vez de 42/6 = 7.0 h
-(o 0 h si cae domingo). **No volver a dividir por 7 días calendario ni a
-un cálculo de horario fijo día por día** (p. ej. sumar horas de lunes a
-sábado con horarios distintos) — se perdería la flexibilidad real del
-horario y subestimaría las horas disponibles en rangos cortos o que
-incluyen domingos.
+Las horas disponibles de cada técnico se calculan con un horario fijo por
+día de la semana (confirmado por Mariana), definido en `HORAS_POR_DIA`
+dentro de `renderTecnicos()`:
+- Lunes a jueves: 8 h/día
+- Viernes: 7 h/día
+- Sábado: 3 h/día
+- Domingo: 0 h/día (no laborable)
+
+Suma 42 h/semana. `horasDisponiblesRango(desde, hasta)` suma las horas
+hábiles de cada día calendario dentro del rango efectivo seleccionado
+(recorre día por día, no promedia) — así un rango de un solo día da
+exactamente la hora hábil de ese día de la semana (8, 7, 3 o 0 h), y un
+rango de varias semanas da el total correcto sin importar en qué día de
+la semana empieza o termina.
+
+**Horas extra (domingo):** si un técnico tiene una OT cuya `Fecha Inicio
+Real` cae en domingo, esa duración se contabiliza aparte en `horasExtra`
+(columna "Horas extra (domingo)" de la tabla), no en `horasTrab`. No se
+resta de "Horas libres" ni entra en el cálculo de `% Ocupación` — son
+horas fuera del horario disponible, no parte de la capacidad regular. El
+día de la semana se determina con `new Date(r.inicio_real).getDay()===0`
+sobre la OT que le dio origen a la duración (mismo criterio de "duración
+real" que ya existía: solo cuenta si la OT tiene Fecha Inicio Real y
+Fecha Fin Real).
+
+**No volver a un modelo de horas uniformes por día** (p. ej. dividir 42h
+entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
+3h S), y mezclar domingo como si fuera un día laborable normal ocultaría
+las horas extra reales.
 
 ### Equipos "no mantenibles" (ANM)
 
