@@ -167,6 +167,21 @@ Ojo: como normalmente hay muy pocas SS cerradas en un momento dado (10 de
 102 en la corrida de referencia), estos promedios son sobre una muestra
 chica — no ocultarlo, mostrar siempre el "N sobre el cual se calculó".
 
+### Disponibilidad de técnicos (pestaña "Técnicos")
+
+Los técnicos **no tienen un horario fijo por día** — trabajan de lunes a
+sábado según la carga de trabajo que haya (el horario "normal" de
+referencia es lunes a jueves 7am-4pm, viernes 7am-3pm y sábado 7am-10am,
+pero no están sujetos a eso). Lo único fijo es que deben completar **42
+horas semanales** entre lunes y sábado. Por eso `renderTecnicos()` usa
+`HORAS_SEMANALES = 42` y calcula `horasDisponibles = 42 × (días del rango
+/ 7)` — no importa cómo se reparten esas 42 horas entre los días de la
+semana, el prorrateo por semanas calendario sigue siendo válido. **No
+reemplazar esto por un cálculo basado en un horario fijo día por día** (p.
+ej. sumar horas de lunes a sábado con horarios distintos) — se perdería la
+flexibilidad real del horario y probablemente sobrestimaría o
+subestimaría las horas disponibles.
+
 ### Equipos "no mantenibles" (ANM)
 
 En el archivo de Criticidad/Disponibilidad, los activos cuya `Instalación`

@@ -938,7 +938,7 @@ function renderTecnicos(el){
 
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
-  <div class="callout info"><b>Horas disponibles</b> = 42 h semanales × semanas que cubre el rango seleccionado. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
+  <div class="callout info"><b>Horas disponibles</b> = 42 h semanales × semanas que cubre el rango seleccionado. Los técnicos no tienen un horario fijo — trabajan de lunes a sábado según la carga del día — pero deben completar 42 h esa semana, por eso se usa ese número sin importar cómo se repartan los días. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
   <div class="card">
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
