@@ -400,6 +400,7 @@ def construir_paros(ot_df, ot_raw):
             "duracion_h": dur,
             "tecnico": r["tecnico"],
             "estado": r["estado"],
+            "ss_codigo": r["ss_codigo"] if r["viene_ss"] else None,
         })
     return registros
 

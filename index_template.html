@@ -842,29 +842,26 @@ function renderParos(el){
       ${porLugar.length? rankedTable(porLugar, {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Paros'}, extraCols:[{key:'horas',label:'Horas',fmt:fmtH}]}) : '<div class="empty">Sin paros en el rango</div>'}
     </div>
     <div class="card">
-      <div class="card-head"><h3>Detalle de paros</h3></div>
-      <div id="parosDetalle"></div>
+      <div class="card-head"><h3>Máquinas paradas actualmente</h3></div>
+      <div id="parosActuales"></div>
     </div>
   </div>
   `;
+  const paradasActuales = paros.filter(p=>p.duracion_h==null);
   const cols = [
-    {key:'ot', label:'OT'},
     {key:'equipo', label:'Equipo/Activo'},
     {key:'lugar', label:'Lugar'},
+    {key:'ss_codigo', label:'S.S.', fmt:v=> v? `SS-${v}` : '—'},
+    {key:'ot', label:'OT'},
+    {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>'},
     {key:'inicio', label:'Inicio', fmt:fmtDate},
-    {key:'estado_paro', label:'Estado', fmt:(v,r)=>{
-        if(!r.iniciado) return '<span class="badge warn">Pendiente de iniciar</span>';
-        if(r.duracion_h==null) return '<span class="badge warn">En curso</span>';
-        return '<span class="badge good">Finalizado</span>';
-      }},
-    {key:'duracion_h', label:'Duración', num:true, fmt:(v,r)=>{
-        if(!r.iniciado) return '—';
-        if(v==null) return 'en curso';
-        return fmtH(v);
-      }},
     {key:'tecnico', label:'Técnico', fmt:shortTecnico},
   ];
-  buildPagedTable('parosDetalle', paros, cols, {pageSize:8});
+  if(paradasActuales.length){
+    buildPagedTable('parosActuales', paradasActuales, cols, {pageSize:8});
+  } else {
+    document.getElementById('parosActuales').innerHTML = '<div class="empty">Sin máquinas paradas actualmente en el rango</div>';
+  }
 }
 
 /* ============ TAB: Técnicos ============ */
