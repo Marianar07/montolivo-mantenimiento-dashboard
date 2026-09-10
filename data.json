@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-10T11:55:46",
+  "generado": "2026-09-10T12:25:03",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -24616,5 +24616,17 @@
     "Alta": 457,
     "Media": 240
   },
-  "total_equipos_maestro": 2323
+  "total_equipos_maestro": 2323,
+  "tecnicos_internos": [
+    "ALEJANDRO DE JESUS CARDONA CARMONA",
+    "ANDRES FELIPE LONDOÑO GUERRA",
+    "DIEGO MAURICIO OCAMPO",
+    "JEFFERSON OSORIO BUSTAMANTE",
+    "JHONIER MENESES RUIZ",
+    "JONATHAN RESTREPO RAMIREZ",
+    "JUAN JOSE MOSQUERA VARGAS",
+    "OSCAR DARIO CASTAÑEDA GARAY",
+    "PEDRO LOZADA",
+    "YOHAN ESTIBEN SANCHEZ NARANJO"
+  ]
 }

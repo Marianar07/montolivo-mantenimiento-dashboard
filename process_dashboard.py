@@ -82,7 +82,9 @@ def encontrar_archivos(carpeta: Path):
     cuando es inequívoco, y si no, por sus columnas propias (el nombre de
     archivo de estos dos varía: p.ej. Windows agrega " (1)" cuando el CMMS
     exporta dos archivos con el mismo nombre por defecto)."""
-    archivos = list(carpeta.glob("*.xlsx"))
+    # excluye archivos temporales de bloqueo de Excel (p.ej. "~$TECNICOS.xlsx"
+    # que Excel crea mientras el archivo real está abierto)
+    archivos = [a for a in carpeta.glob("*.xlsx") if not a.name.startswith("~$")]
     if not archivos:
         raise FileNotFoundError(
             f"No encontré ningún .xlsx en {carpeta}. "
@@ -114,18 +116,21 @@ def encontrar_archivos(carpeta: Path):
 
     disp_path = elegir("Disponibilidad", disp_candidatos)
     crit_path = elegir("Criticidad de equipos", crit_candidatos)
+    tecnicos_candidatos = buscar(["tecnicos"])
+    tecnicos_path = elegir("TECNICOS", tecnicos_candidatos) if tecnicos_candidatos else None
 
     # OT y SS: de los archivos restantes, identificar por columnas propias
     # de cada export (más confiable que el nombre de archivo, que el CMMS
     # no siempre exporta igual entre corridas).
-    restantes = [a for a in archivos if a not in (disp_path, crit_path)]
+    excluidos = {disp_path, crit_path} | ({tecnicos_path} if tecnicos_path else set())
+    restantes = [a for a in archivos if a not in excluidos]
     ot_candidatos = [a for a in restantes if _es_ot(a)]
     ss_candidatos = [a for a in restantes if _es_ss(a)]
 
     ot_path = elegir("OT (Órdenes de Trabajo)", ot_candidatos)
     ss_path = elegir("SS (Solicitudes de Servicio)", [a for a in ss_candidatos if a != ot_path])
 
-    return ot_path, ss_path, disp_path, crit_path
+    return ot_path, ss_path, disp_path, crit_path, tecnicos_path
 
 
 # ============================================================
@@ -163,6 +168,31 @@ def cargar_criticidad(path):
     decidir qué correctivos cuentan como paro (ver nota ahí)."""
     crit = pd.read_excel(path, sheet_name="Sheet", dtype={"Código": str})
     return crit
+
+
+# El campo Ejecutores de las OT a veces trae el nombre completo del técnico
+# (con más apellidos/nombres) mientras que TECNICOS.xlsx (columna NOMBRE)
+# trae una versión más corta del mismo nombre. Alias conocidos hoy - si
+# aparece un técnico interno nuevo cuyo nombre en OT no calza exacto con
+# TECNICOS.xlsx, quedará mal clasificado como "tercero" hasta agregarlo
+# aquí (revisar el aviso que imprime el script).
+ALIAS_TECNICOS = {
+    "ALEJANDRO CARDONA CARMONA": "ALEJANDRO DE JESUS CARDONA CARMONA",
+    "JEFFERSON ANDRES OSORIO": "JEFFERSON OSORIO BUSTAMANTE",
+    "OSCAR DARIO CASTAÑEDA": "OSCAR DARIO CASTAÑEDA GARAY",
+}
+
+
+def cargar_tecnicos(path):
+    """TECNICOS.xlsx - maestro de técnicos internos (planta), hoja única,
+    columnas NOMBRE/CEDULA/CIUDAD. Un técnico que aparece en el campo
+    Ejecutores de una OT pero NO está en este maestro (ni en ALIAS_TECNICOS)
+    se trata como trabajo de tercero en la pestaña "Técnicos" - ver
+    renderTecnicos() en index_template.html y la nota en CLAUDE.md."""
+    df = pd.read_excel(path, sheet_name=0, dtype=str)
+    nombres = [str(n).strip() for n in df["NOMBRE"].dropna()]
+    # normaliza al nombre "largo" (como aparece en Ejecutores) vía alias
+    return sorted({ALIAS_TECNICOS.get(n, n) for n in nombres})
 
 
 # ============================================================
@@ -464,11 +494,12 @@ def construir_criticidad_totales(crit):
 # ENSAMBLAJE FINAL
 # ============================================================
 
-def construir_data_json(ot_path, ss_path, disp_path, crit_path):
+def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None):
     ot_raw = cargar_ot(ot_path)
     ss_raw = cargar_ss(ss_path)
     disp, periodo_texto = cargar_disponibilidad(disp_path)
     crit = cargar_criticidad(crit_path)
+    tecnicos_internos = cargar_tecnicos(tecnicos_path) if tecnicos_path else None
 
     disp_by_code, crit_by_code, lugar_to_ai = construir_indices(disp, crit)
 
@@ -489,6 +520,11 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path):
         "equipos": equipos,
         "criticidad_totales": criticidad_totales,
         "total_equipos_maestro": total_maestro,
+        # lista de nombres de técnicos internos (planta), normalizados a como
+        # aparecen en el campo Ejecutores de las OT (ver ALIAS_TECNICOS). Si
+        # es None, no se encontró TECNICOS.xlsx - el tablero no separa
+        # terceros en ese caso (trata a todos como internos).
+        "tecnicos_internos": tecnicos_internos,
     }
 
     # reporte rápido en consola para poder revisar antes de subir
@@ -503,6 +539,14 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path):
     mantenibles = sum(1 for e in equipos if e["mantenible"])
     print(f"Equipos en directorio: {len(equipos)} de {total_maestro} en el maestro ({mantenibles} mantenibles, {len(equipos)-mantenibles} no mantenibles)")
     print(f"Criticidad: {criticidad_totales}")
+    if tecnicos_internos is not None:
+        nombres_en_ot = {
+            n.strip() for r in ot_records if isinstance(r.get("tecnico"), str)
+            for n in r["tecnico"].split(",")
+        }
+        terceros = sorted(nombres_en_ot - set(tecnicos_internos))
+        print(f"Técnicos internos (TECNICOS.xlsx): {len(tecnicos_internos)}")
+        print(f"Nombres en OT no reconocidos como internos (van como tercero): {terceros}")
 
     return data
 
@@ -540,17 +584,27 @@ def inyectar_en_plantilla(data, plantilla_path, salida_path):
 def main():
     if len(sys.argv) == 5:
         ot_path, ss_path, disp_path, crit_path = (Path(p) for p in sys.argv[1:5])
+        tecnicos_path = None
+        for carpeta in (CARPETA_DATOS, CARPETA_BASE):
+            candidatos = [a for a in carpeta.glob("*.xlsx") if "tecnicos" in a.name.lower()]
+            if candidatos:
+                tecnicos_path = sorted(candidatos, key=lambda a: a.stat().st_mtime, reverse=True)[0]
+                break
     else:
         carpeta = CARPETA_DATOS if any(CARPETA_DATOS.glob("*.xlsx")) else CARPETA_BASE
-        ot_path, ss_path, disp_path, crit_path = encontrar_archivos(carpeta)
+        ot_path, ss_path, disp_path, crit_path, tecnicos_path = encontrar_archivos(carpeta)
 
     print(f"OT:           {ot_path.name}")
     print(f"SS:           {ss_path.name}")
     print(f"Disponibilidad: {disp_path.name}")
     print(f"Datos Generales de Equipos: {crit_path.name}")
+    if tecnicos_path:
+        print(f"Técnicos:     {tecnicos_path.name}")
+    else:
+        print("Técnicos:     no encontrado (TECNICOS.xlsx) - la pestaña Técnicos no separará terceros")
     print()
 
-    data = construir_data_json(ot_path, ss_path, disp_path, crit_path)
+    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path)
     data = limpiar_nan(data)
 
     SALIDA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")

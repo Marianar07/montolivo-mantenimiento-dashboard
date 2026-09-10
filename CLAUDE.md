@@ -31,6 +31,13 @@ redespliega automáticamente en el mismo enlace.
      de los ~2323 activos del maestro. Reemplaza al antiguo export "EQxIP"
      (hoja `Novedades`) — ver nota en "Paros por equipo" más abajo.
 
+   Además, opcionalmente, **`TECNICOS.xlsx`** (nombre contiene "tecnicos")
+   — maestro de técnicos de planta, columnas `NOMBRE`, `CEDULA`, `CIUDAD`.
+   No es uno de los 4 exports periódicos del CMMS — es una lista de
+   personal que cambia poco, así que no hace falta pedirlo cada vez; solo
+   volver a colocarlo si hay altas/bajas de técnicos. Si no está, el
+   tablero simplemente no separa "trabajo de terceros" (ver más abajo).
+
 2. Ejecutar el script de procesamiento:
    ```
    python process_dashboard.py
@@ -199,6 +206,35 @@ entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
 3h S), y mezclar domingo como si fuera un día laborable normal ocultaría
 las horas extra reales.
 
+### Técnicos internos vs. terceros (pestaña "Técnicos")
+
+**`TECNICOS.xlsx`** es el maestro de técnicos de planta (columnas NOMBRE,
+CEDULA, CIUDAD, hoja única). Vive en la carpeta raíz del proyecto (o en
+`datos_nuevos/` si Mariana lo pone ahí) y es **opcional**: si
+`process_dashboard.py` no lo encuentra, avisa en consola y el tablero
+trata a todos los técnicos como internos (no separa a nadie) — no falla.
+
+Un nombre que aparece en el campo `Ejecutores` de una OT pero que **no**
+está en `TECNICOS.xlsx` (ni en `ALIAS_TECNICOS`, ver abajo) se trata como
+**trabajo de tercero**: se excluye de la tabla "Capacidad y ocupación por
+técnico" y de "Dónde está cada técnico ahora" (no tiene sentido medirle
+% de ocupación contra 42h/semana ni preguntarse "dónde está" — no es
+personal de planta), y en su lugar aparece en la tabla "Trabajo de
+terceros" con solo 4 columnas: OT totales trabajadas, horas trabajadas,
+filtro de OT trabajada y duración de esa OT. Hoy (referencia) los únicos
+dos nombres que caen aquí son `EMGECA` y `SEBASTIAN BUITRAGO GRACIANO`.
+
+**`ALIAS_TECNICOS`** (en `process_dashboard.py`, junto a `cargar_tecnicos`)
+existe porque el nombre del técnico en las OT (`Ejecutores`) a veces trae
+más apellidos/nombres que el registrado en `TECNICOS.xlsx` — p. ej.
+`TECNICOS.xlsx` trae "ALEJANDRO CARDONA CARMONA" pero en las OT aparece
+"ALEJANDRO DE JESUS CARDONA CARMONA". Sin este alias, ese técnico interno
+quedaría mal clasificado como tercero. El script imprime en consola
+`Nombres en OT no reconocidos como internos` en cada corrida — **revisar
+esa lista después de actualizar los datos**: si aparece ahí un nombre que
+en realidad es un técnico de planta con el nombre escrito distinto (y no
+un tercero real), hay que agregarlo a `ALIAS_TECNICOS`, no ignorarlo.
+
 ### Equipos "no mantenibles" (ANM)
 
 En el archivo de Criticidad/Disponibilidad, los activos cuya `Instalación`
@@ -239,6 +275,7 @@ Mantenimiento/
 ├── index_template.html      <- plantilla del tablero (CSS/JS), con marcador __DATA_JSON__
 ├── index.html                <- tablero final generado (el que se sube a GitHub)
 ├── data.json                 <- datos procesados más recientes (se regenera cada vez)
+├── TECNICOS.xlsx              <- maestro de técnicos de planta (opcional, cambia poco)
 └── datos_nuevos/              <- Mariana coloca aquí los 4 Excel de cada actualización
 ```
 

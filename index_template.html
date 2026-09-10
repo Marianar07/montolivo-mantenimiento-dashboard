@@ -371,6 +371,19 @@ function splitTecnicos(str){
   if(!str) return [];
   return String(str).split(',').map(s=>s.trim()).filter(Boolean);
 }
+function wireOtSelectDur(wrapEl){
+  wrapEl.addEventListener('change', (e)=>{
+    const sel = e.target.closest('.tec-ot-select');
+    if(!sel) return;
+    const tr = sel.closest('tr');
+    const durSpan = tr ? tr.querySelector('.tec-dur') : null;
+    if(!durSpan) return;
+    const opt = sel.selectedOptions[0];
+    if(!opt || !opt.value){ durSpan.textContent = '—'; return; }
+    const durAttr = opt.getAttribute('data-dur');
+    durSpan.textContent = durAttr ? fmtH(parseFloat(durAttr)) : 'En curso / pendiente';
+  });
+}
 function duracionRealOT(r){
   return (r.inicio_real && r.fin_real) ? (new Date(r.fin_real)-new Date(r.inicio_real))/3600000 : null;
 }
@@ -928,6 +941,12 @@ function renderTecnicos(el){
   const horasDisponibles = horasDisponiblesRango(desde, hasta);
   const semanas = horasDisponibles/42; // solo para mostrar un "N semanas" aproximado
 
+  // Técnicos internos (planta) vs terceros: ver TECNICOS.xlsx en
+  // process_dashboard.py. Si DATA.tecnicos_internos es null (no se encontró
+  // el archivo), se trata a todos como internos - no se separa nadie.
+  const tecnicosInternosSet = DATA.tecnicos_internos ? new Set(DATA.tecnicos_internos) : null;
+  const esInterno = tecnico => tecnicosInternosSet ? tecnicosInternosSet.has(tecnico) : true;
+
   const capMap = new Map();
   DATA.ot.forEach(r=>{
     splitTecnicos(r.tecnico).forEach(t=>{
@@ -946,20 +965,23 @@ function renderTecnicos(el){
       c.otsList.push({codigo:r.ot, dur, extra:esDomingo, fecha:r.inicio_real||r.inicio_programado||r.fecha_creacion});
     });
   });
-  const capRows = [...capMap.entries()].map(([tecnico,c])=>{
+  const capRowsAll = [...capMap.entries()].map(([tecnico,c])=>{
     const ocupacion = horasDisponibles? (c.horas/horasDisponibles*100) : null;
     const otsList = [...c.otsList].sort((a,b)=> new Date(b.fecha||0) - new Date(a.fecha||0));
     return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, horasExtra:c.horasExtra, ocupacion, libres:horasDisponibles-c.horas, otsList};
-  }).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
+  });
+  const capRows = capRowsAll.filter(r=>esInterno(r.tecnico)).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
+  const tercerosRows = capRowsAll.filter(r=>!esInterno(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
 
   const equiposUnicos = [...new Set(ot.map(r=>r.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   if(tecnicosEquipoFiltro && !equiposUnicos.includes(tecnicosEquipoFiltro)) tecnicosEquipoFiltro = null;
 
   // "Dónde está cada técnico ahora" - NO respeta el filtro de fecha de la
   // pestaña, siempre usa la hora real actual y todo el histórico de OT.
+  // Solo técnicos internos - los terceros se excluyen de esta tabla.
   const ahora = new Date();
   const ESTADO_PRIORIDAD = {conflicto:0, en_sitio:1, programado:2, sin_asignacion:3};
-  const ubicacionRows = [...capMap.keys()].map(tecnico=>{
+  const ubicacionRows = [...capMap.keys()].filter(esInterno).map(tecnico=>{
     const otsTec = DATA.ot.filter(r=>
       (r.tipo==='Correctivo' || r.tipo==='Preventivo') && splitTecnicos(r.tecnico).includes(tecnico)
     );
@@ -991,6 +1013,12 @@ function renderTecnicos(el){
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
   </div>
+  ${tecnicosInternosSet ? `
+  <div class="card section-block">
+    <div class="card-head"><h3>Trabajo de terceros</h3></div>
+    <div class="section-note" style="margin:0 0 10px;">Técnicos que no están en el maestro TECNICOS.xlsx (planta) — no tienen horario ni capacidad de 42h/semana asignada, solo se muestra el trabajo que registraron.</div>
+    <div id="tercerosWrap"></div>
+  </div>` : ''}
   <div class="card section-block">
     <div class="card-head"><h3>Dónde está cada técnico ahora</h3></div>
     <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre calcula con la fecha y hora actual (${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real. "Programado ahora" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye este momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
@@ -1035,18 +1063,25 @@ function renderTecnicos(el){
     {key:'_dur', label:'Duración O.T.', fmt:()=> `<span class="tec-dur">—</span>` },
   ];
   buildPagedTable('capTecnicosWrap', capRows, capCols, {pageSize:15});
-  const capTecnicosWrapEl = document.getElementById('capTecnicosWrap');
-  capTecnicosWrapEl.addEventListener('change', (e)=>{
-    const sel = e.target.closest('.tec-ot-select');
-    if(!sel) return;
-    const tr = sel.closest('tr');
-    const durSpan = tr ? tr.querySelector('.tec-dur') : null;
-    if(!durSpan) return;
-    const opt = sel.selectedOptions[0];
-    if(!opt || !opt.value){ durSpan.textContent = '—'; return; }
-    const durAttr = opt.getAttribute('data-dur');
-    durSpan.textContent = durAttr ? fmtH(parseFloat(durAttr)) : 'En curso / pendiente';
-  });
+  wireOtSelectDur(document.getElementById('capTecnicosWrap'));
+
+  if(tecnicosInternosSet){
+    const tercerosCols = [
+      {key:'tecnico', label:'Técnico / Tercero'},
+      {key:'ot', label:'OT totales trabajadas', num:true},
+      {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
+      {key:'otsList', label:'Filtrar OT trabajada', fmt:(v,row)=> row.otsList.length
+        ? `<select class="tec-ot-select" style="font-size:12px;padding:3px 6px;"><option value="">Selecciona OT...</option>${row.otsList.map(o=>`<option value="${esc(o.codigo)}" data-dur="${o.dur!=null?o.dur:''}">${esc(o.codigo)}</option>`).join('')}</select>`
+        : `<span style="color:var(--ink-3);font-size:12px;">Sin OT</span>` },
+      {key:'_dur', label:'Duración O.T.', fmt:()=> `<span class="tec-dur">—</span>` },
+    ];
+    if(tercerosRows.length){
+      buildPagedTable('tercerosWrap', tercerosRows, tercerosCols, {pageSize:15});
+      wireOtSelectDur(document.getElementById('tercerosWrap'));
+    } else {
+      document.getElementById('tercerosWrap').innerHTML = '<div class="empty">Sin trabajo de terceros registrado</div>';
+    }
+  }
 
   function renderEquipoWrap(){
     const val = document.getElementById('tecEquipoFiltro').value;
