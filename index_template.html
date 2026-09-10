@@ -22,6 +22,7 @@
   --chart-1:#2a78d6;
   --chart-2:#eb6834;
   --chart-3:#1baf7a;
+  --info-text:#1d4ed8; --info-bg:#EFF6FF; --info-border:#BFDBFE;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
@@ -224,6 +225,7 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 .badge.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border);}
 .badge.bad{background:var(--bad-bg);color:var(--bad-text);border:1px solid var(--bad-border);}
 .badge.neutral{background:var(--cream);color:var(--ink-2);border:1px solid var(--border);}
+.badge.info{background:var(--info-bg);color:var(--info-text);border:1px solid var(--info-border);}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -953,12 +955,62 @@ function renderTecnicos(el){
   const equiposUnicos = [...new Set(ot.map(r=>r.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   if(tecnicosEquipoFiltro && !equiposUnicos.includes(tecnicosEquipoFiltro)) tecnicosEquipoFiltro = null;
 
+  // "Dónde está cada técnico ahora" - NO respeta el filtro de fecha de la
+  // pestaña, siempre usa la hora real actual y todo el histórico de OT.
+  const ahora = new Date();
+  const ESTADO_PRIORIDAD = {conflicto:0, en_sitio:1, programado:2, sin_asignacion:3};
+  const ubicacionRows = [...capMap.keys()].map(tecnico=>{
+    const otsTec = DATA.ot.filter(r=>
+      (r.tipo==='Correctivo' || r.tipo==='Preventivo') && splitTecnicos(r.tecnico).includes(tecnico)
+    );
+    const abiertas = otsTec.filter(r=> r.inicio_real && !r.fin_real);
+    if(abiertas.length === 1){
+      const r = abiertas[0];
+      return {tecnico, estado:'en_sitio', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_real};
+    }
+    if(abiertas.length >= 2){
+      return {tecnico, estado:'conflicto', equipo:null, lugar:null, otCodigo:abiertas.map(r=>r.ot).join(', '), desde:null};
+    }
+    const ahoraMs = ahora.getTime();
+    const programadas = otsTec.filter(r=>
+      !r.inicio_real && r.inicio_programado && r.fin_programado &&
+      ahoraMs >= new Date(r.inicio_programado).getTime() && ahoraMs <= new Date(r.fin_programado).getTime()
+    );
+    if(programadas.length){
+      programadas.sort((a,b)=> Math.abs(new Date(a.inicio_programado)-ahoraMs) - Math.abs(new Date(b.inicio_programado)-ahoraMs));
+      const r = programadas[0];
+      return {tecnico, estado:'programado', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_programado};
+    }
+    return {tecnico, estado:'sin_asignacion', equipo:null, lugar:null, otCodigo:null, desde:null};
+  }).sort((a,b)=> ESTADO_PRIORIDAD[a.estado]-ESTADO_PRIORIDAD[b.estado]);
+
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
   <div class="callout info"><b>Horas disponibles</b> = suma de las horas hábiles de cada día del rango seleccionado: lunes a jueves 8 h, viernes 7 h, sábado 3 h (42 h/semana en total). El domingo no es laborable y no suma horas disponibles. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores, excluyendo las que caen en domingo. <b>Horas extra</b> = esa misma duración, pero de las OT cuya Fecha Inicio Real cae en domingo — se muestran aparte porque son trabajo fuera del horario disponible, no se restan de "Horas libres" ni cuentan en el % de ocupación. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
   <div class="card">
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
+  </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>Dónde está cada técnico ahora</h3></div>
+    <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre calcula con la fecha y hora actual (${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real. "Programado ahora" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye este momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
+    ${simpleTable(ubicacionRows, [
+      {key:'tecnico', label:'Técnico'},
+      {key:'estado', label:'Estado', fmt:v=>{
+        const map = {
+          en_sitio:['good','En sitio'],
+          programado:['info','Programado ahora'],
+          sin_asignacion:['neutral','Sin asignación'],
+          conflicto:['bad','⚠ Varios servicios abiertos'],
+        };
+        const [cls,label] = map[v];
+        return `<span class="badge ${cls}">${label}</span>`;
+      }},
+      {key:'equipo', label:'Equipo'},
+      {key:'lugar', label:'Lugar'},
+      {key:'otCodigo', label:'O.T.'},
+      {key:'desde', label:'Desde', fmt:v=> v? fmtDate(v) : '—'},
+    ], {scroll:true})}
   </div>
   <div class="card section-block">
     <div class="card-head">
