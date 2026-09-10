@@ -665,6 +665,21 @@ function renderResumen(el){
   const stParadas = statusClass(pctParadasNoProg, {good:5, warn:10}, true);
   const stDisp = statusClass(dispProm, {good:95, warn:90});
 
+  // Segunda fila de KPIs: volumen y cobertura (algunos en tiempo real, no
+  // respetan el filtro de fecha - se indica en cada sub-etiqueta).
+  const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
+
+  const parosActuales = DATA.paros.filter(p=>!p.fin);
+  const lugaresParos = [...new Set(parosActuales.map(p=>p.lugar).filter(Boolean))];
+  const subParos = parosActuales.length===0 ? 'sin paros activos'
+    : (lugaresParos.length<=3 ? lugaresParos.join(', ') : `en ${lugaresParos.length} lugares`);
+
+  const { rows: ubicacionRows } = calcularUbicacionTecnicos();
+  const tecnicosConTrabajo = ubicacionRows.filter(r=>r.estado!=='sin_asignacion').length;
+
+  const ss = getFilteredSS();
+  const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).length;
+
   el.innerHTML = `
   ${sectionTitle('Indicadores clave del periodo')}
   <div class="kpi-row">
@@ -676,6 +691,16 @@ function renderResumen(el){
     ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`})}
   </div>
   <div class="callout"><b>Nota de calidad de dato:</b> Disponibilidad y OTIF pueden estar sobreestimados — el archivo de disponibilidad aún no registra paros reales para todos los equipos, y algunas fechas programadas de OT se cargan igual a la fecha real de ejecución. Ver pestañas "Disponibilidad" y "Órdenes de Trabajo" para el detalle.</div>
+
+  <div class="kpi-row">
+    ${kpiCard({label:'Órdenes de trabajo totales', value:ot.length})}
+    ${kpiCard({label:'Órdenes de trabajo abiertas', value:otAbiertas})}
+    ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos})}
+    ${kpiCard({label:'Técnicos con trabajo asignado ahora', value:tecnicosConTrabajo, sub:`de ${ubicacionRows.length} técnicos`})}
+    ${kpiCard({label:'Equipos totales', value:equiposMantenibles.length, sub:'mantenibles'})}
+    ${kpiCard({label:'Solicitudes de servicio totales', value:ss.length})}
+    ${kpiCard({label:'Solicitudes de servicio abiertas', value:ssAbiertas})}
+  </div>
 
   <div class="grid2">
     <div class="card">
@@ -992,6 +1017,48 @@ function horasDisponiblesRango(desde, hasta){
   }
   return total;
 }
+// Lista de técnicos internos (planta), como aparecen en el campo
+// Ejecutores. Si no se encontró TECNICOS.xlsx, se derivan todos los
+// nombres que aparecen alguna vez en las OT (no se separan terceros).
+function tecnicosInternosList(){
+  if(DATA.tecnicos_internos) return DATA.tecnicos_internos;
+  const set = new Set();
+  DATA.ot.forEach(r=> splitTecnicos(r.tecnico).forEach(t=>set.add(t)));
+  return [...set];
+}
+/* "Dónde está cada técnico ahora" - reutilizable desde la pestaña Técnicos
+   y desde el KPI de Resumen Gerencial. NO respeta el filtro de fecha,
+   siempre usa la hora real actual y todo el histórico de OT. Solo
+   considera técnicos internos (los proveedores/terceros no aplican). */
+function calcularUbicacionTecnicos(){
+  const ahora = new Date();
+  const ahoraMs = ahora.getTime();
+  const ESTADO_PRIORIDAD = {conflicto:0, en_sitio:1, programado:2, sin_asignacion:3};
+  const rows = tecnicosInternosList().map(tecnico=>{
+    const otsTec = DATA.ot.filter(r=>
+      (r.tipo==='Correctivo' || r.tipo==='Preventivo') && splitTecnicos(r.tecnico).includes(tecnico)
+    );
+    const abiertas = otsTec.filter(r=> r.inicio_real && !r.fin_real);
+    if(abiertas.length === 1){
+      const r = abiertas[0];
+      return {tecnico, estado:'en_sitio', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_real};
+    }
+    if(abiertas.length >= 2){
+      return {tecnico, estado:'conflicto', equipo:null, lugar:null, otCodigo:abiertas.map(r=>r.ot).join(', '), desde:null};
+    }
+    const programadas = otsTec.filter(r=>
+      !r.inicio_real && r.inicio_programado && r.fin_programado &&
+      ahoraMs >= new Date(r.inicio_programado).getTime() && ahoraMs <= new Date(r.fin_programado).getTime()
+    );
+    if(programadas.length){
+      programadas.sort((a,b)=> Math.abs(new Date(a.inicio_programado)-ahoraMs) - Math.abs(new Date(b.inicio_programado)-ahoraMs));
+      const r = programadas[0];
+      return {tecnico, estado:'programado', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_programado};
+    }
+    return {tecnico, estado:'sin_asignacion', equipo:null, lugar:null, otCodigo:null, desde:null};
+  }).sort((a,b)=> ESTADO_PRIORIDAD[a.estado]-ESTADO_PRIORIDAD[b.estado]);
+  return {rows, ahora};
+}
 function renderTecnicos(el){
   const ot = getFilteredOT();
   const {desde, hasta} = rangoEfectivoOT();
@@ -1041,32 +1108,7 @@ function renderTecnicos(el){
   // "Dónde está cada técnico ahora" - NO respeta el filtro de fecha de la
   // pestaña, siempre usa la hora real actual y todo el histórico de OT.
   // Solo técnicos internos - los terceros se excluyen de esta tabla.
-  const ahora = new Date();
-  const ESTADO_PRIORIDAD = {conflicto:0, en_sitio:1, programado:2, sin_asignacion:3};
-  const ubicacionRows = [...capMap.keys()].filter(esInterno).map(tecnico=>{
-    const otsTec = DATA.ot.filter(r=>
-      (r.tipo==='Correctivo' || r.tipo==='Preventivo') && splitTecnicos(r.tecnico).includes(tecnico)
-    );
-    const abiertas = otsTec.filter(r=> r.inicio_real && !r.fin_real);
-    if(abiertas.length === 1){
-      const r = abiertas[0];
-      return {tecnico, estado:'en_sitio', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_real};
-    }
-    if(abiertas.length >= 2){
-      return {tecnico, estado:'conflicto', equipo:null, lugar:null, otCodigo:abiertas.map(r=>r.ot).join(', '), desde:null};
-    }
-    const ahoraMs = ahora.getTime();
-    const programadas = otsTec.filter(r=>
-      !r.inicio_real && r.inicio_programado && r.fin_programado &&
-      ahoraMs >= new Date(r.inicio_programado).getTime() && ahoraMs <= new Date(r.fin_programado).getTime()
-    );
-    if(programadas.length){
-      programadas.sort((a,b)=> Math.abs(new Date(a.inicio_programado)-ahoraMs) - Math.abs(new Date(b.inicio_programado)-ahoraMs));
-      const r = programadas[0];
-      return {tecnico, estado:'programado', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_programado};
-    }
-    return {tecnico, estado:'sin_asignacion', equipo:null, lugar:null, otCodigo:null, desde:null};
-  }).sort((a,b)=> ESTADO_PRIORIDAD[a.estado]-ESTADO_PRIORIDAD[b.estado]);
+  const {rows: ubicacionRows, ahora} = calcularUbicacionTecnicos();
 
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
