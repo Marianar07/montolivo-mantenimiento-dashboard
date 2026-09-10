@@ -168,17 +168,19 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .section-title .bar{width:4px;height:16px;background:var(--maroon);border-radius:2px;}
 .section-note{font-size:12px;color:var(--ink-3);margin:-6px 0 14px;padding-left:13px;}
 
+.kpi-group{margin-bottom:18px;}
+.kpi-group-title{font-size:11px;letter-spacing:0.7px;font-weight:700;color:var(--ink-3);margin-bottom:8px;}
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:8px;}
 @media (max-width:640px){
   .kpi-row{grid-template-columns:1fr;}
 }
 .kpi-card{
-  background:var(--card);border:1px solid var(--border);border-left:4px solid var(--maroon);
+  background:var(--card);border:1px solid var(--border);
   border-radius:8px;padding:14px 16px;
 }
-.kpi-card.good{border-left-color:var(--good);}
-.kpi-card.warn{border-left-color:var(--warn);}
-.kpi-card.bad{border-left-color:var(--bad);}
+.kpi-card.good{border-left:4px solid var(--good);}
+.kpi-card.warn{border-left:4px solid var(--warn);}
+.kpi-card.bad{border-left:4px solid var(--bad);}
 .kpi-label{font-size:10.5px;letter-spacing:0.6px;text-transform:uppercase;color:var(--ink-3);font-weight:700;display:flex;align-items:center;gap:6px;}
 .kpi-value{font-size:26px;font-weight:800;margin-top:4px;line-height:1.1;}
 .kpi-value.good{color:var(--good-text);}
@@ -489,6 +491,12 @@ function kpiCard({label, value, sub, status}){
     ${sub?`<div class="kpi-sub">${sub}</div>`:''}
   </div>`;
 }
+function kpiGroup(title, cardsHtml){
+  return `<div class="kpi-group">
+    <div class="kpi-group-title">${esc(title).toUpperCase()}</div>
+    <div class="kpi-row">${cardsHtml}</div>
+  </div>`;
+}
 function sectionTitle(text, note){
   return `<div class="section-title"><span class="bar"></span>${text}</div>${note?`<div class="section-note">${note}</div>`:''}`;
 }
@@ -648,12 +656,9 @@ function renderResumen(el){
   const otif = cerradasTotal.length? (aTiempo.length/cerradasTotal.length*100) : null;
 
   const equiposMantenibles = DATA.equipos.filter(e=>e.mantenible);
-  const horasHabilTotal = equiposMantenibles.reduce((s,e)=>s+0,0); // no usamos por equipo aqui
   const horasParoCorrectivo = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
   const horasHabilPeriodo = 3360; // referencia del export de disponibilidad (ver nota)
   const pctParadasNoProg = horasHabilPeriodo? (horasParoCorrectivo/horasHabilPeriodo*100) : null;
-
-  const dispProm = equiposMantenibles.length? equiposMantenibles.reduce((s,e)=>s+(e.disponibilidad_pct||0),0)/equiposMantenibles.length*100 : null;
 
   const costoTotal = ot.reduce((s,r)=>s+(r.costo_real||0),0);
   const costoCorrectivo = correctivas.reduce((s,r)=>s+(r.costo_real||0),0);
@@ -663,16 +668,16 @@ function renderResumen(el){
   const stCumpl = statusClass(cumplimientoPrev, {good:90, warn:75});
   const stOtif = statusClass(otif, {good:90, warn:75});
   const stParadas = statusClass(pctParadasNoProg, {good:5, warn:10}, true);
-  const stDisp = statusClass(dispProm, {good:95, warn:90});
 
-  // Segunda fila de KPIs: volumen y cobertura (algunos en tiempo real, no
-  // respetan el filtro de fecha - se indica en cada sub-etiqueta).
+  // KPIs de trabajo/servicio en tiempo real (no respetan el filtro de
+  // fecha - se indica en cada sub-etiqueta).
   const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
 
   const parosActuales = DATA.paros.filter(p=>!p.fin);
   const lugaresParos = [...new Set(parosActuales.map(p=>p.lugar).filter(Boolean))];
   const subParos = parosActuales.length===0 ? 'sin paros activos'
     : (lugaresParos.length<=3 ? lugaresParos.join(', ') : `en ${lugaresParos.length} lugares`);
+  const stParos = statusClass(parosActuales.length, {good:0.5}, true);
 
   const { rows: ubicacionRows } = calcularUbicacionTecnicos();
   const tecnicosConTrabajo = ubicacionRows.filter(r=>r.estado!=='sin_asignacion').length;
@@ -682,25 +687,30 @@ function renderResumen(el){
 
   el.innerHTML = `
   ${sectionTitle('Indicadores clave del periodo')}
-  <div class="kpi-row">
-    ${kpiCard({label:'Averías equipos críticos', value:averiasCriticas, sub:`de ${correctivas.length} correctivas totales`, status:stAverias})}
-    ${kpiCard({label:'Disponibilidad promedio', value:fmtPct(dispProm), sub:`${equiposMantenibles.length} equipos mantenibles`, status:stDisp})}
+
+  ${kpiGroup('Trabajo', `
+    ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`})}
+    ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos, status:stParos})}
+    ${kpiCard({label:'Técnicos con trabajo asignado ahora', value:tecnicosConTrabajo, sub:`de ${ubicacionRows.length} técnicos`})}
+  `)}
+
+  ${kpiGroup('Servicio', `
+    ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`})}
+  `)}
+
+  ${kpiGroup('Calidad', `
     ${kpiCard({label:'Cumplimiento preventivo', value:fmtPct(cumplimientoPrev), sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
     ${kpiCard({label:'% Paradas no programadas', value:fmtPct(pctParadasNoProg), sub:`${horasParoCorrectivo.toFixed(1)} h de paro correctivo`, status:stParadas})}
     ${kpiCard({label:'OTIF mantenimiento', value:fmtPct(otif), sub:`${aTiempo.length} de ${cerradasTotal.length} OT cerradas a tiempo`, status:stOtif})}
-    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`})}
-  </div>
-  <div class="callout"><b>Nota de calidad de dato:</b> Disponibilidad y OTIF pueden estar sobreestimados — el archivo de disponibilidad aún no registra paros reales para todos los equipos, y algunas fechas programadas de OT se cargan igual a la fecha real de ejecución. Ver pestañas "Disponibilidad" y "Órdenes de Trabajo" para el detalle.</div>
+    ${kpiCard({label:'Averías equipos críticos', value:averiasCriticas, sub:`de ${correctivas.length} correctivas totales`, status:stAverias})}
+  `)}
 
-  <div class="kpi-row">
-    ${kpiCard({label:'Órdenes de trabajo totales', value:ot.length})}
-    ${kpiCard({label:'Órdenes de trabajo abiertas', value:otAbiertas})}
-    ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos})}
-    ${kpiCard({label:'Técnicos con trabajo asignado ahora', value:tecnicosConTrabajo, sub:`de ${ubicacionRows.length} técnicos`})}
+  ${kpiGroup('Costos y activos', `
+    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`})}
     ${kpiCard({label:'Equipos totales', value:equiposMantenibles.length, sub:'mantenibles'})}
-    ${kpiCard({label:'Solicitudes de servicio totales', value:ss.length})}
-    ${kpiCard({label:'Solicitudes de servicio abiertas', value:ssAbiertas})}
-  </div>
+  `)}
+
+  <div class="callout"><b>Nota de calidad de dato:</b> El OTIF puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
 
   <div class="grid2">
     <div class="card">
