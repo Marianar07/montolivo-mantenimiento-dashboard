@@ -5,7 +5,8 @@ Guía rápida para cuando tengas datos nuevos del CMMS.
 ## Cada vez que quieras actualizar el tablero
 
 1. Exporta los 4 archivos de siempre desde el CMMS (Órdenes de Trabajo,
-   Solicitudes de Servicio, Disponibilidad, Criticidad de equipos) y
+   Solicitudes de Servicio, Disponibilidad, Datos Generales de Equipos —
+   este último trae criticidad y "Provoca Paro?" de cada activo) y
    guárdalos dentro de la carpeta `datos_nuevos` (reemplazando los que
    estaban ahí de la vez anterior).
 

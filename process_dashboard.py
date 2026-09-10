@@ -98,7 +98,7 @@ def encontrar_archivos(carpeta: Path):
         return candidatos
 
     disp_candidatos = buscar(["disponibilidad"])
-    crit_candidatos = buscar(["eqxip", "criticidad"])
+    crit_candidatos = buscar(["datos generales de equipos"])
 
     def elegir(nombre, candidatos):
         if len(candidatos) == 0:
@@ -156,7 +156,12 @@ def cargar_disponibilidad(path):
 
 
 def cargar_criticidad(path):
-    crit = pd.read_excel(path, sheet_name="Novedades", dtype={"Código": str})
+    """'Datos Generales de Equipos.xlsx' - maestro consolidado de activos,
+    hoja única 'Sheet'. Trae, entre otras, las columnas 'Código',
+    'Criticidad' (Alta/Media/Baja) y 'Provoca Paro?' (Sí/No) - esta última
+    es la clasificación oficial del CMMS que usa construir_paros() para
+    decidir qué correctivos cuentan como paro (ver nota ahí)."""
+    crit = pd.read_excel(path, sheet_name="Sheet", dtype={"Código": str})
     return crit
 
 
@@ -211,7 +216,14 @@ def resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai):
             if isinstance(r, pd.DataFrame):
                 r = r.iloc[0]
             lugar = lugar_desde_instalacion(entidad_full)
-            return r.name if hasattr(r, "name") else r["Código"], r["Equipo"], lugar, "instalacion_pdv"
+            # NOTA: usar r["Código"] (la columna), no r.name - lugar_to_ai
+            # esta indexado por "Instalación de Proceso", así que r.name es
+            # el texto del lugar, no el código AI-xxxx del activo sustituto
+            # (bug corregido: antes esto dejaba equipo_cod con el texto
+            # crudo "MTV-... | Lugar" en vez del código real, y por eso
+            # tanto la criticidad como el cruce con 'Provoca Paro?'
+            # fallaban en silencio para estas filas).
+            return r["Código"], r["Equipo"], lugar, "instalacion_pdv"
         else:
             lugar = lugar_desde_instalacion(entidad_full)
             return None, None, lugar, "solo_ubicacion"
@@ -364,11 +376,19 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
 # PAROS (a partir de OT correctivas resueltas a un equipo/lugar)
 # ============================================================
 
-def construir_paros(ot_df, ot_raw):
+def construir_paros(ot_df, ot_raw, crit):
+    """Un correctivo cuenta como paro solo si su equipo_cod resuelto está
+    marcado 'Provoca Paro?' = 'Sí' en 'Datos Generales de Equipos.xlsx' -
+    la clasificación oficial del CMMS (columna propia del maestro de
+    activos, cargado en `crit`). Ya NO se usa la marca ANM ni el prefijo
+    AI- para esta decisión (esos criterios eran una aproximación de cuando
+    no existía esta columna; ver CLAUDE.md)."""
+    provoca_paro_set = set(crit[crit["Provoca Paro?"] == "Sí"]["Código"])
+
     ot_raw_idx = ot_raw.set_index("Código O.T.")
     correctivas = ot_df[
         (ot_df["tipo"] == "Correctivo")
-        & (ot_df["_tipo_match"].isin(["equipo_especifico", "instalacion_pdv"]))
+        & (ot_df["equipo_cod"].isin(provoca_paro_set))
     ]
 
     registros = []
@@ -454,7 +474,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path):
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
-    paros = construir_paros(ot_df, ot_raw)
+    paros = construir_paros(ot_df, ot_raw, crit)
     equipos, total_maestro = construir_equipos(disp, crit)
     criticidad_totales = construir_criticidad_totales(crit)
 
@@ -475,6 +495,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path):
     resueltas = ot_df["_tipo_match"].isin(["equipo_especifico", "instalacion_pdv"]).sum()
     print(f"OT procesadas: {len(ot_df)} (de las cuales {resueltas} con equipo/lugar resuelto)")
     print(f"SS procesadas: {len(ss_df)}")
+    provoca_paro_n = int((crit["Provoca Paro?"] == "Sí").sum())
+    print(f"Activos que 'Provoca Paro?' = Sí: {provoca_paro_n} de {len(crit)} en el maestro")
     print(f"Paros identificados: {len(paros)} "
           f"({sum(1 for p in paros if p['iniciado'])} iniciados, "
           f"{sum(1 for p in paros if not p['iniciado'])} pendientes de iniciar)")
@@ -525,7 +547,7 @@ def main():
     print(f"OT:           {ot_path.name}")
     print(f"SS:           {ss_path.name}")
     print(f"Disponibilidad: {disp_path.name}")
-    print(f"Criticidad:   {crit_path.name}")
+    print(f"Datos Generales de Equipos: {crit_path.name}")
     print()
 
     data = construir_data_json(ot_path, ss_path, disp_path, crit_path)

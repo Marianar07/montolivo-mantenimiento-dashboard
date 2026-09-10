@@ -25,9 +25,11 @@ redespliega automáticamente en el mismo enlace.
      Columnas: `Código`, `Equipo`, `Instalación de Proceso`, `Tiempo
      Producción Hábil/Real [Horas]`, `Tiempo Paro Correctivo/Preventivo
      [Horas]`, `Disponibilidad [%]`.
-   - **Criticidad de equipos**: nombre contiene "EQxIP" — hoja `Novedades`,
-     columnas `Código`, `Equipo`, `Instalación`, `Criticidad`
-     (Alta/Media/Baja), `Estado`.
+   - **Datos Generales de Equipos**: nombre contiene "Datos Generales de
+     Equipos" — hoja única `Sheet`, columnas incluyen `Código`, `Nombre`,
+     `Criticidad` (Alta/Media/Baja) y `Provoca Paro?` (Sí/No) para cada uno
+     de los ~2323 activos del maestro. Reemplaza al antiguo export "EQxIP"
+     (hoja `Novedades`) — ver nota en "Paros por equipo" más abajo.
 
 2. Ejecutar el script de procesamiento:
    ```
@@ -93,10 +95,31 @@ directo** — se pierde la mayoría de la cobertura.
 
 ### Paros por equipo
 
-Un "paro" es una OT de tipo Correctivo cuyo equipo/lugar se pudo resolver
-(`equipo_especifico` o `instalacion_pdv`). El sistema CMMS todavía no tiene
-un módulo de paros propio con datos reales — este indicador es un cálculo
-derivado, no un reporte nativo. Cada paro puede estar:
+Un "paro" es una OT de tipo Correctivo cuyo equipo (`equipo_cod`, ya resuelto
+con la lógica de la sección anterior) está marcado `Provoca Paro?` = `"Sí"`
+en **`Datos Generales de Equipos.xlsx`** (el maestro de activos que también
+trae la `Criticidad`, ver arriba). Es la clasificación oficial del CMMS
+sobre qué activos, al fallar, generan un paro real de operación —
+`construir_paros()` arma este set directamente desde el dataframe de
+criticidad ya cargado (`crit`), sin necesitar un archivo aparte.
+
+**Historial:** antes de tener la columna `Provoca Paro?`, el criterio era
+una aproximación: contaba como paro cualquier correctivo cuyo equipo/lugar
+se hubiera podido resolver (`equipo_especifico` o `instalacion_pdv`, ver
+sección anterior) — usando de forma indirecta la marca de activos "no
+mantenibles" ANM y el prefijo `AI-` de los activos sustitutos de punto de
+venta. Ese proxy sobrestimaba los paros: los activos `AI-xxxx |
+ADECUACIÓN E INSTALACIÓN <lugar>` (los sustitutos que se usan solo para
+poder ubicar equipo/lugar cuando la OT referencia el punto de venta, no un
+equipo puntual — ver sección anterior) casi todos están marcados `"No"` en
+`Provoca Paro?`, porque no son equipos reales. **No volver a ese criterio
+(ANM/`AI-`) para decidir qué es un paro** — usar siempre `Provoca Paro?`.
+(La marca ANM se sigue usando, sin relación con esto, para excluir activos
+del directorio de equipos en la pestaña "Equipos" — ver más abajo.)
+
+El sistema CMMS todavía no tiene un módulo de paros propio con datos
+reales — este indicador sigue siendo un cálculo derivado, no un reporte
+nativo. Cada paro puede estar:
 - **Pendiente de iniciar**: la OT sigue abierta y no tiene `Fecha Inicio
   Real` — se usa `Fecha Inicio Programado` como fecha de referencia, y la
   duración queda `null`.
