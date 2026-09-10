@@ -905,11 +905,27 @@ function renderParos(el){
 }
 
 /* ============ TAB: Técnicos ============ */
+function diasLaborables(desde, hasta){
+  // cuenta días lunes a sábado (excluye domingo) entre dos fechas, inclusive
+  let count = 0;
+  const cur = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
+  const fin = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
+  while(cur <= fin){
+    if(cur.getDay() !== 0) count++; // 0 = domingo
+    cur.setDate(cur.getDate()+1);
+  }
+  return count;
+}
 function renderTecnicos(el){
   const ot = getFilteredOT();
   const {desde, hasta} = rangoEfectivoOT();
-  const dias = Math.max((hasta-desde)/86400000, 1);
-  const semanas = dias/7;
+  // 42 h se reparten entre 6 días (lunes a sábado) - contar días calendario
+  // /7 subestima el disponible en rangos cortos porque incluye domingos
+  // (no laborables) en el divisor. Ver nota de "Disponibilidad de técnicos"
+  // en CLAUDE.md. Sin piso en 1: un rango que caiga solo en domingo(s) sí
+  // debe dar 0 h disponibles (ocupacion queda en null, no divide por cero).
+  const dias = diasLaborables(desde, hasta);
+  const semanas = dias/6;
   const HORAS_SEMANALES = 42;
   const horasDisponibles = HORAS_SEMANALES * semanas;
 
@@ -938,7 +954,7 @@ function renderTecnicos(el){
 
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
-  <div class="callout info"><b>Horas disponibles</b> = 42 h semanales × semanas que cubre el rango seleccionado. Los técnicos no tienen un horario fijo — trabajan de lunes a sábado según la carga del día — pero deben completar 42 h esa semana, por eso se usa ese número sin importar cómo se repartan los días. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
+  <div class="callout info"><b>Horas disponibles</b> = 42 h semanales × (días lunes a sábado que cubre el rango seleccionado ÷ 6) — los domingos no cuentan porque no son laborables. Los técnicos no tienen un horario fijo — trabajan de lunes a sábado según la carga del día — pero deben completar 42 h esa semana, por eso se usa ese número sin importar cómo se repartan los días. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
   <div class="card">
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
