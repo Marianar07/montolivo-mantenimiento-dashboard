@@ -1077,8 +1077,8 @@ function renderTecnicos(el){
   </div>
   ${tecnicosInternosSet ? `
   <div class="card section-block">
-    <div class="card-head"><h3>Trabajo de terceros</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">Técnicos que no están en el maestro TECNICOS.xlsx (planta) — no tienen horario ni capacidad de 42h/semana asignada, solo se muestra el trabajo que registraron.</div>
+    <div class="card-head"><h3>Servicios de proveedores</h3></div>
+    <div class="section-note" style="margin:0 0 10px;">Proveedores externos (no están en el maestro TECNICOS.xlsx de planta) — no tienen horario ni capacidad de 42h/semana asignada, solo se muestra el trabajo que registraron. Los registros a nombre de SEBASTIAN BUITRAGO GRACIANO corresponden a proveedores que no están dados de alta individualmente en el sistema.</div>
     <div id="tercerosWrap"></div>
   </div>` : ''}
   <div class="card section-block">
@@ -1129,7 +1129,7 @@ function renderTecnicos(el){
 
   if(tecnicosInternosSet){
     const tercerosCols = [
-      {key:'tecnico', label:'Técnico / Tercero'},
+      {key:'tecnico', label:'Proveedor'},
       {key:'ot', label:'OT totales trabajadas', num:true},
       {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
       {key:'otsList', label:'Filtrar OT trabajada', fmt:(v,row)=> row.otsList.length

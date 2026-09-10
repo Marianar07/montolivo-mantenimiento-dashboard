@@ -216,13 +216,17 @@ trata a todos los técnicos como internos (no separa a nadie) — no falla.
 
 Un nombre que aparece en el campo `Ejecutores` de una OT pero que **no**
 está en `TECNICOS.xlsx` (ni en `ALIAS_TECNICOS`, ver abajo) se trata como
-**trabajo de tercero**: se excluye de la tabla "Capacidad y ocupación por
-técnico" y de "Dónde está cada técnico ahora" (no tiene sentido medirle
-% de ocupación contra 42h/semana ni preguntarse "dónde está" — no es
-personal de planta), y en su lugar aparece en la tabla "Trabajo de
-terceros" con solo 4 columnas: OT totales trabajadas, horas trabajadas,
-filtro de OT trabajada y duración de esa OT. Hoy (referencia) los únicos
-dos nombres que caen aquí son `EMGECA` y `SEBASTIAN BUITRAGO GRACIANO`.
+**servicio de proveedor externo**: se excluye de la tabla "Capacidad y
+ocupación por técnico" y de "Dónde está cada técnico ahora" (no tiene
+sentido medirle % de ocupación contra 42h/semana ni preguntarse "dónde
+está" — no es personal de planta), y en su lugar aparece en la tabla
+"Servicios de proveedores" con solo 4 columnas: OT totales trabajadas,
+horas trabajadas, filtro de OT trabajada y duración de esa OT. Hoy
+(referencia) los únicos dos nombres que caen aquí son `EMGECA` y
+`SEBASTIAN BUITRAGO GRACIANO` — este último es un proveedor que no está
+dado de alta individualmente en el sistema (no es un empleado ni un
+error de captura, así que **no** hay que agregarlo a `TECNICOS.xlsx` ni a
+`ALIAS_TECNICOS`).
 
 **`ALIAS_TECNICOS`** (en `process_dashboard.py`, junto a `cargar_tecnicos`)
 existe porque el nombre del técnico en las OT (`Ejecutores`) a veces trae
