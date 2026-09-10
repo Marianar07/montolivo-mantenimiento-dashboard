@@ -818,15 +818,42 @@ function renderParos(el){
   const paros = getFilteredParos();
   const totalH = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
   const promH = paros.length? totalH/paros.filter(p=>p.duracion_h!=null).length : null;
-
-  const porLugar = groupSum(paros, p=>p.lugar, p=>p.duracion_h||0).map(x=>{
-    const n = paros.filter(p=>p.lugar===x.key).length;
-    return {lugar:x.key, n, horas:x.sum};
-  }).sort((a,b)=>b.n-a.n);
-
   const pendientes = paros.filter(p=>!p.iniciado).length;
-  const enCurso = paros.filter(p=>p.iniciado && p.duracion_h==null).length;
-  const finalizados = paros.filter(p=>p.duracion_h!=null).length;
+
+  // 1) Paros por lugar (respeta el filtro de fecha de la pestana)
+  const lugarMap = new Map();
+  paros.forEach(p=>{
+    const key = p.lugar || 'Sin dato';
+    if(!lugarMap.has(key)) lugarMap.set(key, {lugar:key, total:0, sumaDur:0, nDur:0});
+    const c = lugarMap.get(key);
+    c.total++;
+    if(p.duracion_h!=null){ c.sumaDur += p.duracion_h; c.nDur++; }
+  });
+  const porLugar = [...lugarMap.values()]
+    .map(c=>({lugar:c.lugar, total:c.total, promedio: c.nDur? c.sumaDur/c.nDur : null}))
+    .sort((a,b)=>b.total-a.total);
+
+  // 2) Paros actuales (NO respeta el filtro de fecha - foto real de ahora mismo)
+  const hoy = new Date();
+  const paradasActuales = DATA.paros.filter(p=>!p.fin).map(p=>{
+    const dias = p.inicio? (hoy - new Date(p.inicio))/86400000 : null;
+    return {...p, dias};
+  }).sort((a,b)=>(b.dias||0)-(a.dias||0));
+
+  // 3) Frecuencia de mantenimiento por equipo (histórico completo, sin filtro de fecha)
+  const eqMap = new Map();
+  DATA.paros.forEach(p=>{
+    if(!p.equipo_cod || !p.inicio) return;
+    if(!eqMap.has(p.equipo_cod)) eqMap.set(p.equipo_cod, {equipo:p.equipo, lugar:p.lugar, fechas:[]});
+    eqMap.get(p.equipo_cod).fechas.push(new Date(p.inicio));
+  });
+  const frecuencia = [...eqMap.values()].filter(c=>c.fechas.length>=2).map(c=>{
+    const fechas = [...c.fechas].sort((a,b)=>a-b);
+    const diffs = [];
+    for(let i=1;i<fechas.length;i++) diffs.push((fechas[i]-fechas[i-1])/86400000);
+    const promedio = diffs.reduce((a,b)=>a+b,0)/diffs.length;
+    return {equipo:c.equipo, lugar:c.lugar, n:c.fechas.length, promedio};
+  }).sort((a,b)=>a.promedio-b.promedio);
 
   el.innerHTML = `
   ${sectionTitle('Paros por equipo', `${paros.length} paros identificados a partir de OT correctivas — el módulo de paros del sistema aún no reporta datos propios`)}
@@ -839,29 +866,36 @@ function renderParos(el){
   <div class="grid2">
     <div class="card">
       <div class="card-head"><h3>Paros por lugar</h3></div>
-      ${porLugar.length? rankedTable(porLugar, {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Paros'}, extraCols:[{key:'horas',label:'Horas',fmt:fmtH}]}) : '<div class="empty">Sin paros en el rango</div>'}
+      ${simpleTable(porLugar, [
+        {key:'lugar', label:'Lugar'},
+        {key:'total', label:'Total de paros', num:true},
+        {key:'promedio', label:'Duración promedio (h)', num:true, fmt:v=>fmtH(v)},
+      ], {scroll:true})}
     </div>
     <div class="card">
-      <div class="card-head"><h3>Máquinas paradas actualmente</h3></div>
-      <div id="parosActuales"></div>
+      <div class="card-head"><h3>Paros actuales</h3></div>
+      <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre muestra los equipos parados en este momento.</div>
+      ${paradasActuales.length? simpleTable(paradasActuales, [
+        {key:'equipo', label:'Equipo'},
+        {key:'lugar', label:'Lugar'},
+        {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>'},
+        {key:'inicio', label:'Inicio del paro', fmt:fmtDate},
+        {key:'dias', label:'Días parado', num:true, fmt:v=> v==null?'—':v.toFixed(1)},
+        {key:'tecnico', label:'Técnico', fmt:v=> v? shortTecnico(v) : '—'},
+      ], {scroll:true}) : '<div class="empty">No hay equipos parados actualmente</div>'}
     </div>
   </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>Frecuencia de mantenimiento por equipo</h3></div>
+    ${simpleTable(frecuencia, [
+      {key:'equipo', label:'Equipo'},
+      {key:'lugar', label:'Lugar'},
+      {key:'n', label:'Paros históricos', num:true},
+      {key:'promedio', label:'Promedio de días entre paros', num:true, fmt:v=>v.toFixed(1)},
+    ], {scroll:true})}
+    <div class="section-note" style="margin-top:10px;">Solo se muestran equipos con 2 o más paros registrados en el historial.</div>
+  </div>
   `;
-  const paradasActuales = paros.filter(p=>p.duracion_h==null);
-  const cols = [
-    {key:'equipo', label:'Equipo/Activo'},
-    {key:'lugar', label:'Lugar'},
-    {key:'ss_codigo', label:'S.S.', fmt:v=> v? `SS-${v}` : '—'},
-    {key:'ot', label:'OT'},
-    {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>'},
-    {key:'inicio', label:'Inicio', fmt:fmtDate},
-    {key:'tecnico', label:'Técnico', fmt:shortTecnico},
-  ];
-  if(paradasActuales.length){
-    buildPagedTable('parosActuales', paradasActuales, cols, {pageSize:8});
-  } else {
-    document.getElementById('parosActuales').innerHTML = '<div class="empty">Sin máquinas paradas actualmente en el rango</div>';
-  }
 }
 
 /* ============ TAB: Técnicos ============ */
