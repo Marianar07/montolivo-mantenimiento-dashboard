@@ -840,12 +840,17 @@ function renderParos(el){
     return {...p, dias};
   }).sort((a,b)=>(b.dias||0)-(a.dias||0));
 
-  // 3) Frecuencia de mantenimiento por equipo (histórico completo, sin filtro de fecha)
+  // 3) Frecuencia de mantenimiento por equipo: cada cuánto se le hace UNA
+  // intervención (correctiva o preventiva) a cada equipo puntual - histórico
+  // completo de OT, sin filtro de fecha. No es lo mismo que "paros": aquí
+  // cuenta cualquier OT resuelta a un equipo, no solo las que provocan paro.
   const eqMap = new Map();
-  DATA.paros.forEach(p=>{
-    if(!p.equipo_cod || !p.inicio) return;
-    if(!eqMap.has(p.equipo_cod)) eqMap.set(p.equipo_cod, {equipo:p.equipo, lugar:p.lugar, fechas:[]});
-    eqMap.get(p.equipo_cod).fechas.push(new Date(p.inicio));
+  DATA.ot.forEach(r=>{
+    if(!r.equipo_cod) return;
+    const fecha = r.inicio_real || r.inicio_programado || r.fecha_creacion;
+    if(!fecha) return;
+    if(!eqMap.has(r.equipo_cod)) eqMap.set(r.equipo_cod, {equipo:r.equipo, lugar:r.lugar, fechas:[]});
+    eqMap.get(r.equipo_cod).fechas.push(new Date(fecha));
   });
   const frecuencia = [...eqMap.values()].filter(c=>c.fechas.length>=2).map(c=>{
     const fechas = [...c.fechas].sort((a,b)=>a-b);
@@ -887,13 +892,14 @@ function renderParos(el){
   </div>
   <div class="card section-block">
     <div class="card-head"><h3>Frecuencia de mantenimiento por equipo</h3></div>
+    <div class="section-note" style="margin:0 0 10px;">Cada cuánto recibe una intervención (correctiva o preventiva) cada equipo puntual — no es lo mismo que "paros": aquí cuenta toda OT resuelta a un equipo, sin filtrar por si provoca paro. Histórico completo, no respeta el filtro de fecha de arriba.</div>
     ${simpleTable(frecuencia, [
       {key:'equipo', label:'Equipo'},
       {key:'lugar', label:'Lugar'},
-      {key:'n', label:'Paros históricos', num:true},
-      {key:'promedio', label:'Promedio de días entre paros', num:true, fmt:v=>v.toFixed(1)},
+      {key:'n', label:'Mantenimientos históricos', num:true},
+      {key:'promedio', label:'Promedio de días entre mantenimientos', num:true, fmt:v=>v.toFixed(1)},
     ], {scroll:true})}
-    <div class="section-note" style="margin-top:10px;">Solo se muestran equipos con 2 o más paros registrados en el historial.</div>
+    <div class="section-note" style="margin-top:10px;">Solo se muestran equipos con 2 o más mantenimientos (correctivos + preventivos) registrados en el historial.</div>
   </div>
   `;
 }
