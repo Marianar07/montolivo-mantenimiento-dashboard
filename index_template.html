@@ -254,6 +254,9 @@ thead th{
 }
 thead th:first-child{border-top-left-radius:6px;}
 thead th:last-child{border-top-right-radius:6px;}
+thead th.sortable-th{cursor:pointer;user-select:none;}
+thead th.sortable-th:hover{background:var(--maroon-dark);}
+.sort-arrow{display:inline-block;margin-left:3px;font-size:9px;}
 tbody td{padding:7px 10px;border-bottom:1px solid var(--border);white-space:nowrap;}
 tbody tr:hover{background:var(--maroon-wash);}
 tbody tr:nth-child(even){background:#FBF8F5;}
@@ -408,10 +411,43 @@ function setupModal(){
 }
 
 /* ============ Global filter state ============ */
-let FILTER = { desde:null, hasta:null };
+let FILTER = { desde:null, hasta:null, lugar:null, lugarGlobal:false };
 
-function getFilteredOT(){ return DATA.ot.filter(r=>inRange(r.fecha_creacion, FILTER.desde, FILTER.hasta)); }
-function getFilteredSS(){ return DATA.ss.filter(r=>inRange(r.fecha_ss, FILTER.desde, FILTER.hasta)); }
+function getFilteredOT(){ return DATA.ot.filter(r=>inRange(r.fecha_creacion, FILTER.desde, FILTER.hasta) && (!FILTER.lugarGlobal || !FILTER.lugar || r.lugar===FILTER.lugar)); }
+function getFilteredSS(){ return DATA.ss.filter(r=>inRange(r.fecha_ss, FILTER.desde, FILTER.hasta) && (!FILTER.lugarGlobal || !FILTER.lugar || r.lugar===FILTER.lugar)); }
+function getFilteredParos(){ return DATA.paros.filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta) && (!FILTER.lugarGlobal || !FILTER.lugar || r.lugar===FILTER.lugar)); }
+function getFilteredParosProgramados(){ return (DATA.paros_programados||[]).filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta) && (!FILTER.lugarGlobal || !FILTER.lugar || r.lugar===FILTER.lugar)); }
+
+// Lista de puntos de venta / lugares disponibles, para los selects de
+// filtro por punto de venta (O.T. y SS).
+function lugaresDisponibles(){
+  return [...new Set([...DATA.ot.map(r=>r.lugar), ...DATA.ss.map(r=>r.lugar)].filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+}
+// Filtro de "Punto de venta" reutilizable en varias pestañas. Por defecto
+// solo afecta la pestaña donde se usa (localState); si se marca "Aplicar a
+// todas las pestañas" pasa a guardarse en FILTER.lugar/FILTER.lugarGlobal y
+// hace un renderAll() para que el resto del tablero también lo respete.
+function lugarFiltroHtml(selectId, checkboxId, localState){
+  const lugares = lugaresDisponibles();
+  const valor = FILTER.lugarGlobal ? (FILTER.lugar||'') : (localState.value||'');
+  return `<span class="chip-row-label">Punto de venta:</span>
+    <select id="${selectId}"><option value="">Todos</option>${lugares.map(l=>`<option value="${esc(l)}"${l===valor?' selected':''}>${esc(l)}</option>`).join('')}</select>
+    <label style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-2);margin-left:10px;white-space:nowrap;"><input type="checkbox" id="${checkboxId}"${FILTER.lugarGlobal?' checked':''}> Aplicar a todas las pestañas</label>`;
+}
+function wireLugarFiltro(selectId, checkboxId, localState, onLocalChange){
+  const sel = document.getElementById(selectId);
+  const chk = document.getElementById(checkboxId);
+  sel.addEventListener('change', ()=>{
+    localState.value = sel.value || null;
+    if(chk.checked){ FILTER.lugar = localState.value; renderAll(); }
+    else { onLocalChange(); }
+  });
+  chk.addEventListener('change', ()=>{
+    FILTER.lugarGlobal = chk.checked;
+    FILTER.lugar = chk.checked ? (sel.value || null) : null;
+    renderAll();
+  });
+}
 
 /* ============ Filtro de mes propio de la tarjeta "Top lugares" (independiente del filtro general) ============ */
 let topLugaresMes = null; // 'YYYY-MM', se fija al mes mas reciente disponible en el primer render
@@ -522,7 +558,7 @@ function setupFilterBar(){
   fDesde.addEventListener('change', ()=>{ FILTER.desde = fDesde.value? new Date(fDesde.value+'T00:00:00'):null; setActivePreset(null); renderAll(); });
   fHasta.addEventListener('change', ()=>{ FILTER.hasta = fHasta.value? new Date(fHasta.value+'T23:59:59'):null; setActivePreset(null); renderAll(); });
   document.getElementById('btnLimpiar').addEventListener('click', ()=>{
-    FILTER = {desde:null, hasta:null}; fDesde.value=''; fHasta.value='';
+    FILTER = {desde:null, hasta:null, lugar:null, lugarGlobal:false}; fDesde.value=''; fHasta.value='';
     setActivePreset('todo'); renderAll();
   });
 
@@ -537,7 +573,7 @@ function setupFilterBar(){
   row.querySelectorAll('.chip').forEach(chip=>{
     chip.addEventListener('click', ()=>{
       const p = presets.find(x=>x.id===chip.dataset.p);
-      FILTER = p.fn();
+      FILTER = {...FILTER, ...p.fn()};
       fDesde.value = FILTER.desde? FILTER.desde.toISOString().slice(0,10) : '';
       fHasta.value = FILTER.hasta? FILTER.hasta.toISOString().slice(0,10) : '';
       setActivePreset(p.id);
@@ -696,22 +732,54 @@ function wireBarClicks(chartwrapEl){
 }
 
 /* generic paginated + searchable table for large datasets */
+/* generic paginated + searchable + sortable table for large datasets */
 function buildPagedTable(containerId, allRows, columns, opts={}){
   const pageSize = opts.pageSize || 15;
   let page = 0;
   let filtered = allRows;
+  let sortKey = null, sortDir = 1; // 1 = asc, -1 = desc
+  function getSortVal(r, c){
+    if(c.sortVal) return c.sortVal(r);
+    return r[c.key];
+  }
+  function applySort(){
+    if(!sortKey) return;
+    const col = columns.find(c=>c.key===sortKey);
+    if(!col) return;
+    filtered = filtered.slice().sort((a,b)=>{
+      let va = getSortVal(a,col), vb = getSortVal(b,col);
+      const na = (va===null||va===undefined||va===''), nb = (vb===null||vb===undefined||vb==='');
+      if(na && nb) return 0;
+      if(na) return 1; // vacíos siempre al final sin importar la dirección
+      if(nb) return -1;
+      if(typeof va === 'string' && typeof vb === 'string'){
+        return va.localeCompare(vb) * sortDir;
+      }
+      if(va < vb) return -1*sortDir;
+      if(va > vb) return 1*sortDir;
+      return 0;
+    });
+  }
   function applyFilter(term){
     if(!term){ filtered = allRows; }
     else{
       const t = term.toLowerCase();
       filtered = allRows.filter(r => columns.some(c => String(r[c.key]??'').toLowerCase().includes(t)));
     }
+    applySort();
     page = 0; draw();
   }
   function draw(){
     const start = page*pageSize;
     const rows = filtered.slice(start, start+pageSize);
-    const tbl = `<div class="tablewrap"><table><thead><tr>${columns.map(c=>`<th${c.num?' class="num"':''}>${c.label}</th>`).join('')}</tr></thead><tbody>
+    const thead = columns.map(c=>{
+      const sortable = c.sortable!==false;
+      let arrow = '';
+      if(sortable && sortKey===c.key) arrow = sortDir===1 ? ' ▲' : ' ▼';
+      const cls = [c.num?'num':'', sortable?'sortable-th':''].filter(Boolean).join(' ');
+      return `<th${cls?` class="${cls}"`:''}${sortable?` data-sortkey="${c.key}"`:''}>${c.label}${sortable?`<span class="sort-arrow">${arrow}</span>`:''}</th>`;
+    }).join('');
+    const tbl = `<div class="tablewrap"><table><thead><tr>${thead}</tr></thead><tbody>
       ${rows.length? rows.map(r=>`<tr>${columns.map(c=>`<td${c.num?' class="num"':''}>${c.fmt? c.fmt(r[c.key],r) : esc(r[c.key]??'—')}</td>`).join('')}</tr>`).join('') : `<tr><td colspan="${columns.length}" class="empty">Sin resultados</td></tr>`}
       </tbody></table></div>
       <div class="pager">
@@ -722,9 +790,17 @@ function buildPagedTable(containerId, allRows, columns, opts={}){
     document.getElementById(containerId).innerHTML = tbl;
     const prev = document.getElementById(containerId+'-prev'); if(prev) prev.onclick=()=>{page--;draw();};
     const next = document.getElementById(containerId+'-next'); if(next) next.onclick=()=>{page++;draw();};
+    document.getElementById(containerId).querySelectorAll('.sortable-th').forEach(th=>{
+      th.addEventListener('click', ()=>{
+        const key = th.getAttribute('data-sortkey');
+        if(sortKey===key){ sortDir = -sortDir; } else { sortKey = key; sortDir = 1; }
+        applySort();
+        page = 0; draw();
+      });
+    });
   }
   draw();
-  return { setFilter: applyFilter, refresh: (newRows)=>{ allRows=newRows; filtered=newRows; page=0; draw(); } };
+  return { setFilter: applyFilter, refresh: (newRows)=>{ allRows=newRows; filtered=newRows; applySort(); page=0; draw(); } };
 }
 
 /* ============ TAB: Resumen Gerencial ============ */
@@ -921,22 +997,31 @@ function avgDuracionProgramada(rows){
   return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
 }
 function cumplimientoOT(r){
-  if(r.fin_real){
-    if(!r.fin_programado) return 'si';
+  const ahora = new Date();
+  if(r.estado === 'Cerrada'){
+    if(!r.fin_real || !r.fin_programado) return 'si'; // cerrada sin fecha de referencia, se asume cumplida
     return new Date(r.fin_real) <= new Date(r.fin_programado) ? 'si' : 'no';
   }
-  const ahora = new Date();
+  // sigue abierta - sin importar si por error de captura ya tiene Fecha Fin Real
+  if(r.fin_programado && ahora > new Date(r.fin_programado)) return 'no';
   if(r.inicio_programado && ahora < new Date(r.inicio_programado)) return 'pendiente';
-  return 'no';
+  return 'en_proceso';
 }
 function cumplimientoStats(rows){
-  const c = {si:0, no:0, pendiente:0};
+  const c = {si:0, no:0, en_proceso:0, pendiente:0};
   rows.forEach(r=>{ c[cumplimientoOT(r)]++; });
   const total = rows.length || 1;
-  return {...c, total:rows.length, pctSi:rows.length?c.si/total*100:null, pctNo:rows.length?c.no/total*100:null, pctPendiente:rows.length?c.pendiente/total*100:null};
+  return {...c, total:rows.length,
+    pctSi:rows.length?c.si/total*100:null,
+    pctNo:rows.length?c.no/total*100:null,
+    pctEnProceso:rows.length?c.en_proceso/total*100:null,
+    pctPendiente:rows.length?c.pendiente/total*100:null};
 }
+let otLugarFiltro = { value: null };
+let ssLugarFiltro = { value: null };
 function renderOT(el){
-  const all = getFilteredOT();
+  let all = getFilteredOT();
+  if(!FILTER.lugarGlobal && otLugarFiltro.value) all = all.filter(r=>r.lugar===otLugarFiltro.value);
   const abiertas = all.filter(r=>r.estado==='Abierta');
   const sinIniciar = abiertas.filter(r=>!(r.avance>0)).length;
   const conAvance = abiertas.filter(r=>r.avance>0).length;
@@ -951,19 +1036,18 @@ function renderOT(el){
   });
 
   el.innerHTML = `
-  ${sectionTitle('Listado completo de Órdenes de Trabajo', `${all.length} OT en el rango seleccionado`)}
   <div class="kpi-row">
     ${kpiCard({label:'Total de OT', value:all.length})}
     ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
     ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
   </div>
   ${sectionTitle('Tiempos de ejecución por tipo y severidad de OT', 'Desvío de inicio, duración programada vs. real, y cumplimiento frente a lo programado')}
-  <div class="callout info"><b>Desvío de inicio</b> = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado). <b>Cumplida</b> = terminó en o antes de la fecha fin programada. <b>Incumplida</b> = terminó tarde, o sigue abierta y ya se pasó su fecha de inicio programada. <b>Pendiente</b> = aún no llega su fecha de inicio programada.</div>
+  <div class="callout info"><b>Desvío de inicio</b> = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado). <b>Cumplida</b> = terminó en o antes de la fecha fin programada. <b>Incumplida</b> = terminó tarde, o sigue abierta y ya se pasó su fecha fin programada. <b>En proceso</b> = sigue abierta pero todavía dentro de su ventana programada. <b>Pendiente</b> = aún no llega su fecha de inicio programada.</div>
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>Por tipo de OT — ¿se están cumpliendo?</h3></div>
-      <div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">OT</th><th class="num">Desvío inicio</th><th class="num">Dur. programada</th><th class="num">Dur. real</th><th class="num">% Cumplidas</th><th class="num">% Incumplidas</th><th class="num">% Pendientes</th></tr></thead><tbody>
-      ${porTipo.map(r=>`<tr><td>${r.tipo}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracionProg)}</td><td class="num">${fmtH(r.duracion)}</td><td class="num">${fmtPct(r.cumpl.pctSi)}</td><td class="num">${fmtPct(r.cumpl.pctNo)}</td><td class="num">${fmtPct(r.cumpl.pctPendiente)}</td></tr>`).join('')}
+      <div class="card-head"><h3>Por tipo de OT</h3></div>
+      <div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">OT</th><th class="num">Desvío inicio</th><th class="num">Dur. programada</th><th class="num">Dur. real</th><th class="num">% Cumplidas</th><th class="num">% Incumplidas</th><th class="num">% En proceso</th><th class="num">% Pendientes</th></tr></thead><tbody>
+      ${porTipo.map(r=>`<tr><td>${r.tipo}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracionProg)}</td><td class="num">${fmtH(r.duracion)}</td><td class="num">${fmtPct(r.cumpl.pctSi)}</td><td class="num">${fmtPct(r.cumpl.pctNo)}</td><td class="num">${fmtPct(r.cumpl.pctEnProceso)}</td><td class="num">${fmtPct(r.cumpl.pctPendiente)}</td></tr>`).join('')}
       </tbody></table></div>
     </div>
     <div class="card">
@@ -981,22 +1065,21 @@ function renderOT(el){
         ${stackBar([
           {label:'Cumplidas', value:r.cumpl.si, color:'var(--good)'},
           {label:'Incumplidas', value:r.cumpl.no, color:'var(--bad)'},
+          {label:'En proceso', value:r.cumpl.en_proceso, color:'var(--info-text)'},
           {label:'Pendientes', value:r.cumpl.pendiente, color:'var(--warn)'},
         ])}
       </div>`).join('')}
     </div>
   </div>
   <div class="card section-block">
-    <div class="card-head"><h3>O.T. por punto de venta</h3></div>
-    ${simpleTable(groupOTPorLugar(all), [
-      {key:'lugar', label:'Punto de venta'},
-      {key:'total', label:'Total O.T.', num:true},
-      {key:'trabajando', label:'Trabajando', num:true},
-      {key:'sinIniciar', label:'Abiertas sin iniciar', num:true},
-      {key:'cerradas', label:'Cerradas', num:true},
-    ], {scroll:true})}
+    <div class="card-head">
+      <h3>O.T. por punto de venta</h3>
+      ${lugarFiltroHtml('otLugarSelect','otLugarGlobal', otLugarFiltro)}
+    </div>
+    <div id="otPorLugarWrap"></div>
   </div>
   <div class="card section-block">
+    ${sectionTitle('Listado completo de Órdenes de Trabajo', `${all.length} OT en el rango seleccionado`)}
     <div class="card-head">
       <input class="searchbox" type="text" id="otSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
       <select id="otEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
@@ -1016,14 +1099,15 @@ function renderOT(el){
     {key:'fin_programado', label:'Fin prog.', fmt:fmtDate},
     {key:'inicio_real', label:'Inicio real', fmt:fmtDate},
     {key:'fin_real', label:'Fin real', fmt:fmtDate},
-    {key:'_dur_prog', label:'Dur. prog.', num:true, fmt:(v,r)=>fmtH(duracionProgramadaOT(r))},
-    {key:'_dur_real', label:'Dur. real', num:true, fmt:(v,r)=>fmtH(duracionRealOT(r))},
+    {key:'_dur_prog', label:'Dur. prog.', num:true, fmt:(v,r)=>fmtH(duracionProgramadaOT(r)), sortVal:r=>duracionProgramadaOT(r)},
+    {key:'_dur_real', label:'Dur. real', num:true, fmt:(v,r)=>fmtH(duracionRealOT(r)), sortVal:r=>duracionRealOT(r)},
     {key:'_a_tiempo', label:'¿A tiempo?', fmt:(v,r)=>{
       const st = cumplimientoOT(r);
       if(st==='si') return '<span class="badge good">Sí</span>';
-      if(st==='pendiente') return '<span class="badge warn">Pendiente</span>';
+      if(st==='en_proceso') return '<span class="badge info">En proceso</span>';
+      if(st==='pendiente') return '<span class="badge neutral">Pendiente</span>';
       return '<span class="badge bad">No</span>';
-    }},
+    }, sortVal:r=>({si:0, en_proceso:1, pendiente:2, no:3}[cumplimientoOT(r)])},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Cerrada'?'good':'warn'}">${v}</span>`},
     {key:'avance', label:'Avance', num:true, fmt:v=>v+'%'},
     {key:'lugar', label:'Lugar'},
@@ -1050,6 +1134,15 @@ function renderOT(el){
   document.getElementById('otSearch').addEventListener('input', refresh);
   document.getElementById('otEstado').addEventListener('change', refresh);
   document.getElementById('otTipo').addEventListener('change', refresh);
+
+  document.getElementById('otPorLugarWrap').innerHTML = simpleTable(groupOTPorLugar(all), [
+    {key:'lugar', label:'Punto de venta'},
+    {key:'total', label:'Total O.T.', num:true},
+    {key:'trabajando', label:'Trabajando', num:true},
+    {key:'sinIniciar', label:'Abiertas sin iniciar', num:true},
+    {key:'cerradas', label:'Cerradas', num:true},
+  ], {scroll:true});
+  wireLugarFiltro('otLugarSelect','otLugarGlobal', otLugarFiltro, ()=>renderOT(el));
 }
 
 /* ============ TAB: Paros por Equipo ============ */
@@ -1451,7 +1544,8 @@ function cumplimientoStatsSS(rows){
     pctSi:conFecha.length?c.si/total*100:null, pctNo:conFecha.length?c.no/total*100:null, pctPendiente:conFecha.length?c.pendiente/total*100:null};
 }
 function renderSS(el){
-  const all = getFilteredSS();
+  let all = getFilteredSS();
+  if(!FILTER.lugarGlobal && ssLugarFiltro.value) all = all.filter(r=>r.lugar===ssLugarFiltro.value);
   const pendientes = all.filter(r=>r.estado==='Creada').length;
   const conRespuesta = all.filter(r=>r.fecha_respuesta);
   const tResp = conRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
@@ -1459,7 +1553,6 @@ function renderSS(el){
   const cumplSS = cumplimientoStatsSS(all);
 
   el.innerHTML = `
-  ${sectionTitle('Histórico de Solicitudes de Servicio (SS)', `${all.length} SS en el rango — usa los filtros de fecha arriba para acotar el periodo`)}
   <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Evaluada</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Las SS en estado Creada, Leída, Programada en O.T. o Validada siguen abiertas y no tienen Fecha de respuesta.</div>
   <div class="callout info"><b>Cumplimiento</b> = Fecha de respuesta vs. Fecha esperada (plazo del CMMS). <b>Cumplida</b> = respondida en o antes de la Fecha esperada. <b>Incumplida</b> = respondió tarde, o sigue abierta y ya se pasó la Fecha esperada. <b>Pendiente</b> = aún no llega la Fecha esperada. <b>Días de mora</b> = días pasados de la Fecha esperada (0 si está a tiempo) — ${cumplSS.total} de ${all.length} SS en el rango traen Fecha esperada.</div>
   <div class="kpi-row">
@@ -1481,15 +1574,14 @@ function renderSS(el){
     </div>
   </div>
   <div class="card section-block">
-    <div class="card-head"><h3>SS por punto de venta</h3></div>
-    ${simpleTable(groupSSPorLugar(all), [
-      {key:'lugar', label:'Punto de venta'},
-      {key:'total', label:'Total SS', num:true},
-      {key:'abiertas', label:'SS abiertas', num:true},
-      {key:'pct', label:'% abiertas', num:true, fmt:v=>fmtPct(v)},
-    ], {scroll:true})}
+    <div class="card-head">
+      <h3>SS por punto de venta</h3>
+      ${lugarFiltroHtml('ssLugarSelect','ssLugarGlobal', ssLugarFiltro)}
+    </div>
+    <div id="ssPorLugarWrap"></div>
   </div>
-  <div class="card">
+  <div class="card section-block">
+    ${sectionTitle('Histórico de Solicitudes de Servicio (SS)', `${all.length} SS en el rango seleccionado`)}
     <div class="card-head">
       <input class="searchbox" type="text" id="ssSearch" placeholder="Buscar por SS, equipo, lugar...">
       <select id="ssEstado"><option value="">Todos los estados</option>${[...new Set(DATA.ss.map(r=>r.estado))].map(e=>`<option>${e}</option>`).join('')}</select>
@@ -1514,8 +1606,8 @@ function renderSS(el){
       if(st==='no') return '<span class="badge bad">No cumplió</span>';
       if(st==='pendiente') return '<span class="badge warn">Pendiente</span>';
       return '—';
-    }},
-    {key:'_mora', label:'Días de mora', num:true, fmt:(v,r)=>{ const d=diasMoraSS(r); return d==null?'—':d.toFixed(1); }},
+    }, sortVal:r=>({si:0, no:1, pendiente:2}[cumplimientoSS(r)] ?? 3)},
+    {key:'_mora', label:'Días de mora', num:true, fmt:(v,r)=>{ const d=diasMoraSS(r); return d==null?'—':d.toFixed(1); }, sortVal:r=>diasMoraSS(r)},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge neutral">${v}</span>`},
     {key:'ot_asociada', label:'OT'},
   ];
@@ -1533,6 +1625,14 @@ function renderSS(el){
   document.getElementById('ssSearch').addEventListener('input', refresh);
   document.getElementById('ssEstado').addEventListener('change', refresh);
   document.getElementById('ssTipo').addEventListener('change', refresh);
+
+  document.getElementById('ssPorLugarWrap').innerHTML = simpleTable(groupSSPorLugar(all), [
+    {key:'lugar', label:'Punto de venta'},
+    {key:'total', label:'Total SS', num:true},
+    {key:'abiertas', label:'SS abiertas', num:true},
+    {key:'pct', label:'% abiertas', num:true, fmt:v=>fmtPct(v)},
+  ], {scroll:true});
+  wireLugarFiltro('ssLugarSelect','ssLugarGlobal', ssLugarFiltro, ()=>renderSS(el));
 }
 
 /* ============ TAB: Costos ============ */
