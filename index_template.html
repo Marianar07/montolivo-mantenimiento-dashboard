@@ -192,6 +192,27 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .status-dot.warn{background:var(--warn);}
 .status-dot.bad{background:var(--bad);}
 
+/* ---- Meter: tarjeta hero para un % contra un umbral (Cumplimiento, OTIF) ---- */
+.kpi-card.hero.meter .kpi-value{font-size:30px;}
+.meter-track{height:9px;border-radius:5px;overflow:hidden;margin-top:12px;}
+.meter-track.good{background:var(--good-bg);}
+.meter-track.warn{background:var(--warn-bg);}
+.meter-track.bad{background:var(--bad-bg);}
+.meter-fill{height:100%;border-radius:5px;transition:width .3s;}
+.meter-fill.good{background:var(--good);}
+.meter-fill.warn{background:var(--warn);}
+.meter-fill.bad{background:var(--bad);}
+
+/* ---- Barra apilada compacta (parte-del-todo): equipos por criticidad ---- */
+.stackbar{display:flex;height:30px;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+.stackbar-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;}
+.stackbar-legend{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);}
+.stackbar-legend span{display:inline-flex;align-items:center;gap:6px;}
+.stackbar-legend .sw{width:9px;height:9px;border-radius:2px;display:inline-block;}
+
+/* ---- Pulido general: sombra suave en todas las tarjetas ---- */
+.kpi-card, .card{box-shadow:0 1px 3px rgba(36,27,29,0.05);}
+
 .section-block{margin-top:30px;}
 
 .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:18px;}
@@ -497,6 +518,25 @@ function kpiGroup(title, cardsHtml){
     <div class="kpi-row">${cardsHtml}</div>
   </div>`;
 }
+// Tarjeta "meter": un % contra un umbral, con barra de progreso coloreada
+// por estado (verde/ámbar/rojo) - para métricas tipo "Cumplimiento" u "OTIF".
+function meterHero({label, pct, sub, status}){
+  const st = status || 'good';
+  const w = pct==null ? 0 : Math.max(0, Math.min(100, pct));
+  return `<div class="kpi-card hero meter">
+    <div class="kpi-label"><span class="status-dot ${st}"></span>${label}</div>
+    <div class="kpi-value ${st}">${fmtPct(pct)}</div>
+    <div class="meter-track ${st}"><div class="meter-fill ${st}" style="width:${w}%"></div></div>
+    ${sub?`<div class="kpi-sub">${sub}</div>`:''}
+  </div>`;
+}
+// Barra apilada compacta para una variable parte-del-todo (ej. equipos por
+// criticidad) - más legible que una dona para pocas categorías con etiqueta.
+function stackBar(segments){
+  const total = segments.reduce((s,x)=>s+x.value,0) || 1;
+  return `<div class="stackbar">${segments.filter(s=>s.value>0).map(s=>`<div class="stackbar-seg" style="width:${(s.value/total*100).toFixed(1)}%;background:${s.color}">${s.value}</div>`).join('')}</div>
+  <div class="stackbar-legend">${segments.map(s=>`<span><span class="sw" style="background:${s.color}"></span>${s.label} (${s.value})</span>`).join('')}</div>`;
+}
 function sectionTitle(text, note){
   return `<div class="section-title"><span class="bar"></span>${text}</div>${note?`<div class="section-note">${note}</div>`:''}`;
 }
@@ -645,7 +685,6 @@ function renderResumen(el){
   const paros = getFilteredParos();
   const correctivas = ot.filter(r=>r.tipo==='Correctivo');
   const preventivas = ot.filter(r=>r.tipo==='Preventivo');
-  const averiasCriticas = correctivas.filter(r=>r.criticidad==='Alta').length;
 
   const cerradasPrev = preventivas.filter(r=>r.estado==='Cerrada');
   const cumplidasPrev = cerradasPrev.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
@@ -655,16 +694,14 @@ function renderResumen(el){
   const aTiempo = cerradasTotal.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
   const otif = cerradasTotal.length? (aTiempo.length/cerradasTotal.length*100) : null;
 
-  const equiposMantenibles = DATA.equipos.filter(e=>e.mantenible);
+  const critTotales = DATA.criticidad_totales || {};
+  const costoTotal = ot.reduce((s,r)=>s+(r.costo_real||0),0);
+  const costoCorrectivo = correctivas.reduce((s,r)=>s+(r.costo_real||0),0);
+  const costoPreventivo = preventivas.reduce((s,r)=>s+(r.costo_real||0),0);
   const horasParoCorrectivo = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
   const horasHabilPeriodo = 3360; // referencia del export de disponibilidad (ver nota)
   const pctParadasNoProg = horasHabilPeriodo? (horasParoCorrectivo/horasHabilPeriodo*100) : null;
 
-  const costoTotal = ot.reduce((s,r)=>s+(r.costo_real||0),0);
-  const costoCorrectivo = correctivas.reduce((s,r)=>s+(r.costo_real||0),0);
-  const costoPreventivo = preventivas.reduce((s,r)=>s+(r.costo_real||0),0);
-
-  const stAverias = statusClass(averiasCriticas, {good:0.5, warn:2.5}, true);
   const stCumpl = statusClass(cumplimientoPrev, {good:90, warn:75});
   const stOtif = statusClass(otif, {good:90, warn:75});
   const stParadas = statusClass(pctParadasNoProg, {good:5, warn:10}, true);
@@ -698,16 +735,22 @@ function renderResumen(el){
     ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`})}
   `)}
 
-  ${kpiGroup('Calidad', `
-    ${kpiCard({label:'Cumplimiento preventivo', value:fmtPct(cumplimientoPrev), sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
-    ${kpiCard({label:'% Paradas no programadas', value:fmtPct(pctParadasNoProg), sub:`${horasParoCorrectivo.toFixed(1)} h de paro correctivo`, status:stParadas})}
-    ${kpiCard({label:'OTIF mantenimiento', value:fmtPct(otif), sub:`${aTiempo.length} de ${cerradasTotal.length} OT cerradas a tiempo`, status:stOtif})}
-    ${kpiCard({label:'Averías equipos críticos', value:averiasCriticas, sub:`de ${correctivas.length} correctivas totales`, status:stAverias})}
+  ${kpiGroup('Lo más importante', `
+    ${meterHero({label:'Cumplimiento preventivo', pct:cumplimientoPrev, sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
+    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`, hero:true, accent:'c2'})}
   `)}
 
-  ${kpiGroup('Costos y activos', `
-    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`})}
-    ${kpiCard({label:'Equipos totales', value:equiposMantenibles.length, sub:'mantenibles'})}
+  ${kpiGroup('Calidad y activos', `
+    ${kpiCard({label:'% Paradas no programadas', value:fmtPct(pctParadasNoProg), sub:`${horasParoCorrectivo.toFixed(1)} h de paro correctivo`, status:stParadas})}
+    ${meterHero({label:'OTIF mantenimiento', pct:otif, sub:`${aTiempo.length} de ${cerradasTotal.length} OT cerradas a tiempo`, status:stOtif})}
+    <div class="kpi-card">
+      <div class="kpi-label">Equipos por criticidad</div>
+      ${stackBar([
+        {label:'Alta', value:critTotales.Alta||0, color:'var(--bad)'},
+        {label:'Media', value:critTotales.Media||0, color:'var(--warn)'},
+        {label:'Baja', value:critTotales.Baja||0, color:'var(--good)'},
+      ])}
+    </div>
   `)}
 
   <div class="callout"><b>Nota de calidad de dato:</b> El OTIF puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
