@@ -192,8 +192,17 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .status-dot.warn{background:var(--warn);}
 .status-dot.bad{background:var(--bad);}
 
+/* ---- Hero: tarjeta destacada (valor más grande) para KPIs prioritarios ---- */
+.kpi-card.hero .kpi-value{font-size:30px;}
+.kpi-row.hero{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}
+.kpi-card.accent-c1{border-left:4px solid var(--chart-1);}
+.kpi-card.accent-c1 .kpi-value{color:var(--chart-1);}
+.kpi-card.accent-c2{border-left:4px solid var(--chart-2);}
+.kpi-card.accent-c2 .kpi-value{color:var(--chart-2);}
+.kpi-card.accent-c3{border-left:4px solid var(--chart-3);}
+.kpi-card.accent-c3 .kpi-value{color:var(--chart-3);}
+
 /* ---- Meter: tarjeta hero para un % contra un umbral (Cumplimiento, OTIF) ---- */
-.kpi-card.hero.meter .kpi-value{font-size:30px;}
 .meter-track{height:9px;border-radius:5px;overflow:hidden;margin-top:12px;}
 .meter-track.good{background:var(--good-bg);}
 .meter-track.warn{background:var(--warn-bg);}
@@ -367,6 +376,7 @@ let FILTER = { desde:null, hasta:null };
 function getFilteredOT(){ return DATA.ot.filter(r=>inRange(r.fecha_creacion, FILTER.desde, FILTER.hasta)); }
 function getFilteredSS(){ return DATA.ss.filter(r=>inRange(r.fecha_ss, FILTER.desde, FILTER.hasta)); }
 function getFilteredParos(){ return DATA.paros.filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta)); }
+function getFilteredParosProgramados(){ return (DATA.paros_programados||[]).filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta)); }
 
 /* ============ Filtro de mes propio de la tarjeta "Top lugares" (independiente del filtro general) ============ */
 let topLugaresMes = null; // 'YYYY-MM', se fija al mes mas reciente disponible en el primer render
@@ -507,18 +517,19 @@ function setActivePreset(id){
 }
 
 /* ============ Reusable render helpers ============ */
-function kpiCard({label, value, sub, status}){
+function kpiCard({label, value, sub, status, hero, accent}){
   const st = status || '';
-  return `<div class="kpi-card ${st}">
+  const cls = ['kpi-card', st, hero?'hero':'', accent?'accent-'+accent:''].filter(Boolean).join(' ');
+  return `<div class="${cls}">
     <div class="kpi-label">${status?`<span class="status-dot ${st}"></span>`:''}${label}</div>
     <div class="kpi-value ${st}">${value}</div>
     ${sub?`<div class="kpi-sub">${sub}</div>`:''}
   </div>`;
 }
-function kpiGroup(title, cardsHtml){
+function kpiGroup(title, cardsHtml, hero){
   return `<div class="kpi-group">
     <div class="kpi-group-title">${esc(title).toUpperCase()}</div>
-    <div class="kpi-row">${cardsHtml}</div>
+    <div class="kpi-row${hero?' hero':''}">${cardsHtml}</div>
   </div>`;
 }
 // Tarjeta "meter": un % contra un umbral, con barra de progreso coloreada
@@ -693,9 +704,8 @@ function renderResumen(el){
   const cumplidasPrev = cerradasPrev.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
   const cumplimientoPrev = preventivas.length? (cumplidasPrev.length/preventivas.length*100) : null;
 
-  const cerradasTotal = ot.filter(r=>r.estado==='Cerrada');
-  const aTiempo = cerradasTotal.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
-  const otif = cerradasTotal.length? (aTiempo.length/cerradasTotal.length*100) : null;
+  const correctivoCumpl = cumplimientoStats(correctivas);
+  const cumplimientoCorrectivo = correctivoCumpl.pctSi;
 
   const critTotales = DATA.criticidad_totales || {};
   const costoTotal = ot.reduce((s,r)=>s+(r.costo_real||0),0);
@@ -705,8 +715,12 @@ function renderResumen(el){
   const horasHabilPeriodo = 3360; // referencia del export de disponibilidad (ver nota)
   const pctParadasNoProg = horasHabilPeriodo? (horasParoCorrectivo/horasHabilPeriodo*100) : null;
 
+  const parosProgramados = getFilteredParosProgramados();
+  const horasParoProgramado = parosProgramados.reduce((s,p)=>s+(p.duracion_h||0),0);
+  const pctParadasProgramadas = horasHabilPeriodo? (horasParoProgramado/horasHabilPeriodo*100) : null;
+
   const stCumpl = statusClass(cumplimientoPrev, {good:90, warn:75});
-  const stOtif = statusClass(otif, {good:90, warn:75});
+  const stCumplCorrectivo = statusClass(cumplimientoCorrectivo, {good:90, warn:75});
   const stParadas = statusClass(pctParadasNoProg, {good:5, warn:10}, true);
 
   // KPIs de trabajo/servicio en tiempo real (no respetan el filtro de
@@ -728,24 +742,26 @@ function renderResumen(el){
   el.innerHTML = `
   ${sectionTitle('Indicadores clave del periodo')}
 
-  ${kpiGroup('Trabajo', `
-    ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`})}
-    ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos, status:stParos})}
-    ${kpiCard({label:'Técnicos con trabajo asignado ahora', value:tecnicosConTrabajo, sub:`de ${ubicacionRows.length} técnicos`})}
-  `)}
-
-  ${kpiGroup('Servicio', `
-    ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`})}
-  `)}
-
   ${kpiGroup('Lo más importante', `
-    ${meterHero({label:'Cumplimiento preventivo', pct:cumplimientoPrev, sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
     ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`, hero:true, accent:'c2'})}
-  `)}
+    ${meterHero({label:'Cumplimiento preventivo', pct:cumplimientoPrev, sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
+    ${meterHero({label:'Cumplimiento correctivo', pct:cumplimientoCorrectivo, sub:`${correctivoCumpl.si} de ${correctivas.length} OT correctivas`, status:stCumplCorrectivo})}
+  `, true)}
+
+  <div class="grid2">
+    ${kpiGroup('Trabajo', `
+      ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`, hero:true, accent:'c1'})}
+      ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos, status:stParos})}
+      ${kpiCard({label:'Técnicos con trabajo asignado ahora', value:tecnicosConTrabajo, sub:`de ${ubicacionRows.length} técnicos`})}
+    `)}
+    ${kpiGroup('Servicio', `
+      ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`, hero:true, accent:'c3'})}
+    `)}
+  </div>
 
   ${kpiGroup('Calidad y activos', `
     ${kpiCard({label:'% Paradas no programadas', value:fmtPct(pctParadasNoProg), sub:`${horasParoCorrectivo.toFixed(1)} h de paro correctivo`, status:stParadas})}
-    ${meterHero({label:'OTIF mantenimiento', pct:otif, sub:`${aTiempo.length} de ${cerradasTotal.length} OT cerradas a tiempo`, status:stOtif})}
+    ${kpiCard({label:'% Paradas programadas', value:fmtPct(pctParadasProgramadas), sub:`${horasParoProgramado.toFixed(1)} h de preventivo en equipos que generan paro`})}
     <div class="kpi-card">
       <div class="kpi-label">Equipos por criticidad</div>
       ${stackBar([
@@ -756,7 +772,7 @@ function renderResumen(el){
     </div>
   `)}
 
-  <div class="callout"><b>Nota de calidad de dato:</b> El OTIF puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
+  <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
 
   <div class="grid2">
     <div class="card">

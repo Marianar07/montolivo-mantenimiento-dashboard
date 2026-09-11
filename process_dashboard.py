@@ -406,23 +406,27 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
 # PAROS (a partir de OT correctivas resueltas a un equipo/lugar)
 # ============================================================
 
-def construir_paros(ot_df, ot_raw, crit):
-    """Un correctivo cuenta como paro solo si su equipo_cod resuelto está
-    marcado 'Provoca Paro?' = 'Sí' en 'Datos Generales de Equipos.xlsx' -
-    la clasificación oficial del CMMS (columna propia del maestro de
-    activos, cargado en `crit`). Ya NO se usa la marca ANM ni el prefijo
-    AI- para esta decisión (esos criterios eran una aproximación de cuando
-    no existía esta columna; ver CLAUDE.md)."""
+def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo"):
+    """Una OT cuenta como paro (o parada programada, si tipo='Preventivo')
+    solo si su equipo_cod resuelto está marcado 'Provoca Paro?' = 'Sí' en
+    'Datos Generales de Equipos.xlsx' - la clasificación oficial del CMMS
+    (columna propia del maestro de activos, cargado en `crit`). Ya NO se usa
+    la marca ANM ni el prefijo AI- para esta decisión (esos criterios eran
+    una aproximación de cuando no existía esta columna; ver CLAUDE.md).
+
+    tipo="Correctivo" (default) -> paros reales no programados.
+    tipo="Preventivo" -> paradas programadas (mismo filtro de equipo, para
+    el mantenimiento planeado sobre equipos que sí generan paro)."""
     provoca_paro_set = set(crit[crit["Provoca Paro?"] == "Sí"]["Código"])
 
     ot_raw_idx = ot_raw.set_index("Código O.T.")
-    correctivas = ot_df[
-        (ot_df["tipo"] == "Correctivo")
+    filtradas = ot_df[
+        (ot_df["tipo"] == tipo)
         & (ot_df["equipo_cod"].isin(provoca_paro_set))
     ]
 
     registros = []
-    for _, r in correctivas.iterrows():
+    for _, r in filtradas.iterrows():
         fila_raw = ot_raw_idx.loc[r["ot"]]
         if isinstance(fila_raw, pd.DataFrame):
             fila_raw = fila_raw.iloc[0]
@@ -505,7 +509,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
-    paros = construir_paros(ot_df, ot_raw, crit)
+    paros = construir_paros(ot_df, ot_raw, crit, tipo="Correctivo")
+    paros_programados = construir_paros(ot_df, ot_raw, crit, tipo="Preventivo")
     equipos, total_maestro = construir_equipos(disp, crit)
     criticidad_totales = construir_criticidad_totales(crit)
 
@@ -517,6 +522,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
         "ot": ot_records,
         "ss": ss_df.to_dict(orient="records"),
         "paros": paros,
+        "paros_programados": paros_programados,
         "equipos": equipos,
         "criticidad_totales": criticidad_totales,
         "total_equipos_maestro": total_maestro,
@@ -536,6 +542,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     print(f"Paros identificados: {len(paros)} "
           f"({sum(1 for p in paros if p['iniciado'])} iniciados, "
           f"{sum(1 for p in paros if not p['iniciado'])} pendientes de iniciar)")
+    horas_prog = sum(p['duracion_h'] or 0 for p in paros_programados)
+    print(f"Paradas programadas (preventivo, equipos que generan paro): {len(paros_programados)} ({horas_prog:.1f} h)")
     mantenibles = sum(1 for e in equipos if e["mantenible"])
     print(f"Equipos en directorio: {len(equipos)} de {total_maestro} en el maestro ({mantenibles} mantenibles, {len(equipos)-mantenibles} no mantenibles)")
     print(f"Criticidad: {criticidad_totales}")
