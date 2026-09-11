@@ -478,14 +478,13 @@ function rangoEfectivoOT(){
 /* ============ Tabs config ============ */
 const TABS = [
   {id:'resumen', label:'Resumen Gerencial', render: renderResumen},
-  {id:'fallas', label:'Fallas y Severidad', render: renderFallas},
   {id:'ot', label:'Órdenes de Trabajo', render: renderOT},
-  {id:'paros', label:'Paros por Equipo', render: renderParos},
   {id:'tecnicos', label:'Técnicos', render: renderTecnicos},
-  {id:'disponibilidad', label:'Equipos', render: renderDisponibilidad},
   {id:'ss', label:'Solicitudes de Servicio', render: renderSS},
+  {id:'paros', label:'Paros por Equipo', render: renderParos},
+  {id:'disponibilidad', label:'Equipos', render: renderDisponibilidad},
   {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
-  {id:'mtbf', label:'MTBF', render: renderMTBF},
+  {id:'fallas', label:'Fallas y Severidad', render: renderFallas},
 ];
 
 function activateTab(id){
@@ -1071,7 +1070,10 @@ function renderParos(el){
 
   const totalHorasParado = paros.reduce((s,p)=>s+(p.dias!=null? p.dias*24 : 0),0);
   const promHorasParado = paros.length? totalHorasParado/paros.length : null;
-  const pendientes = paros.filter(p=>!p.iniciado).length;
+  const parosPendientesList = paros.filter(p=>!p.iniciado);
+  const pendientes = parosPendientesList.length;
+  const subPendientes = pendientes===0 ? undefined
+    : parosPendientesList.map(p=>`${p.equipo}${p.lugar?` (${p.lugar})`:''}`).join(' · ');
 
   // 1) Paros actuales por lugar
   const lugarMap = new Map();
@@ -1114,7 +1116,7 @@ function renderParos(el){
     ${kpiCard({label:'Total de paros actuales', value:paros.length})}
     ${kpiCard({label:'Horas acumuladas paradas', value:fmtH(totalHorasParado)})}
     ${kpiCard({label:'Horas promedio parado', value:fmtH(promHorasParado)})}
-    ${kpiCard({label:'Pendientes de iniciar', value:pendientes, status: pendientes>0?'warn':'good'})}
+    ${kpiCard({label:'Pendientes de iniciar', value:pendientes, sub:subPendientes, status: pendientes>0?'warn':'good'})}
   </div>
   <div class="grid2">
     <div class="card">
@@ -1265,26 +1267,15 @@ function renderTecnicos(el){
 
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
-  <div class="callout info"><b>Horas disponibles</b> = suma de las horas hábiles de cada día del rango seleccionado: lunes a jueves 8 h, viernes 7 h, sábado 3 h (42 h/semana en total). El domingo no es laborable y no suma horas disponibles. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores, excluyendo las que caen en domingo. <b>Horas extra</b> = esa misma duración, pero de las OT cuya Fecha Inicio Real cae en domingo — se muestran aparte porque son trabajo fuera del horario disponible, no se restan de "Horas libres" ni cuentan en el % de ocupación. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
-  <div class="card">
-    <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
-    <div id="capTecnicosWrap"></div>
-  </div>
-  ${tecnicosInternosSet ? `
   <div class="card section-block">
-    <div class="card-head"><h3>Servicios de proveedores</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">Proveedores externos (no están en el maestro TECNICOS.xlsx de planta) — no tienen horario ni capacidad de 42h/semana asignada, solo se muestra el trabajo que registraron. Los registros a nombre de SEBASTIAN BUITRAGO GRACIANO corresponden a proveedores que no están dados de alta individualmente en el sistema.</div>
-    <div id="tercerosWrap"></div>
-  </div>` : ''}
-  <div class="card section-block">
-    <div class="card-head"><h3>Dónde está cada técnico ahora</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre calcula con la fecha y hora actual (${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real. "Programado ahora" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye este momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
+    <div class="card-head"><h3>Ubicación del técnico</h3></div>
+    <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre calcula con la fecha y hora actual (${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real. "Según plan de trabajo" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye este momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
     ${simpleTable(ubicacionRows, [
       {key:'tecnico', label:'Técnico'},
       {key:'estado', label:'Estado', fmt:v=>{
         const map = {
           en_sitio:['good','En sitio'],
-          programado:['info','Programado ahora'],
+          programado:['info','Según plan de trabajo'],
           sin_asignacion:['neutral','Sin asignación'],
           conflicto:['bad','⚠ Varios servicios abiertos'],
         };
@@ -1297,6 +1288,17 @@ function renderTecnicos(el){
       {key:'desde', label:'Desde', fmt:v=> v? fmtDate(v) : '—'},
     ], {scroll:true})}
   </div>
+  <div class="callout info"><b>Horas disponibles</b> = suma de las horas hábiles de cada día del rango seleccionado: lunes a jueves 8 h, viernes 7 h, sábado 3 h (42 h/semana en total). El domingo no es laborable y no suma horas disponibles. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores, excluyendo las que caen en domingo. <b>Horas extra</b> = esa misma duración, pero de las OT cuya Fecha Inicio Real cae en domingo — se muestran aparte porque son trabajo fuera del horario disponible, no se restan de "Horas libres" ni cuentan en el % de ocupación. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
+  <div class="card">
+    <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
+    <div id="capTecnicosWrap"></div>
+  </div>
+  ${tecnicosInternosSet ? `
+  <div class="card section-block">
+    <div class="card-head"><h3>Servicios de proveedores</h3></div>
+    <div class="section-note" style="margin:0 0 10px;">Proveedores externos (no están en el maestro TECNICOS.xlsx de planta) — no tienen horario ni capacidad de 42h/semana asignada, solo se muestra el trabajo que registraron. Los registros a nombre de SEBASTIAN BUITRAGO GRACIANO corresponden a proveedores que no están dados de alta individualmente en el sistema.</div>
+    <div id="tercerosWrap"></div>
+  </div>` : ''}
   <div class="card section-block">
     <div class="card-head">
       <h3>Filtrar por equipo</h3>
@@ -1566,33 +1568,6 @@ function renderCostos(el){
       <div class="card-head"><h3>Top 10 equipos por costo</h3></div>
       ${porEquipo.length? rankedTable(porEquipo, {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'costo',label:'Costo total'}, extraCols:[{key:'n',label:'Mantenimientos'}], noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
     </div>
-  </div>
-  `;
-}
-
-/* ============ TAB: MTBF ============ */
-function renderMTBF(el){
-  const ot = getFilteredOT();
-  const correctivas = ot.filter(r=>r.tipo==='Correctivo' && r.equipo_cod);
-  const porEquipo = groupCount(correctivas, r=>r.equipo_cod);
-  const HORAS_REF = 3360; // horas de referencia del periodo exportado en disponibilidad
-  const rows = porEquipo.map(x=>{
-    const eqInfo = correctivas.find(r=>r.equipo_cod===x.key);
-    return { equipo: eqInfo? eqInfo.equipo : x.key, fallas:x.count, mtbf: HORAS_REF/x.count };
-  }).sort((a,b)=>a.mtbf-b.mtbf);
-  const mtbfGlobal = correctivas.length? HORAS_REF/correctivas.length : null;
-
-  el.innerHTML = `
-  ${sectionTitle('MTBF — Tiempo medio entre fallas')}
-  <div class="callout"><b>Nota de calidad de dato:</b> se usa como "horas de operación" la referencia de ${HORAS_REF} h del export de disponibilidad (periodo 2026-01-01 a 2026-09-07), ya que ese archivo aún no descuenta paros reales. En cuanto el módulo de disponibilidad registre paros reales, este cálculo se vuelve más preciso.</div>
-  <div class="kpi-row">
-    ${kpiCard({label:'MTBF global (referencial)', value:fmtH(mtbfGlobal), sub:`sobre ${correctivas.length} averías con equipo identificado`})}
-  </div>
-  <div class="card">
-    <div class="card-head"><h3>MTBF por equipo (menor a mayor)</h3></div>
-    <div class="tablewrap"><table><thead><tr><th>Equipo</th><th class="num">Averías</th><th class="num">MTBF (h, referencial)</th></tr></thead><tbody>
-    ${rows.length? rows.map(r=>`<tr><td>${esc(r.equipo)}</td><td class="num">${r.fallas}</td><td class="num">${fmtH(r.mtbf)}</td></tr>`).join('') : '<tr><td colspan="3" class="empty">Sin averías con equipo identificado en el rango</td></tr>'}
-    </tbody></table></div>
   </div>
   `;
 }
