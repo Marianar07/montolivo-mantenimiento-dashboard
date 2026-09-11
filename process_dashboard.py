@@ -407,7 +407,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
 # PAROS (a partir de OT correctivas resueltas a un equipo/lugar)
 # ============================================================
 
-def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo"):
+def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo", solo_iniciadas=False):
     """Una OT cuenta como paro (o parada programada, si tipo='Preventivo')
     solo si su equipo_cod resuelto está marcado 'Provoca Paro?' = 'Sí' en
     'Datos Generales de Equipos.xlsx' - la clasificación oficial del CMMS
@@ -415,16 +415,27 @@ def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo"):
     la marca ANM ni el prefijo AI- para esta decisión (esos criterios eran
     una aproximación de cuando no existía esta columna; ver CLAUDE.md).
 
-    tipo="Correctivo" (default) -> paros reales no programados.
+    tipo="Correctivo" (default) -> paros reales no programados. Un
+    correctivo SÍ cuenta como paro aunque todavía no tenga Fecha Inicio Real
+    (queda como "pendiente de iniciar") porque el equipo ya está averiado y
+    fuera de servicio esperando técnico.
+
     tipo="Preventivo" -> paradas programadas (mismo filtro de equipo, para
-    el mantenimiento planeado sobre equipos que sí generan paro)."""
+    el mantenimiento planeado sobre equipos que sí generan paro). A
+    diferencia del correctivo, un preventivo NO es una parada real hasta que
+    el técnico efectivamente empieza (Fecha Inicio Real) - antes de eso el
+    equipo sigue funcionando normalmente, solo hay una visita programada.
+    Por eso se llama con solo_iniciadas=True."""
     provoca_paro_set = set(crit[crit["Provoca Paro?"] == "Sí"]["Código"])
 
     ot_raw_idx = ot_raw.set_index("Código O.T.")
-    filtradas = ot_df[
+    condicion = (
         (ot_df["tipo"] == tipo)
         & (ot_df["equipo_cod"].isin(provoca_paro_set))
-    ]
+    )
+    if solo_iniciadas:
+        condicion = condicion & ot_df["inicio_real"].notna()
+    filtradas = ot_df[condicion]
 
     registros = []
     for _, r in filtradas.iterrows():
@@ -511,7 +522,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
     paros = construir_paros(ot_df, ot_raw, crit, tipo="Correctivo")
-    paros_programados = construir_paros(ot_df, ot_raw, crit, tipo="Preventivo")
+    paros_programados = construir_paros(ot_df, ot_raw, crit, tipo="Preventivo", solo_iniciadas=True)
     equipos, total_maestro = construir_equipos(disp, crit)
     criticidad_totales = construir_criticidad_totales(crit)
 

@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-11T09:28:28",
+  "generado": "2026-09-11T09:37:23",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -4344,20 +4344,6 @@
       "ss_codigo": null
     },
     {
-      "ot": "000010",
-      "equipo": "CAVA REFRIGERACIÓN PRODUCTO TERMINADO",
-      "equipo_cod": "CV-0010",
-      "lugar": "CONSERVACIÓN EN FRÍO",
-      "criticidad": "Alta",
-      "inicio": "2026-08-22T00:00:00",
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "estado": "Abierta",
-      "ss_codigo": null
-    },
-    {
       "ot": "000011",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "equipo_cod": "HP-0012",
@@ -4652,20 +4638,6 @@
       "ss_codigo": null
     },
     {
-      "ot": "000080",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "equipo_cod": "HP-0029",
-      "lugar": "VIVA ENVIGADO",
-      "criticidad": "Alta",
-      "inicio": "2026-09-08T08:00:00",
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "estado": "Abierta",
-      "ss_codigo": null
-    },
-    {
       "ot": "000091",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "equipo_cod": "HP-0014",
@@ -4677,20 +4649,6 @@
       "duracion_h": 3.33,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
-    },
-    {
-      "ot": "000106",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "equipo_cod": "HP-0010",
-      "lugar": "MAYORCA ETAPA 2",
-      "criticidad": "Alta",
-      "inicio": "2026-09-11T08:00:00",
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "estado": "Abierta",
       "ss_codigo": null
     }
   ],
