@@ -222,6 +222,19 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 /* ---- Pulido general: sombra suave en todas las tarjetas ---- */
 .kpi-card, .card{box-shadow:0 1px 3px rgba(36,27,29,0.05);}
 
+/* ---- Tarjeta KPI clickeable (abre detalle en modal) ---- */
+.kpi-card.clickable{cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+.kpi-card.clickable:hover{box-shadow:0 2px 8px rgba(36,27,29,0.12);}
+
+/* ---- Modal genérico de detalle ---- */
+.modal-overlay{position:fixed;inset:0;background:rgba(36,27,29,0.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;}
+.modal-overlay[hidden]{display:none;}
+.modal-box{background:var(--card);border-radius:10px;max-width:900px;width:100%;max-height:85vh;overflow:auto;box-shadow:0 8px 30px rgba(36,27,29,0.25);}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--card);}
+.modal-head h3{margin:0;font-size:15px;}
+.modal-close{border:none;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--ink-3);padding:0 4px;}
+.modal-body{padding:16px 18px;}
+
 .section-block{margin-top:30px;}
 
 .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:18px;}
@@ -329,6 +342,13 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 
 <main id="main"></main>
 
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="modalTitle"></h3><button class="modal-close" id="modalClose">&times;</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
 <div class="footer-note">Generado a partir de exportes de OT, SS, Disponibilidad y Criticidad de equipos · Datos de referencia, sujetos a validación con el jefe de mantenimiento</div>
 
 <script id="dashboard-data" type="application/json">
@@ -370,13 +390,29 @@ function statusClass(value, thresholds, inverse){
   }
 }
 
+/* ============ Modal genérico de detalle ============ */
+function openModal(title, bodyHtml){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = bodyHtml;
+  document.getElementById('modalOverlay').hidden = false;
+}
+function closeModal(){
+  document.getElementById('modalOverlay').hidden = true;
+}
+function setupModal(){
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e=>{
+    if(e.target.id==='modalOverlay') closeModal();
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+}
+
 /* ============ Global filter state ============ */
 let FILTER = { desde:null, hasta:null };
 
 function getFilteredOT(){ return DATA.ot.filter(r=>inRange(r.fecha_creacion, FILTER.desde, FILTER.hasta)); }
 function getFilteredSS(){ return DATA.ss.filter(r=>inRange(r.fecha_ss, FILTER.desde, FILTER.hasta)); }
 function getFilteredParos(){ return DATA.paros.filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta)); }
-function getFilteredParosProgramados(){ return (DATA.paros_programados||[]).filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta)); }
 
 /* ============ Filtro de mes propio de la tarjeta "Top lugares" (independiente del filtro general) ============ */
 let topLugaresMes = null; // 'YYYY-MM', se fija al mes mas reciente disponible en el primer render
@@ -517,10 +553,10 @@ function setActivePreset(id){
 }
 
 /* ============ Reusable render helpers ============ */
-function kpiCard({label, value, sub, status, hero, accent}){
+function kpiCard({label, value, sub, status, hero, accent, id, clickable}){
   const st = status || '';
-  const cls = ['kpi-card', st, hero?'hero':'', accent?'accent-'+accent:''].filter(Boolean).join(' ');
-  return `<div class="${cls}">
+  const cls = ['kpi-card', st, hero?'hero':'', accent?'accent-'+accent:'', clickable?'clickable':''].filter(Boolean).join(' ');
+  return `<div class="${cls}"${id?` id="${id}"`:''}>
     <div class="kpi-label">${status?`<span class="status-dot ${st}"></span>`:''}${label}</div>
     <div class="kpi-value ${st}">${value}</div>
     ${sub?`<div class="kpi-sub">${sub}</div>`:''}
@@ -696,7 +732,6 @@ function buildPagedTable(containerId, allRows, columns, opts={}){
 /* ============ TAB: Resumen Gerencial ============ */
 function renderResumen(el){
   const ot = getFilteredOT();
-  const paros = getFilteredParos();
   const correctivas = ot.filter(r=>r.tipo==='Correctivo');
   const preventivas = ot.filter(r=>r.tipo==='Preventivo');
 
@@ -707,30 +742,25 @@ function renderResumen(el){
   const correctivoCumpl = cumplimientoStats(correctivas);
   const cumplimientoCorrectivo = correctivoCumpl.pctSi;
 
-  const critTotales = DATA.criticidad_totales || {};
   const costoTotal = ot.reduce((s,r)=>s+(r.costo_real||0),0);
   const costoCorrectivo = correctivas.reduce((s,r)=>s+(r.costo_real||0),0);
   const costoPreventivo = preventivas.reduce((s,r)=>s+(r.costo_real||0),0);
-  const horasParoCorrectivo = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
-  const horasHabilPeriodo = 3360; // referencia del export de disponibilidad (ver nota)
-  const pctParadasNoProg = horasHabilPeriodo? (horasParoCorrectivo/horasHabilPeriodo*100) : null;
-
-  const parosProgramados = getFilteredParosProgramados();
-  const horasParoProgramado = parosProgramados.reduce((s,p)=>s+(p.duracion_h||0),0);
-  const pctParadasProgramadas = horasHabilPeriodo? (horasParoProgramado/horasHabilPeriodo*100) : null;
 
   const stCumpl = statusClass(cumplimientoPrev, {good:90, warn:75});
   const stCumplCorrectivo = statusClass(cumplimientoCorrectivo, {good:90, warn:75});
-  const stParadas = statusClass(pctParadasNoProg, {good:5, warn:10}, true);
 
   // KPIs de trabajo/servicio en tiempo real (no respetan el filtro de
   // fecha - se indica en cada sub-etiqueta).
   const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
 
-  const parosActuales = [...DATA.paros, ...(DATA.paros_programados||[])].filter(p=>!p.fin);
-  const lugaresParos = [...new Set(parosActuales.map(p=>p.lugar).filter(Boolean))];
+  const parosActuales = [
+    ...DATA.paros.map(p=>({...p, tipo:'Correctivo'})),
+    ...(DATA.paros_programados||[]).map(p=>({...p, tipo:'Preventivo'})),
+  ].filter(p=>!p.fin);
+  const nParosCorrectivos = parosActuales.filter(p=>p.tipo==='Correctivo').length;
+  const nParosPreventivos = parosActuales.filter(p=>p.tipo==='Preventivo').length;
   const subParos = parosActuales.length===0 ? 'sin paros activos'
-    : (lugaresParos.length<=3 ? lugaresParos.join(', ') : `en ${lugaresParos.length} lugares`);
+    : `${nParosCorrectivos} correctivo${nParosCorrectivos===1?'':'s'} · ${nParosPreventivos} preventivo${nParosPreventivos===1?'':'s'}`;
   const stParos = statusClass(parosActuales.length, {good:0.5}, true);
 
   const { rows: ubicacionRows } = calcularUbicacionTecnicos();
@@ -751,26 +781,13 @@ function renderResumen(el){
   <div class="grid2">
     ${kpiGroup('Trabajo', `
       ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`, hero:true, accent:'c1'})}
-      ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos, status:stParos})}
+      ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
       ${kpiCard({label:'Técnicos con trabajo asignado ahora', value:tecnicosConTrabajo, sub:`de ${ubicacionRows.length} técnicos`})}
     `)}
     ${kpiGroup('Servicio', `
       ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`, hero:true, accent:'c3'})}
     `)}
   </div>
-
-  ${kpiGroup('Calidad y activos', `
-    ${kpiCard({label:'% Paradas no programadas', value:fmtPct(pctParadasNoProg), sub:`${horasParoCorrectivo.toFixed(1)} h de paro correctivo`, status:stParadas})}
-    ${kpiCard({label:'% Paradas programadas', value:fmtPct(pctParadasProgramadas), sub:`${horasParoProgramado.toFixed(1)} h de preventivo en equipos que generan paro`})}
-    <div class="kpi-card">
-      <div class="kpi-label">Equipos por criticidad</div>
-      ${stackBar([
-        {label:'Alta', value:critTotales.Alta||0, color:'var(--bad)'},
-        {label:'Media', value:critTotales.Media||0, color:'var(--warn)'},
-        {label:'Baja', value:critTotales.Baja||0, color:'var(--good)'},
-      ])}
-    </div>
-  `)}
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
 
@@ -787,6 +804,19 @@ function renderResumen(el){
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
   renderTopLugaresWrap();
+  const parosCardEl = document.getElementById('parosActualesCard');
+  if(parosCardEl) parosCardEl.addEventListener('click', ()=>{
+    const detalle = parosActuales.slice().sort((a,b)=>new Date(a.inicio)-new Date(b.inicio));
+    openModal('Paros actuales', simpleTable(detalle, [
+      {key:'tipo', label:'Tipo'},
+      {key:'ot', label:'OT'},
+      {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
+      {key:'equipo', label:'Artículo / equipo'},
+      {key:'lugar', label:'Lugar'},
+      {key:'tecnico', label:'Técnico asignado', fmt:v=>v?shortTecnico(v):'—'},
+      {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>'},
+    ], {scroll:true}));
+  });
 }
 function renderTopLugaresWrap(){
   const wrap = document.getElementById('topLugaresWrap');
@@ -1044,9 +1074,14 @@ function renderParos(el){
     .map(c=>({lugar:c.lugar, total:c.total, promedio: c.nDur? c.sumaDur/c.nDur : null}))
     .sort((a,b)=>b.total-a.total);
 
-  // 2) Paros actuales (NO respeta el filtro de fecha - foto real de ahora mismo)
+  // 2) Paros actuales (NO respeta el filtro de fecha - foto real de ahora mismo).
+  // Incluye tanto correctivos (paros reales) como preventivos (paradas
+  // programadas) sobre equipos que generan paro - ver DATA.paros_programados.
   const hoy = new Date();
-  const paradasActuales = DATA.paros.filter(p=>!p.fin).map(p=>{
+  const paradasActuales = [
+    ...DATA.paros.map(p=>({...p, tipo:'Correctivo'})),
+    ...(DATA.paros_programados||[]).map(p=>({...p, tipo:'Preventivo'})),
+  ].filter(p=>!p.fin).map(p=>{
     const dias = p.inicio? (hoy - new Date(p.inicio))/86400000 : null;
     return {...p, dias};
   }).sort((a,b)=>(b.dias||0)-(a.dias||0));
@@ -1092,12 +1127,15 @@ function renderParos(el){
       <div class="card-head"><h3>Paros actuales</h3></div>
       <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre muestra los equipos parados en este momento.</div>
       ${paradasActuales.length? simpleTable(paradasActuales, [
+        {key:'tipo', label:'Tipo'},
+        {key:'ot', label:'OT'},
+        {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
         {key:'equipo', label:'Equipo'},
         {key:'lugar', label:'Lugar'},
         {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>'},
-        {key:'inicio', label:'Inicio del paro', fmt:fmtDate},
-        {key:'dias', label:'Días parado', num:true, fmt:v=> v==null?'—':v.toFixed(1)},
-        {key:'tecnico', label:'Técnico', fmt:v=> v? shortTecnico(v) : '—'},
+        {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
+        {key:'dias', label:'Días parados', num:true, fmt:v=> v==null?'—':v.toFixed(1)},
+        {key:'tecnico', label:'Técnico asignado', fmt:v=> v? shortTecnico(v) : '—'},
       ], {scroll:true}) : '<div class="empty">No hay equipos parados actualmente</div>'}
     </div>
   </div>
@@ -1510,6 +1548,7 @@ function init(){
   buildTabsNav();
   buildPanels();
   setupFilterBar();
+  setupModal();
   renderAll();
 }
 init();
