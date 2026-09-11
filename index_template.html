@@ -419,6 +419,9 @@ function wireOtSelectDur(wrapEl){
 function duracionRealOT(r){
   return (r.inicio_real && r.fin_real) ? (new Date(r.fin_real)-new Date(r.inicio_real))/3600000 : null;
 }
+function duracionProgramadaOT(r){
+  return (r.inicio_programado && r.fin_programado) ? (new Date(r.fin_programado)-new Date(r.inicio_programado))/3600000 : null;
+}
 function rangoEfectivoOT(){
   if(FILTER.desde && FILTER.hasta) return {desde:FILTER.desde, hasta:FILTER.hasta};
   const fechas = DATA.ot.map(r=>r.fecha_creacion).filter(Boolean).map(s=>new Date(s));
@@ -869,6 +872,25 @@ function avgDuracion(rows){
   const vals = rows.map(r=>{ if(!r.inicio_real||!r.fin_real) return null; return (new Date(r.fin_real)-new Date(r.inicio_real))/3600000; }).filter(v=>v!=null);
   return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
 }
+function avgDuracionProgramada(rows){
+  const vals = rows.map(r=>duracionProgramadaOT(r)).filter(v=>v!=null);
+  return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
+function cumplimientoOT(r){
+  if(r.fin_real){
+    if(!r.fin_programado) return 'si';
+    return new Date(r.fin_real) <= new Date(r.fin_programado) ? 'si' : 'no';
+  }
+  const ahora = new Date();
+  if(r.inicio_programado && ahora < new Date(r.inicio_programado)) return 'pendiente';
+  return 'no';
+}
+function cumplimientoStats(rows){
+  const c = {si:0, no:0, pendiente:0};
+  rows.forEach(r=>{ c[cumplimientoOT(r)]++; });
+  const total = rows.length || 1;
+  return {...c, total:rows.length, pctSi:rows.length?c.si/total*100:null, pctNo:rows.length?c.no/total*100:null, pctPendiente:rows.length?c.pendiente/total*100:null};
+}
 function renderOT(el){
   const all = getFilteredOT();
   const abiertas = all.filter(r=>r.estado==='Abierta');
@@ -877,7 +899,7 @@ function renderOT(el){
 
   const porTipo = ['Correctivo','Preventivo'].map(t=>{
     const rows = all.filter(r=>r.tipo===t);
-    return {tipo:t, n:rows.length, desvio:avgDesvioInicio(rows), duracion:avgDuracion(rows)};
+    return {tipo:t, n:rows.length, desvio:avgDesvioInicio(rows), duracionProg:avgDuracionProgramada(rows), duracion:avgDuracion(rows), cumpl:cumplimientoStats(rows)};
   });
   const porSeveridad = ['Alta','Media'].map(s=>{
     const rows = all.filter(r=>r.severidad===s);
@@ -891,13 +913,13 @@ function renderOT(el){
     ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
     ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
   </div>
-  ${sectionTitle('Tiempos de ejecución por tipo y severidad de OT', 'Desvío de inicio y duración de ejecución')}
-  <div class="callout info"><b>Desvío de inicio</b> = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado).</div>
+  ${sectionTitle('Tiempos de ejecución por tipo y severidad de OT', 'Desvío de inicio, duración programada vs. real, y cumplimiento frente a lo programado')}
+  <div class="callout info"><b>Desvío de inicio</b> = diferencia entre el inicio real y el inicio programado (positivo = empezó después de lo programado). <b>Cumplida</b> = terminó en o antes de la fecha fin programada. <b>Incumplida</b> = terminó tarde, o sigue abierta y ya se pasó su fecha de inicio programada. <b>Pendiente</b> = aún no llega su fecha de inicio programada.</div>
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>Por tipo de OT</h3></div>
-      <div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">OT</th><th class="num">Desvío inicio</th><th class="num">Duración ejec.</th></tr></thead><tbody>
-      ${porTipo.map(r=>`<tr><td>${r.tipo}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracion)}</td></tr>`).join('')}
+      <div class="card-head"><h3>Por tipo de OT — ¿se están cumpliendo?</h3></div>
+      <div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">OT</th><th class="num">Desvío inicio</th><th class="num">Dur. programada</th><th class="num">Dur. real</th><th class="num">% Cumplidas</th><th class="num">% Incumplidas</th><th class="num">% Pendientes</th></tr></thead><tbody>
+      ${porTipo.map(r=>`<tr><td>${r.tipo}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracionProg)}</td><td class="num">${fmtH(r.duracion)}</td><td class="num">${fmtPct(r.cumpl.pctSi)}</td><td class="num">${fmtPct(r.cumpl.pctNo)}</td><td class="num">${fmtPct(r.cumpl.pctPendiente)}</td></tr>`).join('')}
       </tbody></table></div>
     </div>
     <div class="card">
@@ -905,6 +927,19 @@ function renderOT(el){
       <div class="tablewrap"><table><thead><tr><th>Severidad</th><th class="num">OT</th><th class="num">Desvío inicio</th><th class="num">Duración ejec.</th></tr></thead><tbody>
       ${porSeveridad.map(r=>`<tr><td>${r.sev}</td><td class="num">${r.n}</td><td class="num">${fmtH(r.desvio)}</td><td class="num">${fmtH(r.duracion)}</td></tr>`).join('')}
       </tbody></table></div>
+    </div>
+  </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>Cumplimiento de OT por tipo</h3></div>
+    <div class="grid2">
+      ${porTipo.map(r=>`<div>
+        <div class="kpi-label" style="margin-bottom:8px;">${esc(r.tipo)} (${r.n} OT)</div>
+        ${stackBar([
+          {label:'Cumplidas', value:r.cumpl.si, color:'var(--good)'},
+          {label:'Incumplidas', value:r.cumpl.no, color:'var(--bad)'},
+          {label:'Pendientes', value:r.cumpl.pendiente, color:'var(--warn)'},
+        ])}
+      </div>`).join('')}
     </div>
   </div>
   <div class="card section-block">
@@ -935,6 +970,16 @@ function renderOT(el){
     {key:'fecha_creacion', label:'Creación OT', fmt:fmtDate},
     {key:'inicio_programado', label:'Inicio prog.', fmt:fmtDate},
     {key:'fin_programado', label:'Fin prog.', fmt:fmtDate},
+    {key:'inicio_real', label:'Inicio real', fmt:fmtDate},
+    {key:'fin_real', label:'Fin real', fmt:fmtDate},
+    {key:'_dur_prog', label:'Dur. prog.', num:true, fmt:(v,r)=>fmtH(duracionProgramadaOT(r))},
+    {key:'_dur_real', label:'Dur. real', num:true, fmt:(v,r)=>fmtH(duracionRealOT(r))},
+    {key:'_a_tiempo', label:'¿A tiempo?', fmt:(v,r)=>{
+      const st = cumplimientoOT(r);
+      if(st==='si') return '<span class="badge good">Sí</span>';
+      if(st==='pendiente') return '<span class="badge warn">Pendiente</span>';
+      return '<span class="badge bad">No</span>';
+    }},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Cerrada'?'good':'warn'}">${v}</span>`},
     {key:'avance', label:'Avance', num:true, fmt:v=>v+'%'},
     {key:'lugar', label:'Lugar'},
