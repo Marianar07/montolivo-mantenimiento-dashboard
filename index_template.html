@@ -1418,20 +1418,65 @@ function renderDisponibilidad(el){
 }
 
 /* ============ TAB: Solicitudes de Servicio ============ */
+// Cumplimiento de una SS frente a su Fecha esperada (plazo de respuesta del
+// CMMS), en 3 valores - mismo criterio que cumplimientoOT():
+// 'si' = se respondió (Fecha de respuesta) en o antes de la Fecha esperada.
+// 'no' = respondió tarde, O sigue sin respuesta y ya se pasó la Fecha esperada.
+// 'pendiente' = todavía no llega la Fecha esperada.
+// null = la SS no trae Fecha esperada (no se puede evaluar).
+function cumplimientoSS(r){
+  if(!r.fecha_esperada) return null;
+  if(r.fecha_respuesta){
+    return new Date(r.fecha_respuesta) <= new Date(r.fecha_esperada) ? 'si' : 'no';
+  }
+  const ahora = new Date();
+  return ahora < new Date(r.fecha_esperada) ? 'pendiente' : 'no';
+}
+// Días de mora = cuánto se pasó (o lleva pasado) de la Fecha esperada. 0 si
+// todavía está a tiempo o no aplica (sin Fecha esperada).
+function diasMoraSS(r){
+  if(!r.fecha_esperada) return null;
+  const fin = r.fecha_respuesta? new Date(r.fecha_respuesta) : new Date();
+  const dias = (fin - new Date(r.fecha_esperada))/86400000;
+  return dias>0 ? dias : 0;
+}
+function cumplimientoStatsSS(rows){
+  const conFecha = rows.filter(r=>r.fecha_esperada);
+  const c = {si:0, no:0, pendiente:0};
+  conFecha.forEach(r=>{ c[cumplimientoSS(r)]++; });
+  const total = conFecha.length || 1;
+  return {...c, total:conFecha.length, sinDato: rows.length-conFecha.length,
+    pctSi:conFecha.length?c.si/total*100:null, pctNo:conFecha.length?c.no/total*100:null, pctPendiente:conFecha.length?c.pendiente/total*100:null};
+}
 function renderSS(el){
   const all = getFilteredSS();
   const pendientes = all.filter(r=>r.estado==='Creada').length;
   const conRespuesta = all.filter(r=>r.fecha_respuesta);
   const tResp = conRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
   const promResp = tResp.length? tResp.reduce((a,b)=>a+b,0)/tResp.length : null;
+  const cumplSS = cumplimientoStatsSS(all);
 
   el.innerHTML = `
   ${sectionTitle('Histórico de Solicitudes de Servicio (SS)', `${all.length} SS en el rango — usa los filtros de fecha arriba para acotar el periodo`)}
   <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Evaluada</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Las SS en estado Creada, Leída, Programada en O.T. o Validada siguen abiertas y no tienen Fecha de respuesta.</div>
+  <div class="callout info"><b>Cumplimiento</b> = Fecha de respuesta vs. Fecha esperada (plazo del CMMS). <b>Cumplida</b> = respondida en o antes de la Fecha esperada. <b>Incumplida</b> = respondió tarde, o sigue abierta y ya se pasó la Fecha esperada. <b>Pendiente</b> = aún no llega la Fecha esperada. <b>Días de mora</b> = días pasados de la Fecha esperada (0 si está a tiempo) — ${cumplSS.total} de ${all.length} SS en el rango traen Fecha esperada.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
     ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
+  </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>Cumplimiento de SS frente a la Fecha esperada</h3></div>
+    ${stackBar([
+      {label:'Cumplidas', value:cumplSS.si, color:'var(--good)'},
+      {label:'Incumplidas', value:cumplSS.no, color:'var(--bad)'},
+      {label:'Pendientes', value:cumplSS.pendiente, color:'var(--warn)'},
+    ])}
+    <div class="kpi-row" style="margin-top:14px;">
+      ${kpiCard({label:'% Cumplidas a tiempo', value:fmtPct(cumplSS.pctSi), sub:`${cumplSS.si} de ${cumplSS.total} SS con Fecha esperada`, status:'good'})}
+      ${kpiCard({label:'% Incumplidas', value:fmtPct(cumplSS.pctNo), sub:`${cumplSS.no} de ${cumplSS.total} SS con Fecha esperada`, status:'bad'})}
+      ${kpiCard({label:'% Pendientes', value:fmtPct(cumplSS.pctPendiente), sub:`${cumplSS.pendiente} de ${cumplSS.total} SS con Fecha esperada`, status:'warn'})}
+    </div>
   </div>
   <div class="card section-block">
     <div class="card-head"><h3>SS por punto de venta</h3></div>
@@ -1459,6 +1504,16 @@ function renderSS(el){
     {key:'equipo', label:'Equipo'},
     {key:'lugar', label:'Lugar'},
     {key:'fecha_ss', label:'Fecha SS', fmt:fmtDate},
+    {key:'fecha_esperada', label:'Fecha esperada', fmt:fmtDate},
+    {key:'fecha_respuesta', label:'Fecha de respuesta', fmt:fmtDate},
+    {key:'_cumplimiento', label:'Cumplimiento', fmt:(v,r)=>{
+      const st = cumplimientoSS(r);
+      if(st==='si') return '<span class="badge good">Cumplió</span>';
+      if(st==='no') return '<span class="badge bad">No cumplió</span>';
+      if(st==='pendiente') return '<span class="badge warn">Pendiente</span>';
+      return '—';
+    }},
+    {key:'_mora', label:'Días de mora', num:true, fmt:(v,r)=>{ const d=diasMoraSS(r); return d==null?'—':d.toFixed(1); }},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge neutral">${v}</span>`},
     {key:'ot_asociada', label:'OT'},
   ];

@@ -395,6 +395,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
             "equipo": nombre_resuelto,
             "lugar": lugar,
             "fecha_ss": a_iso(r["Fecha de solicitud"]),
+            "fecha_esperada": a_iso(r["Fecha esperada"]),
             "fecha_respuesta": a_iso(r["Fecha de respuesta"]),
             "estado": r["Estado"],
             "ot_asociada": ot_por_ss.get(r["Código"]),

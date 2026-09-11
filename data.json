@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-11T09:23:24",
+  "generado": "2026-09-11T09:28:28",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -2258,6 +2258,7 @@
       "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
       "lugar": "GRAN PLAZA",
       "fecha_ss": "2026-05-19T10:51:00",
+      "fecha_esperada": "2026-05-19T14:51:00",
       "fecha_respuesta": "2026-05-19T11:50:00",
       "estado": "Evaluada",
       "ot_asociada": "000001"
@@ -2269,6 +2270,7 @@
       "equipo": "HORNO MICROONDAS INDUSTRIAL",
       "lugar": "ÚNICO",
       "fecha_ss": "2026-08-19T10:50:40",
+      "fecha_esperada": "2026-08-19T14:50:00",
       "fecha_respuesta": null,
       "estado": "Validada",
       "ot_asociada": null
@@ -2280,6 +2282,7 @@
       "equipo": "SISTEMA DE EXTRACCION",
       "lugar": "PREMIUM PLAZA",
       "fecha_ss": "2026-08-21T15:20:00",
+      "fecha_esperada": "2026-08-22T10:00:00",
       "fecha_respuesta": "2026-08-22T10:00:00",
       "estado": "Evaluada",
       "ot_asociada": "000008"
@@ -2291,6 +2294,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
       "lugar": "DISTRITO VERA",
       "fecha_ss": "2026-08-21T18:19:00",
+      "fecha_esperada": "2026-08-22T07:00:00",
       "fecha_respuesta": "2026-08-22T10:00:00",
       "estado": "Evaluada",
       "ot_asociada": "000012"
@@ -2302,6 +2306,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO DE PRODUCCION",
       "lugar": "BASE DE OPERACIONES",
       "fecha_ss": "2026-08-21T09:02:00",
+      "fecha_esperada": "2026-08-24T12:02:00",
       "fecha_respuesta": "2026-08-31T16:00:00",
       "estado": "Evaluada",
       "ot_asociada": "000032"
@@ -2313,6 +2318,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN ARKADIA",
       "lugar": "ARKADIA",
       "fecha_ss": "2026-08-21T16:08:00",
+      "fecha_esperada": "2026-08-22T07:00:00",
       "fecha_respuesta": "2026-08-22T12:00:00",
       "estado": "Evaluada",
       "ot_asociada": "000009"
@@ -2324,6 +2330,7 @@
       "equipo": "NEVERA CONGELACION VERTICAL 1P DUKERS",
       "lugar": "PUERTA DEL NORTE",
       "fecha_ss": "2026-08-26T10:42:00",
+      "fecha_esperada": "2026-08-26T10:45:00",
       "fecha_respuesta": "2026-08-26T12:00:00",
       "estado": "Evaluada",
       "ot_asociada": "000013"
@@ -2335,6 +2342,7 @@
       "equipo": "HORNO DE LASAÑAS",
       "lugar": "PUERTA DEL NORTE",
       "fecha_ss": "2026-08-26T14:47:00",
+      "fecha_esperada": "2026-08-26T14:50:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000014"
@@ -2346,6 +2354,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
       "lugar": "DISTRITO VERA",
       "fecha_ss": "2026-08-21T15:47:00",
+      "fecha_esperada": "2026-08-22T07:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
       "ot_asociada": null
@@ -2357,6 +2366,7 @@
       "equipo": "HORNO MICROONDAS INDUSTRIAL",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-08-27T16:48:12",
+      "fecha_esperada": "2026-08-31T10:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
       "ot_asociada": null
@@ -2368,6 +2378,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-08-27T21:14:44",
+      "fecha_esperada": "2026-08-31T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2379,6 +2390,7 @@
       "equipo": "HORNO PROTEINAS RATIONAL",
       "lugar": "TITAN PLAZA",
       "fecha_ss": "2026-09-01T08:58:23",
+      "fecha_esperada": "2026-09-01T12:58:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2390,6 +2402,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PUERTA DEL NORTE",
       "lugar": "PUERTA DEL NORTE",
       "fecha_ss": "2026-09-01T10:22:21",
+      "fecha_esperada": "2026-09-01T14:22:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2401,6 +2414,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
       "lugar": "VIVA ENVIGADO",
       "fecha_ss": "2026-09-01T09:09:31",
+      "fecha_esperada": "2026-09-01T15:09:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -2412,6 +2426,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PUERTA DEL NORTE",
       "lugar": "PUERTA DEL NORTE",
       "fecha_ss": "2026-09-01T11:14:19",
+      "fecha_esperada": "2026-09-01T15:14:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000086"
@@ -2423,6 +2438,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PUERTA DEL NORTE",
       "lugar": "PUERTA DEL NORTE",
       "fecha_ss": "2026-09-01T11:16:49",
+      "fecha_esperada": "2026-09-01T15:16:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000101"
@@ -2434,6 +2450,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PUERTA DEL NORTE",
       "lugar": "PUERTA DEL NORTE",
       "fecha_ss": "2026-09-01T12:10:02",
+      "fecha_esperada": "2026-09-02T07:10:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2445,6 +2462,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
       "lugar": "GRAN PLAZA",
       "fecha_ss": "2026-09-02T16:13:29",
+      "fecha_esperada": "2026-09-03T15:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": null
@@ -2456,6 +2474,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA CENTRAL",
       "lugar": "PLAZA CENTRAL",
       "fecha_ss": "2026-09-02T13:45:58",
+      "fecha_esperada": "2026-09-04T11:45:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2467,6 +2486,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO BOGOTA",
       "lugar": "UNICENTRO BOGOTÁ",
       "fecha_ss": "2026-09-04T09:32:27",
+      "fecha_esperada": "2026-09-04T13:32:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2478,6 +2498,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO BOGOTA",
       "lugar": "UNICENTRO BOGOTÁ",
       "fecha_ss": "2026-09-04T13:16:52",
+      "fecha_esperada": "2026-09-05T09:16:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2489,6 +2510,7 @@
       "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
       "lugar": "CENTRO MAYOR",
       "fecha_ss": "2026-09-04T15:48:19",
+      "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2500,6 +2522,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-05T06:43:54",
+      "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": "2026-09-05T11:11:26",
       "estado": "No aprobada",
       "ot_asociada": null
@@ -2511,6 +2534,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-05T06:01:52",
+      "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000070"
@@ -2522,6 +2546,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-05T05:59:52",
+      "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": "2026-09-07T08:57:47",
       "estado": "No aprobada",
       "ot_asociada": null
@@ -2533,6 +2558,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-04T15:35:06",
+      "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000067"
@@ -2544,6 +2570,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FLORIDA",
       "lugar": "FLORIDA ETAPA 1",
       "fecha_ss": "2026-09-04T15:38:27",
+      "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2555,6 +2582,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-06T14:53:54",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2566,6 +2594,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-05T06:46:27",
+      "fecha_esperada": "2026-09-07T08:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000085"
@@ -2577,6 +2606,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-05T06:49:54",
+      "fecha_esperada": "2026-09-07T08:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000084"
@@ -2588,6 +2618,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-05T06:48:25",
+      "fecha_esperada": "2026-09-07T08:00:00",
       "fecha_respuesta": "2026-09-05T11:04:33",
       "estado": "No aprobada",
       "ot_asociada": null
@@ -2599,6 +2630,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO BOGOTA",
       "lugar": "UNICENTRO BOGOTÁ",
       "fecha_ss": "2026-09-04T13:11:38",
+      "fecha_esperada": "2026-09-07T08:11:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000104"
@@ -2610,6 +2642,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA CENTRAL",
       "lugar": "PLAZA CENTRAL",
       "fecha_ss": "2026-09-03T14:29:08",
+      "fecha_esperada": "2026-09-07T08:29:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -2621,6 +2654,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-04T18:07:58",
+      "fecha_esperada": "2026-09-07T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2632,6 +2666,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
       "lugar": "GRAN PLAZA",
       "fecha_ss": "2026-09-04T20:42:14",
+      "fecha_esperada": "2026-09-07T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2643,6 +2678,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-05T18:38:45",
+      "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2654,6 +2690,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-05T18:38:14",
+      "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2665,6 +2702,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN LA COLINA",
       "lugar": "LA COLINA",
       "fecha_ss": "2026-09-06T11:38:37",
+      "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2676,6 +2714,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-06T12:52:13",
+      "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2687,6 +2726,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-06T16:53:46",
+      "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000071"
@@ -2698,6 +2738,7 @@
       "equipo": "SISTEMA DE EXTRACCION",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-06T20:22:00",
+      "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2709,6 +2750,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-07T11:43:24",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2720,6 +2762,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SAN DIEGO",
       "lugar": "SAN DIEGO",
       "fecha_ss": "2026-09-07T07:49:05",
+      "fecha_esperada": "2026-09-07T11:49:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000072"
@@ -2731,6 +2774,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-07T08:49:38",
+      "fecha_esperada": "2026-09-07T12:49:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2742,6 +2786,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-07T08:50:10",
+      "fecha_esperada": "2026-09-07T12:50:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2753,6 +2798,7 @@
       "equipo": "ESTUFA",
       "lugar": "CENTRO MAYOR",
       "fecha_ss": "2026-09-06T12:27:21",
+      "fecha_esperada": "2026-09-07T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2764,6 +2810,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-07T09:17:42",
+      "fecha_esperada": "2026-09-07T13:17:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2775,6 +2822,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-07T09:18:26",
+      "fecha_esperada": "2026-09-07T13:18:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2786,6 +2834,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-07T09:19:38",
+      "fecha_esperada": "2026-09-07T13:19:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2797,6 +2846,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MAYORCA ET 1",
       "lugar": "MAYORCA ETAPA 1",
       "fecha_ss": "2026-09-07T11:08:00",
+      "fecha_esperada": "2026-09-07T11:30:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2808,6 +2858,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO MAYOR",
       "lugar": "CENTRO MAYOR",
       "fecha_ss": "2026-09-04T12:12:42",
+      "fecha_esperada": "2026-09-07T15:12:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2819,6 +2870,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FLORIDA ET2",
       "lugar": "FLORIDA ETAPA 2",
       "fecha_ss": "2026-09-07T11:45:10",
+      "fecha_esperada": "2026-09-07T15:45:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2830,6 +2882,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-07T11:45:11",
+      "fecha_esperada": "2026-09-07T15:45:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000092"
@@ -2841,6 +2894,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FLORIDA ET2",
       "lugar": "FLORIDA ETAPA 2",
       "fecha_ss": "2026-09-07T11:46:09",
+      "fecha_esperada": "2026-09-07T15:46:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2852,6 +2906,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FLORIDA ET2",
       "lugar": "FLORIDA ETAPA 2",
       "fecha_ss": "2026-09-07T11:47:09",
+      "fecha_esperada": "2026-09-07T15:47:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2863,6 +2918,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T18:02:46",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2874,6 +2930,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-07T12:38:35",
+      "fecha_esperada": "2026-09-08T07:38:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2885,6 +2942,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-07T13:23:02",
+      "fecha_esperada": "2026-09-08T08:23:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2896,6 +2954,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-07T13:34:36",
+      "fecha_esperada": "2026-09-08T08:34:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2907,6 +2966,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PREMIUM PLAZA",
       "lugar": "PREMIUM PLAZA",
       "fecha_ss": "2026-09-07T14:21:40",
+      "fecha_esperada": "2026-09-08T09:21:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -2918,6 +2978,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-08T09:53:00",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -2929,6 +2990,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-07T11:11:00",
+      "fecha_esperada": "2026-09-08T10:11:00",
       "fecha_respuesta": "2026-09-07T11:40:00",
       "estado": "Ejecutada",
       "ot_asociada": "000068"
@@ -2940,6 +3002,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-07T16:17:34",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": "2026-09-08T12:30:00",
       "estado": "Ejecutada",
       "ot_asociada": "000082"
@@ -2951,6 +3014,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T18:01:57",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
       "ot_asociada": null
@@ -2962,6 +3026,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T17:54:19",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
       "ot_asociada": null
@@ -2973,6 +3038,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T18:06:45",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -2984,6 +3050,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T18:05:45",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
       "ot_asociada": null
@@ -2995,6 +3062,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T18:03:47",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3006,6 +3074,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
       "lugar": "SANTAFÉ MEDELLÍN",
       "fecha_ss": "2026-09-07T17:37:00",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3017,6 +3086,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-07T16:39:00",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3028,6 +3098,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-07T16:19:00",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3039,6 +3110,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T18:07:45",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000103"
@@ -3050,6 +3122,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-07T13:13:49",
+      "fecha_esperada": "2026-09-08T12:13:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3061,6 +3134,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-08T09:38:40",
+      "fecha_esperada": "2026-09-08T13:38:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3072,6 +3146,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
       "lugar": "SANTAFÉ BOGOTÁ",
       "fecha_ss": "2026-09-08T10:55:26",
+      "fecha_esperada": "2026-09-08T14:55:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3083,6 +3158,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
       "lugar": "GRAN PLAZA",
       "fecha_ss": "2026-09-08T19:14:05",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3094,6 +3170,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN LA COLINA",
       "lugar": "LA COLINA",
       "fecha_ss": "2026-09-08T14:03:35",
+      "fecha_esperada": "2026-09-09T09:03:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3105,6 +3182,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN LA COLINA",
       "lugar": "LA COLINA",
       "fecha_ss": "2026-09-08T14:08:36",
+      "fecha_esperada": "2026-09-09T09:08:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3116,6 +3194,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-07T11:35:11",
+      "fecha_esperada": "2026-09-09T09:35:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3127,6 +3206,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-08T17:13:25",
+      "fecha_esperada": "2026-09-09T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3138,6 +3218,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-07T13:01:33",
+      "fecha_esperada": "2026-09-09T11:01:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3149,6 +3230,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-07T13:19:33",
+      "fecha_esperada": "2026-09-09T11:19:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3160,6 +3242,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "lugar": "PLAZA DE LAS AMÉRICAS",
       "fecha_ss": "2026-09-07T13:28:49",
+      "fecha_esperada": "2026-09-09T11:28:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3171,6 +3254,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
       "fecha_ss": "2026-09-08T16:24:42",
+      "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3182,6 +3266,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-08T16:15:39",
+      "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3193,6 +3278,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
       "lugar": "GRAN PLAZA",
       "fecha_ss": "2026-09-08T19:12:35",
+      "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3204,6 +3290,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
       "lugar": "GRAN PLAZA",
       "fecha_ss": "2026-09-08T19:13:35",
+      "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3215,6 +3302,7 @@
       "equipo": "HORNO PROTEINAS RATIONAL",
       "lugar": "VEGAS PLAZA",
       "fecha_ss": "2026-09-09T16:03:00",
+      "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3226,6 +3314,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
       "lugar": "DISTRITO VERA",
       "fecha_ss": "2026-09-10T04:46:00",
+      "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3237,6 +3326,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
       "lugar": "FUNDADORES",
       "fecha_ss": "2026-09-09T17:04:00",
+      "fecha_esperada": "2026-09-10T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3248,6 +3338,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PARQUE ARBOLEDA",
       "lugar": "PARQUE ARBOLEDA",
       "fecha_ss": "2026-09-09T16:55:00",
+      "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3259,6 +3350,7 @@
       "equipo": "MESA TIPO ISLA",
       "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
       "fecha_ss": "2026-09-10T08:35:51",
+      "fecha_esperada": "2026-09-10T12:35:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3270,6 +3362,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA CENTRAL",
       "lugar": "PLAZA CENTRAL",
       "fecha_ss": "2026-09-10T09:09:22",
+      "fecha_esperada": "2026-09-10T13:09:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3281,6 +3374,7 @@
       "equipo": "MESA TIPO ISLA",
       "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
       "fecha_ss": "2026-09-10T08:42:21",
+      "fecha_esperada": "2026-09-10T14:42:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3292,6 +3386,7 @@
       "equipo": "MESON LAVAPLATOS",
       "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
       "fecha_ss": "2026-09-10T08:49:21",
+      "fecha_esperada": "2026-09-10T14:49:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3303,6 +3398,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
       "lugar": "FUNDADORES",
       "fecha_ss": "2026-09-09T16:59:00",
+      "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3314,6 +3410,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T11:32:00",
+      "fecha_esperada": "2026-09-10T15:32:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3325,6 +3422,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO MEDELLIN",
       "lugar": "UNICENTRO MEDELLÍN",
       "fecha_ss": "2026-09-10T20:32:40",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3336,6 +3434,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:21:50",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3347,6 +3446,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:22:18",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3358,6 +3458,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:22:20",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3369,6 +3470,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:37:49",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3380,6 +3482,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:38:19",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3391,6 +3494,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:38:51",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3402,6 +3506,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:40:12",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3413,6 +3518,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:41:09",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3424,6 +3530,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:50:02",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3435,6 +3542,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:50:51",
+      "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3446,6 +3554,7 @@
       "equipo": "ESTUFA",
       "lugar": "LA CENTRAL",
       "fecha_ss": "2026-09-10T13:20:14",
+      "fecha_esperada": "2026-09-11T08:20:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3457,6 +3566,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN LA CENTRAL",
       "lugar": "LA CENTRAL",
       "fecha_ss": "2026-09-10T13:26:32",
+      "fecha_esperada": "2026-09-11T08:26:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3468,6 +3578,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN LA CENTRAL",
       "lugar": "LA CENTRAL",
       "fecha_ss": "2026-09-10T13:31:34",
+      "fecha_esperada": "2026-09-11T08:31:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3479,6 +3590,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN LA CENTRAL",
       "lugar": "LA CENTRAL",
       "fecha_ss": "2026-09-10T13:42:10",
+      "fecha_esperada": "2026-09-11T08:42:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3490,6 +3602,7 @@
       "equipo": "HORNO PROTEINAS RATIONAL",
       "lugar": "LA CENTRAL",
       "fecha_ss": "2026-09-10T13:46:46",
+      "fecha_esperada": "2026-09-11T08:46:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3501,6 +3614,7 @@
       "equipo": "SELLADORA DE JUGOS",
       "lugar": "SAN DIEGO",
       "fecha_ss": "2026-09-10T15:25:46",
+      "fecha_esperada": "2026-09-11T10:25:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3512,6 +3626,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
       "lugar": "FUNDADORES",
       "fecha_ss": "2026-09-10T15:49:00",
+      "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3523,6 +3638,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
       "lugar": "FUNDADORES",
       "fecha_ss": "2026-09-10T15:51:00",
+      "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3534,6 +3650,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
       "lugar": "FUNDADORES",
       "fecha_ss": "2026-09-10T15:53:00",
+      "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3545,6 +3662,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:49:58",
+      "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3556,6 +3674,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:21:48",
+      "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3567,6 +3686,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO MEDELLIN",
       "lugar": "UNICENTRO MEDELLÍN",
       "fecha_ss": "2026-09-10T20:35:18",
+      "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3578,6 +3698,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN SAN DIEGO",
       "lugar": "SAN DIEGO",
       "fecha_ss": "2026-09-10T15:28:46",
+      "fecha_esperada": "2026-09-11T12:28:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3589,6 +3710,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA CENTRAL",
       "lugar": "PLAZA CENTRAL",
       "fecha_ss": "2026-09-10T18:47:17",
+      "fecha_esperada": "2026-09-11T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3600,6 +3722,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:21:20",
+      "fecha_esperada": "2026-09-11T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3611,6 +3734,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-09T15:25:00",
+      "fecha_esperada": "2026-09-11T13:25:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3622,6 +3746,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:50:51",
+      "fecha_esperada": "2026-09-11T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3633,6 +3758,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-10T08:22:00",
+      "fecha_esperada": "2026-09-12T07:22:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3644,6 +3770,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
       "lugar": "LOS MOLINOS",
       "fecha_ss": "2026-09-10T22:51:38",
+      "fecha_esperada": "2026-09-14T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3655,6 +3782,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
       "lugar": "DISTRITO VERA",
       "fecha_ss": "2026-09-05T08:41:00",
+      "fecha_esperada": "2026-10-20T09:41:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3666,6 +3794,7 @@
       "equipo": null,
       "lugar": null,
       "fecha_ss": "2026-09-05T08:43:07",
+      "fecha_esperada": "2026-10-20T09:43:00",
       "fecha_respuesta": "2026-09-09T16:04:10",
       "estado": "No aprobada",
       "ot_asociada": null
@@ -3677,6 +3806,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-05T10:41:00",
+      "fecha_esperada": "2026-10-20T11:41:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3688,6 +3818,7 @@
       "equipo": null,
       "lugar": null,
       "fecha_ss": "2026-09-06T22:25:58",
+      "fecha_esperada": "2026-10-20T13:00:00",
       "fecha_respuesta": "2026-09-07T11:15:22",
       "estado": "No aprobada",
       "ot_asociada": null
@@ -3699,6 +3830,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-06T22:21:00",
+      "fecha_esperada": "2026-10-20T13:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3710,6 +3842,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-06T08:56:49",
+      "fecha_esperada": "2026-10-20T13:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000083"
@@ -3721,6 +3854,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FLORIDA ET2",
       "lugar": "FLORIDA ETAPA 2",
       "fecha_ss": "2026-09-07T11:41:39",
+      "fecha_esperada": "2026-10-21T08:41:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -3732,6 +3866,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-07T13:16:00",
+      "fecha_esperada": "2026-10-21T10:16:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3743,6 +3878,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-07T13:17:00",
+      "fecha_esperada": "2026-10-21T10:17:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3754,6 +3890,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-07T13:19:00",
+      "fecha_esperada": "2026-10-21T10:19:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3765,6 +3902,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-07T17:58:17",
+      "fecha_esperada": "2026-10-21T13:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000102"
@@ -3776,6 +3914,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-08T14:19:00",
+      "fecha_esperada": "2026-10-22T11:19:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3787,6 +3926,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-08T14:19:00",
+      "fecha_esperada": "2026-10-22T11:19:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3798,6 +3938,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-08T14:20:00",
+      "fecha_esperada": "2026-10-22T11:20:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3809,6 +3950,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-08T14:20:00",
+      "fecha_esperada": "2026-10-22T11:20:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3820,6 +3962,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-08T14:21:00",
+      "fecha_esperada": "2026-10-22T11:21:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3831,6 +3974,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN ARKADIA",
       "lugar": "ARKADIA",
       "fecha_ss": "2026-09-09T14:12:00",
+      "fecha_esperada": "2026-10-23T11:12:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3842,6 +3986,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
       "lugar": "DISTRITO VERA",
       "fecha_ss": "2026-09-10T04:50:00",
+      "fecha_esperada": "2026-10-23T13:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": "000105"
@@ -3853,6 +3998,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
       "lugar": "DISTRITO VERA",
       "fecha_ss": "2026-09-09T18:56:00",
+      "fecha_esperada": "2026-10-23T13:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3864,6 +4010,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T11:30:00",
+      "fecha_esperada": "2026-10-24T09:30:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3875,6 +4022,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T11:31:00",
+      "fecha_esperada": "2026-10-24T09:31:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3886,6 +4034,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T11:31:00",
+      "fecha_esperada": "2026-10-24T09:31:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3897,6 +4046,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T11:32:00",
+      "fecha_esperada": "2026-10-24T09:32:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3908,6 +4058,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T11:33:00",
+      "fecha_esperada": "2026-10-24T09:33:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -3919,6 +4070,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T11:33:00",
+      "fecha_esperada": "2026-10-24T09:33:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3930,6 +4082,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T12:21:00",
+      "fecha_esperada": "2026-10-24T10:21:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3941,6 +4094,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T12:22:00",
+      "fecha_esperada": "2026-10-24T10:22:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3952,6 +4106,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T12:22:00",
+      "fecha_esperada": "2026-10-24T10:22:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3963,6 +4118,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T12:23:00",
+      "fecha_esperada": "2026-10-24T10:23:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3974,6 +4130,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T12:23:00",
+      "fecha_esperada": "2026-10-24T10:23:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3985,6 +4142,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-10T12:24:00",
+      "fecha_esperada": "2026-10-24T10:24:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null
@@ -3996,6 +4154,7 @@
       "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
       "lugar": "LA CENTRAL",
       "fecha_ss": "2026-09-10T13:10:33",
+      "fecha_esperada": "2026-10-24T11:10:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -4007,6 +4166,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-07T13:14:00",
+      "fecha_esperada": "2026-12-05T08:14:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -4018,6 +4178,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-08T09:57:00",
+      "fecha_esperada": "2026-12-07T08:57:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -4029,6 +4190,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-08T10:01:00",
+      "fecha_esperada": "2026-12-07T09:01:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -4040,6 +4202,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
       "lugar": "MALL PLAZA MANIZALES",
       "fecha_ss": "2026-09-08T10:02:00",
+      "fecha_esperada": "2026-12-07T09:02:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
@@ -4051,6 +4214,7 @@
       "equipo": null,
       "lugar": null,
       "fecha_ss": "2026-09-10T21:02:17",
+      "fecha_esperada": "2026-12-10T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -4062,6 +4226,7 @@
       "equipo": null,
       "lugar": null,
       "fecha_ss": "2026-09-10T17:41:13",
+      "fecha_esperada": "2026-12-10T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null
@@ -4073,6 +4238,7 @@
       "equipo": null,
       "lugar": null,
       "fecha_ss": "2026-08-26T15:33:39",
+      "fecha_esperada": "2026-10-08T12:33:00",
       "fecha_respuesta": null,
       "estado": "Validada",
       "ot_asociada": null
@@ -4084,6 +4250,7 @@
       "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
       "lugar": "FABRICATO",
       "fecha_ss": "2026-09-04T18:08:00",
+      "fecha_esperada": "2027-01-04T13:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null
