@@ -1362,13 +1362,13 @@ function renderTecnicos(el){
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
   <div class="card section-block">
     <div class="card-head"><h3>Ubicación del técnico</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre calcula con la fecha y hora actual (${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real. "Según plan de trabajo" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye este momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
+    <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre calcula con la fecha y hora actual (${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real (sigue ahí hasta que se cierre). "Programado" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye este momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
     ${simpleTable(ubicacionRows, [
       {key:'tecnico', label:'Técnico'},
       {key:'estado', label:'Estado', fmt:v=>{
         const map = {
           en_sitio:['good','En sitio'],
-          programado:['info','Según plan de trabajo'],
+          programado:['info','Programado'],
           sin_asignacion:['neutral','Sin asignación'],
           conflicto:['bad','⚠ Varios servicios abiertos'],
         };
