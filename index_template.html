@@ -412,7 +412,6 @@ let FILTER = { desde:null, hasta:null };
 
 function getFilteredOT(){ return DATA.ot.filter(r=>inRange(r.fecha_creacion, FILTER.desde, FILTER.hasta)); }
 function getFilteredSS(){ return DATA.ss.filter(r=>inRange(r.fecha_ss, FILTER.desde, FILTER.hasta)); }
-function getFilteredParos(){ return DATA.paros.filter(r=>inRange(r.inicio, FILTER.desde, FILTER.hasta)); }
 
 /* ============ Filtro de mes propio de la tarjeta "Top lugares" (independiente del filtro general) ============ */
 let topLugaresMes = null; // 'YYYY-MM', se fija al mes mas reciente disponible en el primer render
@@ -1056,29 +1055,13 @@ function renderOT(el){
 
 /* ============ TAB: Paros por Equipo ============ */
 function renderParos(el){
-  const paros = getFilteredParos();
-  const totalH = paros.reduce((s,p)=>s+(p.duracion_h||0),0);
-  const promH = paros.length? totalH/paros.filter(p=>p.duracion_h!=null).length : null;
-  const pendientes = paros.filter(p=>!p.iniciado).length;
-
-  // 1) Paros por lugar (respeta el filtro de fecha de la pestana)
-  const lugarMap = new Map();
-  paros.forEach(p=>{
-    const key = p.lugar || 'Sin dato';
-    if(!lugarMap.has(key)) lugarMap.set(key, {lugar:key, total:0, sumaDur:0, nDur:0});
-    const c = lugarMap.get(key);
-    c.total++;
-    if(p.duracion_h!=null){ c.sumaDur += p.duracion_h; c.nDur++; }
-  });
-  const porLugar = [...lugarMap.values()]
-    .map(c=>({lugar:c.lugar, total:c.total, promedio: c.nDur? c.sumaDur/c.nDur : null}))
-    .sort((a,b)=>b.total-a.total);
-
-  // 2) Paros actuales (NO respeta el filtro de fecha - foto real de ahora mismo).
-  // Incluye tanto correctivos (paros reales) como preventivos (paradas
-  // programadas) sobre equipos que generan paro - ver DATA.paros_programados.
+  // Un paro es un estado ACTUAL del equipo, no un evento histórico de un
+  // rango de fechas - por eso esta pestaña completa (KPIs, por lugar y
+  // detalle) NO respeta el filtro de fecha de arriba, y siempre muestra
+  // solo los correctivos y preventivos (paradas programadas) que siguen
+  // abiertos en este momento (sin Fecha Fin Real).
   const hoy = new Date();
-  const paradasActuales = [
+  const paros = [
     ...DATA.paros.map(p=>({...p, tipo:'Correctivo'})),
     ...(DATA.paros_programados||[]).map(p=>({...p, tipo:'Preventivo'})),
   ].filter(p=>!p.fin).map(p=>{
@@ -1086,7 +1069,26 @@ function renderParos(el){
     return {...p, dias};
   }).sort((a,b)=>(b.dias||0)-(a.dias||0));
 
-  // 3) Frecuencia de mantenimiento por equipo: cada cuánto se le hace UNA
+  const totalHorasParado = paros.reduce((s,p)=>s+(p.dias!=null? p.dias*24 : 0),0);
+  const promHorasParado = paros.length? totalHorasParado/paros.length : null;
+  const pendientes = paros.filter(p=>!p.iniciado).length;
+
+  // 1) Paros actuales por lugar
+  const lugarMap = new Map();
+  paros.forEach(p=>{
+    const key = p.lugar || 'Sin dato';
+    if(!lugarMap.has(key)) lugarMap.set(key, {lugar:key, total:0, sumaDias:0, nDias:0});
+    const c = lugarMap.get(key);
+    c.total++;
+    if(p.dias!=null){ c.sumaDias += p.dias; c.nDias++; }
+  });
+  const porLugar = [...lugarMap.values()]
+    .map(c=>({lugar:c.lugar, total:c.total, diasProm: c.nDias? c.sumaDias/c.nDias : null}))
+    .sort((a,b)=>b.total-a.total);
+
+  const paradasActuales = paros;
+
+  // 2) Frecuencia de mantenimiento por equipo: cada cuánto se le hace UNA
   // intervención (correctiva o preventiva) a cada equipo puntual - histórico
   // completo de OT, sin filtro de fecha. No es lo mismo que "paros": aquí
   // cuenta cualquier OT resuelta a un equipo, no solo las que provocan paro.
@@ -1107,25 +1109,24 @@ function renderParos(el){
   }).sort((a,b)=>a.promedio-b.promedio);
 
   el.innerHTML = `
-  ${sectionTitle('Paros por equipo', `${paros.length} paros identificados a partir de OT correctivas — el módulo de paros del sistema aún no reporta datos propios`)}
+  ${sectionTitle('Paros por equipo', `${paros.length} paros ocurriendo en este momento (correctivos y preventivos sobre equipos que generan paro) — no respeta el filtro de fecha de arriba, el módulo de paros del sistema aún no reporta datos propios`)}
   <div class="kpi-row">
-    ${kpiCard({label:'Total de paros', value:paros.length})}
-    ${kpiCard({label:'Horas totales de paro', value:fmtH(totalH)})}
-    ${kpiCard({label:'Duración promedio (finalizados)', value:fmtH(promH)})}
+    ${kpiCard({label:'Total de paros actuales', value:paros.length})}
+    ${kpiCard({label:'Horas acumuladas paradas', value:fmtH(totalHorasParado)})}
+    ${kpiCard({label:'Horas promedio parado', value:fmtH(promHorasParado)})}
     ${kpiCard({label:'Pendientes de iniciar', value:pendientes, status: pendientes>0?'warn':'good'})}
   </div>
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>Paros por lugar</h3></div>
+      <div class="card-head"><h3>Paros actuales por lugar</h3></div>
       ${simpleTable(porLugar, [
         {key:'lugar', label:'Lugar'},
         {key:'total', label:'Total de paros', num:true},
-        {key:'promedio', label:'Duración promedio (h)', num:true, fmt:v=>fmtH(v)},
+        {key:'diasProm', label:'Días promedio parado', num:true, fmt:v=>v==null?'—':v.toFixed(1)},
       ], {scroll:true})}
     </div>
     <div class="card">
-      <div class="card-head"><h3>Paros actuales</h3></div>
-      <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre muestra los equipos parados en este momento.</div>
+      <div class="card-head"><h3>Paros actuales — detalle</h3></div>
       ${paradasActuales.length? simpleTable(paradasActuales, [
         {key:'tipo', label:'Tipo'},
         {key:'ot', label:'OT'},
