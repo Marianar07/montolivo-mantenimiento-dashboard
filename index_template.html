@@ -727,7 +727,7 @@ function renderResumen(el){
   // fecha - se indica en cada sub-etiqueta).
   const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
 
-  const parosActuales = DATA.paros.filter(p=>!p.fin);
+  const parosActuales = [...DATA.paros, ...(DATA.paros_programados||[])].filter(p=>!p.fin);
   const lugaresParos = [...new Set(parosActuales.map(p=>p.lugar).filter(Boolean))];
   const subParos = parosActuales.length===0 ? 'sin paros activos'
     : (lugaresParos.length<=3 ? lugaresParos.join(', ') : `en ${lugaresParos.length} lugares`);
