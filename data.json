@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-11T11:35:44",
+  "generado": "2026-09-11T11:50:48",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -2238,16 +2238,16 @@
       "fecha_creacion": "2026-09-10T15:02:43",
       "inicio_programado": "2026-09-11T08:00:00",
       "fin_programado": "2026-09-11T11:00:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-11T08:10:00",
+      "fin_real": "2026-09-11T11:29:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "MAYORCA ETAPA 2",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "equipo_cod": "HP-0010",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 0.0
+      "costo_real": 81016.91
     },
     {
       "ot": "000107",
@@ -2320,6 +2320,111 @@
       "ss_codigo": "00154",
       "fecha_creacion_ss": "2026-09-10T11:33:00",
       "fecha_creacion": "2026-09-11T10:12:08",
+      "inicio_programado": "2026-09-11T07:00:00",
+      "fin_programado": "2026-09-11T11:30:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "FABRICATO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "equipo_cod": "AI-0136",
+      "criticidad": "Baja",
+      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000111",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00153",
+      "fecha_creacion_ss": "2026-09-10T11:32:00",
+      "fecha_creacion": "2026-09-11T10:24:49",
+      "inicio_programado": "2026-09-11T07:00:00",
+      "fin_programado": "2026-09-11T11:30:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "FABRICATO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "equipo_cod": "AI-0136",
+      "criticidad": "Baja",
+      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000112",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00152",
+      "fecha_creacion_ss": "2026-09-10T11:32:00",
+      "fecha_creacion": "2026-09-11T10:42:19",
+      "inicio_programado": "2026-09-11T07:00:00",
+      "fin_programado": "2026-09-12T08:30:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "FABRICATO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "equipo_cod": "AI-0136",
+      "criticidad": "Baja",
+      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000113",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00151",
+      "fecha_creacion_ss": "2026-09-10T11:31:00",
+      "fecha_creacion": "2026-09-11T10:56:41",
+      "inicio_programado": "2026-09-11T07:00:00",
+      "fin_programado": "2026-09-11T11:30:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "FABRICATO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "equipo_cod": "AI-0136",
+      "criticidad": "Baja",
+      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000114",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00149",
+      "fecha_creacion_ss": "2026-09-10T11:30:00",
+      "fecha_creacion": "2026-09-11T11:09:45",
+      "inicio_programado": "2026-09-11T07:00:00",
+      "fin_programado": "2026-09-11T11:30:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "FABRICATO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "equipo_cod": "AI-0136",
+      "criticidad": "Baja",
+      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
+      "costo_real": 0.0
+    },
+    {
+      "ot": "000115",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00070",
+      "fecha_creacion_ss": "2026-09-06T22:21:00",
+      "fecha_creacion": "2026-09-11T11:47:02",
       "inicio_programado": "2026-09-11T07:00:00",
       "fin_programado": "2026-09-11T11:30:00",
       "inicio_real": null,
@@ -3497,7 +3602,7 @@
       "fecha_esperada": "2026-09-10T15:32:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": "000111"
     },
     {
       "ss": "00175",
@@ -3941,7 +4046,7 @@
       "fecha_esperada": "2026-10-20T13:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": "000115"
     },
     {
       "ss": "00071",
@@ -4121,7 +4226,7 @@
       "fecha_esperada": "2026-10-24T09:30:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": "000114"
     },
     {
       "ss": "00150",
@@ -4145,7 +4250,7 @@
       "fecha_esperada": "2026-10-24T09:31:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": "000113"
     },
     {
       "ss": "00152",
@@ -4157,7 +4262,7 @@
       "fecha_esperada": "2026-10-24T09:32:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": "000112"
     },
     {
       "ss": "00155",
@@ -4769,6 +4874,20 @@
       "duracion_h": 3.33,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
+      "ss_codigo": null
+    },
+    {
+      "ot": "000106",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0010",
+      "lugar": "MAYORCA ETAPA 2",
+      "criticidad": "Alta",
+      "inicio": "2026-09-11T08:10:00",
+      "iniciado": true,
+      "fin": "2026-09-11T11:29:00",
+      "duracion_h": 3.32,
+      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "estado": "Abierta",
       "ss_codigo": null
     }
   ],
