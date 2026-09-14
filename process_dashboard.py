@@ -351,6 +351,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "criticidad": criticidad,
             "tecnico": None if pd.isna(r["Ejecutores"]) else str(r["Ejecutores"]),
             "costo_real": float(costo_real),
+            "comentarios": None if pd.isna(r["Realimentación"]) else str(r["Realimentación"]).strip(),
             "_tipo_match": tipo_match,  # uso interno para construir "paros", no va al tablero
         })
     return pd.DataFrame(registros)

@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-14T08:22:13",
+  "generado": "2026-09-14T12:27:01",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -21,7 +21,8 @@
       "equipo_cod": "NR-0057",
       "criticidad": "Alta",
       "tecnico": "SEBASTIAN BUITRAGO GRACIANO",
-      "costo_real": 71616.36
+      "costo_real": 71616.36,
+      "comentarios": "Ejecutores:\nSEBASTIAN BUITRAGO GRACIANO\nprueba solicitud de servicio\n\n[2026-05-19 09:15 a 11:50]\n\n-Actividades Realizadas:\nNR-0057-C-001 | Reparación General\n\n-Descripcion:\nSe realiza reparación de nevera, pendiente cambiar terminal\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000002",
@@ -42,7 +43,8 @@
       "equipo_cod": "SE-0021",
       "criticidad": "Alta",
       "tecnico": "JONATHAN RESTREPO RAMIREZ, JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 136074.0
+      "costo_real": 136074.0,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-08-19 07:30 a 09:30]\n\n-Actividades Realizadas:\nSE-0021-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nmtto preventivo del hongo, queda pendiente campana.\n\nFirma Jefferson y Jefe punto de venta\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-19 07:30 a 09:30]\n\n-Actividades Realizadas:\nSE-0021-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nmtto preventivo del hongo, queda pendiente campana.\n\nFirma Jefferson y Jefe punto de venta\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-08-25 06:00 a 12:00]\n\n-Actividades Realizadas:\nSE-0021-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse termina trabajo en sistema de extracción también se resana pared de servicio se cambia empaque rational y empaque lasaña al igual que se ayuda a colocar comanderas con Julián \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000003",
@@ -63,7 +65,8 @@
       "equipo_cod": "HP-0013",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 73281.63
+      "costo_real": 73281.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-18 08:00 a 11:00]\n\n-Actividades Realizadas:\nHP-0013-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000004",
@@ -84,7 +87,8 @@
       "equipo_cod": "AI-0129",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-19 09:30 a 10:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-AK-C-001 | Reparación Locativa General\n\n-Descripcion:\nCambio sifón flexible punto de venta por emergencia\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000005",
@@ -105,7 +109,8 @@
       "equipo_cod": "HP-0026",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 85495.24
+      "costo_real": 85495.24,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-21 07:50 a 11:20]\n\n-Actividades Realizadas:\nHP-0026-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\ncorrectivo, cambio bomba cleanjet, manguera limpieza cleanjet\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000006",
@@ -126,7 +131,8 @@
       "equipo_cod": "AA-0001",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-21 07:00 a 09:00]\n\n-Actividades Realizadas:\nAA-0001-AMG-0007 | MANTENIMIENTO AIRE ACONDICIONADO\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de aire acondicionado. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-08-21 07:00 a 09:00]\n\n-Actividades Realizadas:\nAA-0001-AMG-0007 | MANTENIMIENTO AIRE ACONDICIONADO\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de aire acondicionado. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000007",
@@ -147,7 +153,8 @@
       "equipo_cod": "SE-0007",
       "criticidad": "Alta",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 170092.5
+      "costo_real": 170092.5,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-08-21 07:00 a 12:00]\n\n-Actividades Realizadas:\nSE-0007-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse hace mantenimiento completo del sistema de extracción pdv Vegas plaza \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-08-21 07:00 a 12:00]\n\n-Actividades Realizadas:\nSE-0007-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse hace mantenimiento completo del sistema de extracción pdv Vegas plaza \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000008",
@@ -168,7 +175,8 @@
       "equipo_cod": "SE-0021",
       "criticidad": "Alta",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 51027.75
+      "costo_real": 51027.75,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-08-22 07:00 a 10:00]\n\n-Actividades Realizadas:\nSE-0021-C-001 | Reparación General\n\n-Descripcion:\nse realiza cambio he instalación de caja eléctrica. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-22 07:00 a 10:00]\n\n-Actividades Realizadas:\nSE-0021-C-001 | Reparación General\n\n-Descripcion:\nse realiza cambio he instalación de caja eléctrica. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000009",
@@ -189,7 +197,8 @@
       "equipo_cod": "AI-0129",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 85046.25
+      "costo_real": 85046.25,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-08-22 07:00 a 12:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-AK-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó la reparación y se cerró con otro número de OT.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000010",
@@ -210,7 +219,8 @@
       "equipo_cod": "CV-0010",
       "criticidad": "Alta",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000011",
@@ -231,7 +241,8 @@
       "equipo_cod": "HP-0012",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 52925.62
+      "costo_real": 52925.62,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-22 07:50 a 10:00]\n\n-Actividades Realizadas:\nHP-0012-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nse incluye correctivo ya que la valvula esfera estaba presentando problemas, se desmonta y se organiza piñones, con cambio de juntas toricas.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000012",
@@ -252,7 +263,8 @@
       "equipo_cod": "AI-0141",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 51027.75
+      "costo_real": 51027.75,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-08-22 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-DV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse hace mantenimiento preventivo completo a granizadoras. se engrasa piñoneria y se lubrican y cambian empaques \nse entrega grasa a compañera (Karen)\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000013",
@@ -273,7 +285,8 @@
       "equipo_cod": "NC-0046",
       "criticidad": "Alta",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 170092.5
+      "costo_real": 170092.5,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-08-26 07:00 a 12:00]\n\n-Actividades Realizadas:\nNC-0046-C-001 | Reparación General\n\n-Descripcion:\nse realizó revisión de nevera de congelación y se determinó que se requiere intervención con proveedor ya que se debe intervenir compresor y refrigerante.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-08-26 07:00 a 12:00]\n\n-Actividades Realizadas:\nNC-0046-C-001 | Reparación General\n\n-Descripcion:\nse realizó revisión de nevera de congelación y se determinó que se requiere intervención con proveedor ya que se debe intervenir compresor y refrigerante.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000014",
@@ -294,7 +307,8 @@
       "equipo_cod": "HL-0019",
       "criticidad": "Alta",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 9638.58
+      "costo_real": 9638.58,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-03 11:40 a 12:14]\n\n-Actividades Realizadas:\nHL-0019-C-001 | Reparación General\n\n-Descripcion:\nse cambia horno de lasaña \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000015",
@@ -315,7 +329,8 @@
       "equipo_cod": "HP-0053",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 87530.84
+      "costo_real": 87530.84,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-26 08:00 a 11:35]\n\n-Actividades Realizadas:\nHP-0053-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\ncorrectivo, cambio de Altavoz quemado y verificación de terminales sulfatadas \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000016",
@@ -336,7 +351,8 @@
       "equipo_cod": "SE-0026",
       "criticidad": "Alta",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 96992.15
+      "costo_real": 96992.15,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-08-27 08:34 a 11:45]\n\n-Actividades Realizadas:\nSE-0026-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento de sistema de extracción tipo hongo \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-08-27 08:34 a 11:45]\n\n-Actividades Realizadas:\nSE-0026-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento de sistema de extracción tipo hongo \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000017",
@@ -357,7 +373,8 @@
       "equipo_cod": "SE-0016",
       "criticidad": "Alta",
       "tecnico": "JONATHAN RESTREPO RAMIREZ, JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 162499.95
+      "costo_real": 162499.95,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-08-27 07:00 a 12:20]\n\n-Actividades Realizadas:\nSE-0016-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nmantenimiento de ducto de extracción pdv fabricato \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-27 07:00 a 12:20]\n\n-Actividades Realizadas:\nSE-0016-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nmantenimiento de ducto de extracción pdv fabricato \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000018",
@@ -378,7 +395,8 @@
       "equipo_cod": "HP-0023",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 71246.03
+      "costo_real": 71246.03,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-27 07:15 a 10:10]\n\n-Actividades Realizadas:\nHP-0023-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000019",
@@ -399,7 +417,8 @@
       "equipo_cod": "AI-0129",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 68037.0
+      "costo_real": 68037.0,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-08-27 08:00 a 12:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-AK-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó ajuste de puerta y cerradura se instaló bisagra nueva y se deja la puerta en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-08-27 08:00 a 12:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-AK-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó ajuste de puerta y cerradura se instaló bisagra nueva y se deja la puerta en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000020",
@@ -420,7 +439,8 @@
       "equipo_cod": "AI-0104",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 144726.52
+      "costo_real": 144726.52,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-08-28 07:30 a 12:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-PP-C-001 | Reparación Locativa General\n\n-Descripcion:\nse hace instalación de luz para comandas digitales se bota aceite de ducto extracción \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-08-28 07:30 a 12:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-PP-C-001 | Reparación Locativa General\n\n-Descripcion:\nse hace instalación de luz para comandas digitales se bota aceite de ducto extracción \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000021",
@@ -441,7 +461,8 @@
       "equipo_cod": "SE-0037",
       "criticidad": "Alta",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, OSCAR DARIO CASTAÑEDA GARAY, JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 91406.22
+      "costo_real": 91406.22,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-08-28 06:00 a 09:00]\n\n-Actividades Realizadas:\nSE-0037-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de extracción. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-08-28 06:00 a 09:00]\n\n-Actividades Realizadas:\nSE-0037-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de extracción. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-28 06:00 a 09:00]\n\n-Actividades Realizadas:\nSE-0037-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de extracción. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000022",
@@ -462,7 +483,8 @@
       "equipo_cod": "EP-0023",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 73281.63
+      "costo_real": 73281.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-28 07:00 a 10:00]\n\n-Actividades Realizadas:\nEP-0023-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-28 10:00 a 12:15]\n\n-Actividades Realizadas:\nEP-0024-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000022",
@@ -483,7 +505,8 @@
       "equipo_cod": "EP-0023",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 54961.22
+      "costo_real": 54961.22,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-28 07:00 a 10:00]\n\n-Actividades Realizadas:\nEP-0023-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-28 10:00 a 12:15]\n\n-Actividades Realizadas:\nEP-0024-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000023",
@@ -504,7 +527,8 @@
       "equipo_cod": "HP-0059",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 69210.43
+      "costo_real": 69210.43,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-29 07:40 a 10:30]\n\n-Actividades Realizadas:\nHP-0059-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nequipo funcionando correctamente \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000024",
@@ -525,7 +549,8 @@
       "equipo_cod": "AI-0104",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 119064.76
+      "costo_real": 119064.76,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-08-29 07:00 a 10:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-PP-C-001 | Reparación Locativa General\n\n-Descripcion:\nse corrige conexión de luz para comandas digitales \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-08-29 07:00 a 10:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-PP-C-001 | Reparación Locativa General\n\n-Descripcion:\nse corrige conexión de luz para comandas digitales \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000025",
@@ -546,7 +571,8 @@
       "equipo_cod": "AI-0135",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 22432.48
+      "costo_real": 22432.48,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-08-29 08:00 a 09:40]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa sistema eléctrico se encuentra con voltaje normal, se revisa granizadora y se evidencia suiche de motor sulfatado y no generaba arranque del motor se hace la reparación provisional haciendo el empalme directo, se deja operativa pero se debe hacer la instalación del suiche. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-08-29 08:00 a 09:40]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa sistema eléctrico se encuentra con voltaje normal, se revisa granizadora y se evidencia suiche de motor sulfatado y no generaba arranque del motor se hace la reparación provisional haciendo el empalme directo, se deja operativa pero se debe hacer la instalación del suiche. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000026",
@@ -567,7 +593,8 @@
       "equipo_cod": "AI-0108",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 40378.47
+      "costo_real": 40378.47,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-29 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-SM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza revisión a nevera de congelación la cual presentaba problemas en su controlador por corto, se instala un nuevo controlador y se restablece el sistema se deja nevera funcional. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000027",
@@ -588,7 +615,8 @@
       "equipo_cod": "HP-0056",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 83459.63
+      "costo_real": 83459.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-08-31 08:10 a 11:35]\n\n-Actividades Realizadas:\nHP-0056-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo, se cambia kit manguera de vapor, y filtro de aire\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000028",
@@ -609,7 +637,8 @@
       "equipo_cod": "AI-0124",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 182812.44
+      "costo_real": 182812.44,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-08-31 07:00 a 13:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-LM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó el cambio y ajuste de granizadoras y se dejan con buen funcionamiento.\nse encontró dos de los tanques de granizadoras con fracturas en pieza de encaje del eje se recomienda el cambio.\nse realizó ajuste de tomas y sello se cambiaron 2 tomacorrientes.\nse realizó revisión en ducto de extracción y se encuentra con filtración de grasa por una de las juntas de empate se requiere trabajo mayor para corregir.\nse realizó ajuste de rejilla de neveras.\nse pone tapa de rejilla de desagüe.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-08-31 07:00 a 13:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-LM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó el cambio y ajuste de granizadoras y se dejan con buen funcionamiento.\nse encontró dos de los tanques de granizadoras con fracturas en pieza de encaje del eje se recomienda el cambio.\nse realizó ajuste de tomas y sello se cambiaron 2 tomacorrientes.\nse realizó revisión en ducto de extracción y se encuentra con filtración de grasa por una de las juntas de empate se requiere trabajo mayor para corregir.\nse realizó ajuste de rejilla de neveras.\nse pone tapa de rejilla de desagüe.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000029",
@@ -630,7 +659,8 @@
       "equipo_cod": "AI-0108",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 26080.85
+      "costo_real": 26080.85,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-08-31 08:33 a 10:05]\n\n-Actividades Realizadas:\nMTV-PV-AN-SM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse deja microondas \nse trata de organiza desagüe de granizadora \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000030",
@@ -651,7 +681,8 @@
       "equipo_cod": "AI-0141",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 18426.69
+      "costo_real": 18426.69,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-08-31 10:45 a 11:50]\n\n-Actividades Realizadas:\nMTV-PV-AN-DV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza mantenimiento de limpieza \nse organiza manguera de desagüe \nse deja empaque de granizadora \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000031",
@@ -672,7 +703,8 @@
       "equipo_cod": "AI-0109",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 63784.69
+      "costo_real": 63784.69,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-01 07:00 a 10:45]\n\n-Actividades Realizadas:\nMTV-PV-AN-UM-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio de acrílico \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000032",
@@ -693,7 +725,8 @@
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 121135.41
+      "costo_real": 121135.41,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-08-31 07:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza reparación ajuste de puerta se deja funcional. \nse revisa horno de proteínas se cambia empaque y se realiza ajuste a tubería se deja funcional PDV Mayorca 2. \nse arregla puerta la cual no cerraba en planta cuarto de verduras se arregla chapa y se deja funcional. \nse revisa licuadora la cual tenía las cuchillas en otro sentido se organizan y deja funcional. \nse revisa nevera del cuarto de desechos la cual se encuentra alarmada se desalarma y se deja funcional. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000033",
@@ -714,7 +747,8 @@
       "equipo_cod": "HP-0046",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 85495.24
+      "costo_real": 85495.24,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-01 08:00 a 11:30]\n\n-Actividades Realizadas:\nHP-0046-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000034",
@@ -735,7 +769,8 @@
       "equipo_cod": "AI-0141",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 159960.88
+      "costo_real": 159960.88,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-02 07:00 a 12:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-DV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó adecuación eléctrica para conexión de horno nuevo.\nse deja en buenas condiciones y funcionamiento.\n\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-02 07:00 a 12:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-DV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó adecuación eléctrica para conexión de horno nuevo.\nse deja en buenas condiciones y funcionamiento.\n\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000035",
@@ -756,7 +791,8 @@
       "equipo_cod": "SE-0024",
       "criticidad": "Alta",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 137109.33
+      "costo_real": 137109.33,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-02 07:00 a 11:30]\n\n-Actividades Realizadas:\nSE-0024-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de extracción se deja funcional.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-02 07:00 a 11:30]\n\n-Actividades Realizadas:\nSE-0024-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de extracción se deja funcional.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000036",
@@ -777,7 +813,8 @@
       "equipo_cod": "AI-0147",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ, OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 143203.08
+      "costo_real": 143203.08,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-07 07:00 a 11:42]\n\n-Actividades Realizadas:\nMTV-PV-AN-OV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse retira el horno de pizza y se traslada para pdv distrito vera se retira el que estaba allá y se instala el que se llevó se retira horno pdv distrito vera y se deja en bodega\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-07 07:00 a 11:42]\n\n-Actividades Realizadas:\nMTV-PV-AN-OV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse retira el horno de pizza y se traslada para pdv distrito vera se retira el que estaba allá y se instala el que se llevó se retira horno pdv distrito vera y se deja en bodega\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000037",
@@ -798,7 +835,8 @@
       "equipo_cod": "AI-0125",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 170092.5
+      "costo_real": 170092.5,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-01 07:00 a 12:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-SN-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó el respectivo cerramiento del área de trabajo se realizó resane y aplicación de pintura en área de aviso de fachada , se aplicó sello en algunas áreas de la cosina y se instaló jabonera se realizó  ajuste de tope para persiana y fue cancelado la apertura de equipos.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-01 07:00 a 12:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-SN-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó el respectivo cerramiento del área de trabajo se realizó resane y aplicación de pintura en área de aviso de fachada , se aplicó sello en algunas áreas de la cosina y se instaló jabonera se realizó  ajuste de tope para persiana y fue cancelado la apertura de equipos.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000038",
@@ -819,7 +857,8 @@
       "equipo_cod": "ES-0007",
       "criticidad": "Alta",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 159960.88
+      "costo_real": 159960.88,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-02 07:00 a 12:15]\n\n-Actividades Realizadas:\nES-0007-AMG-0006 | MANTENIMIENTO FOGÓN INDUSTRIAL\n\n-Descripcion:\nmantenimiento de estufa completo y cambio de empaque rational \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-02 07:00 a 12:15]\n\n-Actividades Realizadas:\nES-0007-AMG-0006 | MANTENIMIENTO FOGÓN INDUSTRIAL\n\n-Descripcion:\nmantenimiento de estufa completo y cambio de empaque rational \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000039",
@@ -840,7 +879,8 @@
       "equipo_cod": "SE-0008",
       "criticidad": "Alta",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 134594.9
+      "costo_real": 134594.9,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-01 07:00 a 12:00]\n\n-Actividades Realizadas:\nSE-0008-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de extracción.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-01 07:00 a 12:00]\n\n-Actividades Realizadas:\nSE-0008-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad de extracción.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000040",
@@ -861,7 +901,8 @@
       "equipo_cod": "AA-0004",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 24318.47
+      "costo_real": 24318.47,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-07 02:00 a 03:30]\n\n-Actividades Realizadas:\nAA-0004-AMG-0007 | MANTENIMIENTO AIRE ACONDICIONADO\n\n-Descripcion:\nse realiza mantenimiento preventivo a unidad evaporadora. queda pendiente la unidad condensadora. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000041",
@@ -882,7 +923,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 54634.92
+      "costo_real": 54634.92,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-01 02:30 a 03:10]\n\n-Actividades Realizadas:\nMTV-BG-C-001 | Reparación Locativa General\n\n-Descripcion:\nse instala repisa \nse va por material a planta para pegar tapa contador \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-02 01:30 a 03:30]\n\n-Actividades Realizadas:\nMTV-BG-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000042",
@@ -903,7 +945,8 @@
       "equipo_cod": "AI-0147",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000043",
@@ -924,7 +967,8 @@
       "equipo_cod": "AI-0121",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 16212.32
+      "costo_real": 16212.32,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-02 03:00 a 04:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nEntrega de olla sopera. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000044",
@@ -945,7 +989,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 64849.26
+      "costo_real": 64849.26,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-02 02:00 a 04:00]\n\n-Actividades Realizadas:\nMTV-BG-C-001 | Reparación Locativa General\n\n-Descripcion:\nse lija y se pinta el planchon de logística \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-02 02:00 a 04:00]\n\n-Actividades Realizadas:\nMTV-BG-C-001 | Reparación Locativa General\n\n-Descripcion:\nse lija y se pinta el planchon de logística \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000045",
@@ -966,7 +1011,8 @@
       "equipo_cod": "AI-0124",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 65139.23
+      "costo_real": 65139.23,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-02 08:00 a 10:40]\n\n-Actividades Realizadas:\nMTV-PV-AN-LM-C-001 | Reparación Locativa General\n\n-Descripcion:\nSe hace revisión exhaustiva al equipo presentando varias alarmas, se encuentra componentes trabajando con intermitencia y se hace su respetiva corrección, equipo queda operativo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000046",
@@ -987,7 +1033,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 51027.75
+      "costo_real": 51027.75,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-02 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-BG-MT-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó revisión de ollas soperas .\nse valida el estado de cada una para priorizar las reparaciones y se logró reparar y dejar en buenas condiciones la olla 0047.\nqueda pendiente otras dos ollas para reparar .\nen el momento no se encontró microondas para reparar.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000047",
@@ -1008,7 +1055,8 @@
       "equipo_cod": "AI-0135",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 20488.1
+      "costo_real": 20488.1,
+      "comentarios": ""
     },
     {
       "ot": "000048",
@@ -1029,7 +1077,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 31405.48
+      "costo_real": 31405.48,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-02 13:40 a 16:00]\n\n-Actividades Realizadas:\nMTV-BG-MT-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza afilado de cuchillas para licuadoras. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000049",
@@ -1050,7 +1099,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 32424.63
+      "costo_real": 32424.63,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-03 02:00 a 04:00]\n\n-Actividades Realizadas:\nMTV-BG-MT-C-001 | Reparación Locativa General\n\n-Descripcion:\nse lija y se pintan herrajes. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000050",
@@ -1071,7 +1121,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 73281.63
+      "costo_real": 73281.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-02 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-BO-CP-C-001 | Reparación Locativa General\n\n-Descripcion:\ncompra y recogida repuestos, \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000051",
@@ -1092,7 +1143,8 @@
       "equipo_cod": "HP-0017",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 77352.83
+      "costo_real": 77352.83,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-03 08:30 a 11:40]\n\n-Actividades Realizadas:\nHP-0017-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto horno # 0029 ya que el HP0017se encuentra en bodega,  para tener en cuenta \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000052",
@@ -1113,7 +1165,8 @@
       "equipo_cod": "AI-0108",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000053",
@@ -1134,7 +1187,8 @@
       "equipo_cod": "AI-0115",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 29766.19
+      "costo_real": 29766.19,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-03 09:55 a 11:40]\n\n-Actividades Realizadas:\nMTV-PV-AN-PN-C-001 | Reparación Locativa General\n\n-Descripcion:\nse deja en funcionamiento horno lasaña\nse cambia empaques de granizadora \nse cambia sifones o desagues \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000054",
@@ -1155,7 +1209,8 @@
       "equipo_cod": "CV-0011",
       "criticidad": "Alta",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 45703.11
+      "costo_real": 45703.11,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-04 08:30 a 10:00]\n\n-Actividades Realizadas:\nCV-0011-AMG-0034 | EVAPORADOR CAVAS\n\n-Descripcion:\nse realizó mantenimiento preventivo de el difusor de la cava sin novedad.\nse dejó nuevamente en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-04 08:30 a 10:00]\n\n-Actividades Realizadas:\nCV-0011-AMG-0034 | EVAPORADOR CAVAS\n\n-Descripcion:\nse realizó mantenimiento preventivo de el difusor de la cava sin novedad.\nse dejó nuevamente en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000055",
@@ -1176,7 +1231,8 @@
       "equipo_cod": "CV-0012",
       "criticidad": "Alta",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 45703.11
+      "costo_real": 45703.11,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-03 07:00 a 08:30]\n\n-Actividades Realizadas:\nCV-0012-AMG-0034 | EVAPORADOR CAVAS\n\n-Descripcion:\nse realizó mantenimiento preventivo del equipo y se deja nuevamente en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-03 07:00 a 08:30]\n\n-Actividades Realizadas:\nCV-0012-AMG-0034 | EVAPORADOR CAVAS\n\n-Descripcion:\nse realizó mantenimiento preventivo del equipo y se deja nuevamente en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000056",
@@ -1197,7 +1253,8 @@
       "equipo_cod": "AI-0110",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 141324.64
+      "costo_real": 141324.64,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-03 07:00 a 12:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-AV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse instala TV de 32 pulgadas se deja funcional y operativo. \nse instalan 2 granizadoras se dejan funcionales. \n\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-03 07:00 a 12:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-AV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse instala TV de 32 pulgadas se deja funcional y operativo. \nse instalan 2 granizadoras se dejan funcionales. \n\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000057",
@@ -1218,7 +1275,8 @@
       "equipo_cod": "AI-0111",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 102055.5
+      "costo_real": 102055.5,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-03 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-GP-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza cambio de toma corriente que presentaba corto.\nse revisa granizadora que está disparando el breaker y se evidencia que está consumiendo 16.8 A el cual es de 20 A se está sobre cargando la instalación de luz .\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-04 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-GP-C-001 | Reparación Locativa General\n\n-Descripcion:\nse termina de revisar conexión de granizadora que estaba disparando breaker se cambia por uno de 32A\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000058",
@@ -1239,7 +1297,8 @@
       "equipo_cod": "AI-0147",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 22679.0
+      "costo_real": 22679.0,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-03 10:00 a 11:20]\n\n-Actividades Realizadas:\nMTV-PV-AN-OV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza revisión de selladora y se evidencia varillas torcidas se enderesan y queda de nuevo en funcionamiento \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000059",
@@ -1260,7 +1319,8 @@
       "equipo_cod": "HP-0049",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 70838.91
+      "costo_real": 70838.91,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-04 07:46 a 10:40]\n\n-Actividades Realizadas:\nHP-0049-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\npreventivo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000060",
@@ -1281,7 +1341,8 @@
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 54207.73
+      "costo_real": 54207.73,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-05 07:00 a 09:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nse recibe capacitación de maquinaria nueva\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-05 07:00 a 08:30]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\ncapacitación dosificadora en planta \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000061",
@@ -1302,7 +1363,8 @@
       "equipo_cod": "AI-0107",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 12756.94
+      "costo_real": 12756.94,
+      "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-05 09:20 a 10:05]\n\n-Actividades Realizadas:\nMTV-PV-AN-VP-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza cambio de tarjeta de velocidad se organiza maniguetas de horno lasaña \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000062",
@@ -1323,7 +1385,8 @@
       "equipo_cod": "AI-0143",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 40117.17
+      "costo_real": 40117.17,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-05 09:01 a 10:20]\n\n-Actividades Realizadas:\nMTV-PV-AN-F2-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó inspección u revisión del sistema de extracción el cual presentaba fallas en en funcionamiento.\nse determinó luego de la revisión que se debía reportar a la administración del CC ya que el motor de extracción principal está a cargo de ellos .\nse le informó a la jefe del punto para que realizara la solicitud de revisión por parte del CC.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-05 09:01 a 10:20]\n\n-Actividades Realizadas:\nMTV-PV-AN-F2-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó inspección u revisión del sistema de extracción el cual presentaba fallas en en funcionamiento.\nse determinó luego de la revisión que se debía reportar a la administración del CC ya que el motor de extracción principal está a cargo de ellos .\nse le informó a la jefe del punto para que realizara la solicitud de revisión por parte del CC.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000063",
@@ -1344,7 +1407,8 @@
       "equipo_cod": "AI-0119",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 12337.87
+      "costo_real": 12337.87,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-05 08:30 a 09:25]\n\n-Actividades Realizadas:\nMTV-PV-AN-VE-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa nevera y se evidencia cable de potencia y se hace la reparación dejando funcionando correctamente \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000064",
@@ -1365,7 +1429,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 17009.25
+      "costo_real": 17009.25,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-05 09:30 a 10:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-ET-C-001 | Reparación Locativa General\n\n-Descripcion:\nse repara nevera que presentaba fallas de conexión queda de nuevo en funcionamiento \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000065",
@@ -1386,7 +1451,8 @@
       "equipo_cod": "AI-0104",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 59987.28
+      "costo_real": 59987.28,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-05 08:25 a 10:00]\n\n-Actividades Realizadas:\nAI-0104-C-001 | Reparación General\n\n-Descripcion:\ninstalación horno\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-05 08:25 a 10:00]\n\n-Actividades Realizadas:\nAI-0104-C-001 | Reparación General\n\n-Descripcion:\ninstalación horno\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000066",
@@ -1407,7 +1473,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": null,
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000067",
@@ -1428,7 +1495,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 93637.64
+      "costo_real": 93637.64,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-08 08:00 a 11:50]\n\n-Actividades Realizadas:\nMTV-PV-AN-ET-C-001 | Reparación Locativa General\n\n-Descripcion:\nMtto preventivo y correctivo, cambio bomba cleanjet y filtro de aire, equipo queda operativo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000068",
@@ -1449,7 +1517,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 83459.63
+      "costo_real": 83459.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-07 08:15 a 11:40]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nCorrectivo horno proteinas, se encontró corto en relec sólido por calentamiento excesivo, se cambia relec, ventilador y bocina, equipo queda operativo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000069",
@@ -1470,7 +1539,8 @@
       "equipo_cod": "AI-0129",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 51027.75
+      "costo_real": 51027.75,
+      "comentarios": "Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-07 07:01 a 10:01]\n\n-Actividades Realizadas:\nMTV-PV-AN-AK-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó cambio de manguera de acople de la estufa.\nse dejó nuevamente en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000070",
@@ -1491,7 +1561,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000071",
@@ -1512,7 +1583,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000072",
@@ -1533,7 +1605,8 @@
       "equipo_cod": "AI-0103",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000073",
@@ -1554,7 +1627,8 @@
       "equipo_cod": "AI-0119",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000074",
@@ -1575,7 +1649,8 @@
       "equipo_cod": "SE-0028",
       "criticidad": "Alta",
       "tecnico": "EMGECA",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": "SE REALIZA MTTO PREVENTIVO SISTEMA DE EXTRACCION Y CAMPANA DEL PDV SAN NICOLAS. \nEQUIPO QUEDA OPERATIVO SIN NOVEDAD."
     },
     {
       "ot": "000075",
@@ -1596,7 +1671,8 @@
       "equipo_cod": "SE-0011",
       "criticidad": "Alta",
       "tecnico": "EMGECA",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": "SE REALIZA MTTO PREVENTIVO SISTEMAQ EXTRACCION.\nQUEDANDO OPERATIVO OK."
     },
     {
       "ot": "000076",
@@ -1617,7 +1693,8 @@
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 73281.63
+      "costo_real": 73281.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-07 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\ncompra material de gas, envio repuestos para pdv\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000077",
@@ -1638,7 +1715,8 @@
       "equipo_cod": "HP-0047",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 71246.03
+      "costo_real": 71246.03,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-10 08:00 a 10:55]\n\n-Actividades Realizadas:\nHP-0047-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo, y correctivo,  ducto de la bomba cleanjet a la cabina totalmente obstruida de carbon se hace su repectiva corrección,se cambia junta de la resistencia generador de vapor. equipo queda operativo.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000078",
@@ -1659,7 +1737,8 @@
       "equipo_cod": "AI-0109",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 110560.13
+      "costo_real": 110560.13,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-08 06:00 a 09:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-UM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse corrige fuga de agua con tubería rota queda faltando resane \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-09 07:00 a 10:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-UM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse termina trabajo en Pozuelo \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000079",
@@ -1680,7 +1759,8 @@
       "equipo_cod": "AI-0114",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 116648.92
+      "costo_real": 116648.92,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-08 07:00 a 11:20]\n\n-Actividades Realizadas:\nMTV-PV-AN-M1-C-001 | Reparación Locativa General\n\n-Descripcion:\nse le hacen los respiraderos a la puerta de ingreso en cocina pdv Mayorca 1 \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-08 07:00 a 11:20]\n\n-Actividades Realizadas:\nMTV-PV-AN-M1-C-001 | Reparación Locativa General\n\n-Descripcion:\nse le hacen los respiraderos a la puerta de ingreso en cocina pdv Mayorca 1 \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000080",
@@ -1701,7 +1781,8 @@
       "equipo_cod": "HP-0029",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000081",
@@ -1722,7 +1803,8 @@
       "equipo_cod": "AI-0108",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 33648.73
+      "costo_real": 33648.73,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-08 07:00 a 09:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-SM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza soldadura a tubería de gas se deja funcional.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000082",
@@ -1743,7 +1825,8 @@
       "equipo_cod": "AI-0121",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 26918.98
+      "costo_real": 26918.98,
+      "comentarios": "Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-08 10:30 a 12:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza cambio de empaque al horno de lasaña se deja funcional y se lubrican bisagras. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000083",
@@ -1764,7 +1847,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": null,
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000084",
@@ -1785,7 +1869,8 @@
       "equipo_cod": "AI-0121",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000085",
@@ -1806,7 +1891,8 @@
       "equipo_cod": "AI-0121",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000086",
@@ -1827,7 +1913,8 @@
       "equipo_cod": "AI-0115",
       "criticidad": "Baja",
       "tecnico": null,
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000087",
@@ -1848,7 +1935,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000088",
@@ -1869,7 +1957,8 @@
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 73281.63
+      "costo_real": 73281.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-08 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nEnvio repuesto pdv, Gestion material\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000089",
@@ -1890,7 +1979,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 97273.9
+      "costo_real": 97273.9,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-09 01:00 a 04:00]\n\n-Actividades Realizadas:\nMTV-BG-C-001 | Reparación Locativa General\n\n-Descripcion:\nse organizan granizadoras, se retira paño en muros y se hace aseo general. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-09 01:00 a 04:00]\n\n-Actividades Realizadas:\nMTV-BG-C-001 | Reparación Locativa General\n\n-Descripcion:\nse organizan granizadoras, se retira paño en muros y se hace aseo general. \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000090",
@@ -1911,7 +2001,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000091",
@@ -1932,7 +2023,8 @@
       "equipo_cod": "HP-0014",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 81424.03
+      "costo_real": 81424.03,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-09 08:20 a 11:40]\n\n-Actividades Realizadas:\nHP-0014-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo, se corrige fuga de gua en tuberia de caldera a la bomba M4\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000092",
@@ -1953,7 +2045,8 @@
       "equipo_cod": "AI-0121",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000093",
@@ -1974,7 +2067,8 @@
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 37013.6
+      "costo_real": 37013.6,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-09 07:00 a 09:45]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nrecorridos en planta y capacitación de manejo seguro de malacate \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000094",
@@ -1995,7 +2089,8 @@
       "equipo_cod": "SE-0038",
       "criticidad": "Alta",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 68037.0
+      "costo_real": 68037.0,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-11 10:00 a 14:00]\n\n-Actividades Realizadas:\nSE-0038-C-001 | Reparación General\n\n-Descripcion:\nse arregla sistema de extracción \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000095",
@@ -2016,7 +2111,8 @@
       "equipo_cod": "AI-0129",
       "criticidad": "Baja",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000096",
@@ -2037,7 +2133,8 @@
       "equipo_cod": "AI-0104",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 30283.85
+      "costo_real": 30283.85,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-09 10:00 a 12:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-PP-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio de horno rational por plancha, se conecta al gas y se deja ok \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000097",
@@ -2058,7 +2155,8 @@
       "equipo_cod": "AI-0121",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000098",
@@ -2079,7 +2177,8 @@
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 73281.63
+      "costo_real": 73281.63,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-10 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nGestion de material para gas y aceite para equipos de planta\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000099",
@@ -2100,7 +2199,8 @@
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 46491.95
+      "costo_real": 46491.95,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-11 07:16 a 10:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nse arregla lava botas y lavamanos al igual que se arregla aire acondicionado \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000100",
@@ -2121,7 +2221,8 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000101",
@@ -2142,7 +2243,8 @@
       "equipo_cod": "AI-0115",
       "criticidad": "Baja",
       "tecnico": null,
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000102",
@@ -2163,7 +2265,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000103",
@@ -2184,7 +2287,8 @@
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000104",
@@ -2205,7 +2309,8 @@
       "equipo_cod": "AI-0145",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000105",
@@ -2226,7 +2331,8 @@
       "equipo_cod": "AI-0141",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 100946.18
+      "costo_real": 100946.18,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-10 12:00 a 15:45]\n\n-Actividades Realizadas:\nMTV-PV-AN-DV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa y arregla la conexión de la nevera  pdv distrito vera \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-10 12:00 a 15:45]\n\n-Actividades Realizadas:\nMTV-PV-AN-DV-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa y arregla la conexión de la nevera  pdv distrito vera \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000106",
@@ -2247,7 +2353,8 @@
       "equipo_cod": "HP-0010",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 81016.91
+      "costo_real": 81016.91,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-11 08:10 a 11:29]\n\n-Actividades Realizadas:\nHP-0010-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nMtto preventivo, cambio filtro de aire, equipo, operativo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000107",
@@ -2268,7 +2375,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000108",
@@ -2289,7 +2397,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000109",
@@ -2310,7 +2419,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000110",
@@ -2331,7 +2441,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000111",
@@ -2352,7 +2463,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000112",
@@ -2373,7 +2485,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 40378.46
+      "costo_real": 40378.46,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-11 07:00 a 08:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nse desmontan adhesivos y se instala uno nuevo pdv fabricato . \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-11 07:00 a 08:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nse desmontan adhesivos y se instala uno nuevo pdv fabricato . \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000113",
@@ -2394,7 +2507,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000114",
@@ -2415,7 +2529,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000115",
@@ -2436,7 +2551,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 20189.24
+      "costo_real": 20189.24,
+      "comentarios": "Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-11 08:30 a 09:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio de suiche de motor se deja ok y funcionando correctamente \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-11 08:30 a 09:15]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio de suiche de motor se deja ok y funcionando correctamente \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000116",
@@ -2457,7 +2573,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000117",
@@ -2478,7 +2595,8 @@
       "equipo_cod": "HP-0012",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 49668.66
+      "costo_real": 49668.66,
+      "comentarios": "Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-12 07:45 a 09:47]\n\n-Actividades Realizadas:\nHP-0012-C-001 | Reparación General\n\n-Descripcion:\nCorrectivo, obstrucción en ducto de lavado, sonda B3 y parlante no cumple con la función correspondiente, se hace su respectivas correcciónes, equipo queda operativo\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000118",
@@ -2499,7 +2617,8 @@
       "equipo_cod": "NR-0108",
       "criticidad": "Alta",
       "tecnico": null,
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000119",
@@ -2520,7 +2639,8 @@
       "equipo_cod": "NR-0108",
       "criticidad": "Alta",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000120",
@@ -2541,7 +2661,8 @@
       "equipo_cod": "AI-0104",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000121",
@@ -2562,7 +2683,8 @@
       "equipo_cod": "SJ-0010",
       "criticidad": "Baja",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000122",
@@ -2583,7 +2705,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000123",
@@ -2604,7 +2727,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, OSCAR DARIO CASTAÑEDA GARAY",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000124",
@@ -2625,7 +2749,8 @@
       "equipo_cod": "AI-0136",
       "criticidad": "Baja",
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, ANDRES FELIPE LONDOÑO GUERRA",
-      "costo_real": 29162.23
+      "costo_real": 29162.23,
+      "comentarios": "Ejecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-12 07:45 a 09:55]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza destaqueo de desagües principal \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000125",
@@ -2646,7 +2771,8 @@
       "equipo_cod": "LC-0022",
       "criticidad": "Alta",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000126",
@@ -2667,7 +2793,8 @@
       "equipo_cod": "AI-0115",
       "criticidad": "Baja",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
-      "costo_real": 51027.75
+      "costo_real": 51027.75,
+      "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-12 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-PN-C-001 | Reparación Locativa General\n\n-Descripcion:\nse lleva licuadora 0064 y se envía con mercado licuadora mala 0022\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000127",
@@ -2688,7 +2815,8 @@
       "equipo_cod": "AI-0119",
       "criticidad": "Baja",
       "tecnico": "YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     },
     {
       "ot": "000128",
@@ -2709,7 +2837,8 @@
       "equipo_cod": "AI-0129",
       "criticidad": "Baja",
       "tecnico": "YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0
+      "costo_real": 0.0,
+      "comentarios": null
     }
   ],
   "ss": [
