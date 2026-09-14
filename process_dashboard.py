@@ -118,11 +118,17 @@ def encontrar_archivos(carpeta: Path):
     crit_path = elegir("Criticidad de equipos", crit_candidatos)
     tecnicos_candidatos = buscar(["tecnicos"])
     tecnicos_path = elegir("TECNICOS", tecnicos_candidatos) if tecnicos_candidatos else None
+    proveedores_candidatos = buscar(["proveedores"])
+    proveedores_path = elegir("Datos Generales de Proveedores", proveedores_candidatos) if proveedores_candidatos else None
 
     # OT y SS: de los archivos restantes, identificar por columnas propias
     # de cada export (más confiable que el nombre de archivo, que el CMMS
     # no siempre exporta igual entre corridas).
-    excluidos = {disp_path, crit_path} | ({tecnicos_path} if tecnicos_path else set())
+    excluidos = {disp_path, crit_path}
+    if tecnicos_path:
+        excluidos.add(tecnicos_path)
+    if proveedores_path:
+        excluidos.add(proveedores_path)
     restantes = [a for a in archivos if a not in excluidos]
     ot_candidatos = [a for a in restantes if _es_ot(a)]
     ss_candidatos = [a for a in restantes if _es_ss(a)]
@@ -130,7 +136,7 @@ def encontrar_archivos(carpeta: Path):
     ot_path = elegir("OT (Órdenes de Trabajo)", ot_candidatos)
     ss_path = elegir("SS (Solicitudes de Servicio)", [a for a in ss_candidatos if a != ot_path])
 
-    return ot_path, ss_path, disp_path, crit_path, tecnicos_path
+    return ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path
 
 
 # ============================================================
@@ -193,6 +199,19 @@ def cargar_tecnicos(path):
     nombres = [str(n).strip() for n in df["NOMBRE"].dropna()]
     # normaliza al nombre "largo" (como aparece en Ejecutores) vía alias
     return sorted({ALIAS_TECNICOS.get(n, n) for n in nombres})
+
+
+def cargar_proveedores(path):
+    """Datos Generales de Proveedores.xlsx - maestro de proveedores/terceros
+    del CMMS, hoja única 'Sheet', columna 'Nombre'. Es solo de referencia:
+    la clasificación real de qué OT son de terceros sigue siendo "el técnico
+    no está en TECNICOS.xlsx/ALIAS_TECNICOS" (ver cargar_tecnicos) porque un
+    proveedor puede ejecutar una OT con el nombre de una persona (p.ej.
+    "SEBASTIAN BUITRAGO GRACIANO") que no aparece tal cual en este maestro
+    de empresas/proveedores. Este listado se usa solo para el aviso en
+    consola que compara ambas fuentes."""
+    df = pd.read_excel(path, sheet_name=0, dtype=str)
+    return sorted({str(n).strip() for n in df["Nombre"].dropna()})
 
 
 # ============================================================
@@ -524,12 +543,13 @@ def construir_criticidad_totales(crit):
 # ENSAMBLAJE FINAL
 # ============================================================
 
-def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None):
+def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None, proveedores_path=None):
     ot_raw = cargar_ot(ot_path)
     ss_raw = cargar_ss(ss_path)
     disp, periodo_texto = cargar_disponibilidad(disp_path)
     crit = cargar_criticidad(crit_path)
     tecnicos_internos = cargar_tecnicos(tecnicos_path) if tecnicos_path else None
+    proveedores = cargar_proveedores(proveedores_path) if proveedores_path else None
 
     disp_by_code, crit_by_code, lugar_to_ai = construir_indices(disp, crit)
 
@@ -557,6 +577,10 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
         # es None, no se encontró TECNICOS.xlsx - el tablero no separa
         # terceros en ese caso (trata a todos como internos).
         "tecnicos_internos": tecnicos_internos,
+        # maestro de proveedores (Datos Generales de Proveedores.xlsx), solo
+        # de referencia - no se usa para clasificar terceros (ver
+        # cargar_proveedores). None si el archivo no se encontró.
+        "proveedores": proveedores,
     }
 
     # reporte rápido en consola para poder revisar antes de subir
@@ -581,6 +605,11 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
         terceros = sorted(nombres_en_ot - set(tecnicos_internos))
         print(f"Técnicos internos (TECNICOS.xlsx): {len(tecnicos_internos)}")
         print(f"Nombres en OT no reconocidos como internos (van como tercero): {terceros}")
+        if proveedores is not None:
+            no_registrados = sorted(n for n in terceros if n not in proveedores)
+            if no_registrados:
+                print(f"  (de esos, no aparecen tal cual en Datos Generales de Proveedores: {no_registrados} "
+                      f"- puede ser una persona que ejecuta a nombre de un proveedor, no necesariamente un error)")
 
     return data
 
@@ -619,14 +648,17 @@ def main():
     if len(sys.argv) == 5:
         ot_path, ss_path, disp_path, crit_path = (Path(p) for p in sys.argv[1:5])
         tecnicos_path = None
+        proveedores_path = None
         for carpeta in (CARPETA_DATOS, CARPETA_BASE):
             candidatos = [a for a in carpeta.glob("*.xlsx") if "tecnicos" in a.name.lower()]
-            if candidatos:
+            if candidatos and tecnicos_path is None:
                 tecnicos_path = sorted(candidatos, key=lambda a: a.stat().st_mtime, reverse=True)[0]
-                break
+            candidatos_prov = [a for a in carpeta.glob("*.xlsx") if "proveedores" in a.name.lower()]
+            if candidatos_prov and proveedores_path is None:
+                proveedores_path = sorted(candidatos_prov, key=lambda a: a.stat().st_mtime, reverse=True)[0]
     else:
         carpeta = CARPETA_DATOS if any(CARPETA_DATOS.glob("*.xlsx")) else CARPETA_BASE
-        ot_path, ss_path, disp_path, crit_path, tecnicos_path = encontrar_archivos(carpeta)
+        ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path = encontrar_archivos(carpeta)
 
     print(f"OT:           {ot_path.name}")
     print(f"SS:           {ss_path.name}")
@@ -636,9 +668,13 @@ def main():
         print(f"Técnicos:     {tecnicos_path.name}")
     else:
         print("Técnicos:     no encontrado (TECNICOS.xlsx) - la pestaña Técnicos no separará terceros")
+    if proveedores_path:
+        print(f"Proveedores:  {proveedores_path.name}")
+    else:
+        print("Proveedores:  no encontrado (Datos Generales de Proveedores.xlsx) - se omite el aviso de cruce")
     print()
 
-    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path)
+    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path)
     data = limpiar_nan(data)
 
     SALIDA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")

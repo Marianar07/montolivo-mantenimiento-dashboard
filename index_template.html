@@ -984,6 +984,17 @@ function renderTopEquiposNovedadesWrap(){
 
 /* ============ TAB: Órdenes de Trabajo ============ */
 let otPager = null;
+let otTercerosPager = null;
+// Un técnico es "interno" (planta) si aparece en TECNICOS.xlsx (o su alias) -
+// ver cargar_tecnicos() en process_dashboard.py. Si DATA.tecnicos_internos es
+// null (no se encontró el archivo) se trata a todos como internos, y esta
+// tabla de terceros queda vacía. Una OT es "de terceros" si alguno de sus
+// ejecutores (separados por coma) no es interno.
+function esOTDeTerceros(r){
+  if(!DATA.tecnicos_internos) return false;
+  const internosSet = new Set(DATA.tecnicos_internos);
+  return splitTecnicos(r.tecnico).some(t=>!internosSet.has(t));
+}
 function avgDesvioInicio(rows){
   const vals = rows.map(r=>{ if(!r.inicio_real||!r.inicio_programado) return null; return (new Date(r.inicio_real)-new Date(r.inicio_programado))/3600000; }).filter(v=>v!=null);
   return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null;
@@ -1034,6 +1045,7 @@ function renderOT(el){
     const rows = all.filter(r=>r.severidad===s);
     return {sev:s, n:rows.length, desvio:avgDesvioInicio(rows), duracion:avgDuracion(rows)};
   });
+  const terceros = all.filter(esOTDeTerceros);
 
   el.innerHTML = `
   <div class="kpi-row">
@@ -1087,6 +1099,16 @@ function renderOT(el){
     </div>
     <div id="otTableWrap"></div>
   </div>
+  <div class="card section-block">
+    ${sectionTitle('Listado completo de Órdenes de Trabajo con Terceros', `${terceros.length} OT ejecutadas por proveedores en el rango seleccionado`)}
+    <div class="callout info">Un técnico se considera "tercero" (proveedor) cuando no está en el maestro de técnicos de planta (TECNICOS.xlsx) - ver "Datos Generales de Proveedores" para el detalle de proveedores registrados.</div>
+    <div class="card-head">
+      <input class="searchbox" type="text" id="otTercerosSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
+      <select id="otTercerosEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
+      <select id="otTercerosTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
+    </div>
+    <div id="otTercerosTableWrap"></div>
+  </div>
   `;
   const cols = [
     {key:'ot', label:'OT'},
@@ -1135,6 +1157,26 @@ function renderOT(el){
   document.getElementById('otSearch').addEventListener('input', refresh);
   document.getElementById('otEstado').addEventListener('change', refresh);
   document.getElementById('otTipo').addEventListener('change', refresh);
+
+  function currentFilteredTerceros(){
+    const term = document.getElementById('otTercerosSearch').value;
+    const est = document.getElementById('otTercerosEstado').value;
+    const tip = document.getElementById('otTercerosTipo').value;
+    let rows = terceros;
+    if(est) rows = rows.filter(r=>r.estado===est);
+    if(tip) rows = rows.filter(r=>r.tipo===tip);
+    return rows;
+  }
+  otTercerosPager = buildPagedTable('otTercerosTableWrap', terceros, cols, {pageSize:12});
+  function refreshTerceros(){
+    const rows = currentFilteredTerceros();
+    otTercerosPager.refresh(rows);
+    const term = document.getElementById('otTercerosSearch').value;
+    if(term) otTercerosPager.setFilter(term);
+  }
+  document.getElementById('otTercerosSearch').addEventListener('input', refreshTerceros);
+  document.getElementById('otTercerosEstado').addEventListener('change', refreshTerceros);
+  document.getElementById('otTercerosTipo').addEventListener('change', refreshTerceros);
 
   document.getElementById('otPorLugarWrap').innerHTML = simpleTable(groupOTPorLugar(all), [
     {key:'lugar', label:'Punto de venta'},
