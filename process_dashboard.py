@@ -273,6 +273,19 @@ TIPO_OT = {
 
 SS_REF_RE = re.compile(r"SS-0*(\d+)")
 
+# La Realimentación de una OT repite, por cada visita, un bloque
+# "Ejecutores:\n<NOMBRE>\n..." - ese nombre ya está en la columna Técnico,
+# así que se recorta del texto de comentarios para no duplicarlo.
+EJECUTORES_RE = re.compile(r"Ejecutores:\n[^\n]*\n")
+
+
+def limpiar_comentarios(texto):
+    if pd.isna(texto):
+        return None
+    limpio = EJECUTORES_RE.sub("", str(texto))
+    limpio = re.sub(r"\n{3,}", "\n\n", limpio).strip()
+    return limpio or None
+
 
 def severidad_desde_prioridad(valor):
     if pd.isna(valor):
@@ -351,7 +364,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "criticidad": criticidad,
             "tecnico": None if pd.isna(r["Ejecutores"]) else str(r["Ejecutores"]),
             "costo_real": float(costo_real),
-            "comentarios": None if pd.isna(r["Realimentación"]) else str(r["Realimentación"]).strip(),
+            "comentarios": limpiar_comentarios(r["Realimentación"]),
             "_tipo_match": tipo_match,  # uso interno para construir "paros", no va al tablero
         })
     return pd.DataFrame(registros)
