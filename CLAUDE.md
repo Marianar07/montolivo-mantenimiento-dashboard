@@ -41,14 +41,15 @@ redespliega automáticamente en el mismo enlace.
    También opcional: **`Datos Generales de Proveedores.xlsx`** (nombre
    contiene "proveedores") — maestro de proveedores del CMMS, hoja única
    `Sheet`, columna `Nombre`. Igual que `TECNICOS.xlsx`, cambia poco y no
-   hace falta pedirlo cada vez. **Es solo de referencia**: no se usa para
-   decidir qué OT son "de terceros" (esa clasificación sigue siendo "el
-   técnico no está en TECNICOS.xlsx/ALIAS_TECNICOS", ver más abajo), porque
-   un proveedor puede ejecutar una OT con el nombre de una persona (p.ej.
-   "SEBASTIAN BUITRAGO GRACIANO") que no aparece tal cual en este maestro
-   de empresas. Solo se usa para el aviso en consola "no aparecen tal cual
-   en Datos Generales de Proveedores" al final de cada corrida — no es un
-   error, solo contexto adicional a revisar si aparece un nombre nuevo.
+   hace falta pedirlo cada vez. Un ejecutor de OT se clasifica en tres
+   grupos (ver detalle en "Técnicos internos vs. proveedores vs. otros" más
+   abajo): **técnico interno** (está en `TECNICOS.xlsx`/`ALIAS_TECNICOS`),
+   **proveedor** (no es interno, pero su nombre aparece tal cual en este
+   maestro de proveedores), u **"otro"** (no es interno y tampoco aparece
+   aquí — p.ej. una persona que ejecuta a nombre de un proveedor sin estar
+   dada de alta individualmente, como "SEBASTIAN BUITRAGO GRACIANO"). Si
+   no se encuentra el archivo, ningún ejecutor no interno se reconoce como
+   proveedor — todos caen en "Otros".
 
 2. Ejecutar el script de procesamiento:
    ```
@@ -218,36 +219,53 @@ entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
 3h S), y mezclar domingo como si fuera un día laborable normal ocultaría
 las horas extra reales.
 
-### Técnicos internos vs. terceros (pestaña "Técnicos")
+### Técnicos internos vs. proveedores vs. otros (pestañas "Técnicos" y "Órdenes de Trabajo")
 
 **`TECNICOS.xlsx`** es el maestro de técnicos de planta (columnas NOMBRE,
-CEDULA, CIUDAD, hoja única). Vive en la carpeta raíz del proyecto (o en
-`datos_nuevos/` si Mariana lo pone ahí) y es **opcional**: si
-`process_dashboard.py` no lo encuentra, avisa en consola y el tablero
-trata a todos los técnicos como internos (no separa a nadie) — no falla.
+CEDULA, CIUDAD, hoja única) y **`Datos Generales de Proveedores.xlsx`** es
+el maestro de proveedores del CMMS (hoja única `Sheet`, columna `Nombre`).
+Ambos viven en la carpeta raíz del proyecto (o en `datos_nuevos/` si
+Mariana los pone ahí) y son **opcionales**: si `process_dashboard.py` no
+los encuentra, avisa en consola y degrada sin fallar (ver más abajo).
 
-Un nombre que aparece en el campo `Ejecutores` de una OT pero que **no**
-está en `TECNICOS.xlsx` (ni en `ALIAS_TECNICOS`, ver abajo) se trata como
-**servicio de proveedor externo**: se excluye de la tabla "Capacidad y
+Cada nombre que aparece en el campo `Ejecutores` de una OT se clasifica en
+uno de tres grupos, calculados en el frontend (`index_template.html`,
+funciones `esOTProveedor()`/`esOTOtro()` en la pestaña "Órdenes de Trabajo"
+y las mismas reglas replicadas en `renderTecnicos()` vía `proveedoresSetOf()`
++ `esProveedorRegistrado`):
+
+1. **Técnico interno**: está en `TECNICOS.xlsx` (o en `ALIAS_TECNICOS`, ver
+   abajo). Si `TECNICOS.xlsx` no se encuentra, se trata a todos como
+   internos (no se separa a nadie).
+2. **Proveedor**: no es interno, pero su nombre aparece **tal cual** en
+   `Datos Generales de Proveedores.xlsx`. Si ese archivo no se encuentra,
+   este grupo queda vacío — nadie se reconoce como proveedor registrado.
+3. **Otro**: no es interno y tampoco aparece en el maestro de proveedores
+   — p. ej. una persona que ejecuta a nombre de un proveedor sin estar
+   dada de alta individualmente en el sistema. Hoy (referencia) el único
+   nombre que cae aquí es `SEBASTIAN BUITRAGO GRACIANO` — **no** hay que
+   agregarlo a `TECNICOS.xlsx`, a `ALIAS_TECNICOS` ni a
+   `Datos Generales de Proveedores.xlsx`, porque de verdad no es ni un
+   empleado interno ni una empresa proveedora dada de alta.
+
+**No usar "no está en TECNICOS.xlsx" como sinónimo de "proveedor"** — esa
+fue la definición vieja de "tercero" (una sola tabla); ahora hay que
+distinguir proveedor registrado vs. "otro" usando también el maestro de
+proveedores.
+
+En la pestaña **"Técnicos"**, los grupos 2 y 3 se excluyen de "Capacidad y
 ocupación por técnico" y de "Dónde está cada técnico ahora" (no tiene
-sentido medirle % de ocupación contra 42h/semana ni preguntarse "dónde
-está" — no es personal de planta), y en su lugar aparece en la tabla
-"Servicios de proveedores" con solo 4 columnas: OT totales trabajadas,
-horas trabajadas, filtro de OT trabajada y duración de esa OT. Hoy
-(referencia) los únicos dos nombres que caen aquí son `EMGECA` y
-`SEBASTIAN BUITRAGO GRACIANO` — este último es un proveedor que no está
-dado de alta individualmente en el sistema (no es un empleado ni un
-error de captura, así que **no** hay que agregarlo a `TECNICOS.xlsx` ni a
-`ALIAS_TECNICOS`).
+sentido medirles % de ocupación contra 42h/semana ni preguntarse "dónde
+está" — no son personal de planta), y en su lugar aparecen en dos tablas
+separadas, cada una con las mismas 4 columnas (OT totales trabajadas,
+horas trabajadas, filtro de OT trabajada, duración de esa OT):
+"Servicios de proveedores" (grupo 2) y "Otros" (grupo 3).
 
-Esta misma clasificación (interno = está en `TECNICOS.xlsx`/`ALIAS_TECNICOS`,
-tercero = no lo está) alimenta también la tabla "Listado completo de
-Órdenes de Trabajo con Terceros" en la pestaña **"Órdenes de Trabajo"**
-(debajo de "Listado completo de Órdenes de Trabajo"): mismas columnas que
-el listado principal, filtrado a las OT donde algún ejecutor no es interno
-(`esOTDeTerceros()` en `index_template.html`). **No usar el maestro
-`Datos Generales de Proveedores.xlsx`** para esta clasificación — ver nota
-en la sección "Qué hacer cuando Mariana pida..." más arriba.
+En la pestaña **"Órdenes de Trabajo"**, debajo de "Listado completo de
+Órdenes de Trabajo" hay dos tablas más con las mismas columnas que el
+listado principal: "Listado completo de Órdenes de Trabajo con
+Proveedores" (OT con algún ejecutor del grupo 2) y "Otros" (OT con algún
+ejecutor del grupo 3).
 
 **`ALIAS_TECNICOS`** (en `process_dashboard.py`, junto a `cargar_tecnicos`)
 existe porque el nombre del técnico en las OT (`Ejecutores`) a veces trae
