@@ -38,6 +38,18 @@ redespliega automáticamente en el mismo enlace.
    volver a colocarlo si hay altas/bajas de técnicos. Si no está, el
    tablero simplemente no separa "trabajo de terceros" (ver más abajo).
 
+   También opcional: **`Datos Generales de Proveedores.xlsx`** (nombre
+   contiene "proveedores") — maestro de proveedores del CMMS, hoja única
+   `Sheet`, columna `Nombre`. Igual que `TECNICOS.xlsx`, cambia poco y no
+   hace falta pedirlo cada vez. **Es solo de referencia**: no se usa para
+   decidir qué OT son "de terceros" (esa clasificación sigue siendo "el
+   técnico no está en TECNICOS.xlsx/ALIAS_TECNICOS", ver más abajo), porque
+   un proveedor puede ejecutar una OT con el nombre de una persona (p.ej.
+   "SEBASTIAN BUITRAGO GRACIANO") que no aparece tal cual en este maestro
+   de empresas. Solo se usa para el aviso en consola "no aparecen tal cual
+   en Datos Generales de Proveedores" al final de cada corrida — no es un
+   error, solo contexto adicional a revisar si aparece un nombre nuevo.
+
 2. Ejecutar el script de procesamiento:
    ```
    python process_dashboard.py
@@ -227,6 +239,15 @@ horas trabajadas, filtro de OT trabajada y duración de esa OT. Hoy
 dado de alta individualmente en el sistema (no es un empleado ni un
 error de captura, así que **no** hay que agregarlo a `TECNICOS.xlsx` ni a
 `ALIAS_TECNICOS`).
+
+Esta misma clasificación (interno = está en `TECNICOS.xlsx`/`ALIAS_TECNICOS`,
+tercero = no lo está) alimenta también la tabla "Listado completo de
+Órdenes de Trabajo con Terceros" en la pestaña **"Órdenes de Trabajo"**
+(debajo de "Listado completo de Órdenes de Trabajo"): mismas columnas que
+el listado principal, filtrado a las OT donde algún ejecutor no es interno
+(`esOTDeTerceros()` en `index_template.html`). **No usar el maestro
+`Datos Generales de Proveedores.xlsx`** para esta clasificación — ver nota
+en la sección "Qué hacer cuando Mariana pida..." más arriba.
 
 **`ALIAS_TECNICOS`** (en `process_dashboard.py`, junto a `cargar_tecnicos`)
 existe porque el nombre del técnico en las OT (`Ejecutores`) a veces trae
