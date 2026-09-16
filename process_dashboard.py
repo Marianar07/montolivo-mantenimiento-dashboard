@@ -432,6 +432,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
             "fecha_respuesta": a_iso(r["Fecha de respuesta"]),
             "estado": r["Estado"],
             "ot_asociada": ot_por_ss.get(r["Código"]),
+            "descripcion": r["Descripción"],
         })
     return pd.DataFrame(registros)
 

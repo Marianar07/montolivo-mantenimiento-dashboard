@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-16T10:51:35",
+  "generado": "2026-09-16T15:03:33",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -3622,7 +3622,8 @@
       "fecha_esperada": "2026-05-19T14:51:00",
       "fecha_respuesta": "2026-05-19T11:50:00",
       "estado": "Evaluada",
-      "ot_asociada": "000001"
+      "ot_asociada": "000001",
+      "descripcion": "Nevera 001 sin energía."
     },
     {
       "ss": "00002",
@@ -3634,7 +3635,8 @@
       "fecha_esperada": "2026-08-19T14:50:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se requiere cambio de microswitche"
     },
     {
       "ss": "00004",
@@ -3646,7 +3648,8 @@
       "fecha_esperada": "2026-08-22T10:00:00",
       "fecha_respuesta": "2026-08-22T10:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "000008"
+      "ot_asociada": "000008",
+      "descripcion": "PREMIUM PLAZA / SISTEMA DE EXTRACCION\n\n- REALIZAR CAMBIO DE CAJA ELECTRICA EN TERRAZA. "
     },
     {
       "ss": "00007",
@@ -3658,7 +3661,8 @@
       "fecha_esperada": "2026-08-22T07:00:00",
       "fecha_respuesta": "2026-08-22T10:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "000012"
+      "ot_asociada": "000012",
+      "descripcion": "REPARACION GRANIZADORA /DISTRITO VERA"
     },
     {
       "ss": "00003",
@@ -3670,7 +3674,8 @@
       "fecha_esperada": "2026-08-24T12:02:00",
       "fecha_respuesta": "2026-08-31T16:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "000032"
+      "ot_asociada": "000032",
+      "descripcion": "REPARACION Y PINTURA DE ESTANTERIA / CUARTO DR ASEO / BODEGA PRODUCTOS Y LIMPIEZA DE DESINFENCCION"
     },
     {
       "ss": "00006",
@@ -3682,7 +3687,8 @@
       "fecha_esperada": "2026-08-22T07:00:00",
       "fecha_respuesta": "2026-08-22T12:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "000009"
+      "ot_asociada": "000009",
+      "descripcion": "ARKADIA / AJUSTE DE PUERTA TRASERA (BISAGRA)\n"
     },
     {
       "ss": "00008",
@@ -3694,7 +3700,8 @@
       "fecha_esperada": "2026-08-26T10:45:00",
       "fecha_respuesta": "2026-08-26T12:00:00",
       "estado": "Evaluada",
-      "ot_asociada": "000013"
+      "ot_asociada": "000013",
+      "descripcion": "Revisar nevera de congelación, que no esta congelando "
     },
     {
       "ss": "00009",
@@ -3706,7 +3713,8 @@
       "fecha_esperada": "2026-08-26T14:50:00",
       "fecha_respuesta": "2026-09-03T12:14:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000014"
+      "ot_asociada": "000014",
+      "descripcion": "REALIZAR CAMBIO DE MOTOR Y DE VENTILADOR"
     },
     {
       "ss": "00005",
@@ -3718,7 +3726,8 @@
       "fecha_esperada": "2026-08-22T07:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "DISTROTO VERA / GRANIZADORAS\n\nCAMBIO DE EMPAQUES Y LUBRICACION / DEJAR INSUMOS PARA EL EQUIPO."
     },
     {
       "ss": "00011",
@@ -3730,7 +3739,8 @@
       "fecha_esperada": "2026-08-31T10:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se revisa horno microondas que preventa fallas "
     },
     {
       "ss": "00012",
@@ -3742,7 +3752,8 @@
       "fecha_esperada": "2026-08-31T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de enchape piso \ncambio de lechada en piso \npintura de media caña \npintura de techo en techo y paredes "
     },
     {
       "ss": "00016",
@@ -3754,7 +3765,8 @@
       "fecha_esperada": "2026-09-01T12:58:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Horno presenta problemas para lavar, Se detiene a mitad de lavado"
     },
     {
       "ss": "00027",
@@ -3766,7 +3778,8 @@
       "fecha_esperada": "2026-09-01T14:22:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "escalera muy mal estado"
     },
     {
       "ss": "00020",
@@ -3778,7 +3791,8 @@
       "fecha_esperada": "2026-09-01T15:09:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Baldosa malas "
     },
     {
       "ss": "00028",
@@ -3790,7 +3804,8 @@
       "fecha_esperada": "2026-09-01T15:14:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000086"
+      "ot_asociada": "000086",
+      "descripcion": "el horno de lasaña está malo mas de 8 días no dan repuesta "
     },
     {
       "ss": "00029",
@@ -3802,7 +3817,8 @@
       "fecha_esperada": "2026-09-01T15:16:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000101"
+      "ot_asociada": "000101",
+      "descripcion": "congelador malo desde el  26 de agosto "
     },
     {
       "ss": "00030",
@@ -3814,7 +3830,8 @@
       "fecha_esperada": "2026-09-02T07:10:00",
       "fecha_respuesta": "2026-09-12T10:00:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000126"
+      "ot_asociada": "000126",
+      "descripcion": "la selladora de jugos está mala lleva mas de 10 días mala no le ha echo nada "
     },
     {
       "ss": "00033",
@@ -3826,7 +3843,8 @@
       "fecha_esperada": "2026-09-03T15:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "me ayudan por fa con el toma ya que allí van conectados el congelador y la nevera nevera, no contamos con tanto almacenamiento.. gracias "
     },
     {
       "ss": "00031",
@@ -3838,7 +3856,8 @@
       "fecha_esperada": "2026-09-04T11:45:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "trampa grasa de Stewart no tiene rejilla de recolección de residuos y se desborda al tener el agua abierta. "
     },
     {
       "ss": "00041",
@@ -3850,7 +3869,8 @@
       "fecha_esperada": "2026-09-05T09:16:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Baldosas de piso Rotas"
     },
     {
       "ss": "00051",
@@ -3862,7 +3882,8 @@
       "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": "2026-09-05T11:11:26",
       "estado": "No aprobada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "horno tiene las parrillas de los lados muy abiertas ocasionando que en servicio al entrar y sacar parrillas estas se caigan"
     },
     {
       "ss": "00043",
@@ -3874,7 +3895,8 @@
       "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000067"
+      "ot_asociada": "000067",
+      "descripcion": "horno rational no está haciendo un correcto lavado y presenta un sistema de alarma y no deja manipularlo"
     },
     {
       "ss": "00045",
@@ -3886,7 +3908,8 @@
       "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Nevera presentó ruido en la parte del motor queda desconectada por sonido "
     },
     {
       "ss": "00048",
@@ -3898,7 +3921,8 @@
       "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "microondas 0088 no función y por el flujo de comanda uno no da"
     },
     {
       "ss": "00049",
@@ -3910,7 +3934,8 @@
       "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": "2026-09-07T08:57:47",
       "estado": "No aprobada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "nevera se encuentra descongelada por motivo de cables malos "
     },
     {
       "ss": "00050",
@@ -3922,7 +3947,8 @@
       "fecha_esperada": "2026-09-05T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000070"
+      "ot_asociada": "000070",
+      "descripcion": "nevera se encuentra descongelada por motivo de cables malos"
     },
     {
       "ss": "00066",
@@ -3934,7 +3960,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "micro honda se apaga y no prende más "
     },
     {
       "ss": "00054",
@@ -3946,7 +3973,8 @@
       "fecha_esperada": "2026-09-07T08:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000084"
+      "ot_asociada": "000084",
+      "descripcion": "tengo 2 cifones de las posetas  sin rejillas"
     },
     {
       "ss": "00053",
@@ -3958,7 +3986,8 @@
       "fecha_esperada": "2026-09-07T08:00:00",
       "fecha_respuesta": "2026-09-05T11:04:33",
       "estado": "No aprobada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "tengo 2 cifones de las posetas sin rejilla "
     },
     {
       "ss": "00052",
@@ -3970,7 +3999,8 @@
       "fecha_esperada": "2026-09-07T08:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000085"
+      "ot_asociada": "000085",
+      "descripcion": "cifon del piso le falta una rejilla "
     },
     {
       "ss": "00040",
@@ -3982,7 +4012,8 @@
       "fecha_esperada": "2026-09-07T08:11:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000104"
+      "ot_asociada": "000104",
+      "descripcion": "Poseta de lavado para trapero se encuentra en mal estado"
     },
     {
       "ss": "00035",
@@ -3994,7 +4025,8 @@
       "fecha_esperada": "2026-09-07T08:29:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se encuentran dos microondas fuera de servicio "
     },
     {
       "ss": "00046",
@@ -4006,7 +4038,8 @@
       "fecha_esperada": "2026-09-07T10:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "puerta en la parte de abajo se le cae soporte de abajo ( para sostener) "
     },
     {
       "ss": "00065",
@@ -4018,7 +4051,8 @@
       "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Ventilador de la campana botando muchísima grasa y nos está dañando los uniformes, ya habían venido a limpiar y quedó igual, necesito que me colaboren lo más pronto posible por favor"
     },
     {
       "ss": "00069",
@@ -4030,7 +4064,8 @@
       "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "sistema de extracción no absorbe, no funciona, él guarda motor enciende necesito intervención urgente "
     },
     {
       "ss": "00060",
@@ -4042,7 +4077,8 @@
       "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": "2026-09-15T09:00:00",
       "estado": "Ejecutada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se parte llave de agua del stiward "
     },
     {
       "ss": "00061",
@@ -4054,7 +4090,8 @@
       "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se parte llave del stiward "
     },
     {
       "ss": "00063",
@@ -4066,7 +4103,8 @@
       "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "maquina selladora no está operando correctamente, palanca falla y se queda pegado el disco, no sella bien los jugos."
     },
     {
       "ss": "00067",
@@ -4078,7 +4116,8 @@
       "fecha_esperada": "2026-09-07T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000071"
+      "ot_asociada": "000071",
+      "descripcion": "se está presentando corto en el PDV el tesoro, esto hace que se dispare las granizadoras y se apaguen la tv"
     },
     {
       "ss": "00082",
@@ -4090,7 +4129,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "horno esta desnivelado las parrillas verticales no sostienen las parrillas d eproteinas ocasionando q se caigan constantemente"
     },
     {
       "ss": "00072",
@@ -4102,7 +4142,8 @@
       "fecha_esperada": "2026-09-07T11:49:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000072"
+      "ot_asociada": "000072",
+      "descripcion": "no tenemos energía en una zona del punto de venta"
     },
     {
       "ss": "00073",
@@ -4114,7 +4155,8 @@
       "fecha_esperada": "2026-09-07T12:49:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Nevera de proteinas no está enfriando "
     },
     {
       "ss": "00074",
@@ -4126,7 +4168,8 @@
       "fecha_esperada": "2026-09-07T12:50:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Congelador no cierra bien las puertas "
     },
     {
       "ss": "00064",
@@ -4138,7 +4181,8 @@
       "fecha_esperada": "2026-09-07T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "hace falta llave de paso de estufa "
     },
     {
       "ss": "00075",
@@ -4150,7 +4194,8 @@
       "fecha_esperada": "2026-09-07T13:17:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": " Empaque burlet horno rational "
     },
     {
       "ss": "00076",
@@ -4162,7 +4207,8 @@
       "fecha_esperada": "2026-09-07T13:18:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Empaque para las granizadoras"
     },
     {
       "ss": "00077",
@@ -4174,7 +4220,8 @@
       "fecha_esperada": "2026-09-07T13:19:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Baldosas rotas "
     },
     {
       "ss": "00079",
@@ -4186,7 +4233,8 @@
       "fecha_esperada": "2026-09-07T11:30:00",
       "fecha_respuesta": "2026-09-16T09:09:00",
       "estado": "Ejecutada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "fuga de gas correcccion inmediata en estufa por posible cierre de punto de venta "
     },
     {
       "ss": "00039",
@@ -4198,7 +4246,8 @@
       "fecha_esperada": "2026-09-07T15:12:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "piso de la Bodega se esta levantando lo que puese general anidamiento de plagas"
     },
     {
       "ss": "00083",
@@ -4210,7 +4259,8 @@
       "fecha_esperada": "2026-09-07T15:45:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "no tiene rejilla"
     },
     {
       "ss": "00084",
@@ -4222,7 +4272,8 @@
       "fecha_esperada": "2026-09-07T15:45:00",
       "fecha_respuesta": "2026-09-09T10:00:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000092"
+      "ot_asociada": "000092",
+      "descripcion": "extractor no hala adecuadamente el humo ya le.habian echo mantenimiento nos toca retirar filtros para q circule adecuadamente"
     },
     {
       "ss": "00085",
@@ -4234,7 +4285,8 @@
       "fecha_esperada": "2026-09-07T15:46:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "pintura mal estado "
     },
     {
       "ss": "00086",
@@ -4246,7 +4298,8 @@
       "fecha_esperada": "2026-09-07T15:47:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "madera despegada "
     },
     {
       "ss": "00106",
@@ -4258,7 +4311,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "acordeones de desagüe rotos "
     },
     {
       "ss": "00087",
@@ -4270,7 +4324,8 @@
       "fecha_esperada": "2026-09-08T07:38:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Cambio hongo campa "
     },
     {
       "ss": "00095",
@@ -4282,7 +4337,8 @@
       "fecha_esperada": "2026-09-08T08:23:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se coloca de emergencia ( ya que no hay en el Pdv) "
     },
     {
       "ss": "00097",
@@ -4294,7 +4350,8 @@
       "fecha_esperada": "2026-09-08T08:34:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "letrero no encienden (bombillos quemados) sólo enciende uno la letra T "
     },
     {
       "ss": "00112",
@@ -4306,7 +4363,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "1 lámpara en servicio no funciona, se solicita el cambio, muchas gracias "
     },
     {
       "ss": "00078",
@@ -4318,7 +4376,8 @@
       "fecha_esperada": "2026-09-08T10:11:00",
       "fecha_respuesta": "2026-09-07T11:40:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000068"
+      "ot_asociada": "000068",
+      "descripcion": "se apaga el horno de proteínas y no enciende "
     },
     {
       "ss": "00099",
@@ -4330,7 +4389,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": "2026-09-08T12:30:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000082"
+      "ot_asociada": "000082",
+      "descripcion": "horno de lasañas se le revienta el caucho por favor,se quedo pegada la puerta cuando la abrimos el caucho esta reventado"
     },
     {
       "ss": "00105",
@@ -4342,7 +4402,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "nevera  vertical de refrigeración Nar-0099 caucho en mal estado perdida de cadena de frío patillas peladas y oxidadas "
     },
     {
       "ss": "00103",
@@ -4354,7 +4415,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "nevera de refrigeración vertical NR019\ncon empaques en mal estado "
     },
     {
       "ss": "00102",
@@ -4366,7 +4428,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "tubo de gas de la estufa se despega y hay fuga"
     },
     {
       "ss": "00101",
@@ -4378,7 +4441,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "sistema de extracción no funciona , no absorbe, no enciende el guarda motor necesito intervencion"
     },
     {
       "ss": "00100",
@@ -4390,7 +4454,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "el horno se apaga en ocasiones necesito intervencion) "
     },
     {
       "ss": "00110",
@@ -4402,7 +4467,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000103"
+      "ot_asociada": "000103",
+      "descripcion": "horno de proteínas sin funcionar aún no le han dado solución "
     },
     {
       "ss": "00109",
@@ -4414,7 +4480,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "hueco en la parte de servicio falta de baldosa "
     },
     {
       "ss": "00108",
@@ -4426,7 +4493,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "microondas con hueco en la parte inferior "
     },
     {
       "ss": "00107",
@@ -4438,7 +4506,8 @@
       "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "puerta trasera en mal estado oxidada "
     },
     {
       "ss": "00089",
@@ -4450,7 +4519,8 @@
       "fecha_esperada": "2026-09-08T12:13:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "base interna de horno en mal estado (esta partido por eso no mentiene las parrillas estable) "
     },
     {
       "ss": "00111",
@@ -4462,7 +4532,8 @@
       "fecha_esperada": "2026-09-08T13:38:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Trampa de stiward se está rebosando "
     },
     {
       "ss": "00118",
@@ -4474,7 +4545,8 @@
       "fecha_esperada": "2026-09-08T14:55:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Granizadora pasa corriente se desencajo y salió volando"
     },
     {
       "ss": "00131",
@@ -4486,7 +4558,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "me ayudan por fa con el piso necesita rellenar "
     },
     {
       "ss": "00119",
@@ -4498,7 +4571,8 @@
       "fecha_esperada": "2026-09-09T09:03:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Maquina selladora de jugos presenta falla en la palanca; no baja y no sella los jugos"
     },
     {
       "ss": "00120",
@@ -4510,7 +4584,8 @@
       "fecha_esperada": "2026-09-09T09:08:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Granizadora presentó una avería en el botón del Mezclador del tanque 2, razón por la cual no está granizando el jugo de ese tanque."
     },
     {
       "ss": "00080",
@@ -4522,7 +4597,8 @@
       "fecha_esperada": "2026-09-09T09:35:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cieloraso esta demasiado sucio y engradado se solicito mantenimiento desde marzo "
     },
     {
       "ss": "00128",
@@ -4534,7 +4610,8 @@
       "fecha_esperada": "2026-09-09T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se sale el agua de las tuberías de aguas negras hacia arriba (se solicita somdeo o otra solución porque se le hace sondeo e igual se sigue saliendo el agua de la tubería de aguas negras) "
     },
     {
       "ss": "00088",
@@ -4546,7 +4623,8 @@
       "fecha_esperada": "2026-09-09T11:01:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Pisos en mal Estado (pisos agrietado) "
     },
     {
       "ss": "00094",
@@ -4558,7 +4636,8 @@
       "fecha_esperada": "2026-09-09T11:19:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "gatillo del pulsador (esta en mal estado) "
     },
     {
       "ss": "00096",
@@ -4570,7 +4649,8 @@
       "fecha_esperada": "2026-09-09T11:28:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "conector necesita ( tapa ropa ) "
     },
     {
       "ss": "00127",
@@ -4582,7 +4662,8 @@
       "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita congelador pequeño en laureles ya que el congelador que tenemos por parte de hielo iglú y  que estábamos guardando productos, me informan que lo retiran el viernes del pdv"
     },
     {
       "ss": "00129",
@@ -4594,7 +4675,8 @@
       "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "me ayudan por fa con el extractor bota mucha grasa y no extrae bien "
     },
     {
       "ss": "00126",
@@ -4606,7 +4688,8 @@
       "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita cambio de 3 parrillas en molinos ya que las que tiene se encuentran dobladas muy encojidas"
     },
     {
       "ss": "00130",
@@ -4618,7 +4701,8 @@
       "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "me ayudas por fa escaleras en mal estado "
     },
     {
       "ss": "00134",
@@ -4630,7 +4714,8 @@
       "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "horno fuga de agua "
     },
     {
       "ss": "00142",
@@ -4642,7 +4727,8 @@
       "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "estantería en mal estado "
     },
     {
       "ss": "00137",
@@ -4654,7 +4740,8 @@
       "fecha_esperada": "2026-09-10T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "colocar las perillas faltantes de la estufa, graduacion de llamas y fuga de gas"
     },
     {
       "ss": "00135",
@@ -4666,7 +4753,8 @@
       "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "llave de la poceta esta dañada, tiene un sonido extraño mientras esta cerrada."
     },
     {
       "ss": "00145",
@@ -4678,7 +4766,8 @@
       "fecha_esperada": "2026-09-10T12:35:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "isla está despegada y queda torcida necesita soldadura"
     },
     {
       "ss": "00148",
@@ -4690,7 +4779,8 @@
       "fecha_esperada": "2026-09-10T13:09:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Nevera de lasañas "
     },
     {
       "ss": "00146",
@@ -4702,7 +4792,8 @@
       "fecha_esperada": "2026-09-10T14:42:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "está despegada necesita soldadura"
     },
     {
       "ss": "00147",
@@ -4714,7 +4805,8 @@
       "fecha_esperada": "2026-09-10T14:49:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "mesón necesita cambio inestable y  se filtra mucho el agua "
     },
     {
       "ss": "00136",
@@ -4726,7 +4818,8 @@
       "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de cauchos o empaque de nevera de congelacion vertical"
     },
     {
       "ss": "00153",
@@ -4738,7 +4831,8 @@
       "fecha_esperada": "2026-09-10T15:32:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000111"
+      "ot_asociada": "000111",
+      "descripcion": "solicito en la trampa de grasa codos o ponerle algo porque esta roto"
     },
     {
       "ss": "00175",
@@ -4750,7 +4844,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Horno proteinas"
     },
     {
       "ss": "00180",
@@ -4762,7 +4857,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Buenas tardes. por favor me ayudan con la estufa, el regular está malo, hay fuga, los fuegos muy bajos y los quemadores todos están en mal estado"
     },
     {
       "ss": "00181",
@@ -4774,7 +4870,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno "
     },
     {
       "ss": "00182",
@@ -4786,7 +4883,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Persiana se cae, y necesito dos soportes para las parrillas del congelador por favor "
     },
     {
       "ss": "00183",
@@ -4798,7 +4896,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Bruja sin una pata "
     },
     {
       "ss": "00184",
@@ -4810,7 +4909,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Malla de la reja en mal estado "
     },
     {
       "ss": "00185",
@@ -4822,7 +4922,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "pintura para cielo razo y local en general,  zócalos en mal estado "
     },
     {
       "ss": "00186",
@@ -4834,7 +4935,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Calidad me pide que se le haga retoque de pintura o cambio a otro congelador, le falta los rodachines, manijas, cambio de empaque "
     },
     {
       "ss": "00187",
@@ -4846,7 +4948,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "campana no absorve bien el humo y nos ahoga, se siente mucho el calor "
     },
     {
       "ss": "00189",
@@ -4858,7 +4961,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Tengo 4  neveras con parrillas oxidadas, incluidas ahí las dos de coca-cola y las de coca necesitan cambio de empaque también por favor "
     },
     {
       "ss": "00190",
@@ -4870,7 +4974,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Me colaboran con una mesa para este espacio por favor para poder poner la olla de la sopa y otros utensilios por favor, una de las que puse en la foto nos serviría mucho"
     },
     {
       "ss": "00163",
@@ -4882,7 +4987,8 @@
       "fecha_esperada": "2026-09-11T08:20:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "tiene un escape de gas y se mantiene encendido con candela si uno está trabajando con ese quemador "
     },
     {
       "ss": "00164",
@@ -4894,7 +5000,8 @@
       "fecha_esperada": "2026-09-11T08:26:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000134"
+      "ot_asociada": "000134",
+      "descripcion": "La estantería de platos se encuentra ago floja  parece que no resiste ni siquiera el peso de los platos cada rato se viene para adelante y deja caer recipientes y platos "
     },
     {
       "ss": "00165",
@@ -4906,7 +5013,8 @@
       "fecha_esperada": "2026-09-11T08:31:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "las baldosas del piso y las paredes se encuentran quebradas."
     },
     {
       "ss": "00166",
@@ -4918,7 +5026,8 @@
       "fecha_esperada": "2026-09-11T08:42:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000133"
+      "ot_asociada": "000133",
+      "descripcion": "desprendimiento en la parte superior de la puerta al entrar a la cocina está que se cae ese Molde "
     },
     {
       "ss": "00167",
@@ -4930,7 +5039,8 @@
       "fecha_esperada": "2026-09-11T08:46:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se le sale el agua de grasa todas las noches y se le bota por fuera y amanece el piso sucio "
     },
     {
       "ss": "00168",
@@ -4942,7 +5052,8 @@
       "fecha_esperada": "2026-09-11T10:25:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "a la selladora se le daño la palanca se quedó abajo no sube"
     },
     {
       "ss": "00170",
@@ -4954,7 +5065,8 @@
       "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "NEVERA DE REFRIGERACION VERTICAL DEL PUNTO CON FUGA DE AGUA"
     },
     {
       "ss": "00171",
@@ -4966,7 +5078,8 @@
       "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "NEVERA DE REFRIGERACION VERTICAL DE BBODEGA NO ESTA ENFRIANDO"
     },
     {
       "ss": "00172",
@@ -4978,7 +5091,8 @@
       "fecha_esperada": "2026-09-11T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "SE NECESITA LA LAMPARA DEL DEL TECHO DEL LADO DE LA ESTUFA, QUITA MUCHA VISIBILIDAD AL MOMENTO DE EJECUTAR LAS PREPARACIONES, COCINA MUY OSCURA"
     },
     {
       "ss": "00179",
@@ -4990,7 +5104,8 @@
       "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000147"
+      "ot_asociada": "000147",
+      "descripcion": "Por favor me ayudan con la estufa. el regular está malo y hay fuga, fuegos muy bajos "
     },
     {
       "ss": "00188",
@@ -5002,7 +5117,8 @@
       "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Piso en muy mal estado, baldosas quebradas "
     },
     {
       "ss": "00176",
@@ -5014,7 +5130,8 @@
       "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Caucho nevera vertical  dañado"
     },
     {
       "ss": "00169",
@@ -5026,7 +5143,8 @@
       "fecha_esperada": "2026-09-11T12:28:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "necesitamos cambio de mesa de horno lasañas está en mal estado "
     },
     {
       "ss": "00177",
@@ -5038,7 +5156,8 @@
       "fecha_esperada": "2026-09-11T13:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "nevera de refrigeración no esta enfriando correctamente "
     },
     {
       "ss": "00178",
@@ -5050,7 +5169,8 @@
       "fecha_esperada": "2026-09-11T13:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000148"
+      "ot_asociada": "000148",
+      "descripcion": "Me ayudan por favor con 5 lámparas para cambio. una de ellas ya no funciona, las otras 4 están próximas a quemarse"
     },
     {
       "ss": "00174",
@@ -5062,7 +5182,8 @@
       "fecha_esperada": "2026-09-11T13:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Tomas corrientes sin energia"
     },
     {
       "ss": "00133",
@@ -5074,7 +5195,8 @@
       "fecha_esperada": "2026-09-11T13:25:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "SE SOLICITA CAMBIO DE CAUCHO EN NEVERA DE PROTEINAS (SE ENCUENTRA EN MAL ESTADO)"
     },
     {
       "ss": "00191",
@@ -5086,7 +5208,8 @@
       "fecha_esperada": "2026-09-11T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Me ayudan calibrando las grameras por favor. Adicional se envió una balanza que estaba mala y el técnico dijo que la iban a cambiar o cambiar el cable para que por favor me la devuelvan en lo posible "
     },
     {
       "ss": "00222",
@@ -5098,7 +5221,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "caucho de nevera "
     },
     {
       "ss": "00232",
@@ -5110,7 +5234,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Sin manijas"
     },
     {
       "ss": "00250",
@@ -5122,7 +5247,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "lámina de nevera se desprende de soldadura"
     },
     {
       "ss": "00194",
@@ -5134,7 +5260,8 @@
       "fecha_esperada": "2026-09-12T07:07:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "empaque horno lasañas mal estado"
     },
     {
       "ss": "00144",
@@ -5146,7 +5273,8 @@
       "fecha_esperada": "2026-09-12T07:22:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "SELLAR RANURAS EN EL AREA DE SERVICIO (POSIBLE NIDAMIENTO DE PLAGAS)"
     },
     {
       "ss": "00204",
@@ -5158,7 +5286,8 @@
       "fecha_esperada": "2026-09-12T08:17:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "equipo presenta fallas en congelacion, se ve mas en refrigeracion que en congelacion"
     },
     {
       "ss": "00205",
@@ -5170,7 +5299,8 @@
       "fecha_esperada": "2026-09-12T09:34:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "horno de lasaña se queda la puerta trancada en medio del servicio atrás las comandas "
     },
     {
       "ss": "00206",
@@ -5182,7 +5312,8 @@
       "fecha_esperada": "2026-09-12T09:37:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "puerta de servicio se traba, por favor validar. ya que es un punto de salida de emergencia "
     },
     {
       "ss": "00207",
@@ -5194,7 +5325,8 @@
       "fecha_esperada": "2026-09-12T09:48:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "buen día parrilla de pared interna  (lado ventilador) se  cae de constante por favor se solicita de carácter con el fin de evitar accidentes con el personal \n\n\nVALIDAR DE MANERA URGENTE "
     },
     {
       "ss": "00209",
@@ -5206,7 +5338,8 @@
       "fecha_esperada": "2026-09-12T09:57:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita cambio de caucho por favor validar "
     },
     {
       "ss": "00210",
@@ -5218,7 +5351,8 @@
       "fecha_esperada": "2026-09-12T10:16:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "olla sopera no calienta y pasa corriente "
     },
     {
       "ss": "00211",
@@ -5230,7 +5364,8 @@
       "fecha_esperada": "2026-09-12T10:28:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Horno de proteinas (vota demaciada agua, se apaga en servicio) "
     },
     {
       "ss": "00230",
@@ -5242,7 +5377,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Isla En mal estado "
     },
     {
       "ss": "00228",
@@ -5254,7 +5390,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se presenta fuga "
     },
     {
       "ss": "00229",
@@ -5266,7 +5403,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "tiene una filtración el sistema de ducto de grasa "
     },
     {
       "ss": "00225",
@@ -5278,7 +5416,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Manguera del horno queda por fuera."
     },
     {
       "ss": "00226",
@@ -5290,7 +5429,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Baldosa piso mal estado"
     },
     {
       "ss": "00231",
@@ -5302,7 +5442,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Isla en mal estado "
     },
     {
       "ss": "00221",
@@ -5314,7 +5455,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "estufa se le cae  la baranda  y huele mucho gas "
     },
     {
       "ss": "00214",
@@ -5326,7 +5468,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000119"
+      "ot_asociada": "000119",
+      "descripcion": "la puerta no sierra"
     },
     {
       "ss": "00213",
@@ -5338,7 +5481,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000120"
+      "ot_asociada": "000120",
+      "descripcion": "granizadora no funciona "
     },
     {
       "ss": "00224",
@@ -5350,7 +5494,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "La manguera del horno no entra por lo tanto queda por fuera y el horno tarda en tomar temperatura."
     },
     {
       "ss": "00253",
@@ -5362,7 +5507,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio caucho nevera "
     },
     {
       "ss": "00252",
@@ -5374,7 +5520,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se desprende un lado de la vitrina de exhibición de tortas ya se habia reportado anteriormente nos habian dicho que ya esta en proceso de recoger el vidrio con distribuidor"
     },
     {
       "ss": "00219",
@@ -5386,7 +5533,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": "2026-09-15T10:00:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000125"
+      "ot_asociada": "000125",
+      "descripcion": "La licuadora en medio del servicio se apaga y demora en encender "
     },
     {
       "ss": "00249",
@@ -5398,7 +5546,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "me colaboran por favor con caucho para horno de proteinas ya esta feo "
     },
     {
       "ss": "00248",
@@ -5410,7 +5559,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "manguerita   la máquina granizadora en donde sale el agua ( se rompe al momento de lavarla ) "
     },
     {
       "ss": "00245",
@@ -5422,7 +5572,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "poseta está partida "
     },
     {
       "ss": "00243",
@@ -5434,7 +5585,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000127"
+      "ot_asociada": "000127",
+      "descripcion": "granizadora se apaga durante el servicio "
     },
     {
       "ss": "00242",
@@ -5446,7 +5598,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Nevera con rodachines en mal estado, posibilidad de caerse en cualquier momento "
     },
     {
       "ss": "00241",
@@ -5458,7 +5611,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "presencia de gotera en el local hatmos \nposibilidad de cierre del punto "
     },
     {
       "ss": "00217",
@@ -5470,7 +5624,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "SE SOLICITA CAMBIO DE EMPAQUE O CAUCHOS DE NEVERA DE REFRIGERACION VERTICAL DE NEVERA YA QUE AL CERRARLA EN OCASIONES\n  SE ABRE SOLA "
     },
     {
       "ss": "00216",
@@ -5482,7 +5637,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "baldosas partidas "
     },
     {
       "ss": "00238",
@@ -5494,7 +5650,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Horno no lava automático presenta fallas y en servicio se apaga"
     },
     {
       "ss": "00237",
@@ -5506,7 +5663,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Toma corriente presenta fallas, puede dar choques eléctricos "
     },
     {
       "ss": "00233",
@@ -5518,7 +5676,8 @@
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Cajones en mal estado "
     },
     {
       "ss": "00280",
@@ -5530,7 +5689,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "lámparas de cocina que llevan 2 tubos cada 1, están funcionando a la mitad, es decir, ilumina 1 tubo de cada 1\nNota. al estar encendidas en la foto se ve como si funcionarán las dos, cuando en realidad solo funciona y de cada lado "
     },
     {
       "ss": "00227",
@@ -5542,7 +5702,8 @@
       "fecha_esperada": "2026-09-14T08:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Lámpara en mal estado "
     },
     {
       "ss": "00254",
@@ -5554,7 +5715,8 @@
       "fecha_esperada": "2026-09-14T08:14:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "pared defectuosa (tiene un hueco)"
     },
     {
       "ss": "00256",
@@ -5566,7 +5728,8 @@
       "fecha_esperada": "2026-09-14T09:33:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se solicita mejoras locativas instalación de entrepaño ya q no contamos con bodega y no tenemos donde almacenar algunas cosas "
     },
     {
       "ss": "00251",
@@ -5578,7 +5741,8 @@
       "fecha_esperada": "2026-09-14T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "me colaboran por favor con un mantenimiento para la estufa"
     },
     {
       "ss": "00240",
@@ -5590,7 +5754,8 @@
       "fecha_esperada": "2026-09-14T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "presencia de cajilla de inspección sin tapa y podría ser posible foco de plagas"
     },
     {
       "ss": "00239",
@@ -5602,7 +5767,8 @@
       "fecha_esperada": "2026-09-14T10:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Cauchos de neveras partidas y me presentan fallas en alteración en temperatura y productos"
     },
     {
       "ss": "00192",
@@ -5614,7 +5780,8 @@
       "fecha_esperada": "2026-09-14T10:00:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "isla está muy inestable para que me ayuden por favor "
     },
     {
       "ss": "00257",
@@ -5626,7 +5793,8 @@
       "fecha_esperada": "2026-09-14T10:35:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se solicita pintar cielo raso ya que tiene desprendimiento de pintura y lleva más de 6 meses asi"
     },
     {
       "ss": "00279",
@@ -5638,7 +5806,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "parrillas de nevera están oxidadas, solicito cambio porfavor de 4 unidades de parrillas para nevera "
     },
     {
       "ss": "00278",
@@ -5650,7 +5819,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "parrillas de nevera para cambiar, se encuentran oxidadas.4 parrillas en total "
     },
     {
       "ss": "00282",
@@ -5662,7 +5832,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se solicita urgente personal de mantenimiento... Empieza a botar Agua pared detrás del horno... Se\nDeja el punto con el servicio del agua cerrada.. "
     },
     {
       "ss": "00276",
@@ -5674,7 +5845,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "bordes del piso, para pintar, ya está muy desgastada la pintura "
     },
     {
       "ss": "00265",
@@ -5686,7 +5858,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita reparación o cambio de motor ya que presenta un sonido extraño\n"
     },
     {
       "ss": "00264",
@@ -5698,7 +5871,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "lámparas de servicio se están dañando están intermitentes "
     },
     {
       "ss": "00281",
@@ -5710,7 +5884,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se apaga en servicio y se suben los tiempos "
     },
     {
       "ss": "00267",
@@ -5722,7 +5897,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Maquina selladora\nAl conectar genera humo en la parte del sellado, la palanca del sellado se queda atascada hasta con jugos adentro \n"
     },
     {
       "ss": "00268",
@@ -5734,7 +5910,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000131"
+      "ot_asociada": "000131",
+      "descripcion": "El desagüe de los Pozuelos de lava loza el acordeón está roto se sale el agua y no llega a la trampa de grasa mantiene la cocina mojada "
     },
     {
       "ss": "00259",
@@ -5746,7 +5923,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "gotera de Grase en El techo debajo de El emplate, Danish a uniformes"
     },
     {
       "ss": "00260",
@@ -5758,7 +5936,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000132"
+      "ot_asociada": "000132",
+      "descripcion": "olla sopera no calienta "
     },
     {
       "ss": "00262",
@@ -5770,7 +5949,8 @@
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de caucho (roto) y parrillas (oxidadas)"
     },
     {
       "ss": "00284",
@@ -5782,7 +5962,8 @@
       "fecha_esperada": "2026-09-14T11:56:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000130"
+      "ot_asociada": "000130",
+      "descripcion": "el horno de lasaña no calienta "
     },
     {
       "ss": "00193",
@@ -5794,7 +5975,8 @@
       "fecha_esperada": "2026-09-14T11:56:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Básicas dañadas"
     },
     {
       "ss": "00285",
@@ -5806,7 +5988,8 @@
       "fecha_esperada": "2026-09-14T12:22:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "horno se apaga en servicio y se suben tiempoa muy seguido"
     },
     {
       "ss": "00286",
@@ -5818,7 +6001,8 @@
       "fecha_esperada": "2026-09-14T12:28:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se apaga y prende en servicio y se suben los tiempos "
     },
     {
       "ss": "00287",
@@ -5830,7 +6014,8 @@
       "fecha_esperada": "2026-09-14T12:31:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se apaga y prende en servicio y se suben los tiempos muy seguido "
     },
     {
       "ss": "00288",
@@ -5842,7 +6027,8 @@
       "fecha_esperada": "2026-09-14T12:34:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se apaga y prende en servicio "
     },
     {
       "ss": "00292",
@@ -5854,7 +6040,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "máquina de jugos en el tablero de los botones para (encender o granizar esta hacia afuera) "
     },
     {
       "ss": "00277",
@@ -5866,7 +6053,8 @@
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "(baldosas para cambiar están en mal estado)"
     },
     {
       "ss": "00271",
@@ -5878,7 +6066,8 @@
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "puerta del baño esta en mal estado"
     },
     {
       "ss": "00270",
@@ -5890,7 +6079,8 @@
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "parte de la tapiceria de servicio esta en mal estado "
     },
     {
       "ss": "00273",
@@ -5902,7 +6092,8 @@
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "humedad debajo de la escalera"
     },
     {
       "ss": "00274",
@@ -5914,7 +6105,8 @@
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "en las instalaciones,  se encuentran huecos."
     },
     {
       "ss": "00263",
@@ -5926,7 +6118,8 @@
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de antideslizante escalera bodega "
     },
     {
       "ss": "00269",
@@ -5938,7 +6131,8 @@
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "el compresor esta botando agua "
     },
     {
       "ss": "00294",
@@ -5950,7 +6144,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "no está enfriando "
     },
     {
       "ss": "00202",
@@ -5962,7 +6157,8 @@
       "fecha_esperada": "2026-09-14T14:34:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "colocar el boutique de primeros auxilios en la pared"
     },
     {
       "ss": "00261",
@@ -5974,7 +6170,8 @@
       "fecha_esperada": "2026-09-14T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de parrillas "
     },
     {
       "ss": "00289",
@@ -5986,7 +6183,8 @@
       "fecha_esperada": "2026-09-15T07:15:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "fuga de gas "
     },
     {
       "ss": "00290",
@@ -5998,7 +6196,8 @@
       "fecha_esperada": "2026-09-15T07:20:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000145"
+      "ot_asociada": "000145",
+      "descripcion": "no quiere calentar y se pone rojo en la parte d atrás "
     },
     {
       "ss": "00291",
@@ -6010,7 +6209,8 @@
       "fecha_esperada": "2026-09-15T07:38:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "neveras se le cambian los ( cauchos y no cierran bien) de proteínas y fruber "
     },
     {
       "ss": "00293",
@@ -6022,7 +6222,8 @@
       "fecha_esperada": "2026-09-15T08:14:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000151"
+      "ot_asociada": "000151",
+      "descripcion": "no está enfriando "
     },
     {
       "ss": "00295",
@@ -6034,7 +6235,8 @@
       "fecha_esperada": "2026-09-15T08:18:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "el horno se le bota el agua de grasa todas las noches "
     },
     {
       "ss": "00296",
@@ -6046,7 +6248,8 @@
       "fecha_esperada": "2026-09-15T08:34:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "la granizadora tiene que hacérsele cambio de cauchos, se le bota el agua y no está granizado"
     },
     {
       "ss": "00218",
@@ -6058,7 +6261,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "SE SOLICITAN RUEDAS PARA LA ISLA "
     },
     {
       "ss": "00220",
@@ -6070,7 +6274,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "tapar huecos de la pared"
     },
     {
       "ss": "00215",
@@ -6082,7 +6287,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de burlete "
     },
     {
       "ss": "00223",
@@ -6094,7 +6300,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "SE SOLICITA PINTURA PARA REJILLAS DE NEVERAS, PRESENTAN OXIDACCION "
     },
     {
       "ss": "00234",
@@ -6106,7 +6313,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "acordeon en mal estado"
     },
     {
       "ss": "00235",
@@ -6118,7 +6326,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "llave en mal estado está floja "
     },
     {
       "ss": "00236",
@@ -6130,7 +6339,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "acordeon en mal estado "
     },
     {
       "ss": "00244",
@@ -6142,7 +6352,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "baldosa  de la pared de la estufa se  están despegando "
     },
     {
       "ss": "00246",
@@ -6154,7 +6365,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "acordeones en mal estado "
     },
     {
       "ss": "00247",
@@ -6166,7 +6378,8 @@
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "base metálica se despega de la pared "
     },
     {
       "ss": "00303",
@@ -6178,7 +6391,8 @@
       "fecha_esperada": "2026-09-15T13:41:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Nevera proteinas en descongelscion tiene ruido en el ventilador, aclaro esa nevera ya se le cambió ventilad la semana pasada "
     },
     {
       "ss": "00302",
@@ -6190,7 +6404,8 @@
       "fecha_esperada": "2026-09-15T13:41:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Congelador esta haciendo costra de hielo en el ventilador "
     },
     {
       "ss": "00304",
@@ -6202,7 +6417,8 @@
       "fecha_esperada": "2026-09-15T13:42:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Horno rational botando agua por atrás "
     },
     {
       "ss": "00258",
@@ -6214,7 +6430,8 @@
       "fecha_esperada": "2026-09-15T13:44:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Caucho de nevera en mal estado "
     },
     {
       "ss": "00266",
@@ -6226,7 +6443,8 @@
       "fecha_esperada": "2026-09-15T14:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita organizar pared de servicio ya que presenta un hueco baldosa "
     },
     {
       "ss": "00283",
@@ -6238,7 +6456,8 @@
       "fecha_esperada": "2026-09-15T14:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000137"
+      "ot_asociada": "000137",
+      "descripcion": "Buenas tardes, me ayudan instalando uno de los extintores que se nos cayó por favor "
     },
     {
       "ss": "00275",
@@ -6250,7 +6469,8 @@
       "fecha_esperada": "2026-09-15T14:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "estanteria se desprende tornillo"
     },
     {
       "ss": "00272",
@@ -6262,7 +6482,8 @@
       "fecha_esperada": "2026-09-15T14:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "parte del lavado de servicio esta la pared desconchandose"
     },
     {
       "ss": "00305",
@@ -6274,7 +6495,8 @@
       "fecha_esperada": "2026-09-15T14:46:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": " hueco al lado donde está el computador\n"
     },
     {
       "ss": "00307",
@@ -6286,7 +6508,8 @@
       "fecha_esperada": "2026-09-16T08:31:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "revisar el tomacorriente este se encuentra dañado por favor validar ya que es el del microondas. URGENTE CAMBIO"
     },
     {
       "ss": "00316",
@@ -6298,7 +6521,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "maquinas granizadoras , están sin funcionamiento , me indican sobre un corto "
     },
     {
       "ss": "00308",
@@ -6310,7 +6534,8 @@
       "fecha_esperada": "2026-09-16T09:29:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "solicito caucho para el horno de proteinas esta demaciado gastado"
     },
     {
       "ss": "00318",
@@ -6322,7 +6547,8 @@
       "fecha_esperada": null,
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "tiene fuga de gas en la perilla"
     },
     {
       "ss": "00315",
@@ -6334,7 +6560,8 @@
       "fecha_esperada": "2026-09-16T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se partió unas de las palancas de granizadoras \ncodigo GZ-0064"
     },
     {
       "ss": "00297",
@@ -6346,7 +6573,8 @@
       "fecha_esperada": "2026-09-16T13:21:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "solicito reparación o cambio de una mesa de apoyo, ya que de encuentra partida "
     },
     {
       "ss": "00309",
@@ -6358,7 +6586,8 @@
       "fecha_esperada": "2026-09-16T13:32:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "solicito una gramera gramo a gramo se nos hace muy tedioso las funciones con una sola a diario hay que hacer lasañas y porcionar muchas cosas "
     },
     {
       "ss": "00317",
@@ -6370,7 +6599,8 @@
       "fecha_esperada": "2026-09-16T14:39:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "tiene fuga de gas en la perilla"
     },
     {
       "ss": "00319",
@@ -6382,7 +6612,8 @@
       "fecha_esperada": "2026-09-16T14:43:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "campana lleva dias que cuando se hace apertura no enciende "
     },
     {
       "ss": "00306",
@@ -6394,7 +6625,8 @@
       "fecha_esperada": "2026-09-17T11:27:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de lámpara (campana extractor) no funciona "
     },
     {
       "ss": "00311",
@@ -6406,7 +6638,8 @@
       "fecha_esperada": "2026-09-17T14:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de caucho mal estado, pierde temperatura "
     },
     {
       "ss": "00310",
@@ -6418,7 +6651,8 @@
       "fecha_esperada": "2026-09-17T14:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "caucho mal estado congelación, pierde temperatura "
     },
     {
       "ss": "00313",
@@ -6430,7 +6664,8 @@
       "fecha_esperada": "2026-09-17T14:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de caucho mal estado congelador, pierde temperatura "
     },
     {
       "ss": "00312",
@@ -6442,7 +6677,8 @@
       "fecha_esperada": "2026-09-17T14:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de caucho mal estado refrigerador, pierde temperatura "
     },
     {
       "ss": "00055",
@@ -6454,7 +6690,8 @@
       "fecha_esperada": "2026-10-20T09:41:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "una de las mesas del servicio se le desprende la tapicería "
     },
     {
       "ss": "00056",
@@ -6466,7 +6703,8 @@
       "fecha_esperada": "2026-10-20T09:43:00",
       "fecha_respuesta": "2026-09-09T16:04:10",
       "estado": "No aprobada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "una de las mesas de servicio,  se le desprende parte de la tapicería "
     },
     {
       "ss": "00059",
@@ -6478,7 +6716,8 @@
       "fecha_esperada": "2026-10-20T11:41:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000123"
+      "ot_asociada": "000123",
+      "descripcion": "nevera con fuga de agua "
     },
     {
       "ss": "00062",
@@ -6490,7 +6729,8 @@
       "fecha_esperada": "2026-10-20T13:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000083"
+      "ot_asociada": "000083",
+      "descripcion": "esta devolviendo agua por las rejillas del piso cuando echo agua alas pocetas del lavado"
     },
     {
       "ss": "00071",
@@ -6502,7 +6742,8 @@
       "fecha_esperada": "2026-10-20T13:00:00",
       "fecha_respuesta": "2026-09-07T11:15:22",
       "estado": "No aprobada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se apaga el horno de proteínas y no enciende "
     },
     {
       "ss": "00070",
@@ -6514,7 +6755,8 @@
       "fecha_esperada": "2026-10-20T13:00:00",
       "fecha_respuesta": "2026-09-11T09:15:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000115"
+      "ot_asociada": "000115",
+      "descripcion": "los botones de las granizadoras estan muy pegadas "
     },
     {
       "ss": "00081",
@@ -6526,7 +6768,8 @@
       "fecha_esperada": "2026-10-21T08:41:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "zócalos despegados"
     },
     {
       "ss": "00091",
@@ -6538,7 +6781,8 @@
       "fecha_esperada": "2026-10-21T10:16:00",
       "fecha_respuesta": "2026-09-11T11:45:00",
       "estado": "No aprobada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "grifos en mal estado "
     },
     {
       "ss": "00092",
@@ -6550,7 +6794,8 @@
       "fecha_esperada": "2026-10-21T10:17:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "solicito tapa para congelador #34 "
     },
     {
       "ss": "00093",
@@ -6562,7 +6807,8 @@
       "fecha_esperada": "2026-10-21T10:19:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000122"
+      "ot_asociada": "000122",
+      "descripcion": "nevera descongelalacion  de vegelated vota agua "
     },
     {
       "ss": "00104",
@@ -6574,7 +6820,8 @@
       "fecha_esperada": "2026-10-21T13:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000102"
+      "ot_asociada": "000102",
+      "descripcion": "horno de lasañas en mal estado falta de tornillos y empaques tapa no cierra "
     },
     {
       "ss": "00121",
@@ -6586,7 +6833,8 @@
       "fecha_esperada": "2026-10-22T11:19:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "grietas en paredes y pisos"
     },
     {
       "ss": "00122",
@@ -6598,7 +6846,8 @@
       "fecha_esperada": "2026-10-22T11:19:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "congelador pulpas largo se requiere manigueta "
     },
     {
       "ss": "00124",
@@ -6610,7 +6859,8 @@
       "fecha_esperada": "2026-10-22T11:20:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita drenaje de grasa para la campana de grasa "
     },
     {
       "ss": "00123",
@@ -6622,7 +6872,8 @@
       "fecha_esperada": "2026-10-22T11:20:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita tapón de seguridad  la llave de válvulas de la red contra incedios"
     },
     {
       "ss": "00125",
@@ -6634,7 +6885,8 @@
       "fecha_esperada": "2026-10-22T11:21:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita pintura y tapar ranuras de poceta de lavado de trapera "
     },
     {
       "ss": "00132",
@@ -6646,7 +6898,8 @@
       "fecha_esperada": "2026-10-23T11:12:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "revisión de cableado fuertes corrientes de energía "
     },
     {
       "ss": "00143",
@@ -6658,7 +6911,8 @@
       "fecha_esperada": "2026-10-23T13:00:00",
       "fecha_respuesta": "2026-09-10T15:45:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000105"
+      "ot_asociada": "000105",
+      "descripcion": "cable de la nevera esta como pelado, y en ocasiones transporta corriente al trabajador mientras la limpian."
     },
     {
       "ss": "00140",
@@ -6670,7 +6924,8 @@
       "fecha_esperada": "2026-10-23T13:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "estantería de servicio esta en mal estado "
     },
     {
       "ss": "00149",
@@ -6682,7 +6937,8 @@
       "fecha_esperada": "2026-10-24T09:30:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000114"
+      "ot_asociada": "000114",
+      "descripcion": "se solicita cambiar o ponerle ala puerta de entrada algo porque esta oxidada"
     },
     {
       "ss": "00150",
@@ -6694,7 +6950,8 @@
       "fecha_esperada": "2026-10-24T09:31:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Cambio de rejillas de neveras estan muy ocxidadas dos neveras de refrigeración de refriger..."
     },
     {
       "ss": "00151",
@@ -6706,7 +6963,8 @@
       "fecha_esperada": "2026-10-24T09:31:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000113"
+      "ot_asociada": "000113",
+      "descripcion": "se solicita poner algo en la parte de atrás de el televisor del lado de servicio tiene partes destapadas y ya calidad dijo q no podía estar asi"
     },
     {
       "ss": "00152",
@@ -6718,7 +6976,8 @@
       "fecha_esperada": "2026-10-24T09:32:00",
       "fecha_respuesta": "2026-09-11T08:30:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000112"
+      "ot_asociada": "000112",
+      "descripcion": "cambio del logo esta deteriorado parte de la caja "
     },
     {
       "ss": "00155",
@@ -6730,7 +6989,8 @@
       "fecha_esperada": "2026-10-24T09:33:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Baldosas quebradas en el lavado y junto a nevera de mariscos"
     },
     {
       "ss": "00154",
@@ -6742,7 +7002,8 @@
       "fecha_esperada": "2026-10-24T09:33:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000110"
+      "ot_asociada": "000110",
+      "descripcion": "en la parte de los breques hay un huecos posible avergue de cucarachas "
     },
     {
       "ss": "00156",
@@ -6754,7 +7015,8 @@
       "fecha_esperada": "2026-10-24T10:21:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "rejilla para atrás de la nevera para mejor seguridad nevera de congelación "
     },
     {
       "ss": "00158",
@@ -6766,7 +7028,8 @@
       "fecha_esperada": "2026-10-24T10:22:00",
       "fecha_respuesta": "2026-09-11T12:30:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000109"
+      "ot_asociada": "000109",
+      "descripcion": "la licuadora nesecita botón "
     },
     {
       "ss": "00157",
@@ -6778,7 +7041,8 @@
       "fecha_esperada": "2026-10-24T10:22:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cielo razo con humedacion "
     },
     {
       "ss": "00159",
@@ -6790,7 +7054,8 @@
       "fecha_esperada": "2026-10-24T10:23:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000108"
+      "ot_asociada": "000108",
+      "descripcion": "tapa de licuadora en mal estado "
     },
     {
       "ss": "00160",
@@ -6802,7 +7067,8 @@
       "fecha_esperada": "2026-10-24T10:23:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "porfa poner rejillas para los desagües "
     },
     {
       "ss": "00161",
@@ -6814,7 +7080,8 @@
       "fecha_esperada": "2026-10-24T10:24:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000107"
+      "ot_asociada": "000107",
+      "descripcion": "me colaboran urgente con la lámpara de la bodega se quemo"
     },
     {
       "ss": "00162",
@@ -6826,7 +7093,8 @@
       "fecha_esperada": "2026-10-24T11:10:00",
       "fecha_respuesta": null,
       "estado": "Leída",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": " las parrillas nevera desprende pintura "
     },
     {
       "ss": "00195",
@@ -6838,7 +7106,8 @@
       "fecha_esperada": "2026-10-26T11:14:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "punto distrito vera, puertas del área de servicio no cierran bien"
     },
     {
       "ss": "00199",
@@ -6850,7 +7119,8 @@
       "fecha_esperada": "2026-10-26T13:30:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "punto distrito vera, puertas de loocker en mal estado "
     },
     {
       "ss": "00208",
@@ -6862,7 +7132,8 @@
       "fecha_esperada": "2026-10-26T15:55:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se requiere cambio de caucho,  de manera urgente ya que la nevera no está refrigerando de forma correcta. "
     },
     {
       "ss": "00301",
@@ -6874,7 +7145,8 @@
       "fecha_esperada": "2026-10-28T14:46:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se daña la llave del agua de la poceta y queda botando agua y no tenemos forma de cerrar poruqe no tiene llave de paso propia si se cierra quedamos sin agua "
     },
     {
       "ss": "00090",
@@ -6886,7 +7158,8 @@
       "fecha_esperada": "2026-12-05T08:14:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "zócalos para pintar lámina donde van los jabones "
     },
     {
       "ss": "00113",
@@ -6898,7 +7171,8 @@
       "fecha_esperada": "2026-12-07T08:57:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "llave en poseta de traperos con filtración de agua,(no deja de gotesr día y noche) se requiere cambio, gracias."
     },
     {
       "ss": "00114",
@@ -6910,7 +7184,8 @@
       "fecha_esperada": "2026-12-07T09:01:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "Se solicita cambio de chapa en la bodega con prioridad, gracias "
     },
     {
       "ss": "00115",
@@ -6922,7 +7197,8 @@
       "fecha_esperada": "2026-12-07T09:02:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "poseta lavamos de pedal despegado "
     },
     {
       "ss": "00255",
@@ -6934,7 +7210,8 @@
       "fecha_esperada": "2026-12-12T09:24:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "pared del fogón mal estado, Baldosas quebradas"
     },
     {
       "ss": "00300",
@@ -6946,7 +7223,8 @@
       "fecha_esperada": "2026-12-14T15:41:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se cae una baldosa en la parte del servio "
     },
     {
       "ss": "00314",
@@ -6958,7 +7236,8 @@
       "fecha_esperada": "2026-12-15T15:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "cambio de caucho mal estado congelacion, pierde temperatura "
     },
     {
       "ss": "00010",
@@ -6970,7 +7249,8 @@
       "fecha_esperada": "2026-10-08T12:33:00",
       "fecha_respuesta": null,
       "estado": "Validada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "pintar muro "
     },
     {
       "ss": "00047",
@@ -6982,7 +7262,8 @@
       "fecha_esperada": "2027-01-04T13:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
-      "ot_asociada": "000116"
+      "ot_asociada": "000116",
+      "descripcion": "huecos en Pared de breques "
     },
     {
       "ss": "00200",
@@ -6994,7 +7275,8 @@
       "fecha_esperada": "2027-01-11T09:31:00",
       "fecha_respuesta": null,
       "estado": "Editada",
-      "ot_asociada": null
+      "ot_asociada": null,
+      "descripcion": "se solicita que el botiquín de primeros auxilios"
     }
   ],
   "paros": [

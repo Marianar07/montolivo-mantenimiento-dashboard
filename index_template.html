@@ -1725,6 +1725,7 @@ function renderSS(el){
     {key:'_mora', label:'Días de mora', num:true, fmt:(v,r)=>{ const d=diasMoraSS(r); return d==null?'—':d.toFixed(1); }, sortVal:r=>diasMoraSS(r)},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge neutral">${v}</span>`},
     {key:'ot_asociada', label:'OT'},
+    {key:'descripcion', label:'Descripción'},
   ];
   let ssPager = buildPagedTable('ssTableWrap', all, cols, {pageSize:15});
   function refresh(){
