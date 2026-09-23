@@ -823,22 +823,31 @@ function renderResumen(el){
   const stCumpl = statusClass(cumplimientoPrev, {good:90, warn:75});
   const stCumplCorrectivo = statusClass(cumplimientoCorrectivo, {good:90, warn:75});
 
-  // KPIs de trabajo/servicio en tiempo real (no respetan el filtro de
-  // fecha - se indica en cada sub-etiqueta).
+  // KPIs de trabajo/servicio del periodo seleccionado (sí respetan el
+  // filtro de fecha de arriba, a diferencia de "Paros por equipo" y de
+  // "Dónde está cada técnico ahora" en la pestaña Técnicos, que muestran
+  // una foto del instante actual y por eso lo indican en su propia nota).
   const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
 
-  const parosActuales = [
+  const parosPeriodo = [
     ...DATA.paros.map(p=>({...p, tipo:'Correctivo'})),
     ...(DATA.paros_programados||[]).map(p=>({...p, tipo:'Preventivo'})),
-  ].filter(p=>!p.fin);
-  const nParosCorrectivos = parosActuales.filter(p=>p.tipo==='Correctivo').length;
-  const nParosPreventivos = parosActuales.filter(p=>p.tipo==='Preventivo').length;
-  const subParos = parosActuales.length===0 ? 'sin paros activos'
-    : `${nParosCorrectivos} correctivo${nParosCorrectivos===1?'':'s'} · ${nParosPreventivos} preventivo${nParosPreventivos===1?'':'s'}`;
-  const stParos = statusClass(parosActuales.length, {good:0.5}, true);
+  ].filter(p=>inRange(p.inicio, FILTER.desde, FILTER.hasta));
+  const nParosCorrectivos = parosPeriodo.filter(p=>p.tipo==='Correctivo').length;
+  const nParosPreventivos = parosPeriodo.filter(p=>p.tipo==='Preventivo').length;
+  const nParosAbiertos = parosPeriodo.filter(p=>!p.fin).length;
+  const subParos = parosPeriodo.length===0 ? 'sin paros en el periodo seleccionado'
+    : `${nParosCorrectivos} correctivo${nParosCorrectivos===1?'':'s'} · ${nParosPreventivos} preventivo${nParosPreventivos===1?'':'s'}${nParosAbiertos? ' · '+nParosAbiertos+' sin resolver':''}`;
+  const stParos = statusClass(nParosAbiertos, {good:0.5}, true);
 
-  const { rows: ubicacionRows } = calcularUbicacionTecnicos();
-  const tecnicosConTrabajo = ubicacionRows.filter(r=>r.estado!=='sin_asignacion').length;
+  const internosList = tecnicosInternosList();
+  const internosSet = new Set(internosList);
+  const tecnicosConOtSet = new Set();
+  ot.forEach(r=>{
+    if(r.tipo!=='Correctivo' && r.tipo!=='Preventivo') return;
+    splitTecnicos(r.tecnico).forEach(t=>{ if(internosSet.has(t)) tecnicosConOtSet.add(t); });
+  });
+  const tecnicosConTrabajo = tecnicosConOtSet.size;
 
   const ss = getFilteredSS();
   const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).length;
@@ -855,8 +864,8 @@ function renderResumen(el){
   <div class="grid2">
     ${kpiGroup('Trabajo', `
       ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`, hero:true, accent:'c1'})}
-      ${kpiCard({label:'Paros actuales', value:parosActuales.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
-      ${kpiCard({label:'Técnicos con trabajo asignado ahora', value:tecnicosConTrabajo, sub:`de ${ubicacionRows.length} técnicos`})}
+      ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
+      ${kpiCard({label:'Técnicos con OT en el periodo', value:tecnicosConTrabajo, sub:`de ${internosList.length} técnicos`})}
     `)}
     ${kpiGroup('Servicio', `
       ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`, hero:true, accent:'c3'})}
@@ -880,15 +889,17 @@ function renderResumen(el){
   renderTopLugaresWrap();
   const parosCardEl = document.getElementById('parosActualesCard');
   if(parosCardEl) parosCardEl.addEventListener('click', ()=>{
-    const detalle = parosActuales.slice().sort((a,b)=>new Date(a.inicio)-new Date(b.inicio));
-    openModal('Paros actuales', simpleTable(detalle, [
+    const detalle = parosPeriodo.slice().sort((a,b)=>new Date(b.inicio)-new Date(a.inicio));
+    openModal('Paros en el periodo', simpleTable(detalle, [
       {key:'tipo', label:'Tipo'},
       {key:'ot', label:'OT'},
       {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
       {key:'equipo', label:'Artículo / equipo'},
       {key:'lugar', label:'Lugar'},
       {key:'tecnico', label:'Técnico asignado', fmt:v=>v?shortTecnico(v):'—'},
-      {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>'},
+      {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
+      {key:'duracion_h', label:'Duración', fmt:v=>v==null?'—':fmtH(v)},
+      {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.fin? '<span class="badge good">Finalizado</span>' : (r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>')},
     ], {scroll:true}));
   });
 }
