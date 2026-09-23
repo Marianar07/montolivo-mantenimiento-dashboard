@@ -824,9 +824,8 @@ function renderResumen(el){
   const stCumplCorrectivo = statusClass(cumplimientoCorrectivo, {good:90, warn:75});
 
   // KPIs de trabajo/servicio del periodo seleccionado (sí respetan el
-  // filtro de fecha de arriba, a diferencia de "Paros por equipo" y de
-  // "Dónde está cada técnico ahora" en la pestaña Técnicos, que muestran
-  // una foto del instante actual y por eso lo indican en su propia nota).
+  // filtro de fecha de arriba, a diferencia de "Paros por equipo" en su
+  // propia pestaña, que muestra una foto del instante actual).
   const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
 
   const parosPeriodo = [
@@ -840,14 +839,17 @@ function renderResumen(el){
     : `${nParosCorrectivos} correctivo${nParosCorrectivos===1?'':'s'} · ${nParosPreventivos} preventivo${nParosPreventivos===1?'':'s'}${nParosAbiertos? ' · '+nParosAbiertos+' sin resolver':''}`;
   const stParos = statusClass(nParosAbiertos, {good:0.5}, true);
 
-  const internosList = tecnicosInternosList();
-  const internosSet = new Set(internosList);
-  const tecnicosConOtSet = new Set();
-  ot.forEach(r=>{
-    if(r.tipo!=='Correctivo' && r.tipo!=='Preventivo') return;
-    splitTecnicos(r.tecnico).forEach(t=>{ if(internosSet.has(t)) tecnicosConOtSet.add(t); });
-  });
-  const tecnicosConTrabajo = tecnicosConOtSet.size;
+  // Mismo cálculo que "Ubicación del técnico" en la pestaña Técnicos (ver
+  // calcularUbicacionTecnicos/referenciaFiltro) para que ambos números
+  // coincidan siempre: en sitio o programado, evaluado al instante que
+  // corresponde al filtro de fecha seleccionado.
+  const { rows: ubicacionRowsResumen } = calcularUbicacionTecnicos(referenciaFiltro());
+  const nEnSitio = ubicacionRowsResumen.filter(r=>r.estado==='en_sitio').length;
+  const nProgramados = ubicacionRowsResumen.filter(r=>r.estado==='programado').length;
+  const nConflicto = ubicacionRowsResumen.filter(r=>r.estado==='conflicto').length;
+  const tecnicosConTrabajo = nEnSitio + nProgramados + nConflicto;
+  const subTecnicos = tecnicosConTrabajo===0 ? `de ${ubicacionRowsResumen.length} técnicos`
+    : `${nEnSitio} en sitio · ${nProgramados} programado${nProgramados===1?'':'s'}${nConflicto? ' · '+nConflicto+' con conflicto':''} · de ${ubicacionRowsResumen.length}`;
 
   const ss = getFilteredSS();
   const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).length;
@@ -865,7 +867,7 @@ function renderResumen(el){
     ${kpiGroup('Trabajo', `
       ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`, hero:true, accent:'c1'})}
       ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
-      ${kpiCard({label:'Técnicos con OT en el periodo', value:tecnicosConTrabajo, sub:`de ${internosList.length} técnicos`})}
+      ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
     `)}
     ${kpiGroup('Servicio', `
       ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`, hero:true, accent:'c3'})}
@@ -1373,19 +1375,35 @@ function tecnicosInternosList(){
   DATA.ot.forEach(r=> splitTecnicos(r.tecnico).forEach(t=>set.add(t)));
   return [...set];
 }
-/* "Dónde está cada técnico ahora" - reutilizable desde la pestaña Técnicos
-   y desde el KPI de Resumen Gerencial. NO respeta el filtro de fecha,
-   siempre usa la hora real actual y todo el histórico de OT. Solo
-   considera técnicos internos (los proveedores/terceros no aplican). */
-function calcularUbicacionTecnicos(){
+// Momento de referencia para "dónde está cada técnico": si el rango
+// filtrado (FILTER.hasta) llega hasta hoy o más adelante (o no hay filtro -
+// "Todo el periodo"), se usa la hora real actual, así que el resultado
+// avanza solo a medida que pasa el día. Si el rango filtrado ya terminó
+// (una fecha pasada), se usa el final de ese rango como instante a evaluar,
+// para mostrar quién estaba trabajando en ese momento.
+function referenciaFiltro(){
   const ahora = new Date();
+  if(FILTER.hasta && FILTER.hasta.getTime() < ahora.getTime()) return FILTER.hasta;
+  return ahora;
+}
+/* "Dónde está cada técnico" - reutilizable desde la pestaña Técnicos y
+   desde el KPI de Resumen Gerencial. Respeta el filtro de fecha a través
+   del parámetro `referencia` (ver referenciaFiltro arriba): evalúa quién
+   tiene una OT abierta o programada exactamente en ese instante, no en
+   todo el rango. Solo considera técnicos internos (los
+   proveedores/terceros no aplican). */
+function calcularUbicacionTecnicos(referencia){
+  const ahora = referencia || new Date();
   const ahoraMs = ahora.getTime();
   const ESTADO_PRIORIDAD = {conflicto:0, en_sitio:1, programado:2, sin_asignacion:3};
   const rows = tecnicosInternosList().map(tecnico=>{
     const otsTec = DATA.ot.filter(r=>
       (r.tipo==='Correctivo' || r.tipo==='Preventivo') && splitTecnicos(r.tecnico).includes(tecnico)
     );
-    const abiertas = otsTec.filter(r=> r.inicio_real && !r.fin_real);
+    const abiertas = otsTec.filter(r=>
+      r.inicio_real && new Date(r.inicio_real).getTime() <= ahoraMs &&
+      (!r.fin_real || new Date(r.fin_real).getTime() > ahoraMs)
+    );
     if(abiertas.length === 1){
       const r = abiertas[0];
       return {tecnico, estado:'en_sitio', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_real};
@@ -1458,16 +1476,17 @@ function renderTecnicos(el){
   const equiposUnicos = [...new Set(ot.map(r=>r.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   if(tecnicosEquipoFiltro && !equiposUnicos.includes(tecnicosEquipoFiltro)) tecnicosEquipoFiltro = null;
 
-  // "Dónde está cada técnico ahora" - NO respeta el filtro de fecha de la
-  // pestaña, siempre usa la hora real actual y todo el histórico de OT.
+  // "Dónde está cada técnico" - respeta el filtro de fecha de la pestaña a
+  // través de referenciaFiltro(): si el rango llega hasta hoy usa la hora
+  // real actual, si es un rango ya pasado evalúa al final de ese rango.
   // Solo técnicos internos - los terceros se excluyen de esta tabla.
-  const {rows: ubicacionRows, ahora} = calcularUbicacionTecnicos();
+  const {rows: ubicacionRows, ahora} = calcularUbicacionTecnicos(referenciaFiltro());
 
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
   <div class="card section-block">
     <div class="card-head"><h3>Ubicación del técnico</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">No respeta el filtro de fecha de arriba — siempre calcula con la fecha y hora actual (${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real (sigue ahí hasta que se cierre). "Programado" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye este momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
+    <div class="section-note" style="margin:0 0 10px;">Respeta el filtro de fecha de arriba, evaluado al instante ${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})} (${FILTER.hasta && FILTER.hasta.getTime()<new Date().getTime() ? 'el final del rango seleccionado' : 'la hora real actual, avanza a medida que pasa el día'}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real a esa hora (sigue ahí hasta que se cierre). "Programado" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye ese momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
     ${simpleTable(ubicacionRows, [
       {key:'tecnico', label:'Técnico'},
       {key:'estado', label:'Estado', fmt:v=>{
