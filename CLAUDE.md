@@ -160,32 +160,46 @@ deduplica quedándose con la primera ocurrencia.
 
 El campo `Fecha de respuesta` del archivo de SS **marca el cierre de la
 solicitud, no una simple revisión**. Confirmado cruzando Estado vs. Fecha de
-respuesta en los datos reales:
-- **Creada, Leída, Programada en O.T., Validada** → 0% tienen Fecha de
-  respuesta llena. Son estados de una SS que **sigue abierta**, sin solución
-  todavía.
-- **Evaluada** (mantenimiento programado, casi siempre) y **No aprobada**
-  (la solicitud es duplicada, se creó mal, o ya se solucionó de otra forma)
-  → 100% tienen Fecha de respuesta llena, y se cierran el mismo día de esa
-  fecha.
+respuesta en los datos reales (corrida de referencia inicial y re-validado
+el 23 de septiembre de 2026 con datos más recientes, que ya incluían los
+estados nuevos Ejecutada/Editada):
+- **Creada, Editada, Leída, Programada en O.T., Validada** → 0% tienen
+  Fecha de respuesta llena. Son estados de una SS que **sigue abierta**,
+  sin solución todavía.
+- **Ejecutada** (se resolvió con una OT), **Evaluada** (mantenimiento
+  programado, casi siempre) y **No aprobada** (la solicitud es duplicada,
+  se creó mal, o ya se solucionó de otra forma) → 100% tienen Fecha de
+  respuesta llena, y se cierran el mismo día de esa fecha.
+
+El CMMS ha ido agregando estados nuevos con el tiempo (p. ej. Ejecutada y
+Editada no existían en la corrida de referencia original) — **por eso el
+tablero (`index_template.html`) nunca debe decidir "abierta vs. cerrada"
+comparando el texto del Estado contra una lista fija de valores; siempre
+debe usar la presencia de `Fecha de respuesta` como criterio** (ya está
+así implementado — ver `getFilteredSS`/`ssAbiertas` en Resumen Gerencial y
+`conRespuesta` en la pestaña Solicitudes de Servicio). Si aparece un estado
+nuevo en una corrida futura, revisar con el mismo cruce Estado vs. Fecha de
+respuesta si debe listarse como abierto o cerrado en las notas de la UI,
+pero no hace falta tocar la lógica de cálculo.
 
 Por lo tanto: "Fecha de respuesta" menos "Fecha de solicitud" **sí es un
 tiempo de solución válido**, calculado solo sobre las SS que ya están
-cerradas (Evaluada o No aprobada) — no es un promedio de "primera revisión".
-El tablero debe dejar esto explícito en la etiqueta/nota de esa métrica
-(algo como "Tiempo promedio de solución (SS cerradas)"), y complementarlo
-con:
-1. Un listado de "Novedades abiertas" (SS sin Fecha de respuesta: Creada,
-   Leída, Programada en O.T., Validada), ordenado de más antigua a más
-   reciente por Fecha de solicitud, con código, tipo, severidad, equipo,
-   lugar, fecha de solicitud y días que lleva abierta.
+cerradas (Ejecutada, Evaluada o No aprobada) — no es un promedio de
+"primera revisión". El tablero debe dejar esto explícito en la
+etiqueta/nota de esa métrica (algo como "Tiempo promedio de solución (SS
+cerradas)"), y complementarlo con:
+1. Un listado de "Novedades abiertas" (SS sin Fecha de respuesta),
+   ordenado de más antigua a más reciente por Fecha de solicitud, con
+   código, tipo, severidad, equipo, lugar, fecha de solicitud y días que
+   lleva abierta.
 2. Un desglose del tiempo promedio de solución por Tipo de SS y por
    Severidad/Prioridad (igual que ya existe para las OT), calculado solo
    sobre las SS cerradas.
 
 Ojo: como normalmente hay muy pocas SS cerradas en un momento dado (10 de
-102 en la corrida de referencia), estos promedios son sobre una muestra
-chica — no ocultarlo, mostrar siempre el "N sobre el cual se calculó".
+102 en la corrida de referencia original), estos promedios son sobre una
+muestra chica — no ocultarlo, mostrar siempre el "N sobre el cual se
+calculó".
 
 ### Disponibilidad de técnicos (pestaña "Técnicos")
 
