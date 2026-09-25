@@ -235,6 +235,7 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .modal-head h3{margin:0;font-size:15px;}
 .modal-close{border:none;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--ink-3);padding:0 4px;}
 .modal-body{padding:16px 18px;}
+.wrap-text{white-space:normal;}
 
 .section-block{margin-top:30px;}
 
@@ -517,6 +518,10 @@ function rangoEfectivoOT(){
 function necesitaReprogramar(r){
   return r.estado==='Abierta' && !r.inicio_real && !!r.inicio_programado
     && new Date(r.inicio_programado) < new Date();
+}
+// Días completos transcurridos desde la Fecha Inicio Programado hasta hoy.
+function diasAtrasoOT(r){
+  return Math.floor((new Date() - new Date(r.inicio_programado))/86400000);
 }
 
 /* ============ Tabs config ============ */
@@ -918,28 +923,17 @@ function renderResumen(el){
   });
   const reprogCardEl = document.getElementById('otReprogramarCard');
   if(reprogCardEl) reprogCardEl.addEventListener('click', ()=>{
-    // Una fila por OT (el export repite la OT por cada ejecutor): se
-    // juntan los técnicos en una sola celda.
+    // Una fila por OT (el export repite la OT por cada ejecutor). El detalle
+    // completo está en la pestaña Órdenes de Trabajo.
     const porOT = new Map();
-    ot.filter(necesitaReprogramar).forEach(r=>{
-      const prev = porOT.get(r.ot);
-      if(!prev) porOT.set(r.ot, {...r, tecnicos: r.tecnico? [r.tecnico] : []});
-      else if(r.tecnico && !prev.tecnicos.includes(r.tecnico)) prev.tecnicos.push(r.tecnico);
-    });
-    const hoy = new Date();
-    const detalle = [...porOT.values()]
-      .map(r=>({...r, dias_atraso: (hoy - new Date(r.inicio_programado))/86400000}))
-      .sort((a,b)=>b.dias_atraso-a.dias_atraso);
+    ot.filter(necesitaReprogramar).forEach(r=>{ if(!porOT.has(r.ot)) porOT.set(r.ot, r); });
+    const detalle = [...porOT.values()].sort((a,b)=>diasAtrasoOT(b)-diasAtrasoOT(a));
     openModal('OT para reprogramar', simpleTable(detalle, [
-      {key:'ot', label:'OT'},
-      {key:'tipo', label:'Tipo'},
-      {key:'severidad', label:'Severidad'},
-      {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
-      {key:'equipo', label:'Artículo / equipo'},
-      {key:'lugar', label:'Lugar'},
-      {key:'tecnicos', label:'Técnico asignado', fmt:v=>v.length? esc(v.map(shortTecnico).join(', ')) : '—'},
+      {key:'ot', label:'O.T.'},
+      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'inicio_programado', label:'Inicio programado', fmt:fmtDate},
-      {key:'dias_atraso', label:'Días de atraso', fmt:v=>`<span class="badge bad">${Math.floor(v)} d</span>`},
+      {key:'_atraso', label:'Días de atraso', num:true, fmt:(v,r)=>`<span class="badge bad">${diasAtrasoOT(r)} d</span>`},
     ], {scroll:true}));
   });
 }
@@ -1036,6 +1030,7 @@ function renderTopEquiposNovedadesWrap(){
 /* ============ TAB: Órdenes de Trabajo ============ */
 let otPager = null;
 let otTercerosPager = null;
+let otReprogPager = null;
 let otOtrosPager = null;
 // Clasificación de un ejecutor en tres grupos, reutilizada en las pestañas
 // "Órdenes de Trabajo" y "Técnicos":
@@ -1112,6 +1107,8 @@ function renderOT(el){
   const proveedoresSet = proveedoresSetOf();
   const terceros = all.filter(r=>esOTProveedor(r, internosSet, proveedoresSet));
   const otros = all.filter(r=>esOTOtro(r, internosSet, proveedoresSet));
+  const reprogramar = all.filter(necesitaReprogramar).sort((a,b)=>diasAtrasoOT(b)-diasAtrasoOT(a));
+  const nReprogramar = new Set(reprogramar.map(r=>r.ot)).size;
 
   el.innerHTML = `
   <div class="kpi-row">
@@ -1148,6 +1145,15 @@ function renderOT(el){
         ])}
       </div>`).join('')}
     </div>
+  </div>
+  <div class="card section-block">
+    ${sectionTitle('Órdenes de Trabajo para reprogramar', `${nReprogramar} OT abiertas que ya pasaron su fecha de inicio programada y no se han iniciado — de la más atrasada a la más reciente`)}
+    ${reprogramar.length!==nReprogramar ? `<div class="callout info">Algunas OT tienen más de un técnico asignado y aparecen una vez por técnico, igual que en el listado completo (${reprogramar.length} filas para ${nReprogramar} OT).</div>` : ''}
+    <div class="card-head">
+      <input class="searchbox" type="text" id="otReprogSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
+      <select id="otReprogTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
+    </div>
+    <div id="otReprogTableWrap"></div>
   </div>
   <div class="card section-block">
     <div class="card-head">
@@ -1273,6 +1279,19 @@ function renderOT(el){
   document.getElementById('otOtrosSearch').addEventListener('input', refreshOtros);
   document.getElementById('otOtrosEstado').addEventListener('change', refreshOtros);
   document.getElementById('otOtrosTipo').addEventListener('change', refreshOtros);
+
+  // Mismas columnas del listado completo + días de atraso.
+  const colsReprog = [...cols, {key:'_atraso', label:'Días de atraso', num:true,
+    fmt:(v,r)=>`<span class="badge bad">${diasAtrasoOT(r)} d</span>`, sortVal:r=>diasAtrasoOT(r)}];
+  otReprogPager = buildPagedTable('otReprogTableWrap', reprogramar, colsReprog, {pageSize:12});
+  function refreshReprog(){
+    const tip = document.getElementById('otReprogTipo').value;
+    otReprogPager.refresh(tip ? reprogramar.filter(r=>r.tipo===tip) : reprogramar);
+    const term = document.getElementById('otReprogSearch').value;
+    if(term) otReprogPager.setFilter(term);
+  }
+  document.getElementById('otReprogSearch').addEventListener('input', refreshReprog);
+  document.getElementById('otReprogTipo').addEventListener('change', refreshReprog);
 
   document.getElementById('otPorLugarWrap').innerHTML = simpleTable(groupOTPorLugar(all), [
     {key:'lugar', label:'Punto de venta'},
