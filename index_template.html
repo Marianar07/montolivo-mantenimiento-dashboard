@@ -224,7 +224,8 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 
 /* ---- Tarjeta KPI clickeable (abre detalle en modal) ---- */
 .kpi-card.clickable{cursor:pointer;transition:box-shadow .15s,border-color .15s;}
-.kpi-card.clickable:hover{box-shadow:0 2px 8px rgba(36,27,29,0.12);}
+.kpi-card.clickable:hover{border-color:var(--maroon);box-shadow:0 2px 8px rgba(36,27,29,0.12);}
+.kpi-card.clickable:focus-visible{outline:2px solid var(--maroon);outline-offset:2px;}
 
 /* ---- Modal genérico de detalle ---- */
 .modal-overlay{position:fixed;inset:0;background:rgba(36,27,29,0.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;}
@@ -509,6 +510,13 @@ function rangoEfectivoOT(){
   const minF = fechas.length? new Date(Math.min(...fechas)) : new Date();
   const maxF = fechas.length? new Date(Math.max(...fechas)) : new Date();
   return { desde: FILTER.desde || minF, hasta: FILTER.hasta || maxF };
+}
+
+// OT "para reprogramar": sigue abierta, no tiene Fecha Inicio Real y su
+// Fecha Inicio Programado ya pasó (respecto a hoy).
+function necesitaReprogramar(r){
+  return r.estado==='Abierta' && !r.inicio_real && !!r.inicio_programado
+    && new Date(r.inicio_programado) < new Date();
 }
 
 /* ============ Tabs config ============ */
@@ -827,6 +835,9 @@ function renderResumen(el){
   // filtro de fecha de arriba, a diferencia de "Paros por equipo" en su
   // propia pestaña, que muestra una foto del instante actual).
   const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
+  // Se cuentan códigos de OT únicos: el export trae una fila por ejecutor,
+  // así que una OT con 2 técnicos aparecería dos veces.
+  const otParaReprogramar = new Set(ot.filter(necesitaReprogramar).map(r=>r.ot)).size;
 
   const parosPeriodo = [
     ...DATA.paros.map(p=>({...p, tipo:'Correctivo'})),
@@ -866,6 +877,7 @@ function renderResumen(el){
   <div class="grid2">
     ${kpiGroup('Trabajo', `
       ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`, hero:true, accent:'c1'})}
+      ${kpiCard({label:'OT para reprogramar', value:otParaReprogramar, sub:'ya venció su fecha de inicio y no se ha iniciado — clic para ver el detalle', status: otParaReprogramar>0?'bad':'good', id:'otReprogramarCard', clickable:true})}
       ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
       ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
     `)}
@@ -902,6 +914,32 @@ function renderResumen(el){
       {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
       {key:'duracion_h', label:'Duración', fmt:v=>v==null?'—':fmtH(v)},
       {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.fin? '<span class="badge good">Finalizado</span>' : (r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>')},
+    ], {scroll:true}));
+  });
+  const reprogCardEl = document.getElementById('otReprogramarCard');
+  if(reprogCardEl) reprogCardEl.addEventListener('click', ()=>{
+    // Una fila por OT (el export repite la OT por cada ejecutor): se
+    // juntan los técnicos en una sola celda.
+    const porOT = new Map();
+    ot.filter(necesitaReprogramar).forEach(r=>{
+      const prev = porOT.get(r.ot);
+      if(!prev) porOT.set(r.ot, {...r, tecnicos: r.tecnico? [r.tecnico] : []});
+      else if(r.tecnico && !prev.tecnicos.includes(r.tecnico)) prev.tecnicos.push(r.tecnico);
+    });
+    const hoy = new Date();
+    const detalle = [...porOT.values()]
+      .map(r=>({...r, dias_atraso: (hoy - new Date(r.inicio_programado))/86400000}))
+      .sort((a,b)=>b.dias_atraso-a.dias_atraso);
+    openModal('OT para reprogramar', simpleTable(detalle, [
+      {key:'ot', label:'OT'},
+      {key:'tipo', label:'Tipo'},
+      {key:'severidad', label:'Severidad'},
+      {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
+      {key:'equipo', label:'Artículo / equipo'},
+      {key:'lugar', label:'Lugar'},
+      {key:'tecnicos', label:'Técnico asignado', fmt:v=>v.length? esc(v.map(shortTecnico).join(', ')) : '—'},
+      {key:'inicio_programado', label:'Inicio programado', fmt:fmtDate},
+      {key:'dias_atraso', label:'Días de atraso', fmt:v=>`<span class="badge bad">${Math.floor(v)} d</span>`},
     ], {scroll:true}));
   });
 }
