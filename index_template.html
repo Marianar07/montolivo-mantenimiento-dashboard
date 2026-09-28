@@ -1408,8 +1408,7 @@ function renderParos(el){
   <div class="callout info"><b>Cómo se mide un paro correctivo:</b> empieza cuando se reporta una <b>SS</b> sobre un equipo marcado en Mantum como "Provoca paro" (si la OT se creó sin SS, empieza en la creación de la OT). <b>Fuera de servicio</b> = reportado, todavía nadie empezó a trabajar (sin OT o sin Fecha Inicio Real). <b>En reparación</b> = la OT ya tiene Fecha Inicio Real. <b>Finalizado</b> = la OT tiene Fecha Fin Real (o la SS se cerró). Varias SS del mismo equipo abiertas a la vez, o enlazadas a la misma OT, cuentan como un solo paro. Los <b>preventivos</b> solo cuentan desde que el técnico inicia (En mantenimiento → Finalizado).</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total de paros del periodo', value:paros.length})}
-    ${kpiCard({label:'Horas acumuladas paradas', value:fmtH(totalHorasParado)})}
-    ${kpiCard({label:'Horas promedio parado', value:fmtH(promHorasParado)})}
+    ${kpiCard({label:'Días promedio parado', value:fmtDiasDeHoras(promHorasParado)})}
     ${kpiCard({label:'Fuera de servicio', value:fueraServicio, status: fueraServicio>0?'bad':'good'})}
     ${kpiCard({label:'En reparación', value:enReparacion, status: enReparacion>0?'warn':'good'})}
   </div>
