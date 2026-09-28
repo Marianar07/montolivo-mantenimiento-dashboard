@@ -1657,24 +1657,20 @@ function renderTecnicos(el){
 }
 
 /* ============ TAB: Equipos ============ */
+// Filtros de la pestaña (se conservan cuando otro filtro vuelve a dibujar el tablero)
+let eqState = { mant:'mantenible', crit:'', term:'' };
 function renderDisponibilidad(el){
-  const crit = DATA.criticidad_totales;
-  const equiposMantenibles = DATA.equipos.filter(e=>e.mantenible);
+  const opt = (v,l,cur)=>`<option value="${v}"${v===cur?' selected':''}>${l}</option>`;
   el.innerHTML = `
   ${sectionTitle('Disponibilidad y criticidad de equipos')}
   <div class="callout"><b>Nota de calidad de dato:</b> el export de disponibilidad muestra 100% para todos los equipos y 0 horas de paro registradas — no refleja aún los paros reales (ver pestaña "Paros por Equipo"). Esta pestaña sirve hoy principalmente como directorio de equipos, lugar y criticidad; el % de disponibilidad se debe tomar como referencial hasta que ese módulo se alimente correctamente.</div>
-  <div class="kpi-row">
-    ${kpiCard({label:'Equipos mantenibles', value:equiposMantenibles.length, sub:`de ${DATA.total_equipos_maestro} activos totales en el maestro`})}
-    ${kpiCard({label:'Criticidad Alta', value:crit.Alta||0, status:'bad'})}
-    ${kpiCard({label:'Criticidad Media', value:crit.Media||0, status:'warn'})}
-    ${kpiCard({label:'Criticidad Baja', value:crit.Baja||0, status:'good'})}
-  </div>
+  <div class="kpi-row" id="eqKpis"></div>
   <div class="card">
     <div class="card-head">
       <h3>Directorio de equipos</h3>
-      <input class="searchbox" type="text" id="eqSearch" placeholder="Buscar equipo, código o lugar...">
-      <select id="eqMantenible"><option value="mantenible">Mantenibles</option><option value="no_mantenible">No mantenibles</option><option value="">Todos</option></select>
-      <select id="eqCrit"><option value="">Toda criticidad</option><option>Alta</option><option>Media</option><option>Baja</option></select>
+      <input class="searchbox" type="text" id="eqSearch" placeholder="Buscar equipo, código o lugar..." value="${esc(eqState.term)}">
+      <select id="eqMantenible">${opt('mantenible','Mantenibles',eqState.mant)}${opt('no_mantenible','No mantenibles',eqState.mant)}${opt('','Todos',eqState.mant)}</select>
+      <select id="eqCrit">${opt('','Toda criticidad',eqState.crit)}${opt('Alta','Alta',eqState.crit)}${opt('Media','Media',eqState.crit)}${opt('Baja','Baja',eqState.crit)}</select>
     </div>
     <div id="eqTableWrap"></div>
   </div>
@@ -1687,18 +1683,33 @@ function renderDisponibilidad(el){
     {key:'criticidad', label:'Criticidad', fmt:v=>v?`<span class="badge ${v==='Alta'?'bad':v==='Media'?'warn':'good'}">${v}</span>`:'—'},
     {key:'disponibilidad_pct', label:'Disponibilidad', num:true, fmt:v=>fmtPct((v||0)*100)},
   ];
-  let eqPager = buildPagedTable('eqTableWrap', equiposMantenibles, cols, {pageSize:15});
+  let eqPager = null;
+  // Los cuadros de arriba se calculan sobre los mismos equipos que muestra
+  // la tabla (tipo, criticidad, búsqueda y lugar global)
   function refresh(){
-    const mantVal = document.getElementById('eqMantenible').value;
-    const critVal = document.getElementById('eqCrit').value;
+    eqState.mant = document.getElementById('eqMantenible').value;
+    eqState.crit = document.getElementById('eqCrit').value;
+    eqState.term = document.getElementById('eqSearch').value;
     let rows = DATA.equipos;
-    if(mantVal==='mantenible') rows = rows.filter(r=>r.mantenible);
-    else if(mantVal==='no_mantenible') rows = rows.filter(r=>!r.mantenible);
-    if(critVal) rows = rows.filter(r=>r.criticidad===critVal);
-    eqPager.refresh(rows);
-    const term = document.getElementById('eqSearch').value;
-    if(term) eqPager.setFilter(term);
+    if(FILTER.lugarGlobal && FILTER.lugar) rows = rows.filter(r=>r.lugar===FILTER.lugar);
+    if(eqState.mant==='mantenible') rows = rows.filter(r=>r.mantenible);
+    else if(eqState.mant==='no_mantenible') rows = rows.filter(r=>!r.mantenible);
+    if(eqState.crit) rows = rows.filter(r=>r.criticidad===eqState.crit);
+    if(eqState.term){
+      const t = eqState.term.toLowerCase();
+      rows = rows.filter(r=>['codigo','equipo','lugar','criticidad'].some(k=>String(r[k]??'').toLowerCase().includes(t)));
+    }
+    const nCrit = c=>rows.filter(r=>r.criticidad===c).length;
+    const etiqueta = eqState.mant==='mantenible'?'Equipos mantenibles':eqState.mant==='no_mantenible'?'Equipos no mantenibles':'Equipos';
+    document.getElementById('eqKpis').innerHTML = `
+      ${kpiCard({label:etiqueta, value:rows.length, sub:`de ${DATA.total_equipos_maestro} activos totales en el maestro`})}
+      ${kpiCard({label:'Criticidad Alta', value:nCrit('Alta'), status:'bad'})}
+      ${kpiCard({label:'Criticidad Media', value:nCrit('Media'), status:'warn'})}
+      ${kpiCard({label:'Criticidad Baja', value:nCrit('Baja'), status:'good'})}`;
+    if(eqPager) eqPager.refresh(rows);
+    else eqPager = buildPagedTable('eqTableWrap', rows, cols, {pageSize:15});
   }
+  refresh();
   document.getElementById('eqSearch').addEventListener('input', refresh);
   document.getElementById('eqMantenible').addEventListener('change', refresh);
   document.getElementById('eqCrit').addEventListener('change', refresh);
