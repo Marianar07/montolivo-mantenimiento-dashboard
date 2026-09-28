@@ -280,6 +280,17 @@ sobre la OT que le dio origen a la duración (mismo criterio de "duración
 real" que ya existía: solo cuenta si la OT tiene Fecha Inicio Real y
 Fecha Fin Real).
 
+**Rango en "Todo el periodo":** sin "Desde" elegido, `rangoEfectivoOT()`
+arranca en `INICIO_USO_CMMS` (1-sep-2026) y `renderTecnicos()` solo cuenta
+OT creadas desde esa fecha — horas disponibles y trabajadas sobre el mismo
+periodo (antes una OT suelta del 19/may inflaba las horas disponibles).
+
+**Promedios por técnico** (cuadros arriba de la pestaña): "OT realizadas
+por técnico" = promedio de la columna "OT con duración"; "Ocupación por día
+por técnico" = horas trabajadas (sin domingos) / días laborables (L–S) del
+rango, en h/día. Ambos solo sobre técnicos internos que aparecen en alguna
+OT del histórico (los de TECNICOS.xlsx sin ninguna OT no bajan el promedio).
+
 **No volver a un modelo de horas uniformes por día** (p. ej. dividir 42h
 entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
 3h S), y mezclar domingo como si fuera un día laborable normal ocultaría

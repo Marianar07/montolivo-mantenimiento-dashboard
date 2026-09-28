@@ -536,7 +536,10 @@ function fmtSSParo(v){ return v ? String(v).split(',').map(x=>'SS-'+x.trim()).jo
 function rangoEfectivoOT(){
   if(FILTER.desde && FILTER.hasta) return {desde:FILTER.desde, hasta:FILTER.hasta};
   const fechas = DATA.ot.map(r=>r.fecha_creacion).filter(Boolean).map(s=>new Date(s));
-  const minF = fechas.length? new Date(Math.min(...fechas)) : new Date();
+  // Sin "Desde" elegido, no arranca antes de INICIO_USO_CMMS (antes solo hay
+  // OT sueltas, p.ej. una del 19/may, que inflarían las horas disponibles)
+  let minF = fechas.length? new Date(Math.min(...fechas)) : new Date();
+  if(minF < INICIO_USO_CMMS) minF = INICIO_USO_CMMS;
   const maxF = fechas.length? new Date(Math.max(...fechas)) : new Date();
   return { desde: FILTER.desde || minF, hasta: FILTER.hasta || maxF };
 }
@@ -1398,6 +1401,15 @@ function renderParos(el){
 // laborable - si un técnico trabaja ese día, cuenta como hora extra (ver
 // más abajo), no como parte de las horas disponibles.
 const HORAS_POR_DIA = {0:0, 1:8, 2:8, 3:8, 4:8, 5:7, 6:3};
+// Días laborables (lunes a sábado) del rango - mismo recorrido día a día
+// que horasDisponiblesRango
+function diasLaborablesRango(desde, hasta){
+  let n = 0;
+  const cur = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
+  const fin = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
+  while(cur <= fin){ if(HORAS_POR_DIA[cur.getDay()]>0) n++; cur.setDate(cur.getDate()+1); }
+  return n;
+}
 function horasDisponiblesRango(desde, hasta){
   let total = 0;
   const cur = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
@@ -1467,8 +1479,11 @@ function calcularUbicacionTecnicos(referencia){
   return {rows, ahora};
 }
 function renderTecnicos(el){
-  const ot = getFilteredOT();
   const {desde, hasta} = rangoEfectivoOT();
+  // Sin "Desde" elegido el rango efectivo arranca en INICIO_USO_CMMS: las OT
+  // anteriores tampoco cuentan, para que horas trabajadas y disponibles
+  // correspondan al mismo periodo.
+  const ot = getFilteredOT().filter(r=> FILTER.desde || !r.fecha_creacion || new Date(r.fecha_creacion) >= desde);
   const horasDisponibles = horasDisponiblesRango(desde, hasta);
   const semanas = horasDisponibles/42; // solo para mostrar un "N semanas" aproximado
 
@@ -1515,6 +1530,19 @@ function renderTecnicos(el){
   const tercerosRows = capRowsAll.filter(r=>!esInterno(r.tecnico) && esProveedorRegistrado(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
   const otrosRows = capRowsAll.filter(r=>!esInterno(r.tecnico) && !esProveedorRegistrado(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
 
+  // Promedios por técnico interno (mismos datos de "Capacidad y ocupación"):
+  // OT realizadas = OT con duración real (Fecha Inicio y Fin Real); ocupación
+  // por día = horas trabajadas (sin domingos) / días laborables del rango.
+  // Solo técnicos que aparecen en alguna OT del histórico: los que están en
+  // TECNICOS.xlsx pero nunca han ejecutado una OT no bajan el promedio.
+  const tecnicosConOT = new Set(DATA.ot.flatMap(r=>splitTecnicos(r.tecnico)));
+  const capActivos = capRows.filter(r=>tecnicosConOT.has(r.tecnico));
+  const nTec = capActivos.length;
+  const promOTTecnico = nTec ? capActivos.reduce((a,r)=>a+r.ot,0)/nTec : null;
+  const diasLab = diasLaborablesRango(desde, hasta);
+  const promHorasDiaTecnico = (nTec && diasLab) ? capActivos.reduce((a,r)=>a+r.horasTrab,0)/nTec/diasLab : null;
+  const fmt1 = v=> v==null ? '—' : v.toLocaleString('es-CO',{minimumFractionDigits:1, maximumFractionDigits:1});
+
 
   // "Dónde está cada técnico" - respeta el filtro de fecha de la pestaña a
   // través de referenciaFiltro(): si el rango llega hasta hoy usa la hora
@@ -1524,6 +1552,10 @@ function renderTecnicos(el){
 
   el.innerHTML = `
   ${sectionTitle('Disponibilidad de tiempo de los técnicos', `Rango efectivo: ${desde.toLocaleDateString('es-CO')} → ${hasta.toLocaleDateString('es-CO')} (${semanas.toFixed(1)} semanas)`)}
+  <div class="kpi-row">
+    ${kpiCard({label:'OT realizadas por técnico (promedio)', value:fmt1(promOTTecnico)})}
+    ${kpiCard({label:'Ocupación por día por técnico (promedio)', value: promHorasDiaTecnico==null ? '—' : fmt1(promHorasDiaTecnico)+' h/día'})}
+  </div>
   <div class="card section-block">
     <div class="card-head"><h3>Ubicación del técnico</h3></div>
     <div class="section-note" style="margin:0 0 10px;">Respeta el filtro de fecha de arriba, evaluado al instante ${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})} (${FILTER.hasta && FILTER.hasta.getTime()<new Date().getTime() ? 'el final del rango seleccionado' : 'la hora real actual, avanza a medida que pasa el día'}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real a esa hora (sigue ahí hasta que se cierre). "Programado" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye ese momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
