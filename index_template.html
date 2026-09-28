@@ -1351,10 +1351,7 @@ function renderParos(el){
 
   const totalHorasParado = paros.reduce((s,p)=>s+(p.dias!=null? p.dias*24 : 0),0);
   const promHorasParado = paros.length? totalHorasParado/paros.length : null;
-  const parosPendientesList = paros.filter(p=>!p.iniciado);
-  const pendientes = parosPendientesList.length;
-  const subPendientes = pendientes===0 ? undefined
-    : parosPendientesList.map(p=>`${p.equipo}${p.lugar?` (${p.lugar})`:''}`).join(' · ');
+  const pendientes = paros.filter(p=>!p.iniciado).length;
 
   // 1) Paros actuales por lugar
   const lugarMap = new Map();
@@ -1397,7 +1394,7 @@ function renderParos(el){
     ${kpiCard({label:'Total de paros actuales', value:paros.length})}
     ${kpiCard({label:'Horas acumuladas paradas', value:fmtH(totalHorasParado)})}
     ${kpiCard({label:'Horas promedio parado', value:fmtH(promHorasParado)})}
-    ${kpiCard({label:'Pendientes de iniciar', value:pendientes, sub:subPendientes, status: pendientes>0?'warn':'good'})}
+    ${kpiCard({label:'Pendientes de iniciar', value:pendientes, status: pendientes>0?'warn':'good'})}
   </div>
   <div class="grid2">
     <div class="card">
