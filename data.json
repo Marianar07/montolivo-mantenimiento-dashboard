@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T13:13:33",
+  "generado": "2026-09-28T14:38:18",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -4764,17 +4764,17 @@
       "fecha_creacion": "2026-09-25T14:43:29",
       "inicio_programado": "2026-09-26T07:00:00",
       "fin_programado": "2026-09-26T10:00:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-26T07:10:00",
+      "fin_real": "2026-09-26T09:45:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "VIVA LAURELES",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "equipo_cod": "HP-0055",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 0.0,
-      "comentarios": null
+      "costo_real": 62696.5,
+      "comentarios": "[2026-09-26 07:10 a 09:40]\n\n-Actividades Realizadas:\nHP-0055-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nPreventivo\n\n---------------------------------------------------------------------------------------------\n\n[2026-09-26 09:41 a 09:45]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio burlette \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000235",
@@ -4786,17 +4786,17 @@
       "fecha_creacion": "2026-09-25T14:58:47",
       "inicio_programado": "2026-09-26T07:00:00",
       "fin_programado": "2026-09-26T10:00:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-26T09:46:00",
+      "fin_real": "2026-09-26T09:50:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "VIVA LAURELES",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "equipo_cod": "HP-0055",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 0.0,
-      "comentarios": null
+      "costo_real": 1628.48,
+      "comentarios": "[2026-09-26 09:46 a 09:48]\n\n-Actividades Realizadas:\nHP-0055-C-001 | Reparación General\n\n-Descripcion:\narreglo chapa botiquín \n\n---------------------------------------------------------------------------------------------\n\n[2026-09-26 09:48 a 09:50]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000236",
@@ -5028,17 +5028,17 @@
       "fecha_creacion": "2026-09-28T08:27:57",
       "inicio_programado": "2026-09-28T08:30:00",
       "fin_programado": "2026-09-28T11:30:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-28T08:55:00",
+      "fin_real": "2026-09-28T10:40:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "EL TESORO",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "equipo_cod": "HP-0045",
       "criticidad": "Alta",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "costo_real": 0.0,
-      "comentarios": null
+      "costo_real": 42747.62,
+      "comentarios": "[2026-09-28 08:55 a 10:40]\n\n-Actividades Realizadas:\nHP-0045-C-001 | Reparación General\n\n-Descripcion:\nEquipo se encontraba con obstrucción en salida y entrada al ducto de succión hacia la bomba cleanjet, no dejando hacer ninguna fuccion, se realiza cambio del gozner ya que la puerta no quedaba cerrada, equipo queda operativo \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000247",
@@ -5094,17 +5094,17 @@
       "fecha_creacion": "2026-09-28T09:35:36",
       "inicio_programado": "2026-09-28T09:00:00",
       "fin_programado": "2026-09-28T12:00:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-09-28T09:00:00",
+      "fin_real": "2026-09-28T12:00:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 100.0,
       "lugar": "BASE DE OPERACIONES",
       "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO DE PRODUCCION",
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, OSCAR DARIO CASTAÑEDA GARAY, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0,
-      "comentarios": null
+      "costo_real": 40378.47,
+      "comentarios": "[2026-09-28 09:00 a 12:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza mantimiento de licuadora junto con silicona que requería para su debido funcionamiento, se cambia toma doble de 110v y por último se hace manteniendo al lavamanos \n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000250",
@@ -5147,6 +5147,94 @@
       "equipo_cod": null,
       "criticidad": null,
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
+      "costo_real": 0.0,
+      "comentarios": null
+    },
+    {
+      "ot": "000252",
+      "tipo": "Correctivo",
+      "severidad": "Media",
+      "viene_ss": true,
+      "ss_codigo": "00471",
+      "fecha_creacion_ss": "2026-09-28T11:17:00",
+      "fecha_creacion": "2026-09-28T11:53:30",
+      "inicio_programado": "2026-09-28T13:00:00",
+      "fin_programado": "2026-09-28T13:20:00",
+      "inicio_real": "2026-09-28T13:00:00",
+      "fin_real": "2026-09-28T13:20:00",
+      "estado": "Abierta",
+      "avance": 100.0,
+      "lugar": "FLORIDA ETAPA 2",
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0037",
+      "criticidad": "Alta",
+      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "costo_real": 7735.28,
+      "comentarios": "[2026-09-28 13:00 a 13:10]\n\n-Actividades Realizadas:\nES-0037-C-001 | Reparación General\n\n-Descripcion:\nEnvío perilla aluminio\n\n---------------------------------------------------------------------------------------------\n\n[2026-09-28 13:11 a 13:20]\n\n-Actividades Realizadas:\nHP-0064-C-001 | Reparación General\n\n-Descripcion:\nEnvío burlette \n\n---------------------------------------------------------------------------------------------"
+    },
+    {
+      "ot": "000253",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00248",
+      "fecha_creacion_ss": "2026-09-11T20:24:36",
+      "fecha_creacion": "2026-09-28T12:00:02",
+      "inicio_programado": "2026-09-28T13:20:00",
+      "fin_programado": "2026-09-28T13:30:00",
+      "inicio_real": "2026-09-28T13:20:00",
+      "fin_real": "2026-09-28T13:30:00",
+      "estado": "Abierta",
+      "avance": 100.0,
+      "lugar": "PLAZA DE LAS AMÉRICAS",
+      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
+      "equipo_cod": "AI-0148",
+      "criticidad": "Baja",
+      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "costo_real": 4071.2,
+      "comentarios": "[2026-09-28 13:20 a 13:30]\n\n-Actividades Realizadas:\nMTV-PV-BG-PA-C-001 | Reparación Locativa General\n\n-Descripcion:\nEnvío Mangurea\n\n---------------------------------------------------------------------------------------------"
+    },
+    {
+      "ot": "000254",
+      "tipo": "Correctivo",
+      "severidad": "Media",
+      "viene_ss": true,
+      "ss_codigo": "00450",
+      "fecha_creacion_ss": "2026-09-26T16:22:22",
+      "fecha_creacion": "2026-09-28T13:09:13",
+      "inicio_programado": "2026-09-28T13:00:00",
+      "fin_programado": "2026-09-28T16:00:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "VIVA ENVIGADO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "equipo_cod": "AI-0119",
+      "criticidad": "Baja",
+      "tecnico": "YOHAN ESTIBEN SANCHEZ NARANJO",
+      "costo_real": 0.0,
+      "comentarios": null
+    },
+    {
+      "ot": "000255",
+      "tipo": "Correctivo",
+      "severidad": "Alta",
+      "viene_ss": true,
+      "ss_codigo": "00359",
+      "fecha_creacion_ss": "2026-09-20T13:27:43",
+      "fecha_creacion": "2026-09-28T13:19:32",
+      "inicio_programado": "2026-09-28T13:00:00",
+      "fin_programado": "2026-09-28T16:00:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
+      "equipo_cod": "AI-0108",
+      "criticidad": "Baja",
+      "tecnico": "JONATHAN RESTREPO RAMIREZ, JEFFERSON OSORIO BUSTAMANTE",
       "costo_real": 0.0,
       "comentarios": null
     }
@@ -5387,17 +5475,17 @@
       "descripcion": "trampa grasa de Stewart no tiene rejilla de recolección de residuos y se desborda al tener el agua abierta. "
     },
     {
-      "ss": "00050",
+      "ss": "00049",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-05T06:01:52",
+      "fecha_ss": "2026-09-05T05:59:52",
       "fecha_esperada": "2026-09-05T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
+      "fecha_respuesta": "2026-09-07T08:57:47",
+      "estado": "No aprobada",
       "ot_asociada": null,
-      "descripcion": "nevera se encuentra descongelada por motivo de cables malos"
+      "descripcion": "nevera se encuentra descongelada por motivo de cables malos "
     },
     {
       "ss": "00043",
@@ -5426,6 +5514,19 @@
       "descripcion": "Nevera presentó ruido en la parte del motor queda desconectada por sonido "
     },
     {
+      "ss": "00051",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-05T06:43:54",
+      "fecha_esperada": "2026-09-05T11:00:00",
+      "fecha_respuesta": "2026-09-05T11:11:26",
+      "estado": "No aprobada",
+      "ot_asociada": null,
+      "descripcion": "horno tiene las parrillas de los lados muy abiertas ocasionando que en servicio al entrar y sacar parrillas estas se caigan"
+    },
+    {
       "ss": "00048",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -5439,30 +5540,17 @@
       "descripcion": "microondas 0088 no función y por el flujo de comanda uno no da"
     },
     {
-      "ss": "00049",
+      "ss": "00050",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-05T05:59:52",
+      "fecha_ss": "2026-09-05T06:01:52",
       "fecha_esperada": "2026-09-05T11:00:00",
-      "fecha_respuesta": "2026-09-07T08:57:47",
-      "estado": "No aprobada",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
       "ot_asociada": null,
-      "descripcion": "nevera se encuentra descongelada por motivo de cables malos "
-    },
-    {
-      "ss": "00051",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-05T06:43:54",
-      "fecha_esperada": "2026-09-05T11:00:00",
-      "fecha_respuesta": "2026-09-05T11:11:26",
-      "estado": "No aprobada",
-      "ot_asociada": null,
-      "descripcion": "horno tiene las parrillas de los lados muy abiertas ocasionando que en servicio al entrar y sacar parrillas estas se caigan"
+      "descripcion": "nevera se encuentra descongelada por motivo de cables malos"
     },
     {
       "ss": "00054",
@@ -5543,6 +5631,32 @@
       "descripcion": "puerta en la parte de abajo se le cae soporte de abajo ( para sostener) "
     },
     {
+      "ss": "00066",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-06T14:53:00",
+      "fecha_esperada": "2026-09-07T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "micro honda se apaga y no prende más "
+    },
+    {
+      "ss": "00069",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "SISTEMA DE EXTRACCION",
+      "lugar": "MALL PLAZA MANIZALES",
+      "fecha_ss": "2026-09-06T20:22:00",
+      "fecha_esperada": "2026-09-07T11:00:00",
+      "fecha_respuesta": "2026-09-16T15:09:00",
+      "estado": "Ejecutada",
+      "ot_asociada": null,
+      "descripcion": "sistema de extracción no absorbe, no funciona, él guarda motor enciende necesito intervención urgente "
+    },
+    {
       "ss": "00067",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -5580,32 +5694,6 @@
       "estado": "Ejecutada",
       "ot_asociada": null,
       "descripcion": "Se parte llave del stiward "
-    },
-    {
-      "ss": "00066",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-06T14:53:00",
-      "fecha_esperada": "2026-09-07T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "micro honda se apaga y no prende más "
-    },
-    {
-      "ss": "00069",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "SISTEMA DE EXTRACCION",
-      "lugar": "MALL PLAZA MANIZALES",
-      "fecha_ss": "2026-09-06T20:22:00",
-      "fecha_esperada": "2026-09-07T11:00:00",
-      "fecha_respuesta": "2026-09-16T15:09:00",
-      "estado": "Ejecutada",
-      "ot_asociada": null,
-      "descripcion": "sistema de extracción no absorbe, no funciona, él guarda motor enciende necesito intervención urgente "
     },
     {
       "ss": "00072",
@@ -5785,7 +5873,7 @@
       "fecha_ss": "2026-09-07T13:23:02",
       "fecha_esperada": "2026-09-08T08:23:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "se coloca de emergencia ( ya que no hay en el Pdv) "
     },
@@ -5798,7 +5886,7 @@
       "fecha_ss": "2026-09-07T13:34:36",
       "fecha_esperada": "2026-09-08T08:34:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "letrero no encienden (bombillos quemados) sólo enciende uno la letra T "
     },
@@ -5816,6 +5904,32 @@
       "descripcion": "se apaga el horno de proteínas y no enciende "
     },
     {
+      "ss": "00102",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "fecha_ss": "2026-09-07T17:37:00",
+      "fecha_esperada": "2026-09-08T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Leída",
+      "ot_asociada": null,
+      "descripcion": "tubo de gas de la estufa se despega y hay fuga"
+    },
+    {
+      "ss": "00110",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-07T18:07:45",
+      "fecha_esperada": "2026-09-08T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000103",
+      "descripcion": "horno de proteínas sin funcionar aún no le han dado solución "
+    },
+    {
       "ss": "00109",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -5827,19 +5941,6 @@
       "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "hueco en la parte de servicio falta de baldosa "
-    },
-    {
-      "ss": "00099",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-07T16:17:34",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": "2026-09-08T12:30:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000082",
-      "descripcion": "horno de lasañas se le revienta el caucho por favor,se quedo pegada la puerta cuando la abrimos el caucho esta reventado"
     },
     {
       "ss": "00108",
@@ -5894,56 +5995,17 @@
       "descripcion": "nevera  vertical de refrigeración Nar-0099 caucho en mal estado perdida de cadena de frío patillas peladas y oxidadas "
     },
     {
-      "ss": "00102",
+      "ss": "00099",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
-      "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-07T17:37:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-07T16:17:34",
       "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
-      "descripcion": "tubo de gas de la estufa se despega y hay fuga"
-    },
-    {
-      "ss": "00103",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T17:54:19",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Validada",
-      "ot_asociada": null,
-      "descripcion": "nevera de refrigeración vertical NR019\ncon empaques en mal estado "
-    },
-    {
-      "ss": "00101",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
-      "lugar": "MALL PLAZA MANIZALES",
-      "fecha_ss": "2026-09-07T16:39:00",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "sistema de extracción no funciona , no absorbe, no enciende el guarda motor necesito intervencion"
-    },
-    {
-      "ss": "00110",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T18:07:45",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000103",
-      "descripcion": "horno de proteínas sin funcionar aún no le han dado solución "
+      "fecha_respuesta": "2026-09-08T12:30:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000082",
+      "descripcion": "horno de lasañas se le revienta el caucho por favor,se quedo pegada la puerta cuando la abrimos el caucho esta reventado"
     },
     {
       "ss": "00100",
@@ -5959,17 +6021,30 @@
       "descripcion": "el horno se apaga en ocasiones necesito intervencion) "
     },
     {
-      "ss": "00089",
-      "tipo": "Correctivo Programado",
+      "ss": "00101",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
-      "lugar": "PLAZA DE LAS AMÉRICAS",
-      "fecha_ss": "2026-09-07T13:13:49",
-      "fecha_esperada": "2026-09-08T12:13:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
+      "lugar": "MALL PLAZA MANIZALES",
+      "fecha_ss": "2026-09-07T16:39:00",
+      "fecha_esperada": "2026-09-08T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "base interna de horno en mal estado (esta partido por eso no mentiene las parrillas estable) "
+      "descripcion": "sistema de extracción no funciona , no absorbe, no enciende el guarda motor necesito intervencion"
+    },
+    {
+      "ss": "00103",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-07T17:54:19",
+      "fecha_esperada": "2026-09-08T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Validada",
+      "ot_asociada": null,
+      "descripcion": "nevera de refrigeración vertical NR019\ncon empaques en mal estado "
     },
     {
       "ss": "00118",
@@ -6011,19 +6086,6 @@
       "descripcion": "cieloraso esta demasiado sucio y engradado se solicito mantenimiento desde marzo "
     },
     {
-      "ss": "00128",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
-      "lugar": "PLAZA DE LAS AMÉRICAS",
-      "fecha_ss": "2026-09-08T17:13:25",
-      "fecha_esperada": "2026-09-09T11:00:00",
-      "fecha_respuesta": "2026-09-16T15:32:00",
-      "estado": "Ejecutada",
-      "ot_asociada": null,
-      "descripcion": "se sale el agua de las tuberías de aguas negras hacia arriba (se solicita somdeo o otra solución porque se le hace sondeo e igual se sigue saliendo el agua de la tubería de aguas negras) "
-    },
-    {
       "ss": "00129",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -6037,6 +6099,19 @@
       "descripcion": "me ayudan por fa con el extractor bota mucha grasa y no extrae bien "
     },
     {
+      "ss": "00128",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
+      "lugar": "PLAZA DE LAS AMÉRICAS",
+      "fecha_ss": "2026-09-08T17:13:25",
+      "fecha_esperada": "2026-09-09T11:00:00",
+      "fecha_respuesta": "2026-09-16T15:32:00",
+      "estado": "Ejecutada",
+      "ot_asociada": null,
+      "descripcion": "se sale el agua de las tuberías de aguas negras hacia arriba (se solicita somdeo o otra solución porque se le hace sondeo e igual se sigue saliendo el agua de la tubería de aguas negras) "
+    },
+    {
       "ss": "00088",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -6045,22 +6120,9 @@
       "fecha_ss": "2026-09-07T13:01:33",
       "fecha_esperada": "2026-09-09T11:01:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "Pisos en mal Estado (pisos agrietado) "
-    },
-    {
-      "ss": "00094",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
-      "lugar": "PLAZA DE LAS AMÉRICAS",
-      "fecha_ss": "2026-09-07T13:19:33",
-      "fecha_esperada": "2026-09-09T11:19:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "gatillo del pulsador (esta en mal estado) "
     },
     {
       "ss": "00096",
@@ -6071,7 +6133,7 @@
       "fecha_ss": "2026-09-07T13:28:49",
       "fecha_esperada": "2026-09-09T11:28:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "conector necesita ( tapa ropa ) "
     },
@@ -6089,17 +6151,17 @@
       "descripcion": "Maquina selladora de jugos presenta falla en la palanca; no baja y no sella los jugos"
     },
     {
-      "ss": "00130",
+      "ss": "00127",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
-      "lugar": "GRAN PLAZA",
-      "fecha_ss": "2026-09-08T19:13:35",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-08T16:24:42",
       "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null,
-      "descripcion": "me ayudas por fa escaleras en mal estado "
+      "descripcion": "se solicita congelador pequeño en laureles ya que el congelador que tenemos por parte de hielo iglú y  que estábamos guardando productos, me informan que lo retiran el viernes del pdv"
     },
     {
       "ss": "00126",
@@ -6115,30 +6177,30 @@
       "descripcion": "se solicita cambio de 3 parrillas en molinos ya que las que tiene se encuentran dobladas muy encojidas"
     },
     {
-      "ss": "00127",
+      "ss": "00130",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-08T16:24:42",
+      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
+      "lugar": "GRAN PLAZA",
+      "fecha_ss": "2026-09-08T19:13:35",
       "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null,
-      "descripcion": "se solicita congelador pequeño en laureles ya que el congelador que tenemos por parte de hielo iglú y  que estábamos guardando productos, me informan que lo retiran el viernes del pdv"
+      "descripcion": "me ayudas por fa escaleras en mal estado "
     },
     {
-      "ss": "00136",
+      "ss": "00134",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "NEVERA CONGELACION VERTICAL 1P IMBERA",
-      "lugar": "FUNDADORES",
-      "fecha_ss": "2026-09-09T16:59:00",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "VEGAS PLAZA",
+      "fecha_ss": "2026-09-09T16:03:00",
       "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null,
-      "descripcion": "cambio de cauchos o empaque de nevera de congelacion vertical"
+      "descripcion": "horno fuga de agua "
     },
     {
       "ss": "00135",
@@ -6154,17 +6216,17 @@
       "descripcion": "llave de la poceta esta dañada, tiene un sonido extraño mientras esta cerrada."
     },
     {
-      "ss": "00134",
+      "ss": "00136",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "lugar": "VEGAS PLAZA",
-      "fecha_ss": "2026-09-09T16:03:00",
+      "equipo": "NEVERA CONGELACION VERTICAL 1P IMBERA",
+      "lugar": "FUNDADORES",
+      "fecha_ss": "2026-09-09T16:59:00",
       "fecha_esperada": "2026-09-10T11:00:00",
       "fecha_respuesta": null,
       "estado": "Editada",
       "ot_asociada": null,
-      "descripcion": "horno fuga de agua "
+      "descripcion": "cambio de cauchos o empaque de nevera de congelacion vertical"
     },
     {
       "ss": "00137",
@@ -6349,19 +6411,6 @@
       "descripcion": "SE NECESITA LA LAMPARA DEL DEL TECHO DEL LADO DE LA ESTUFA, QUITA MUCHA VISIBILIDAD AL MOMENTO DE EJECUTAR LAS PREPARACIONES, COCINA MUY OSCURA"
     },
     {
-      "ss": "00181",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:22:00",
-      "fecha_esperada": "2026-09-11T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno "
-    },
-    {
       "ss": "00188",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -6373,32 +6422,6 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "Piso en muy mal estado, baldosas quebradas "
-    },
-    {
-      "ss": "00187",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "SISTEMA DE EXTRACCION",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:41:00",
-      "fecha_esperada": "2026-09-11T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "campana no absorve bien el humo y nos ahoga, se siente mucho el calor, Ventilador de la campana botando muchísima grasa y nos está dañando los uniformes, ya habían venido a limpiar y quedó igual, necesito que me colaboren lo más pronto posible por favor"
-    },
-    {
-      "ss": "00179",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:21:48",
-      "fecha_esperada": "2026-09-11T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "Por favor me ayudan con la estufa. el regular está malo y hay fuga, fuegos muy bajos "
     },
     {
       "ss": "00175",
@@ -6414,6 +6437,32 @@
       "descripcion": "Horno proteinas"
     },
     {
+      "ss": "00179",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:21:48",
+      "fecha_esperada": "2026-09-11T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "Por favor me ayudan con la estufa. el regular está malo y hay fuga, fuegos muy bajos "
+    },
+    {
+      "ss": "00181",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:22:00",
+      "fecha_esperada": "2026-09-11T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno "
+    },
+    {
       "ss": "00176",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -6425,6 +6474,19 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "Caucho nevera vertical  dañado"
+    },
+    {
+      "ss": "00187",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "SISTEMA DE EXTRACCION",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:41:00",
+      "fecha_esperada": "2026-09-11T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "campana no absorve bien el humo y nos ahoga, se siente mucho el calor, Ventilador de la campana botando muchísima grasa y nos está dañando los uniformes, ya habían venido a limpiar y quedó igual, necesito que me colaboren lo más pronto posible por favor"
     },
     {
       "ss": "00169",
@@ -6440,17 +6502,17 @@
       "descripcion": "necesitamos cambio de mesa de horno lasañas está en mal estado "
     },
     {
-      "ss": "00177",
+      "ss": "00178",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 2P IMBERA",
-      "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-10T21:02:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:21:20",
       "fecha_esperada": "2026-09-11T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "nevera de refrigeración no esta enfriando correctamente "
+      "fecha_respuesta": "2026-09-14T11:30:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000148",
+      "descripcion": "Me ayudan por favor con 5 lámparas para cambio. una de ellas ya no funciona, las otras 4 están próximas a quemarse"
     },
     {
       "ss": "00174",
@@ -6466,17 +6528,17 @@
       "descripcion": "Tomas corrientes sin energia"
     },
     {
-      "ss": "00178",
+      "ss": "00177",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:21:20",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 2P IMBERA",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "fecha_ss": "2026-09-10T21:02:00",
       "fecha_esperada": "2026-09-11T13:00:00",
-      "fecha_respuesta": "2026-09-14T11:30:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000148",
-      "descripcion": "Me ayudan por favor con 5 lámparas para cambio. una de ellas ya no funciona, las otras 4 están próximas a quemarse"
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "nevera de refrigeración no esta enfriando correctamente "
     },
     {
       "ss": "00133",
@@ -6492,19 +6554,6 @@
       "descripcion": "SE SOLICITA CAMBIO DE CAUCHO EN NEVERA DE PROTEINAS (SE ENCUENTRA EN MAL ESTADO)"
     },
     {
-      "ss": "00184",
-      "tipo": "Correctivo Programado",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:38:00",
-      "fecha_esperada": "2026-09-11T15:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "Malla de la reja en mal estado "
-    },
-    {
       "ss": "00191",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
@@ -6516,6 +6565,19 @@
       "estado": "Editada",
       "ot_asociada": null,
       "descripcion": "Me ayudan calibrando las grameras por favor. Adicional se envió una balanza que estaba mala y el técnico dijo que la iban a cambiar o cambiar el cable para que por favor me la devuelvan en lo posible "
+    },
+    {
+      "ss": "00184",
+      "tipo": "Correctivo Programado",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:38:00",
+      "fecha_esperada": "2026-09-11T15:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "Malla de la reja en mal estado "
     },
     {
       "ss": "00194",
@@ -6622,17 +6684,17 @@
       "descripcion": "Horno de proteinas (vota demaciada agua, se apaga en servicio) "
     },
     {
-      "ss": "00243",
+      "ss": "00253",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-11T19:36:09",
+      "equipo": "NEVERA CONGELACION VERTICAL 2P DUKERS",
+      "lugar": "MAYORCA ETAPA 1",
+      "fecha_ss": "2026-09-11T22:29:59",
       "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": "2026-09-12T09:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000127",
-      "descripcion": "granizadora se apaga durante el servicio "
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "cambio caucho nevera "
     },
     {
       "ss": "00213",
@@ -6646,6 +6708,32 @@
       "estado": "Ejecutada",
       "ot_asociada": "000120",
       "descripcion": "granizadora no funciona "
+    },
+    {
+      "ss": "00249",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-11T21:23:55",
+      "fecha_esperada": "2026-09-12T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000234",
+      "descripcion": "me colaboran por favor con caucho para horno de proteinas ya esta feo "
+    },
+    {
+      "ss": "00252",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-11T21:45:56",
+      "fecha_esperada": "2026-09-12T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000175",
+      "descripcion": "se desprende un lado de la vitrina de exhibición de tortas ya se habia reportado anteriormente nos habian dicho que ya esta en proceso de recoger el vidrio con distribuidor"
     },
     {
       "ss": "00214",
@@ -6856,6 +6944,19 @@
       "descripcion": "Nevera con rodachines en mal estado, posibilidad de caerse en cualquier momento "
     },
     {
+      "ss": "00243",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-11T19:36:09",
+      "fecha_esperada": "2026-09-12T11:00:00",
+      "fecha_respuesta": "2026-09-12T09:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000127",
+      "descripcion": "granizadora se apaga durante el servicio "
+    },
+    {
       "ss": "00245",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -6877,48 +6978,9 @@
       "fecha_ss": "2026-09-11T20:24:36",
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000253",
       "descripcion": "manguerita   la máquina granizadora en donde sale el agua ( se rompe al momento de lavarla ) "
-    },
-    {
-      "ss": "00249",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-11T21:23:55",
-      "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000234",
-      "descripcion": "me colaboran por favor con caucho para horno de proteinas ya esta feo "
-    },
-    {
-      "ss": "00252",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-11T21:45:56",
-      "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000175",
-      "descripcion": "se desprende un lado de la vitrina de exhibición de tortas ya se habia reportado anteriormente nos habian dicho que ya esta en proceso de recoger el vidrio con distribuidor"
-    },
-    {
-      "ss": "00253",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA CONGELACION VERTICAL 2P DUKERS",
-      "lugar": "MAYORCA ETAPA 1",
-      "fecha_ss": "2026-09-11T22:29:59",
-      "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "cambio caucho nevera "
     },
     {
       "ss": "00254",
@@ -6960,30 +7022,17 @@
       "descripcion": "presencia de cajilla de inspección sin tapa y podría ser posible foco de plagas"
     },
     {
-      "ss": "00250",
+      "ss": "00185",
       "tipo": "Correctivo Programado",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-11T21:25:00",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:38:00",
       "fecha_esperada": "2026-09-14T10:00:00",
       "fecha_respuesta": null,
-      "estado": "Leída",
+      "estado": "Editada",
       "ot_asociada": null,
-      "descripcion": "lámina de nevera se desprende de soldadura"
-    },
-    {
-      "ss": "00251",
-      "tipo": "Correctivo Programado",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-11T21:28:55",
-      "fecha_esperada": "2026-09-14T10:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "me colaboran por favor con un mantenimiento para la estufa"
+      "descripcion": "pintura para cielo razo y local en general,  zócalos en mal estado "
     },
     {
       "ss": "00192",
@@ -7012,17 +7061,30 @@
       "descripcion": "Cauchos de neveras partidas y me presentan fallas en alteración en temperatura y productos"
     },
     {
-      "ss": "00185",
+      "ss": "00250",
       "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:38:00",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-11T21:25:00",
       "fecha_esperada": "2026-09-14T10:00:00",
       "fecha_respuesta": null,
-      "estado": "Editada",
+      "estado": "Leída",
       "ot_asociada": null,
-      "descripcion": "pintura para cielo razo y local en general,  zócalos en mal estado "
+      "descripcion": "lámina de nevera se desprende de soldadura"
+    },
+    {
+      "ss": "00251",
+      "tipo": "Correctivo Programado",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-11T21:28:55",
+      "fecha_esperada": "2026-09-14T10:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "me colaboran por favor con un mantenimiento para la estufa"
     },
     {
       "ss": "00257",
@@ -7038,82 +7100,17 @@
       "descripcion": "Se solicita pintar cielo raso ya que tiene desprendimiento de pintura y lleva más de 6 meses asi"
     },
     {
-      "ss": "00260",
+      "ss": "00259",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "OLLA SOPERA",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-12T13:47:37",
-      "fecha_esperada": "2026-09-14T11:00:00",
-      "fecha_respuesta": "2026-09-14T07:56:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000132",
-      "descripcion": "olla sopera no calienta "
-    },
-    {
-      "ss": "00282",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
-      "lugar": "SANTAFÉ BOGOTÁ",
-      "fecha_ss": "2026-09-13T20:08:00",
-      "fecha_esperada": "2026-09-14T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "Se solicita urgente personal de mantenimiento... Empieza a botar Agua pared detrás del horno... Se\nDeja el punto con el servicio del agua cerrada.. "
-    },
-    {
-      "ss": "00279",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN TITAN PLAZA",
-      "lugar": "TITAN PLAZA",
-      "fecha_ss": "2026-09-13T15:00:28",
+      "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO MAYOR",
+      "lugar": "CENTRO MAYOR",
+      "fecha_ss": "2026-09-12T12:38:20",
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "parrillas de nevera están oxidadas, solicito cambio porfavor de 4 unidades de parrillas para nevera "
-    },
-    {
-      "ss": "00276",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN TITAN PLAZA",
-      "lugar": "TITAN PLAZA",
-      "fecha_ss": "2026-09-13T14:56:27",
-      "fecha_esperada": "2026-09-14T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "bordes del piso, para pintar, ya está muy desgastada la pintura "
-    },
-    {
-      "ss": "00268",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN LA CENTRAL",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-12T22:36:17",
-      "fecha_esperada": "2026-09-14T11:00:00",
-      "fecha_respuesta": "2026-09-14T13:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000131",
-      "descripcion": "El desagüe de los Pozuelos de lava loza el acordeón está roto se sale el agua y no llega a la trampa de grasa mantiene la cocina mojada "
-    },
-    {
-      "ss": "00267",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "SELLADORA DE JUGOS",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-12T18:16:00",
-      "fecha_esperada": "2026-09-14T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "Maquina selladora\nAl conectar genera humo en la parte del sellado, la palanca del sellado se queda atascada hasta con jugos adentro \n"
+      "descripcion": "gotera de Grase en El techo debajo de El emplate, Danish a uniformes"
     },
     {
       "ss": "00265",
@@ -7129,6 +7126,19 @@
       "descripcion": "se solicita reparación o cambio de motor ya que presenta un sonido extraño\n"
     },
     {
+      "ss": "00276",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN TITAN PLAZA",
+      "lugar": "TITAN PLAZA",
+      "fecha_ss": "2026-09-13T14:56:27",
+      "fecha_esperada": "2026-09-14T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "bordes del piso, para pintar, ya está muy desgastada la pintura "
+    },
+    {
       "ss": "00264",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -7140,6 +7150,32 @@
       "estado": "Programada en O.T.",
       "ot_asociada": null,
       "descripcion": "lámparas de servicio se están dañando están intermitentes "
+    },
+    {
+      "ss": "00268",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN LA CENTRAL",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-12T22:36:17",
+      "fecha_esperada": "2026-09-14T11:00:00",
+      "fecha_respuesta": "2026-09-14T13:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000131",
+      "descripcion": "El desagüe de los Pozuelos de lava loza el acordeón está roto se sale el agua y no llega a la trampa de grasa mantiene la cocina mojada "
+    },
+    {
+      "ss": "00279",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN TITAN PLAZA",
+      "lugar": "TITAN PLAZA",
+      "fecha_ss": "2026-09-13T15:00:28",
+      "fecha_esperada": "2026-09-14T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "parrillas de nevera están oxidadas, solicito cambio porfavor de 4 unidades de parrillas para nevera "
     },
     {
       "ss": "00262",
@@ -7155,17 +7191,43 @@
       "descripcion": "cambio de caucho (roto) y parrillas (oxidadas)"
     },
     {
-      "ss": "00259",
+      "ss": "00282",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO MAYOR",
-      "lugar": "CENTRO MAYOR",
-      "fecha_ss": "2026-09-12T12:38:20",
+      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE BOGOTA",
+      "lugar": "SANTAFÉ BOGOTÁ",
+      "fecha_ss": "2026-09-13T20:08:00",
+      "fecha_esperada": "2026-09-14T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "Se solicita urgente personal de mantenimiento... Empieza a botar Agua pared detrás del horno... Se\nDeja el punto con el servicio del agua cerrada.. "
+    },
+    {
+      "ss": "00267",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "SELLADORA DE JUGOS",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-12T18:16:00",
       "fecha_esperada": "2026-09-14T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "gotera de Grase en El techo debajo de El emplate, Danish a uniformes"
+      "descripcion": "Maquina selladora\nAl conectar genera humo en la parte del sellado, la palanca del sellado se queda atascada hasta con jugos adentro \n"
+    },
+    {
+      "ss": "00260",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "OLLA SOPERA",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-12T13:47:37",
+      "fecha_esperada": "2026-09-14T11:00:00",
+      "fecha_respuesta": "2026-09-14T07:56:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000132",
+      "descripcion": "olla sopera no calienta "
     },
     {
       "ss": "00193",
@@ -7176,7 +7238,7 @@
       "fecha_ss": "2026-09-11T08:56:05",
       "fecha_esperada": "2026-09-14T11:56:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "Básicas dañadas"
     },
@@ -7207,6 +7269,45 @@
       "descripcion": "horno se apaga en servicio y se suben tiempoa muy seguido"
     },
     {
+      "ss": "00271",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-12T23:33:29",
+      "fecha_esperada": "2026-09-14T13:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "puerta del baño esta en mal estado"
+    },
+    {
+      "ss": "00269",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-12T23:33:00",
+      "fecha_esperada": "2026-09-14T13:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "el compresor esta botando agua "
+    },
+    {
+      "ss": "00263",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN ESTACION",
+      "lugar": "GRAN ESTACIÓN",
+      "fecha_ss": "2026-09-12T15:40:32",
+      "fecha_esperada": "2026-09-14T13:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "cambio de antideslizante escalera bodega "
+    },
+    {
       "ss": "00277",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
@@ -7231,45 +7332,6 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "parte de la tapiceria de servicio esta en mal estado "
-    },
-    {
-      "ss": "00269",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
-      "lugar": "DISTRITO VERA",
-      "fecha_ss": "2026-09-12T23:33:00",
-      "fecha_esperada": "2026-09-14T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "el compresor esta botando agua "
-    },
-    {
-      "ss": "00271",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
-      "lugar": "DISTRITO VERA",
-      "fecha_ss": "2026-09-12T23:33:29",
-      "fecha_esperada": "2026-09-14T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "puerta del baño esta en mal estado"
-    },
-    {
-      "ss": "00263",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN ESTACION",
-      "lugar": "GRAN ESTACIÓN",
-      "fecha_ss": "2026-09-12T15:40:32",
-      "fecha_esperada": "2026-09-14T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "cambio de antideslizante escalera bodega "
     },
     {
       "ss": "00202",
@@ -7376,6 +7438,19 @@
       "descripcion": "la granizadora tiene que hacérsele cambio de cauchos, se le bota el agua y no está granizado"
     },
     {
+      "ss": "00222",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
+      "lugar": "MAYORCA ETAPA 1",
+      "fecha_ss": "2026-09-11T16:46:00",
+      "fecha_esperada": "2026-09-15T09:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "caucho de nevera "
+    },
+    {
       "ss": "00215",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -7389,43 +7464,30 @@
       "descripcion": "cambio de burlete "
     },
     {
-      "ss": "00247",
+      "ss": "00218",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-11T19:52:29",
-      "fecha_esperada": "2026-09-15T09:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "base metálica se despega de la pared "
-    },
-    {
-      "ss": "00246",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "TRAMPA DE GRASA POZUELO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-11T19:50:00",
-      "fecha_esperada": "2026-09-15T09:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000186",
-      "descripcion": "acordeones en mal estado "
-    },
-    {
-      "ss": "00244",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-11T19:42:28",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
+      "lugar": "FUNDADORES",
+      "fecha_ss": "2026-09-11T16:28:00",
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "baldosa  de la pared de la estufa se  están despegando "
+      "descripcion": "SE SOLICITAN RUEDAS PARA LA ISLA "
+    },
+    {
+      "ss": "00223",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
+      "lugar": "FUNDADORES",
+      "fecha_ss": "2026-09-11T16:53:00",
+      "fecha_esperada": "2026-09-15T09:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "SE SOLICITA PINTURA PARA REJILLAS DE NEVERAS, PRESENTAN OXIDACCION "
     },
     {
       "ss": "00235",
@@ -7454,43 +7516,43 @@
       "descripcion": "acordeon en mal estado "
     },
     {
-      "ss": "00218",
+      "ss": "00244",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
-      "lugar": "FUNDADORES",
-      "fecha_ss": "2026-09-11T16:28:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-11T19:42:28",
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "SE SOLICITAN RUEDAS PARA LA ISLA "
+      "descripcion": "baldosa  de la pared de la estufa se  están despegando "
     },
     {
-      "ss": "00222",
+      "ss": "00246",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
-      "lugar": "MAYORCA ETAPA 1",
-      "fecha_ss": "2026-09-11T16:46:00",
+      "equipo": "TRAMPA DE GRASA POZUELO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-11T19:50:00",
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "caucho de nevera "
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000186",
+      "descripcion": "acordeones en mal estado "
     },
     {
-      "ss": "00223",
+      "ss": "00247",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FUNDADORES",
-      "lugar": "FUNDADORES",
-      "fecha_ss": "2026-09-11T16:53:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-11T19:52:29",
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Programada en O.T.",
       "ot_asociada": null,
-      "descripcion": "SE SOLICITA PINTURA PARA REJILLAS DE NEVERAS, PRESENTAN OXIDACCION "
+      "descripcion": "base metálica se despega de la pared "
     },
     {
       "ss": "00303",
@@ -7766,19 +7828,6 @@
       "descripcion": "se daña la pata del cable del televisor "
     },
     {
-      "ss": "00326",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "lugar": "PUERTA DEL NORTE",
-      "fecha_ss": "2026-09-16T16:51:00",
-      "fecha_esperada": "2026-09-17T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "Cambio de cauchos para el horno de proteínas y mantenimiento "
-    },
-    {
       "ss": "00327",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -7790,32 +7839,6 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "Olla sopera no esta en funcionamiento al parecer por daño de corto, o daño en el conector. "
-    },
-    {
-      "ss": "00324",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "SELLADORA DE JUGOS",
-      "lugar": "PUERTA DEL NORTE",
-      "fecha_ss": "2026-09-16T16:48:07",
-      "fecha_esperada": "2026-09-17T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000215",
-      "descripcion": "La Máquina no sella bien los vasos ,queda una parte de los vasos destapados, la palanca está dura, y el cable conector está pelado, puede generar un corto."
-    },
-    {
-      "ss": "00328",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-16T18:20:01",
-      "fecha_esperada": "2026-09-17T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "no tiene vidrio por eso no se exhiben "
     },
     {
       "ss": "00329",
@@ -7831,6 +7854,32 @@
       "descripcion": "la granizadora queda encendida no apaga a la hora de bajarla para el lavado "
     },
     {
+      "ss": "00324",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "SELLADORA DE JUGOS",
+      "lugar": "PUERTA DEL NORTE",
+      "fecha_ss": "2026-09-16T16:48:07",
+      "fecha_esperada": "2026-09-17T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000215",
+      "descripcion": "La Máquina no sella bien los vasos ,queda una parte de los vasos destapados, la palanca está dura, y el cable conector está pelado, puede generar un corto."
+    },
+    {
+      "ss": "00326",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "PUERTA DEL NORTE",
+      "fecha_ss": "2026-09-16T16:51:00",
+      "fecha_esperada": "2026-09-17T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "Cambio de cauchos para el horno de proteínas y mantenimiento "
+    },
+    {
       "ss": "00325",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -7842,6 +7891,19 @@
       "estado": "Programada en O.T.",
       "ot_asociada": null,
       "descripcion": "Cambio de cauchos para el hornos de proteínas y mantenimiento "
+    },
+    {
+      "ss": "00328",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-16T18:20:01",
+      "fecha_esperada": "2026-09-17T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "no tiene vidrio por eso no se exhiben "
     },
     {
       "ss": "00306",
@@ -7870,19 +7932,6 @@
       "descripcion": "lámpara intermitente "
     },
     {
-      "ss": "00312",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 2P IMBERA",
-      "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-15T19:28:13",
-      "fecha_esperada": "2026-09-17T14:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "cambio de caucho mal estado refrigerador, pierde temperatura "
-    },
-    {
       "ss": "00310",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -7896,19 +7945,6 @@
       "descripcion": "caucho mal estado congelación, pierde temperatura "
     },
     {
-      "ss": "00311",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "NEVERA CONGELACION VERTICAL 1P TORNADO",
-      "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-15T19:22:14",
-      "fecha_esperada": "2026-09-17T14:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "cambio de caucho mal estado, pierde temperatura "
-    },
-    {
       "ss": "00313",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -7920,6 +7956,32 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "cambio de caucho mal estado congelador, pierde temperatura "
+    },
+    {
+      "ss": "00312",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 2P IMBERA",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "fecha_ss": "2026-09-15T19:28:13",
+      "fecha_esperada": "2026-09-17T14:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "cambio de caucho mal estado refrigerador, pierde temperatura "
+    },
+    {
+      "ss": "00311",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "NEVERA CONGELACION VERTICAL 1P TORNADO",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "fecha_ss": "2026-09-15T19:22:14",
+      "fecha_esperada": "2026-09-17T14:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "cambio de caucho mal estado, pierde temperatura "
     },
     {
       "ss": "00334",
@@ -8052,19 +8114,6 @@
       "descripcion": "Olla sopera dañada, se le óxido el fondo "
     },
     {
-      "ss": "00353",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-18T19:57:17",
-      "fecha_esperada": "2026-09-19T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "nevera no está refrigerando"
-    },
-    {
       "ss": "00349",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -8076,6 +8125,19 @@
       "estado": "Editada",
       "ot_asociada": null,
       "descripcion": "caucho de horno lasagna se daño"
+    },
+    {
+      "ss": "00353",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-18T19:57:17",
+      "fecha_esperada": "2026-09-19T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "nevera no está refrigerando"
     },
     {
       "ss": "00352",
@@ -8169,6 +8231,19 @@
       "descripcion": "horno lasañas se queda pegado por favor me colaboran "
     },
     {
+      "ss": "00361",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ESTUFA",
+      "lugar": "CENTRO MAYOR",
+      "fecha_ss": "2026-09-20T20:44:43",
+      "fecha_esperada": "2026-09-21T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "fuga de gas en tuberías dentro de la estufa requiere arreglo URGUENTE YA QUE LA FUGA PERSISTE "
+    },
+    {
       "ss": "00359",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -8177,8 +8252,8 @@
       "fecha_ss": "2026-09-20T13:27:43",
       "fecha_esperada": "2026-09-21T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000255",
       "descripcion": "local se queda sin energía "
     },
     {
@@ -8193,19 +8268,6 @@
       "estado": "Editada",
       "ot_asociada": null,
       "descripcion": "me ayudan por favor con el caucho del horno de lasaña, el calor se le sale y tengo mucho pedido entrando y tiempo subiendo "
-    },
-    {
-      "ss": "00361",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ESTUFA",
-      "lugar": "CENTRO MAYOR",
-      "fecha_ss": "2026-09-20T20:44:43",
-      "fecha_esperada": "2026-09-21T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "fuga de gas en tuberías dentro de la estufa requiere arreglo URGUENTE YA QUE LA FUGA PERSISTE "
     },
     {
       "ss": "00364",
@@ -8260,19 +8322,6 @@
       "descripcion": "lámparas Led no encienden "
     },
     {
-      "ss": "00366",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-21T16:02:00",
-      "fecha_esperada": "2026-09-22T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "cambio de 3 parrillas que estaban en mal estado.OJO YA ME LAS CAMBIARON ME"
-    },
-    {
       "ss": "00369",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -8297,6 +8346,19 @@
       "estado": "Editada",
       "ot_asociada": null,
       "descripcion": "revisión de nevera,mantenimiento,NR0043"
+    },
+    {
+      "ss": "00366",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-21T16:02:00",
+      "fecha_esperada": "2026-09-22T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "cambio de 3 parrillas que estaban en mal estado.OJO YA ME LAS CAMBIARON ME"
     },
     {
       "ss": "00357",
@@ -8533,19 +8595,6 @@
       "descripcion": "la puerta de atrás necesita cambio de chapa las llaves se partieron y el local no queda muy seguro. esta reportado desde el 26 de mayo "
     },
     {
-      "ss": "00409",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FLORIDA ET2",
-      "lugar": "FLORIDA ETAPA 2",
-      "fecha_ss": "2026-09-24T11:58:46",
-      "fecha_esperada": "2026-09-24T15:58:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "muro de arriba nevera de coca cola está pelado y amarrado con cinta "
-    },
-    {
       "ss": "00408",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -8557,6 +8606,19 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "llave en mal estado "
+    },
+    {
+      "ss": "00409",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FLORIDA ET2",
+      "lugar": "FLORIDA ETAPA 2",
+      "fecha_ss": "2026-09-24T11:58:46",
+      "fecha_esperada": "2026-09-24T15:58:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "muro de arriba nevera de coca cola está pelado y amarrado con cinta "
     },
     {
       "ss": "00410",
@@ -8637,19 +8699,6 @@
       "descripcion": "reja principal demaciado dura para abrir y cerrar "
     },
     {
-      "ss": "00416",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-24T19:46:25",
-      "fecha_esperada": "2026-09-25T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "se daña enchufe y queda sin energía energía nevera de coca cola y televisor "
-    },
-    {
       "ss": "00358",
       "tipo": "Correctivo Programado",
       "severidad": "Baja",
@@ -8661,6 +8710,19 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "parte de arriba del horno se revienta la la la rosca "
+    },
+    {
+      "ss": "00416",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-24T19:46:25",
+      "fecha_esperada": "2026-09-25T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "se daña enchufe y queda sin energía energía nevera de coca cola y televisor "
     },
     {
       "ss": "00415",
@@ -8832,17 +8894,17 @@
       "descripcion": "el techo de la cocina requiere pintura "
     },
     {
-      "ss": "00431",
+      "ss": "00430",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 1P TORNADO",
       "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-25T15:59:34",
+      "fecha_ss": "2026-09-25T15:58:31",
       "fecha_esperada": "2026-09-26T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "baldosas quebradas "
+      "descripcion": "delicado esta nevera ya a sido repara anteriormente ahora NUEVAMENTE vuelve y se le suelta el empaque  en la parte superior"
     },
     {
       "ss": "00427",
@@ -8871,30 +8933,17 @@
       "descripcion": "solicitar mantenimiento por favor "
     },
     {
-      "ss": "00430",
+      "ss": "00431",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 1P TORNADO",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-25T15:58:31",
+      "fecha_ss": "2026-09-25T15:59:34",
       "fecha_esperada": "2026-09-26T11:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "delicado esta nevera ya a sido repara anteriormente ahora NUEVAMENTE vuelve y se le suelta el empaque  en la parte superior"
-    },
-    {
-      "ss": "00433",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ESTUFA",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-25T16:02:29",
-      "fecha_esperada": "2026-09-26T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "solicitar mantenimiento para la estufa"
+      "descripcion": "baldosas quebradas "
     },
     {
       "ss": "00438",
@@ -8921,6 +8970,19 @@
       "estado": "Programada en O.T.",
       "ot_asociada": "000251",
       "descripcion": "Toma averiado, cava sin luz CV0012"
+    },
+    {
+      "ss": "00433",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ESTUFA",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-25T16:02:29",
+      "fecha_esperada": "2026-09-26T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "solicitar mantenimiento para la estufa"
     },
     {
       "ss": "00445",
@@ -8975,19 +9037,6 @@
       "descripcion": "Horno de proteinas no se deja lavar, dice que lavado defectuoso, por lo tanto no deja hacer cocción"
     },
     {
-      "ss": "00418",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
-      "lugar": "MALL PLAZA MANIZALES",
-      "fecha_ss": "2026-09-25T06:35:00",
-      "fecha_esperada": "2026-09-28T10:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "SE SOLICITA UN CAMBIO DE GRIFO EN POSETA YA QUE TIENE UNA FILTRACION Y NO DE DEJA DE GOTEAR (ESTO INCREMENTA EL RECIBO DEL AGUA)"
-    },
-    {
       "ss": "00412",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -8999,6 +9048,19 @@
       "estado": "Programada en O.T.",
       "ot_asociada": "000237",
       "descripcion": "el horno tiene el caucho roto "
+    },
+    {
+      "ss": "00418",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
+      "lugar": "MALL PLAZA MANIZALES",
+      "fecha_ss": "2026-09-25T06:35:00",
+      "fecha_esperada": "2026-09-28T10:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "SE SOLICITA UN CAMBIO DE GRIFO EN POSETA YA QUE TIENE UNA FILTRACION Y NO DE DEJA DE GOTEAR (ESTO INCREMENTA EL RECIBO DEL AGUA)"
     },
     {
       "ss": "00444",
@@ -9027,6 +9089,32 @@
       "descripcion": "creo que se descolgó algo de la  elise y cada vez que da vuelta suena como si se fuese a desarmar, por esta razón no se prende la campana "
     },
     {
+      "ss": "00456",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "SISTEMA DE EXTRACCION",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-27T13:34:37",
+      "fecha_esperada": "2026-09-28T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "se apagó y no funciona ya se desconecto y se conecto mil veces se reviso monitos todo está conectado y nada que enciende "
+    },
+    {
+      "ss": "00448",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "SISTEMA DE EXTRACCION",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-26T14:04:43",
+      "fecha_esperada": "2026-09-28T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "no está funcionando correctamente algo le está colgando en todo ala elise y siempre que da vueltas golpea eso muy duro "
+    },
+    {
       "ss": "00452",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -9038,6 +9126,19 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "solicita reparación locativo baldosas del piso, despicadas, no cumple requerimientos de ministerio de salud "
+    },
+    {
+      "ss": "00453",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MAYORCA ET 1",
+      "lugar": "MAYORCA ETAPA 1",
+      "fecha_ss": "2026-09-26T17:35:57",
+      "fecha_esperada": "2026-09-28T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "reparación urgente de baldosas del muro en área  de zona caliente "
     },
     {
       "ss": "00454",
@@ -9061,22 +9162,9 @@
       "fecha_ss": "2026-09-27T12:40:08",
       "fecha_esperada": "2026-09-28T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "los quemadores están "
-    },
-    {
-      "ss": "00456",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "SISTEMA DE EXTRACCION",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-27T13:34:37",
-      "fecha_esperada": "2026-09-28T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "se apagó y no funciona ya se desconecto y se conecto mil veces se reviso monitos todo está conectado y nada que enciende "
     },
     {
       "ss": "00457",
@@ -9105,32 +9193,6 @@
       "descripcion": "ruedas de congelador en muy mal estado en cualquier momento se cae"
     },
     {
-      "ss": "00448",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "SISTEMA DE EXTRACCION",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-26T14:04:43",
-      "fecha_esperada": "2026-09-28T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "no está funcionando correctamente algo le está colgando en todo ala elise y siempre que da vueltas golpea eso muy duro "
-    },
-    {
-      "ss": "00453",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MAYORCA ET 1",
-      "lugar": "MAYORCA ETAPA 1",
-      "fecha_ss": "2026-09-26T17:35:57",
-      "fecha_esperada": "2026-09-28T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "reparación urgente de baldosas del muro en área  de zona caliente "
-    },
-    {
       "ss": "00468",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -9142,6 +9204,32 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "cava de fruver con acumulación de hielo en el condensador "
+    },
+    {
+      "ss": "00478",
+      "tipo": "Correctiva de Emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-28T12:34:06",
+      "fecha_esperada": null,
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "no está granizando "
+    },
+    {
+      "ss": "00450",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-26T16:22:22",
+      "fecha_esperada": "2026-09-28T13:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000254",
+      "descripcion": "granizadora no funciona así  le pierde una pieza "
     },
     {
       "ss": "00460",
@@ -9157,17 +9245,17 @@
       "descripcion": "reja de entrada al punto de venta con malla despegada "
     },
     {
-      "ss": "00450",
+      "ss": "00461",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-26T16:22:22",
+      "equipo": "ADECUACIÓN E INSTALACIÓN SAN DIEGO",
+      "lugar": "SAN DIEGO",
+      "fecha_ss": "2026-09-27T14:00:24",
       "fecha_esperada": "2026-09-28T13:00:00",
       "fecha_respuesta": null,
       "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "granizadora no funciona así  le pierde una pieza "
+      "descripcion": "tapa toma corriente quebrada se necesita cambio"
     },
     {
       "ss": "00458",
@@ -9181,19 +9269,6 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "piso de punto de venta muy poroso calidad pide q lo arregle"
-    },
-    {
-      "ss": "00461",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN SAN DIEGO",
-      "lugar": "SAN DIEGO",
-      "fecha_ss": "2026-09-27T14:00:24",
-      "fecha_esperada": "2026-09-28T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "tapa toma corriente quebrada se necesita cambio"
     },
     {
       "ss": "00470",
@@ -9222,6 +9297,58 @@
       "descripcion": "Estufa tisna mucho ya no tenemos delantales  ahuma demaciado "
     },
     {
+      "ss": "00471",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ESTUFA",
+      "lugar": "FLORIDA ETAPA 2",
+      "fecha_ss": "2026-09-28T11:17:00",
+      "fecha_esperada": "2026-09-28T15:17:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000252",
+      "descripcion": "perilla de estufa de parte "
+    },
+    {
+      "ss": "00472",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "FLORIDA ETAPA 2",
+      "fecha_ss": "2026-09-28T11:21:00",
+      "fecha_esperada": "2026-09-28T15:21:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "parrillas se caen, están inestables"
+    },
+    {
+      "ss": "00476",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "PLAZA CENTRAL",
+      "fecha_ss": "2026-09-28T11:51:54",
+      "fecha_esperada": "2026-09-28T15:51:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Caucho del horno"
+    },
+    {
+      "ss": "00477",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO DE LASAÑAS",
+      "lugar": "PLAZA CENTRAL",
+      "fecha_ss": "2026-09-28T11:59:30",
+      "fecha_esperada": "2026-09-28T15:59:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "vidrio partido "
+    },
+    {
       "ss": "00466",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
@@ -9233,6 +9360,58 @@
       "estado": "Creada",
       "ot_asociada": null,
       "descripcion": "Empaque de la puerta safado"
+    },
+    {
+      "ss": "00479",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "MARMITA",
+      "lugar": "BASE DE OPERACIONES",
+      "fecha_ss": "2026-09-28T12:46:29",
+      "fecha_esperada": "2026-09-29T07:46:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Muy poca llama, lo cual nos atrasa demasiado y no podemos cumplir con lo establecido"
+    },
+    {
+      "ss": "00480",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-28T13:06:30",
+      "fecha_esperada": "2026-09-29T08:06:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "No está granizando "
+    },
+    {
+      "ss": "00473",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VEGAS PLAZA",
+      "lugar": "VEGAS PLAZA",
+      "fecha_ss": "2026-09-28T11:32:17",
+      "fecha_esperada": "2026-09-29T08:32:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "se solicita resanar pared de servicio ya que se encuenta partida"
+    },
+    {
+      "ss": "00475",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "PLAZA CENTRAL",
+      "fecha_ss": "2026-09-28T11:42:29",
+      "fecha_esperada": "2026-09-29T08:42:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "caucho de horno en mal estado. "
     },
     {
       "ss": "00441",
@@ -9259,6 +9438,32 @@
       "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "cajas de sistema eléctrico requiere señalización "
+    },
+    {
+      "ss": "00481",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "CENTRO DE PRODUCCIÓN",
+      "lugar": "CENTRO DE PRODUCCIÓN",
+      "fecha_ss": "2026-09-28T14:02:43",
+      "fecha_esperada": "2026-09-29T09:02:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "instalar mesa a la dosificadora de planta de producción para evitar accidentes "
+    },
+    {
+      "ss": "00474",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Baja",
+      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA CENTRAL",
+      "lugar": "PLAZA CENTRAL",
+      "fecha_ss": "2026-09-28T11:34:20",
+      "fecha_esperada": "2026-09-30T09:34:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Baldosas dañadas"
     },
     {
       "ss": "00041",
@@ -9313,19 +9518,6 @@
       "descripcion": "nevera con fuga de agua "
     },
     {
-      "ss": "00062",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
-      "lugar": "FABRICATO",
-      "fecha_ss": "2026-09-06T08:56:49",
-      "fecha_esperada": "2026-10-20T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000083",
-      "descripcion": "esta devolviendo agua por las rejillas del piso cuando echo agua alas pocetas del lavado"
-    },
-    {
       "ss": "00070",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
@@ -9337,6 +9529,19 @@
       "estado": "Ejecutada",
       "ot_asociada": "000115",
       "descripcion": "los botones de las granizadoras estan muy pegadas "
+    },
+    {
+      "ss": "00062",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "lugar": "FABRICATO",
+      "fecha_ss": "2026-09-06T08:56:49",
+      "fecha_esperada": "2026-10-20T13:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000083",
+      "descripcion": "esta devolviendo agua por las rejillas del piso cuando echo agua alas pocetas del lavado"
     },
     {
       "ss": "00071",
@@ -9560,19 +9765,6 @@
       "descripcion": "se solicita cambiar o ponerle ala puerta de entrada algo porque esta oxidada"
     },
     {
-      "ss": "00150",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
-      "lugar": "FABRICATO",
-      "fecha_ss": "2026-09-10T11:31:00",
-      "fecha_esperada": "2026-10-24T09:31:00",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
-      "descripcion": "Cambio de rejillas de neveras estan muy ocxidadas dos neveras de refrigeración de refriger..."
-    },
-    {
       "ss": "00151",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
@@ -9584,6 +9776,19 @@
       "estado": "Programada en O.T.",
       "ot_asociada": null,
       "descripcion": "se solicita poner algo en la parte de atrás de el televisor del lado de servicio tiene partes destapadas y ya calidad dijo q no podía estar asi"
+    },
+    {
+      "ss": "00150",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "lugar": "FABRICATO",
+      "fecha_ss": "2026-09-10T11:31:00",
+      "fecha_esperada": "2026-10-24T09:31:00",
+      "fecha_respuesta": null,
+      "estado": "Leída",
+      "ot_asociada": null,
+      "descripcion": "Cambio de rejillas de neveras estan muy ocxidadas dos neveras de refrigeración de refriger..."
     },
     {
       "ss": "00152",
@@ -10119,19 +10324,6 @@
       "descripcion": "establecimiento require pintura "
     },
     {
-      "ss": "00449",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Media",
-      "equipo": null,
-      "lugar": null,
-      "fecha_ss": "2026-09-26T16:03:44",
-      "fecha_esperada": "2026-12-28T14:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "cajoneras en mal estado "
-    },
-    {
       "ss": "00451",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Media",
@@ -10143,6 +10335,19 @@
       "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "puerta de la parte de afuera , solo depende de una bisagra "
+    },
+    {
+      "ss": "00449",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Media",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-09-26T16:03:44",
+      "fecha_esperada": "2026-12-28T14:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "cajoneras en mal estado "
     },
     {
       "ss": "00469",
@@ -10269,11 +10474,11 @@
       "lugar": "VIVA LAURELES",
       "criticidad": "Alta",
       "inicio": "2026-09-07T11:43:00",
-      "inicio_trabajo": null,
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "estado_paro": "Fuera de servicio",
+      "inicio_trabajo": "2026-09-26T09:46:00",
+      "iniciado": true,
+      "fin": "2026-09-26T09:50:00",
+      "duracion_h": 454.12,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
       "ss_codigo": "00082, 00366"
@@ -10532,7 +10737,7 @@
       "estado_paro": "Fuera de servicio",
       "tecnico": null,
       "estado": null,
-      "ss_codigo": "00285"
+      "ss_codigo": "00285, 00472"
     },
     {
       "ot": "000149",
@@ -10893,11 +11098,11 @@
       "lugar": "EL TESORO",
       "criticidad": "Alta",
       "inicio": "2026-09-26T08:57:00",
-      "inicio_trabajo": null,
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "estado_paro": "Fuera de servicio",
+      "inicio_trabajo": "2026-09-28T08:55:00",
+      "iniciado": true,
+      "fin": "2026-09-28T10:40:00",
+      "duracion_h": 49.72,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
       "ss_codigo": "00443"
@@ -10949,6 +11154,54 @@
       "tecnico": null,
       "estado": null,
       "ss_codigo": "00455"
+    },
+    {
+      "ot": "000252",
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0037",
+      "lugar": "FLORIDA ETAPA 2",
+      "criticidad": "Alta",
+      "inicio": "2026-09-28T11:17:00",
+      "inicio_trabajo": "2026-09-28T13:00:00",
+      "iniciado": true,
+      "fin": "2026-09-28T13:20:00",
+      "duracion_h": 2.05,
+      "estado_paro": "Finalizado",
+      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "estado": "Abierta",
+      "ss_codigo": "00471, 00475"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0064",
+      "lugar": "PLAZA CENTRAL",
+      "criticidad": "Alta",
+      "inicio": "2026-09-28T11:51:54",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00476"
+    },
+    {
+      "ot": null,
+      "equipo": "MARMITA",
+      "equipo_cod": "EP-0017",
+      "lugar": "BASE DE OPERACIONES",
+      "criticidad": "Alta",
+      "inicio": "2026-09-28T12:46:29",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00479"
     }
   ],
   "paros_programados": [
