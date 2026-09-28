@@ -147,6 +147,13 @@ nativo. Cada paro puede estar:
   duración `null`.
 - **Finalizado**: tiene ambas fechas — duración = diferencia en horas.
 
+La pestaña "Paros por Equipo" **respeta el filtro de fechas y de lugar**
+(pedido de Mariana; antes lo ignoraba y mostraba solo los paros abiertos):
+muestra los paros (correctivos + preventivos) cuya fecha de paro cae en el
+rango, finalizados incluidos — mismo criterio y mismo total que "Paros en el
+periodo" del Resumen Gerencial. "Frecuencia de mantenimiento por equipo"
+usa las OT creadas en el rango.
+
 ### Enlace SS -> OT
 
 El campo `Descripción` de la OT a veces contiene una referencia de texto
