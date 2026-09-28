@@ -481,7 +481,6 @@ function otPorMes(mes){
 }
 
 /* ============ Filtro de equipo propio de la pestana "Tecnicos" ============ */
-let tecnicosEquipoFiltro = null;
 function splitTecnicos(str){
   if(!str) return [];
   return String(str).split(',').map(s=>s.trim()).filter(Boolean);
@@ -1560,8 +1559,6 @@ function renderTecnicos(el){
   const tercerosRows = capRowsAll.filter(r=>!esInterno(r.tecnico) && esProveedorRegistrado(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
   const otrosRows = capRowsAll.filter(r=>!esInterno(r.tecnico) && !esProveedorRegistrado(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
 
-  const equiposUnicos = [...new Set(ot.map(r=>r.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-  if(tecnicosEquipoFiltro && !equiposUnicos.includes(tecnicosEquipoFiltro)) tecnicosEquipoFiltro = null;
 
   // "Dónde está cada técnico" - respeta el filtro de fecha de la pestaña a
   // través de referenciaFiltro(): si el rango llega hasta hoy usa la hora
@@ -1608,13 +1605,6 @@ function renderTecnicos(el){
     <div class="section-note" style="margin:0 0 10px;">Ejecutores que no están en TECNICOS.xlsx ni en Datos Generales de Proveedores.xlsx — p.ej. una persona que trabaja a nombre de un proveedor sin estar dada de alta individualmente en el sistema.</div>
     <div id="otrosTecnicosWrap"></div>
   </div>` : ''}
-  <div class="card section-block">
-    <div class="card-head">
-      <h3>Filtrar por equipo</h3>
-      <select id="tecEquipoFiltro"><option value="">Selecciona un equipo...</option>${equiposUnicos.map(e=>`<option value="${esc(e)}"${e===tecnicosEquipoFiltro?' selected':''}>${esc(e)}</option>`).join('')}</select>
-    </div>
-    <div id="tecEquipoWrap"></div>
-  </div>
   `;
 
   const capCols = [
@@ -1666,34 +1656,6 @@ function renderTecnicos(el){
       document.getElementById('otrosTecnicosWrap').innerHTML = '<div class="empty">Sin OT ejecutadas por "otros"</div>';
     }
   }
-
-  function renderEquipoWrap(){
-    const val = document.getElementById('tecEquipoFiltro').value;
-    const wrap = document.getElementById('tecEquipoWrap');
-    if(!val){
-      wrap.innerHTML = '<div class="empty">Selecciona un equipo arriba para ver el detalle por técnico</div>';
-      return;
-    }
-    const rowsEq = ot.filter(r=>r.equipo===val && duracionRealOT(r)!=null);
-    const promGeneral = rowsEq.length? rowsEq.reduce((s,r)=>s+duracionRealOT(r),0)/rowsEq.length : null;
-    const detalle = [];
-    rowsEq.forEach(r=>{
-      const dur = duracionRealOT(r);
-      splitTecnicos(r.tecnico).forEach(t=>{
-        detalle.push({tecnico:t, fecha:r.inicio_real, prom:promGeneral, dur});
-      });
-    });
-    detalle.sort((a,b)=> new Date(b.fecha) - new Date(a.fecha));
-    const titulo = `<div style="font-size:12.5px;font-weight:700;color:var(--ink-2);margin-bottom:10px;">Técnicos — ${esc(val)}</div>`;
-    wrap.innerHTML = titulo + simpleTable(detalle, [
-      {key:'tecnico', label:'Técnico'},
-      {key:'fecha', label:'Fecha', fmt:fmtDate},
-      {key:'prom', label:'Tiempo promedio de ejecución', num:true, fmt:fmtH},
-      {key:'dur', label:'Tiempo real de la ejecución', num:true, fmt:fmtH},
-    ], {scroll:true});
-  }
-  renderEquipoWrap();
-  document.getElementById('tecEquipoFiltro').addEventListener('change', ()=>{ tecnicosEquipoFiltro = document.getElementById('tecEquipoFiltro').value; renderEquipoWrap(); });
 }
 
 /* ============ TAB: Equipos ============ */
