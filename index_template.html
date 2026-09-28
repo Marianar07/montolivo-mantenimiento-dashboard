@@ -505,6 +505,31 @@ function duracionRealOT(r){
 function duracionProgramadaOT(r){
   return (r.inicio_programado && r.fin_programado) ? (new Date(r.fin_programado)-new Date(r.inicio_programado))/3600000 : null;
 }
+// Promedio diario de registros (SS creadas, OT realizadas): registros cuyo
+// `campo` cae en el rango filtrado / días calendario del rango (domingos
+// incluidos). El rango se acota a las fechas que traen los datos (un filtro
+// que llega al futuro, p.ej. "Este mes", no diluye el promedio) y, sin
+// "Desde" elegido, arranca en INICIO_USO_CMMS: antes solo hay registros
+// sueltos (19/may, 19/ago) que bajarían el promedio (decisión de Mariana).
+const INICIO_USO_CMMS = new Date('2026-09-01T00:00:00');
+// `universo` = todos los registros (sin filtro de lugar) para fijar el rango
+// de fechas con datos, así filtrar por lugar no acorta los días del rango.
+function promedioPorDia(rows, campo, universo){
+  const fechas = universo.map(r=>r[campo]).filter(Boolean).map(parseD);
+  if(!fechas.length) return {n:0, dias:0, prom:null};
+  const minF = new Date(Math.min(...fechas)), maxF = new Date(Math.max(...fechas));
+  const desdeBase = FILTER.desde || INICIO_USO_CMMS;
+  const desde = desdeBase < minF ? minF : desdeBase;
+  const hasta = (!FILTER.hasta || FILTER.hasta > maxF) ? maxF : FILTER.hasta;
+  const diaUTC = d=>Date.UTC(d.getFullYear(), d.getMonth(), d.getDate());
+  const dias = hasta >= desde ? Math.round((diaUTC(hasta)-diaUTC(desde))/86400000)+1 : 0;
+  const n = rows.filter(r=>inRange(r[campo], desde, FILTER.hasta)).length;
+  return {n, dias, desde, hasta, prom: dias ? n/dias : null};
+}
+function kpiPromedioDia(label, p, unidad){
+  return kpiCard({label, value: p.prom===null?'—':p.prom.toLocaleString('es-CO',{maximumFractionDigits:1}),
+    sub: p.dias?`${p.n} ${unidad} en ${p.dias} días calendario (${p.desde.toLocaleDateString('es-CO')} – ${p.hasta.toLocaleDateString('es-CO')})`:`sin ${unidad} en el rango`});
+}
 function rangoEfectivoOT(){
   if(FILTER.desde && FILTER.hasta) return {desde:FILTER.desde, hasta:FILTER.hasta};
   const fechas = DATA.ot.map(r=>r.fecha_creacion).filter(Boolean).map(s=>new Date(s));
@@ -1109,10 +1134,15 @@ function renderOT(el){
   const otros = all.filter(r=>esOTOtro(r, internosSet, proveedoresSet));
   const reprogramar = all.filter(necesitaReprogramar).sort((a,b)=>diasAtrasoOT(b)-diasAtrasoOT(a));
   const nReprogramar = new Set(reprogramar.map(r=>r.ot)).size;
+  // OT realizadas = con Fecha Fin Real, contadas por esa fecha (no por la de
+  // creación que usa el filtro general); respeta el filtro de lugar
+  const lugarOT = (!FILTER.lugarGlobal && otLugarFiltro.value) ? otLugarFiltro.value : (FILTER.lugarGlobal ? FILTER.lugar : null);
+  const otDia = promedioPorDia(DATA.ot.filter(r=>!lugarOT || r.lugar===lugarOT), 'fin_real', DATA.ot);
 
   el.innerHTML = `
   <div class="kpi-row">
     ${kpiCard({label:'Total de OT', value:all.length})}
+    ${kpiPromedioDia('OT realizadas por día (promedio)', otDia, 'OT finalizadas')}
     ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
     ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
   </div>
@@ -1753,30 +1783,14 @@ function renderSS(el){
   const tResp = conRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
   const promResp = tResp.length? tResp.reduce((a,b)=>a+b,0)/tResp.length : null;
   const cumplSS = cumplimientoStatsSS(all);
-  // SS creadas por día: días calendario del rango filtrado, acotado a las
-  // fechas que realmente traen los datos (para que un filtro que llega al
-  // futuro, p.ej. "Este mes", no diluya el promedio con días sin export).
-  // Sin "Desde" elegido, el promedio arranca en INICIO_USO_SS: antes solo hay
-  // un par de SS sueltas (19/may, 19/ago) que diluirían el promedio
-  // (confirmado con Mariana).
-  const INICIO_USO_SS = new Date('2026-09-01T00:00:00');
-  const fechasSS = DATA.ss.map(r=>r.fecha_ss).filter(Boolean).map(s=>new Date(s));
-  const minSS = fechasSS.length? new Date(Math.min(...fechasSS)) : null;
-  const maxSS = fechasSS.length? new Date(Math.max(...fechasSS)) : null;
-  const desdeBase = FILTER.desde || INICIO_USO_SS;
-  const ssDesde = minSS && desdeBase < minSS ? minSS : desdeBase;
-  const ssHasta = maxSS && (!FILTER.hasta || FILTER.hasta > maxSS) ? maxSS : FILTER.hasta;
-  const diaUTC = d=>Date.UTC(d.getFullYear(), d.getMonth(), d.getDate());
-  const diasRangoSS = (ssDesde && ssHasta && ssHasta >= ssDesde) ? Math.round((diaUTC(ssHasta)-diaUTC(ssDesde))/86400000)+1 : 0;
-  const nSSRango = all.filter(r=>r.fecha_ss && inRange(r.fecha_ss, ssDesde, FILTER.hasta)).length;
-  const ssPorDia = diasRangoSS ? nSSRango/diasRangoSS : null;
+  const ssDia = promedioPorDia(all, 'fecha_ss', DATA.ss);
 
   el.innerHTML = `
   <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Ejecutada</b>, <b>Evaluada</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Cualquier otro estado (Creada, Editada, Leída, Programada en O.T., Validada) sigue abierto y no tiene Fecha de respuesta — el filtro "Todos los estados" del histórico abajo siempre refleja los estados reales del CMMS.</div>
   <div class="callout info"><b>Cumplimiento</b> = Fecha de respuesta vs. Fecha esperada (plazo del CMMS). <b>Cumplida</b> = respondida en o antes de la Fecha esperada. <b>Incumplida</b> = respondió tarde, o sigue abierta y ya se pasó la Fecha esperada. <b>Pendiente</b> = aún no llega la Fecha esperada. <b>Días de mora</b> = días pasados de la Fecha esperada (0 si está a tiempo) — ${cumplSS.total} de ${all.length} SS en el rango traen Fecha esperada.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}
-    ${kpiCard({label:'SS creadas por día (promedio)', value: ssPorDia===null?'—':ssPorDia.toLocaleString('es-CO',{maximumFractionDigits:1}), sub: diasRangoSS?`${nSSRango} SS en ${diasRangoSS} días calendario (${ssDesde.toLocaleDateString('es-CO')} – ${ssHasta.toLocaleDateString('es-CO')})`:'sin SS en el rango'})}
+    ${kpiPromedioDia('SS creadas por día (promedio)', ssDia, 'SS')}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
     ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
   </div>
