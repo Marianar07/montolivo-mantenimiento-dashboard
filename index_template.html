@@ -278,6 +278,7 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 .badge.info{background:var(--info-bg);color:var(--info-text);border:1px solid var(--info-border);}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid2 > *{min-width:0;} /* deja que las tablas anchas hagan scroll dentro de su tarjeta */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 @media (max-width:900px){.grid2,.grid3{grid-template-columns:1fr;}}
 
@@ -530,6 +531,16 @@ function promedioPorDia(rows, campo, universo){
 function kpiPromedioDia(label, p){
   return kpiCard({label, value: p.prom===null?'—':p.prom.toLocaleString('es-CO',{maximumFractionDigits:1})});
 }
+// Estado de un paro (lo calcula process_dashboard.py): correctivos =
+// Fuera de servicio -> En reparación -> Finalizado; preventivos =
+// En mantenimiento -> Finalizado.
+function badgeEstadoParo(r){
+  const e = r.estado_paro || (r.fin ? 'Finalizado' : (r.iniciado ? 'En reparación' : 'Fuera de servicio'));
+  const cls = e==='Finalizado' ? 'good' : e==='Fuera de servicio' ? 'bad' : 'warn';
+  return `<span class="badge ${cls}">${esc(e)}</span>`;
+}
+// ss_codigo de un paro puede traer varias SS ("00325, 00326")
+function fmtSSParo(v){ return v ? String(v).split(',').map(x=>'SS-'+x.trim()).join(', ') : '—'; }
 function rangoEfectivoOT(){
   if(FILTER.desde && FILTER.hasta) return {desde:FILTER.desde, hasta:FILTER.hasta};
   const fechas = DATA.ot.map(r=>r.fecha_creacion).filter(Boolean).map(s=>new Date(s));
@@ -937,13 +948,13 @@ function renderResumen(el){
     openModal('Paros en el periodo', simpleTable(detalle, [
       {key:'tipo', label:'Tipo'},
       {key:'ot', label:'OT'},
-      {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
+      {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
       {key:'equipo', label:'Artículo / equipo'},
       {key:'lugar', label:'Lugar'},
       {key:'tecnico', label:'Técnico asignado', fmt:v=>v?shortTecnico(v):'—'},
       {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
       {key:'duracion_h', label:'Duración', fmt:v=>v==null?'—':fmtH(v)},
-      {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.fin? '<span class="badge good">Finalizado</span>' : (r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>')},
+      {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
     ], {scroll:true}));
   });
   const reprogCardEl = document.getElementById('otReprogramarCard');
@@ -1227,7 +1238,7 @@ function renderOT(el){
     {key:'tipo', label:'Tipo'},
     {key:'severidad', label:'Sever.'},
     {key:'viene_ss', label:'¿SS?', fmt:v=>v?'Sí':'No'},
-    {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
+    {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
     {key:'fecha_creacion', label:'Creación OT', fmt:fmtDate},
     {key:'inicio_programado', label:'Inicio prog.', fmt:fmtDate},
     {key:'fin_programado', label:'Fin prog.', fmt:fmtDate},
@@ -1353,7 +1364,8 @@ function renderParos(el){
 
   const totalHorasParado = paros.reduce((s,p)=>s+(p.dias!=null? p.dias*24 : 0),0);
   const promHorasParado = paros.length? totalHorasParado/paros.length : null;
-  const pendientes = paros.filter(p=>!p.iniciado).length;
+  const fueraServicio = paros.filter(p=>p.estado_paro==='Fuera de servicio').length;
+  const enReparacion = paros.filter(p=>p.estado_paro==='En reparación' || p.estado_paro==='En mantenimiento').length;
 
   // 1) Paros actuales por lugar
   const lugarMap = new Map();
@@ -1393,11 +1405,13 @@ function renderParos(el){
 
   el.innerHTML = `
   ${sectionTitle('Paros por equipo', `${paros.length} paros con fecha de paro en el rango seleccionado (correctivos y preventivos sobre equipos que generan paro, finalizados incluidos) — el módulo de paros del sistema aún no reporta datos propios`)}
+  <div class="callout info"><b>Cómo se mide un paro correctivo:</b> empieza cuando se reporta una <b>SS</b> sobre un equipo marcado en Mantum como "Provoca paro" (si la OT se creó sin SS, empieza en la creación de la OT). <b>Fuera de servicio</b> = reportado, todavía nadie empezó a trabajar (sin OT o sin Fecha Inicio Real). <b>En reparación</b> = la OT ya tiene Fecha Inicio Real. <b>Finalizado</b> = la OT tiene Fecha Fin Real (o la SS se cerró). Varias SS del mismo equipo abiertas a la vez, o enlazadas a la misma OT, cuentan como un solo paro. Los <b>preventivos</b> solo cuentan desde que el técnico inicia (En mantenimiento → Finalizado).</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total de paros del periodo', value:paros.length})}
     ${kpiCard({label:'Horas acumuladas paradas', value:fmtH(totalHorasParado)})}
     ${kpiCard({label:'Horas promedio parado', value:fmtH(promHorasParado)})}
-    ${kpiCard({label:'Pendientes de iniciar', value:pendientes, status: pendientes>0?'warn':'good'})}
+    ${kpiCard({label:'Fuera de servicio', value:fueraServicio, status: fueraServicio>0?'bad':'good'})}
+    ${kpiCard({label:'En reparación', value:enReparacion, status: enReparacion>0?'warn':'good'})}
   </div>
   <div class="grid2">
     <div class="card">
@@ -1413,11 +1427,12 @@ function renderParos(el){
       ${paradasActuales.length? simpleTable(paradasActuales, [
         {key:'tipo', label:'Tipo'},
         {key:'ot', label:'OT'},
-        {key:'ss_codigo', label:'SS asociada', fmt:v=>v?('SS-'+v):'—'},
+        {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
         {key:'equipo', label:'Equipo'},
         {key:'lugar', label:'Lugar'},
-        {key:'estado_paro', label:'Estado', fmt:(v,r)=> r.fin? '<span class="badge good">Finalizado</span>' : (r.iniciado? '<span class="badge warn">En curso</span>' : '<span class="badge warn">Pendiente de iniciar</span>')},
-        {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
+        {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
+        {key:'inicio', label:'Inicio del paro', fmt:fmtDate},
+        {key:'inicio_trabajo', label:'Inicio reparación', fmt:(v,r)=>fmtDate(v || (r.tipo==='Preventivo' ? r.inicio : null))},
         {key:'dias', label:'Días parados', num:true, fmt:v=> v==null?'—':v.toFixed(1)},
         {key:'tecnico', label:'Técnico asignado', fmt:v=> v? shortTecnico(v) : '—'},
       ], {scroll:true}) : '<div class="empty">No hay paros en el rango seleccionado</div>'}

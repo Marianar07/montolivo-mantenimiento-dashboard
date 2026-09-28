@@ -139,13 +139,31 @@ del directorio de equipos en la pestaña "Equipos" — ver más abajo.)
 
 El sistema CMMS todavía no tiene un módulo de paros propio con datos
 reales — este indicador sigue siendo un cálculo derivado, no un reporte
-nativo. Cada paro puede estar:
-- **Pendiente de iniciar**: la OT sigue abierta y no tiene `Fecha Inicio
-  Real` — se usa `Fecha Inicio Programado` como fecha de referencia, y la
-  duración queda `null`.
-- **En curso**: tiene `Fecha Inicio Real` pero no `Fecha Fin Real` —
-  duración `null`.
-- **Finalizado**: tiene ambas fechas — duración = diferencia en horas.
+nativo.
+
+**Paros correctivos arrancan en la SS** (definición de Mariana, 28-sep-2026,
+`construir_paros_correctivos()`): un paro empieza cuando se reporta una SS
+sobre un equipo con `Provoca Paro?` = "Sí" (código de la `Entidad` de la SS).
+Estados:
+- **Fuera de servicio**: reportado, nadie ha empezado a trabajar (la SS no
+  tiene OT todavía, o la OT no tiene `Fecha Inicio Real`).
+- **En reparación**: la OT tiene `Fecha Inicio Real` y no `Fecha Fin Real`.
+- **Finalizado**: la OT tiene `Fecha Fin Real` (o la SS se cerró sin OT →
+  su `Fecha de respuesta`). Duración = fin − inicio del paro.
+
+Agrupación: SS enlazadas a la misma OT = un paro (arranca en la SS más
+antigua); SS abiertas sin OT del mismo equipo = un paro; SS "No aprobada" no
+son paro; OT correctivas sobre equipos que generan paro sin ninguna SS
+también son paro (arrancan en la `Fecha Creación` de la OT). El inicio nunca
+es posterior a la `Fecha Inicio Real` (hay OT registradas después de hacer
+el trabajo). El enlace SS → OT usa la columna `OTs` del export de SS (trae
+el **código** de la OT, verificado 92/92) y, de respaldo, la referencia
+"SS-xxxxx" en la Descripción de la OT.
+
+**Preventivos** (`paros_programados`, `construir_paros(..., tipo="Preventivo",
+solo_iniciadas=True)`): solo cuentan desde que el técnico inicia — estados
+"En mantenimiento" → "Finalizado". El estado lo calcula el script en
+`estado_paro`; el tablero lo pinta con `badgeEstadoParo()`.
 
 La pestaña "Paros por Equipo" **respeta el filtro de fechas y de lugar**
 (pedido de Mariana; antes lo ignoraba y mostraba solo los paros abiertos):

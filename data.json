@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T12:22:40",
+  "generado": "2026-09-28T12:44:42",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -10204,13 +10204,111 @@
       "equipo_cod": "SE-0021",
       "lugar": "PREMIUM PLAZA",
       "criticidad": "Alta",
-      "inicio": "2026-08-22T07:00:00",
+      "inicio": "2026-08-21T15:20:00",
+      "inicio_trabajo": "2026-08-22T07:00:00",
       "iniciado": true,
       "fin": "2026-08-22T10:00:00",
-      "duracion_h": 3.0,
+      "duracion_h": 18.67,
+      "estado_paro": "Finalizado",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
       "ss_codigo": "00004"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0044",
+      "lugar": "TITAN PLAZA",
+      "criticidad": "Alta",
+      "inicio": "2026-09-01T08:58:23",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00016"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0031",
+      "lugar": "CENTRO MAYOR",
+      "criticidad": "Alta",
+      "inicio": "2026-09-06T12:27:21",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00064, 00361"
+    },
+    {
+      "ot": null,
+      "equipo": "SISTEMA DE EXTRACCION",
+      "equipo_cod": "SE-0004",
+      "lugar": "MALL PLAZA MANIZALES",
+      "criticidad": "Alta",
+      "inicio": "2026-09-06T20:22:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": "2026-09-16T15:09:00",
+      "duracion_h": 234.78,
+      "estado_paro": "Finalizado",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00069"
+    },
+    {
+      "ot": "000235",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0055",
+      "lugar": "VIVA LAURELES",
+      "criticidad": "Alta",
+      "inicio": "2026-09-07T11:43:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "estado": "Abierta",
+      "ss_codigo": "00082, 00366"
+    },
+    {
+      "ot": null,
+      "equipo": "SISTEMA DE EXTRACCION",
+      "equipo_cod": "SE-0032",
+      "lugar": "SANTAFÉ BOGOTÁ",
+      "criticidad": "Alta",
+      "inicio": "2026-09-07T12:38:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00087"
+    },
+    {
+      "ot": "000229",
+      "equipo": "SISTEMA DE EXTRACCION",
+      "equipo_cod": "SE-0022",
+      "lugar": "GRAN PLAZA",
+      "criticidad": "Alta",
+      "inicio": "2026-09-08T19:12:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": "JONATHAN RESTREPO RAMIREZ, YOHAN ESTIBEN SANCHEZ NARANJO",
+      "estado": "Abierta",
+      "ss_codigo": "00129"
     },
     {
       "ot": "000094",
@@ -10218,13 +10316,191 @@
       "equipo_cod": "SE-0038",
       "lugar": "SANTAFÉ MEDELLÍN",
       "criticidad": "Alta",
-      "inicio": "2026-09-11T10:00:00",
+      "inicio": "2026-09-09T14:32:18",
+      "inicio_trabajo": "2026-09-11T10:00:00",
       "iniciado": true,
       "fin": "2026-09-11T14:00:00",
-      "duracion_h": 4.0,
+      "duracion_h": 47.46,
+      "estado_paro": "Finalizado",
       "tecnico": "JONATHAN RESTREPO RAMIREZ",
       "estado": "Cerrada",
       "ss_codigo": null
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0014",
+      "lugar": "VEGAS PLAZA",
+      "criticidad": "Alta",
+      "inicio": "2026-09-09T16:03:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00134"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0005",
+      "lugar": "FUNDADORES",
+      "criticidad": "Alta",
+      "inicio": "2026-09-09T17:04:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00137"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0023",
+      "lugar": "LA CENTRAL",
+      "criticidad": "Alta",
+      "inicio": "2026-09-10T13:20:14",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00163"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0026",
+      "lugar": "LA CENTRAL",
+      "criticidad": "Alta",
+      "inicio": "2026-09-10T13:46:46",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00167"
+    },
+    {
+      "ot": null,
+      "equipo": "SISTEMA DE EXTRACCION",
+      "equipo_cod": "SE-0016",
+      "lugar": "LOS MOLINOS",
+      "criticidad": "Alta",
+      "inicio": "2026-09-10T22:41:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00187"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0058",
+      "lugar": "GRAN ESTACIÓN",
+      "criticidad": "Alta",
+      "inicio": "2026-09-11T13:48:43",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00207"
+    },
+    {
+      "ot": "000187",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0020",
+      "lugar": "MAYORCA ETAPA 1",
+      "criticidad": "Alta",
+      "inicio": "2026-09-11T16:08:04",
+      "inicio_trabajo": "2026-09-19T07:00:00",
+      "iniciado": true,
+      "fin": "2026-09-19T10:15:00",
+      "duracion_h": 186.12,
+      "estado_paro": "Finalizado",
+      "tecnico": "JONATHAN RESTREPO RAMIREZ",
+      "estado": "Cerrada",
+      "ss_codigo": "00215, 00289"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0019",
+      "lugar": "PUERTA DEL NORTE",
+      "criticidad": "Alta",
+      "inicio": "2026-09-11T16:41:09",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00221"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0033",
+      "lugar": "LA COLINA",
+      "criticidad": "Alta",
+      "inicio": "2026-09-11T17:24:55",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00224"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0009",
+      "lugar": "MAYORCA ETAPA 2",
+      "criticidad": "Alta",
+      "inicio": "2026-09-11T17:43:40",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00228"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0048",
+      "lugar": "BUENAVISTA",
+      "criticidad": "Alta",
+      "inicio": "2026-09-11T18:28:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00238"
     },
     {
       "ot": "000117",
@@ -10233,10 +10509,44 @@
       "lugar": "FLORIDA ETAPA 1",
       "criticidad": "Alta",
       "inicio": "2026-09-12T07:45:00",
+      "inicio_trabajo": "2026-09-12T07:45:00",
       "iniciado": true,
       "fin": "2026-09-12T09:47:00",
       "duracion_h": 2.03,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "estado": "Cerrada",
+      "ss_codigo": null
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0049",
+      "lugar": "FLORIDA ETAPA 2",
+      "criticidad": "Alta",
+      "inicio": "2026-09-14T08:22:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00285"
+    },
+    {
+      "ot": "000149",
+      "equipo": "ALBONDIGUERA",
+      "equipo_cod": "EP-0007",
+      "lugar": "PORCIONADO",
+      "criticidad": "Alta",
+      "inicio": "2026-09-14T10:00:00",
+      "inicio_trabajo": "2026-09-14T10:00:00",
+      "iniciado": true,
+      "fin": "2026-09-14T12:00:00",
+      "duracion_h": 2.0,
+      "estado_paro": "Finalizado",
+      "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
       "ss_codigo": null
     },
@@ -10246,10 +10556,12 @@
       "equipo_cod": "HP-0054",
       "lugar": "DISTRITO VERA",
       "criticidad": "Alta",
-      "inicio": "2026-09-15T08:10:00",
+      "inicio": "2026-09-14T16:44:22",
+      "inicio_trabajo": "2026-09-15T08:10:00",
       "iniciado": true,
       "fin": "2026-09-15T09:45:00",
-      "duracion_h": 1.58,
+      "duracion_h": 17.01,
+      "estado_paro": "Finalizado",
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
       "estado": "Cerrada",
       "ss_codigo": null
@@ -10260,27 +10572,31 @@
       "equipo_cod": "SE-0038",
       "lugar": "SANTAFÉ MEDELLÍN",
       "criticidad": "Alta",
-      "inicio": "2026-09-14T09:00:00",
+      "inicio": "2026-09-14T16:53:17",
+      "inicio_trabajo": null,
       "iniciado": false,
       "fin": null,
       "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
       "tecnico": "JONATHAN RESTREPO RAMIREZ, ANDRES FELIPE LONDOÑO GUERRA",
       "estado": "Abierta",
       "ss_codigo": null
     },
     {
-      "ot": "000149",
-      "equipo": "ALBONDIGUERA",
-      "equipo_cod": "EP-0007",
-      "lugar": "PORCIONADO",
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0031",
+      "lugar": "SANTAFÉ BOGOTÁ",
       "criticidad": "Alta",
-      "inicio": "2026-09-14T10:00:00",
-      "iniciado": true,
-      "fin": "2026-09-14T12:00:00",
-      "duracion_h": 2.0,
-      "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
-      "estado": "Cerrada",
-      "ss_codigo": null
+      "inicio": "2026-09-15T09:42:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00304"
     },
     {
       "ot": "000164",
@@ -10289,12 +10605,30 @@
       "lugar": "DE MODA",
       "criticidad": "Alta",
       "inicio": "2026-09-16T08:00:00",
+      "inicio_trabajo": "2026-09-16T08:00:00",
       "iniciado": true,
       "fin": "2026-09-16T10:30:00",
       "duracion_h": 2.5,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
       "ss_codigo": null
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0010",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "criticidad": "Alta",
+      "inicio": "2026-09-16T10:39:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00317, 00318"
     },
     {
       "ot": "000165",
@@ -10302,13 +10636,79 @@
       "equipo_cod": "SE-0038",
       "lugar": "SANTAFÉ MEDELLÍN",
       "criticidad": "Alta",
-      "inicio": "2026-09-17T08:09:00",
+      "inicio": "2026-09-16T11:09:34",
+      "inicio_trabajo": "2026-09-17T08:09:00",
       "iniciado": true,
       "fin": "2026-09-17T12:00:00",
-      "duracion_h": 3.85,
+      "duracion_h": 24.84,
+      "estado_paro": "Finalizado",
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
       "ss_codigo": "00320"
+    },
+    {
+      "ot": "000215",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0060",
+      "lugar": "PUERTA DEL NORTE",
+      "criticidad": "Alta",
+      "inicio": "2026-09-16T16:50:36",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
+      "estado": "Abierta",
+      "ss_codigo": "00325, 00326"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0043",
+      "lugar": "ARKADIA",
+      "criticidad": "Alta",
+      "inicio": "2026-09-17T15:43:09",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00340"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0029",
+      "lugar": "VIVA ENVIGADO",
+      "criticidad": "Alta",
+      "inicio": "2026-09-18T12:06:29",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00344"
+    },
+    {
+      "ot": null,
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0011",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "criticidad": "Alta",
+      "inicio": "2026-09-20T13:25:42",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00358"
     },
     {
       "ot": "000195",
@@ -10317,9 +10717,11 @@
       "lugar": "DE MODA",
       "criticidad": "Alta",
       "inicio": "2026-09-21T07:50:00",
+      "inicio_trabajo": "2026-09-21T07:50:00",
       "iniciado": true,
       "fin": "2026-09-21T10:10:00",
       "duracion_h": 2.33,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
       "ss_codigo": null
@@ -10331,54 +10733,78 @@
       "lugar": "BASE DE OPERACIONES",
       "criticidad": "Alta",
       "inicio": "2026-09-22T14:00:00",
+      "inicio_trabajo": "2026-09-22T14:00:00",
       "iniciado": true,
       "fin": "2026-09-22T17:00:00",
       "duracion_h": 3.0,
+      "estado_paro": "Finalizado",
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
       "ss_codigo": null
     },
     {
-      "ot": "000215",
+      "ot": null,
       "equipo": "HORNO PROTEINAS RATIONAL",
-      "equipo_cod": "HP-0060",
-      "lugar": "PUERTA DEL NORTE",
+      "equipo_cod": "HP-0017",
+      "lugar": "FABRICATO",
       "criticidad": "Alta",
-      "inicio": "2026-09-17T07:00:00",
+      "inicio": "2026-09-22T14:27:00",
+      "inicio_trabajo": null,
       "iniciado": false,
       "fin": null,
       "duracion_h": null,
-      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "estado": "Abierta",
-      "ss_codigo": "00324"
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00374"
     },
     {
-      "ot": "000229",
-      "equipo": "SISTEMA DE EXTRACCION",
-      "equipo_cod": "SE-0022",
+      "ot": "000213",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0056",
+      "lugar": "SAN DIEGO",
+      "criticidad": "Alta",
+      "inicio": "2026-09-23T08:27:12",
+      "inicio_trabajo": "2026-09-23T09:30:00",
+      "iniciado": true,
+      "fin": "2026-09-23T12:00:00",
+      "duracion_h": 3.55,
+      "estado_paro": "Finalizado",
+      "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
+      "estado": "Abierta",
+      "ss_codigo": "00378"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0029",
+      "lugar": "VIVA BARRANQUILLA",
+      "criticidad": "Alta",
+      "inicio": "2026-09-23T20:59:41",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00388"
+    },
+    {
+      "ot": "000233",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0023",
       "lugar": "GRAN PLAZA",
       "criticidad": "Alta",
-      "inicio": "2026-09-22T07:30:00",
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "tecnico": "JONATHAN RESTREPO RAMIREZ, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "estado": "Abierta",
-      "ss_codigo": "00129"
-    },
-    {
-      "ot": "000231",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "equipo_cod": "HP-0012",
-      "lugar": "FLORIDA ETAPA 1",
-      "criticidad": "Alta",
-      "inicio": "2026-09-25T13:15:00",
+      "inicio": "2026-09-24T10:22:44",
+      "inicio_trabajo": "2026-09-25T08:00:00",
       "iniciado": true,
-      "fin": "2026-09-25T13:25:00",
-      "duracion_h": 0.17,
+      "fin": "2026-09-25T11:06:00",
+      "duracion_h": 24.72,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
-      "ss_codigo": "00422"
+      "ss_codigo": "00396"
     },
     {
       "ot": "000232",
@@ -10386,27 +10812,79 @@
       "equipo_cod": "HP-0024",
       "lugar": "UNICENTRO MEDELLÍN",
       "criticidad": "Alta",
-      "inicio": "2026-09-25T13:00:00",
+      "inicio": "2026-09-24T10:25:30",
+      "inicio_trabajo": "2026-09-25T13:00:00",
       "iniciado": true,
       "fin": "2026-09-25T13:10:00",
-      "duracion_h": 0.17,
+      "duracion_h": 26.74,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
       "ss_codigo": "00397"
     },
     {
-      "ot": "000235",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "equipo_cod": "HP-0055",
-      "lugar": "VIVA LAURELES",
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0012",
+      "lugar": "OVIEDO",
       "criticidad": "Alta",
-      "inicio": "2026-09-26T07:00:00",
+      "inicio": "2026-09-24T11:02:00",
+      "inicio_trabajo": null,
       "iniciado": false,
       "fin": null,
       "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00404"
+    },
+    {
+      "ot": null,
+      "equipo": "SISTEMA DE EXTRACCION",
+      "equipo_cod": "SE-0039",
+      "lugar": "FLORIDA ETAPA 2",
+      "criticidad": "Alta",
+      "inicio": "2026-09-24T12:00:17",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00410"
+    },
+    {
+      "ot": "000231",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "equipo_cod": "HP-0012",
+      "lugar": "FLORIDA ETAPA 1",
+      "criticidad": "Alta",
+      "inicio": "2026-09-25T09:12:00",
+      "inicio_trabajo": "2026-09-25T13:15:00",
+      "iniciado": true,
+      "fin": "2026-09-25T13:25:00",
+      "duracion_h": 4.22,
+      "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
-      "ss_codigo": "00082"
+      "ss_codigo": "00422"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0017",
+      "lugar": "VIVA LAURELES",
+      "criticidad": "Alta",
+      "inicio": "2026-09-25T16:02:29",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00433"
     },
     {
       "ot": "000246",
@@ -10414,13 +10892,63 @@
       "equipo_cod": "HP-0045",
       "lugar": "EL TESORO",
       "criticidad": "Alta",
-      "inicio": "2026-09-28T08:30:00",
+      "inicio": "2026-09-26T08:57:00",
+      "inicio_trabajo": null,
       "iniciado": false,
       "fin": null,
       "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
       "ss_codigo": "00443"
+    },
+    {
+      "ot": null,
+      "equipo": "SISTEMA DE EXTRACCION",
+      "equipo_cod": "SE-0023",
+      "lugar": "LA CENTRAL",
+      "criticidad": "Alta",
+      "inicio": "2026-09-26T11:59:03",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00446, 00448, 00456"
+    },
+    {
+      "ot": "000247",
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0039",
+      "lugar": "UNICENTRO BOGOTÁ",
+      "criticidad": "Alta",
+      "inicio": "2026-09-26T12:54:32",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": "JUAN JOSE MOSQUERA VARGAS, JEFFERSON OSORIO BUSTAMANTE",
+      "estado": "Abierta",
+      "ss_codigo": "00447"
+    },
+    {
+      "ot": null,
+      "equipo": "ESTUFA",
+      "equipo_cod": "ES-0030",
+      "lugar": "VIVA ENVIGADO",
+      "criticidad": "Alta",
+      "inicio": "2026-09-27T12:40:08",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00455"
     }
   ],
   "paros_programados": [
@@ -10436,7 +10964,8 @@
       "duracion_h": 148.5,
       "tecnico": "JONATHAN RESTREPO RAMIREZ, JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000003",
@@ -10450,7 +10979,8 @@
       "duracion_h": 3.0,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000005",
@@ -10464,7 +10994,8 @@
       "duracion_h": 3.5,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000007",
@@ -10478,7 +11009,8 @@
       "duracion_h": 5.0,
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, JONATHAN RESTREPO RAMIREZ",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000011",
@@ -10492,7 +11024,8 @@
       "duracion_h": 2.17,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000015",
@@ -10506,7 +11039,8 @@
       "duracion_h": 3.58,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000016",
@@ -10520,7 +11054,8 @@
       "duracion_h": 3.18,
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, YOHAN ESTIBEN SANCHEZ NARANJO",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000017",
@@ -10534,7 +11069,8 @@
       "duracion_h": 5.33,
       "tecnico": "JONATHAN RESTREPO RAMIREZ, JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000018",
@@ -10548,7 +11084,8 @@
       "duracion_h": 2.92,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000021",
@@ -10562,7 +11099,8 @@
       "duracion_h": 3.0,
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, OSCAR DARIO CASTAÑEDA GARAY, JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000022",
@@ -10576,7 +11114,8 @@
       "duracion_h": 5.25,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000023",
@@ -10590,7 +11129,8 @@
       "duracion_h": 2.83,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000027",
@@ -10604,7 +11144,8 @@
       "duracion_h": 3.42,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000033",
@@ -10618,7 +11159,8 @@
       "duracion_h": 3.5,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000035",
@@ -10632,7 +11174,8 @@
       "duracion_h": 4.5,
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000038",
@@ -10646,7 +11189,8 @@
       "duracion_h": 5.25,
       "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, JONATHAN RESTREPO RAMIREZ",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000039",
@@ -10660,7 +11204,8 @@
       "duracion_h": 5.0,
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE, YOHAN ESTIBEN SANCHEZ NARANJO",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000051",
@@ -10674,7 +11219,8 @@
       "duracion_h": 3.17,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000054",
@@ -10688,7 +11234,8 @@
       "duracion_h": 1.5,
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, YOHAN ESTIBEN SANCHEZ NARANJO",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000055",
@@ -10702,7 +11249,8 @@
       "duracion_h": 1.5,
       "tecnico": "JUAN JOSE MOSQUERA VARGAS, YOHAN ESTIBEN SANCHEZ NARANJO",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000059",
@@ -10716,7 +11264,8 @@
       "duracion_h": 2.9,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000074",
@@ -10730,7 +11279,8 @@
       "duracion_h": 4.0,
       "tecnico": "EMGECA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000075",
@@ -10744,7 +11294,8 @@
       "duracion_h": 3.5,
       "tecnico": "EMGECA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000077",
@@ -10758,7 +11309,8 @@
       "duracion_h": 2.92,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000091",
@@ -10772,7 +11324,8 @@
       "duracion_h": 3.33,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000106",
@@ -10786,7 +11339,8 @@
       "duracion_h": 3.32,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000129",
@@ -10800,7 +11354,8 @@
       "duracion_h": 2.83,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000140",
@@ -10814,7 +11369,8 @@
       "duracion_h": 2.67,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000168",
@@ -10828,7 +11384,8 @@
       "duracion_h": 4.0,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000179",
@@ -10842,7 +11399,8 @@
       "duracion_h": 3.75,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000197",
@@ -10856,7 +11414,8 @@
       "duracion_h": 3.5,
       "tecnico": "JEFFERSON OSORIO BUSTAMANTE",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000198",
@@ -10870,7 +11429,8 @@
       "duracion_h": 0.82,
       "tecnico": "JUAN JOSE MOSQUERA VARGAS",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000203",
@@ -10884,7 +11444,8 @@
       "duracion_h": 3.33,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000212",
@@ -10898,7 +11459,8 @@
       "duracion_h": 3.42,
       "tecnico": "JONATHAN RESTREPO RAMIREZ, YOHAN ESTIBEN SANCHEZ NARANJO",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000217",
@@ -10912,7 +11474,8 @@
       "duracion_h": 2.67,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     },
     {
       "ot": "000218",
@@ -10926,7 +11489,8 @@
       "duracion_h": 2.98,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
-      "ss_codigo": null
+      "ss_codigo": null,
+      "estado_paro": "Finalizado"
     }
   ],
   "equipos": [

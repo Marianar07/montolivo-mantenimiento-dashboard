@@ -29,6 +29,7 @@ import json
 from pathlib import Path
 from datetime import datetime, date
 
+from collections import Counter
 import pandas as pd
 import numpy as np
 
@@ -403,18 +404,15 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
 # ============================================================
 
 def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
-    """NOTA IMPORTANTE (verificado con datos reales, no borrar este
-    comentario): la columna cruda "OTs" del export de SS NO es confiable
-    para saber qué OT resolvió una solicitud. Ejemplo real: la SS 00004
-    trae OTs=8; la OT con Id=8 es la 000005 (un horno, equipo totalmente
-    distinto). La OT que en realidad resolvió la SS 00004 es la 000008 -
-    se sabe porque es sobre el mismo equipo (Sistema de Extracción) y su
-    Descripción cita textualmente "SS-00004". O sea, ni el Id ni ningún
-    otro campo directo de "OTs" apunta de forma confiable a la OT correcta.
-    En su lugar, usamos la referencia de texto "SS-XXXXX" que ya se extrae
-    de la Descripción de cada OT (columna `ss_codigo` de `ot_df`, calculada
-    en `construir_ot`) y armamos el cruce en la dirección contraria
-    (SS -> OT). NO reintroducir un mapeo basado en la columna "OTs" cruda.
+    """`ot_asociada` se arma con la referencia de texto "SS-XXXXX" que se
+    extrae de la Descripción de cada OT (columna `ss_codigo` de `ot_df`).
+
+    Nota (re-verificado el 28-sep-2026): la columna cruda "OTs" del export
+    de SS SÍ trae el CÓDIGO de la OT (número sin ceros a la izquierda, p.ej.
+    8 -> OT 000008), no su Id interno: en las 92 SS que la traen, el equipo
+    de la SS coincide con el de la OT. Un comentario anterior decía lo
+    contrario (confundía ese número con la columna Id de la OT). Los paros
+    (`construir_paros_correctivos`) usan esa columna para enlazar SS -> OT.
     """
     ot_por_ss = {r["ss_codigo"]: r["ot"] for r in ot_df.to_dict(orient="records") if r["viene_ss"]}
 
@@ -449,6 +447,132 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
 # ============================================================
 # PAROS (a partir de OT correctivas resueltas a un equipo/lugar)
 # ============================================================
+
+def ot_desde_columna_ots(valor):
+    """Columna "OTs" del export de SS -> código de OT ("165.0" -> "000165")."""
+    if pd.isna(valor):
+        return None
+    try:
+        return str(int(float(str(valor).split(",")[0]))).zfill(6)
+    except ValueError:
+        return None
+
+
+def construir_paros_correctivos(ot_df, ss, crit, disp_by_code, lugar_to_ai):
+    """Paros correctivos (definición de Mariana, 28-sep-2026): un paro EMPIEZA
+    cuando se reporta una SS sobre un equipo marcado 'Provoca Paro?' = 'Sí'
+    en Datos Generales de Equipos, y pasa por tres estados:
+      - "Fuera de servicio": reportado, pero el trabajo no ha empezado (no
+        hay OT todavía, o la OT no tiene Fecha Inicio Real).
+      - "En reparación": la OT ya tiene Fecha Inicio Real, sin Fecha Fin Real.
+      - "Finalizado": la OT tiene Fecha Fin Real (o, si la SS se cerró sin
+        OT, su Fecha de respuesta).
+    Duración del paro = desde la SS (fecha de solicitud) hasta el fin.
+
+    Agrupación (un paro por falla, no por reporte):
+      - SS enlazadas a la misma OT (columna "OTs", o la referencia "SS-xxxxx"
+        en la Descripción de la OT) = un solo paro; arranca en la SS más
+        antigua.
+      - SS abiertas SIN OT sobre el mismo equipo = un solo paro (la misma
+        falla reportada varias veces).
+      - SS "No aprobada" no generan paro (duplicada/mal creada).
+      - OT correctivas sobre equipos que generan paro que NO vienen de
+        ninguna SS también son paro; arrancan en la Fecha Creación de la OT.
+    """
+    provoca_paro_set = set(crit[crit["Provoca Paro?"] == "Sí"]["Código"])
+    crit_map = crit.drop_duplicates("Código").set_index("Código")["Criticidad"]
+    ot_idx = {r["ot"]: r for r in ot_df.to_dict(orient="records")}
+    ot_por_ss_desc = {r["ss_codigo"]: r["ot"] for r in ot_idx.values() if r["viene_ss"]}
+
+    grupos = {}  # clave -> {"ss": [filas SS], "ot": código OT o None, "equipo_cod": ...}
+    for _, r in ss.iterrows():
+        entidad = r["Entidad"]
+        if pd.isna(entidad) or "|" not in str(entidad):
+            continue
+        cod = str(entidad).split("|", 1)[0].strip()
+        if cod not in provoca_paro_set or r["Estado"] == "No aprobada":
+            continue
+        ot_cod = ot_desde_columna_ots(r["OTs"]) or ot_por_ss_desc.get(r["Código"])
+        if ot_cod not in ot_idx:
+            ot_cod = None
+        if ot_cod:
+            clave = ("ot", ot_cod)
+        elif pd.isna(r["Fecha de respuesta"]):
+            clave = ("equipo_abierto", cod)
+        else:
+            clave = ("ss", r["Código"])
+        g = grupos.setdefault(clave, {"ss": [], "ot": ot_cod, "equipo_cod": cod})
+        g["ss"].append(r)
+
+    # OT correctivas sobre equipos que generan paro sin SS enlazada
+    for o in ot_idx.values():
+        if (o["tipo"] == "Correctivo" and o["equipo_cod"] in provoca_paro_set
+                and ("ot", o["ot"]) not in grupos):
+            grupos[("ot", o["ot"])] = {"ss": [], "ot": o["ot"], "equipo_cod": o["equipo_cod"]}
+
+    def ts(v):
+        return pd.Timestamp(v) if v is not None and pd.notna(v) else None
+
+    registros = []
+    for g in grupos.values():
+        o = ot_idx.get(g["ot"]) if g["ot"] else None
+        inicio_trabajo = ts(o["inicio_real"]) if o is not None else None
+        # El paro arranca en la SS más antigua; si no hay SS, en la creación
+        # de la OT. Si el trabajo empezó antes (OT registrada después de
+        # hacerlo), se toma esa fecha para no dar duraciones negativas.
+        candidatos = [ts(x["Fecha de solicitud"]) for x in g["ss"]]
+        if not any(candidatos) and o is not None:
+            candidatos = [ts(o["fecha_creacion"])]
+        candidatos = [c for c in candidatos + [inicio_trabajo] if c is not None]
+        if not candidatos:
+            continue
+        inicio = min(candidatos)
+
+        if o is not None:
+            fin = ts(o["fin_real"])
+        else:
+            respuestas = [x["Fecha de respuesta"] for x in g["ss"]]
+            fin = max(respuestas) if respuestas and all(pd.notna(x) for x in respuestas) else None
+
+        if fin is not None:
+            estado_paro = "Finalizado"
+        elif inicio_trabajo is not None:
+            estado_paro = "En reparación"
+        else:
+            estado_paro = "Fuera de servicio"
+
+        if o is not None and o["equipo_cod"] == g["equipo_cod"]:
+            equipo, lugar, criticidad = o["equipo"], o["lugar"], o["criticidad"]
+        else:
+            fila = g["ss"][0]
+            _, equipo, lugar, _ = resolver_equipo(g["equipo_cod"], fila["Entidad"], disp_by_code, lugar_to_ai)
+            if equipo is None:
+                equipo = str(fila["Entidad"]).split("|", 1)[1].strip()
+            criticidad = crit_map.get(g["equipo_cod"])
+
+        dur = round((fin - inicio).total_seconds() / 3600, 2) if fin is not None else None
+        ss_codigos = sorted(str(x["Código"]).zfill(5) for x in g["ss"])
+        if not ss_codigos and o is not None and o["viene_ss"]:
+            ss_codigos = [o["ss_codigo"]]
+        registros.append({
+            "ot": g["ot"],
+            "equipo": equipo,
+            "equipo_cod": g["equipo_cod"],
+            "lugar": lugar,
+            "criticidad": criticidad,
+            "inicio": a_iso(inicio),                  # inicio del paro (SS)
+            "inicio_trabajo": a_iso(inicio_trabajo),  # Fecha Inicio Real de la OT
+            "iniciado": inicio_trabajo is not None,
+            "fin": a_iso(fin),
+            "duracion_h": dur,
+            "estado_paro": estado_paro,
+            "tecnico": o["tecnico"] if o is not None else None,
+            "estado": o["estado"] if o is not None else None,
+            "ss_codigo": ", ".join(ss_codigos) if ss_codigos else None,
+        })
+    registros.sort(key=lambda x: x["inicio"] or "")
+    return registros
+
 
 def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo", solo_iniciadas=False):
     """Una OT cuenta como paro (o parada programada, si tipo='Preventivo')
@@ -512,6 +636,8 @@ def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo", solo_iniciadas=False
             "tecnico": r["tecnico"],
             "estado": r["estado"],
             "ss_codigo": r["ss_codigo"] if r["viene_ss"] else None,
+            "estado_paro": ("Finalizado" if pd.notna(fin_real)
+                            else "En mantenimiento" if iniciado else "Programado"),
         })
     return registros
 
@@ -567,7 +693,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
-    paros = construir_paros(ot_df, ot_raw, crit, tipo="Correctivo")
+    paros = construir_paros_correctivos(ot_df, ss_raw, crit, disp_by_code, lugar_to_ai)
     paros_programados = construir_paros(ot_df, ot_raw, crit, tipo="Preventivo", solo_iniciadas=True)
     equipos, total_maestro = construir_equipos(disp, crit)
     criticidad_totales = construir_criticidad_totales(crit)
@@ -601,9 +727,9 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     print(f"SS procesadas: {len(ss_df)}")
     provoca_paro_n = int((crit["Provoca Paro?"] == "Sí").sum())
     print(f"Activos que 'Provoca Paro?' = Sí: {provoca_paro_n} de {len(crit)} en el maestro")
-    print(f"Paros identificados: {len(paros)} "
-          f"({sum(1 for p in paros if p['iniciado'])} iniciados, "
-          f"{sum(1 for p in paros if not p['iniciado'])} pendientes de iniciar)")
+    estados_paro = Counter(p["estado_paro"] for p in paros)
+    print(f"Paros correctivos (desde SS/OT): {len(paros)} - " + ", ".join(
+        f"{k}: {estados_paro.get(k, 0)}" for k in ("Fuera de servicio", "En reparación", "Finalizado")))
     horas_prog = sum(p['duracion_h'] or 0 for p in paros_programados)
     print(f"Paradas programadas (preventivo, equipos que generan paro): {len(paros_programados)} ({horas_prog:.1f} h)")
     mantenibles = sum(1 for e in equipos if e["mantenible"])
