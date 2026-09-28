@@ -949,12 +949,12 @@ function renderResumen(el){
       {key:'tipo', label:'Tipo'},
       {key:'ot', label:'OT'},
       {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
+      {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
       {key:'equipo', label:'Artículo / equipo'},
       {key:'lugar', label:'Lugar'},
       {key:'tecnico', label:'Técnico asignado', fmt:v=>v?shortTecnico(v):'—'},
       {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
       {key:'duracion_h', label:'Duración', fmt:v=>v==null?'—':fmtH(v)},
-      {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
     ], {scroll:true}));
   });
   const reprogCardEl = document.getElementById('otReprogramarCard');
@@ -1428,9 +1428,9 @@ function renderParos(el){
         {key:'tipo', label:'Tipo'},
         {key:'ot', label:'OT'},
         {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
+        {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
         {key:'equipo', label:'Equipo'},
         {key:'lugar', label:'Lugar'},
-        {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
         {key:'inicio', label:'Inicio del paro', fmt:fmtDate},
         {key:'inicio_trabajo', label:'Inicio reparación', fmt:(v,r)=>fmtDate(v || (r.tipo==='Preventivo' ? r.inicio : null))},
         {key:'dias', label:'Días parados', num:true, fmt:v=> v==null?'—':v.toFixed(1)},
