@@ -369,6 +369,8 @@ function fmtDate(s){ if(!s) return '—'; const d=parseD(s); return d.toLocaleDa
 function fmtMoney(n){ if(n==null) return '—'; return '$ '+Math.round(n).toLocaleString('es-CO'); }
 function fmtPct(n,d=1){ if(n==null||isNaN(n)) return '—'; return n.toFixed(d)+'%'; }
 function fmtH(n){ if(n==null||isNaN(n)) return '—'; return n.toFixed(1)+' h'; }
+// horas -> días calendario
+function fmtDiasDeHoras(n){ if(n==null||isNaN(n)) return '—'; const d=n/24; return d.toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})+(d===1?' día':' días'); }
 function inRange(dateStr, desde, hasta){
   if(!dateStr) return false;
   const d = parseD(dateStr);
@@ -1753,7 +1755,7 @@ function renderSS(el){
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiPromedioDia('SS creadas por día (promedio)', ssDia)}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
-    ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
+    ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtDiasDeHoras(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
   </div>
   <div class="card section-block">
     <div class="card-head"><h3>Cumplimiento de SS frente a la Fecha esperada</h3></div>
