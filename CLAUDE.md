@@ -201,6 +201,15 @@ Ojo: como normalmente hay muy pocas SS cerradas en un momento dado (10 de
 muestra chica — no ocultarlo, mostrar siempre el "N sobre el cual se
 calculó".
 
+### SS creadas por día (pestaña "Solicitudes de Servicio")
+
+Cuadro "SS creadas por día (promedio)" = SS creadas en el rango / días
+calendario del rango (incluye domingos). El rango se acota a las fechas que
+traen los datos (un filtro que llega al futuro no diluye el promedio). Si no
+hay "Desde" elegido, arranca en `INICIO_USO_SS` = 1-sep-2026 (en
+`renderSS()`): antes solo hay un par de SS sueltas (19/may, 19/ago) que
+bajaban el promedio a ~2,9/día — decisión de Mariana.
+
 ### Disponibilidad de técnicos (pestaña "Técnicos")
 
 Las horas disponibles de cada técnico se calculan con un horario fijo por
