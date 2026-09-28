@@ -202,6 +202,20 @@ def cargar_tecnicos(path):
     return sorted({ALIAS_TECNICOS.get(n, n) for n in nombres})
 
 
+def cargar_tecnicos_inactivos(path):
+    """Técnicos de TECNICOS.xlsx con ESTADO = INACTIVO (ya no trabajan en la
+    compañía). Siguen siendo internos - su trabajo pasado se muestra en
+    "Capacidad y ocupación" - pero el tablero los saca de "Ubicación del
+    técnico" y del conteo de técnicos en sitio. Si el archivo no trae la
+    columna ESTADO, nadie se considera inactivo."""
+    df = pd.read_excel(path, sheet_name=0, dtype=str)
+    if "ESTADO" not in df.columns:
+        return []
+    inactivos = df[df["ESTADO"].astype(str).str.strip().str.upper() == "INACTIVO"]
+    nombres = [str(n).strip() for n in inactivos["NOMBRE"].dropna()]
+    return sorted({ALIAS_TECNICOS.get(n, n) for n in nombres})
+
+
 def cargar_proveedores(path):
     """Datos Generales de Proveedores.xlsx - maestro de proveedores/terceros
     del CMMS, hoja única 'Sheet', columna 'Nombre'. Es solo de referencia:
@@ -687,6 +701,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     disp, periodo_texto = cargar_disponibilidad(disp_path)
     crit = cargar_criticidad(crit_path)
     tecnicos_internos = cargar_tecnicos(tecnicos_path) if tecnicos_path else None
+    tecnicos_inactivos = cargar_tecnicos_inactivos(tecnicos_path) if tecnicos_path else []
     proveedores = cargar_proveedores(proveedores_path) if proveedores_path else None
 
     disp_by_code, crit_by_code, lugar_to_ai = construir_indices(disp, crit)
@@ -715,6 +730,10 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
         # es None, no se encontró TECNICOS.xlsx - el tablero no separa
         # terceros en ese caso (trata a todos como internos).
         "tecnicos_internos": tecnicos_internos,
+        # subconjunto de tecnicos_internos con ESTADO = INACTIVO en
+        # TECNICOS.xlsx (ya no trabajan en la compañía): no aparecen en
+        # "Ubicación del técnico" ni en el conteo de técnicos en sitio.
+        "tecnicos_inactivos": tecnicos_inactivos,
         # maestro de proveedores (Datos Generales de Proveedores.xlsx), solo
         # de referencia - no se usa para clasificar terceros (ver
         # cargar_proveedores). None si el archivo no se encontró.
@@ -741,7 +760,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
             for n in r["tecnico"].split(",")
         }
         terceros = sorted(nombres_en_ot - set(tecnicos_internos))
-        print(f"Técnicos internos (TECNICOS.xlsx): {len(tecnicos_internos)}")
+        print(f"Técnicos internos (TECNICOS.xlsx): {len(tecnicos_internos)} "
+              f"(inactivos: {tecnicos_inactivos or 'ninguno'})")
         print(f"Nombres en OT no reconocidos como internos (van como tercero): {terceros}")
         if proveedores is not None:
             no_registrados = sorted(n for n in terceros if n not in proveedores)

@@ -335,6 +335,14 @@ y las mismas reglas replicadas en `renderTecnicos()` vía `proveedoresSetOf()`
    `Datos Generales de Proveedores.xlsx`, porque de verdad no es ni un
    empleado interno ni una empresa proveedora dada de alta.
 
+**Técnicos inactivos:** `TECNICOS.xlsx` trae una columna `ESTADO`
+(ACTIVO/INACTIVO). INACTIVO = ya no trabaja en la compañía
+(`cargar_tecnicos_inactivos()` → `DATA.tecnicos_inactivos`). Siguen siendo
+técnicos internos: su trabajo pasado se muestra en "Capacidad y ocupación"
+(con etiqueta "Inactivo"), pero no aparecen en "Ubicación del técnico" ni en
+el conteo "Técnicos en sitio / programados" del Resumen
+(`tecnicosInternosList()` los excluye).
+
 **No usar "no está en TECNICOS.xlsx" como sinónimo de "proveedor"** — esa
 fue la definición vieja de "tercero" (una sola tabla); ahora hay que
 distinguir proveedor registrado vs. "otro" usando también el maestro de

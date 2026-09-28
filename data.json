@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T14:38:18",
+  "generado": "2026-09-28T14:54:31",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -32672,6 +32672,9 @@
     "OSCAR DARIO CASTAÑEDA GARAY",
     "PEDRO LOZADA",
     "YOHAN ESTIBEN SANCHEZ NARANJO"
+  ],
+  "tecnicos_inactivos": [
+    "OSCAR DARIO CASTAÑEDA GARAY"
   ],
   "proveedores": [
     "420 ARKITEKT S.A.S",

@@ -1437,8 +1437,11 @@ function horasDisponiblesRango(desde, hasta){
 // Lista de técnicos internos (planta), como aparecen en el campo
 // Ejecutores. Si no se encontró TECNICOS.xlsx, se derivan todos los
 // nombres que aparecen alguna vez en las OT (no se separan terceros).
+// Técnicos internos ACTIVOS (sin los ESTADO = INACTIVO de TECNICOS.xlsx, que
+// ya no trabajan en la compañía) - usado para "dónde está cada técnico".
 function tecnicosInternosList(){
-  if(DATA.tecnicos_internos) return DATA.tecnicos_internos;
+  const inactivos = new Set(DATA.tecnicos_inactivos || []);
+  if(DATA.tecnicos_internos) return DATA.tecnicos_internos.filter(t=>!inactivos.has(t));
   const set = new Set();
   DATA.ot.forEach(r=> splitTecnicos(r.tecnico).forEach(t=>set.add(t)));
   return [...set];
@@ -1630,8 +1633,9 @@ function renderTecnicos(el){
   </div>` : ''}
   `;
 
+  const inactivosSet = new Set(DATA.tecnicos_inactivos || []);
   const capCols = [
-    {key:'tecnico', label:'Técnico'},
+    {key:'tecnico', label:'Técnico', fmt:v=> esc(v) + (inactivosSet.has(v) ? ' <span class="badge neutral">Inactivo</span>' : '')},
     {key:'ot', label:'OT con duración', num:true},
     {key:'horasDisp', label:'Horas disponibles', num:true, fmt:fmtH},
     {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
