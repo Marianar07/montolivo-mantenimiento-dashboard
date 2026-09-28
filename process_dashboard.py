@@ -469,7 +469,10 @@ def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo", solo_iniciadas=False
     )
     if solo_iniciadas:
         condicion = condicion & ot_df["inicio_real"].notna()
-    filtradas = ot_df[condicion]
+    # El export de OT trae una fila por línea de costo, así que una misma OT
+    # puede repetirse con el mismo equipo - un paro cuenta una sola vez por
+    # (OT, equipo) (pedido de Mariana).
+    filtradas = ot_df[condicion].drop_duplicates(subset=["ot", "equipo_cod"])
 
     registros = []
     for _, r in filtradas.iterrows():

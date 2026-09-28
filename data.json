@@ -1,5 +1,5 @@
 {
-  "generado": "2026-09-28T12:08:23",
+  "generado": "2026-09-28T12:11:29",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -10969,20 +10969,6 @@
       "ss_codigo": "00324"
     },
     {
-      "ot": "000215",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "equipo_cod": "HP-0060",
-      "lugar": "PUERTA DEL NORTE",
-      "criticidad": "Alta",
-      "inicio": "2026-09-17T07:00:00",
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "estado": "Abierta",
-      "ss_codigo": "00324"
-    },
-    {
       "ot": "000229",
       "equipo": "SISTEMA DE EXTRACCION",
       "equipo_cod": "SE-0022",
@@ -11023,20 +11009,6 @@
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Abierta",
       "ss_codigo": "00397"
-    },
-    {
-      "ot": "000235",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "equipo_cod": "HP-0055",
-      "lugar": "VIVA LAURELES",
-      "criticidad": "Alta",
-      "inicio": "2026-09-26T07:00:00",
-      "iniciado": false,
-      "fin": null,
-      "duracion_h": null,
-      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "estado": "Abierta",
-      "ss_codigo": "00082"
     },
     {
       "ot": "000235",
@@ -11205,20 +11177,6 @@
       "fin": "2026-08-28T09:00:00",
       "duracion_h": 3.0,
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, OSCAR DARIO CASTAÑEDA GARAY, JEFFERSON OSORIO BUSTAMANTE",
-      "estado": "Cerrada",
-      "ss_codigo": null
-    },
-    {
-      "ot": "000022",
-      "equipo": "HORNO PROTEINAS RATIONAL CDP  MEDIO",
-      "equipo_cod": "EP-0023",
-      "lugar": "BASE DE OPERACIONES",
-      "criticidad": "Alta",
-      "inicio": "2026-08-28T07:00:00",
-      "iniciado": true,
-      "fin": "2026-08-28T12:15:00",
-      "duracion_h": 5.25,
-      "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "estado": "Cerrada",
       "ss_codigo": null
     },
