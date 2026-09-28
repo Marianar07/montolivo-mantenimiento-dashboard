@@ -475,12 +475,6 @@ function correctivasPorMes(mes){
   return DATA.ot.filter(r=>r.tipo==='Correctivo' && inRange(r.fecha_creacion, desde, hasta));
 }
 
-function otPorMes(mes){
-  if(!mes) return [];
-  const {desde,hasta} = rangoMes(mes);
-  return DATA.ot.filter(r=>inRange(r.fecha_creacion, desde, hasta));
-}
-
 /* ============ Filtro de equipo propio de la pestana "Tecnicos" ============ */
 function splitTecnicos(str){
   if(!str) return [];
