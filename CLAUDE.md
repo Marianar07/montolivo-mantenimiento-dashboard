@@ -199,7 +199,9 @@ cerradas)"), y complementarlo con:
 Ojo: como normalmente hay muy pocas SS cerradas en un momento dado (10 de
 102 en la corrida de referencia original), estos promedios son sobre una
 muestra chica — no ocultarlo, mostrar siempre el "N sobre el cual se
-calculó".
+calculó". (El cuadro "Tiempo de solución promedio" se muestra en días y sin
+texto gris debajo, a pedido de Mariana; el N queda visible en la nota azul
+de arriba de la pestaña: "N de M SS en el rango".)
 
 ### Promedios por día: SS creadas y OT realizadas
 

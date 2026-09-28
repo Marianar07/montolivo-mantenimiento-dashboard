@@ -1755,7 +1755,7 @@ function renderSS(el){
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiPromedioDia('SS creadas por día (promedio)', ssDia)}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
-    ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtDiasDeHoras(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
+    ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtDiasDeHoras(promResp)})}
   </div>
   <div class="card section-block">
     <div class="card-head"><h3>Cumplimiento de SS frente a la Fecha esperada</h3></div>
