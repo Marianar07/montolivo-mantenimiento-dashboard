@@ -154,6 +154,16 @@ rango, finalizados incluidos — mismo criterio y mismo total que "Paros en el
 periodo" del Resumen Gerencial. "Frecuencia de mantenimiento por equipo"
 usa las OT creadas en el rango.
 
+### Una fila por OT (el export trae una fila por actividad)
+
+El export de OT trae **una fila por cada actividad** de la OT (columna
+`Actividades`), cada una con su propio `Total Real`; el resto de campos se
+repite. `construir_ot()` consolida a una fila por `Código O.T.` sumando el
+`Total Real` de todas sus filas. Confirmado por Mariana contra Mantum: OT
+000022 = $128.242,85 y OT 000182 = $243.749,90 (= suma de sus filas, aunque
+en la 000182 las 5 filas traen el mismo valor). No contar filas como OT ni
+tomar un solo costo por OT.
+
 ### Enlace SS -> OT
 
 El campo `Descripción` de la OT a veces contiene una referencia de texto

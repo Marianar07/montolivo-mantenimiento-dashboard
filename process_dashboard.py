@@ -386,7 +386,16 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "comentarios": limpiar_comentarios(r["Realimentación"]),
             "_tipo_match": tipo_match,  # uso interno para construir "paros", no va al tablero
         })
-    return pd.DataFrame(registros)
+    df = pd.DataFrame(registros)
+    # El export de OT trae una fila por cada ACTIVIDAD de la OT (columna
+    # "Actividades"), cada una con su propio "Total Real" - el resto de campos
+    # se repite. Se consolida a una fila por OT sumando el costo de todas sus
+    # actividades (confirmado con Mariana contra Mantum: OT 000022 = 128.242,85
+    # y OT 000182 = 243.749,90, ambas = suma de sus filas).
+    costo_por_ot = df.groupby("ot", sort=False)["costo_real"].sum()
+    df = df.drop_duplicates(subset=["ot"], keep="first").copy()
+    df["costo_real"] = df["ot"].map(costo_por_ot)
+    return df.reset_index(drop=True)
 
 
 # ============================================================
@@ -469,10 +478,9 @@ def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo", solo_iniciadas=False
     )
     if solo_iniciadas:
         condicion = condicion & ot_df["inicio_real"].notna()
-    # El export de OT trae una fila por línea de costo, así que una misma OT
-    # puede repetirse con el mismo equipo - un paro cuenta una sola vez por
-    # (OT, equipo) (pedido de Mariana).
-    filtradas = ot_df[condicion].drop_duplicates(subset=["ot", "equipo_cod"])
+    # ot_df ya viene consolidado a una fila por OT (ver construir_ot), así que
+    # cada OT cuenta como un solo paro.
+    filtradas = ot_df[condicion]
 
     registros = []
     for _, r in filtradas.iterrows():
