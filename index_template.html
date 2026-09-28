@@ -475,8 +475,6 @@ function correctivasPorMes(mes){
   return DATA.ot.filter(r=>r.tipo==='Correctivo' && inRange(r.fecha_creacion, desde, hasta));
 }
 
-/* ============ Filtro de mes propio de la tarjeta "Top equipos con mas novedades" ============ */
-let topEquiposMes = null;
 function otPorMes(mes){
   if(!mes) return [];
   const {desde,hasta} = rangoMes(mes);
@@ -569,7 +567,6 @@ const TABS = [
   {id:'paros', label:'Paros por Equipo', render: renderParos},
   {id:'disponibilidad', label:'Equipos', render: renderDisponibilidad},
   {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
-  {id:'fallas', label:'Fallas y Severidad', render: renderFallas},
 ];
 
 function activateTab(id){
@@ -1011,56 +1008,6 @@ function topLugaresAverias(correctivas){
   const g = groupCount(correctivas, r=>r.lugar).slice(0,8);
   if(!g.length) return '<div class="empty">Sin correctivas en el periodo seleccionado</div>';
   return rankedTable(g.map(x=>({lugar:x.key, n:x.count})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Averías'}, noBar:true});
-}
-
-/* ============ TAB: Fallas y Severidad ============ */
-function renderFallas(el){
-  const ot = getFilteredOT();
-
-  const cruce = {};
-  ['Correctivo','Preventivo'].forEach(t=>{ cruce[t]={Alta:0,Media:0}; });
-  ot.forEach(r=>{ if(cruce[r.tipo]) cruce[r.tipo][r.severidad] = (cruce[r.tipo][r.severidad]||0)+1; });
-
-  el.innerHTML = `
-  ${sectionTitle('Fallas por tipo y severidad')}
-  <div class="grid2">
-    <div class="card">
-      <div class="card-head"><h3>OT por tipo y severidad</h3></div>
-      ${chartTipoSeveridad(ot)}
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>Cruce tipo × severidad</h3></div>
-      <div class="tablewrap"><table><thead><tr><th>Tipo</th><th class="num">Alta</th><th class="num">Media</th><th class="num">Total</th></tr></thead><tbody>
-      ${Object.entries(cruce).map(([t,v])=>`<tr><td>${t}</td><td class="num">${v.Alta}</td><td class="num">${v.Media}</td><td class="num">${v.Alta+v.Media}</td></tr>`).join('')}
-      </tbody></table></div>
-    </div>
-  </div>
-  <div class="card section-block">
-    <div class="card-head"><h3>Top 10 equipos con más novedades</h3><span class="pill" id="topEquiposPill"></span></div>
-    <div id="topEquiposNovedadesWrap"></div>
-  </div>
-  `;
-  el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
-  renderTopEquiposNovedadesWrap();
-}
-function renderTopEquiposNovedadesWrap(){
-  const wrap = document.getElementById('topEquiposNovedadesWrap');
-  const pill = document.getElementById('topEquiposPill');
-  if(!wrap) return;
-  const meses = mesesDisponiblesOT();
-  if(!topEquiposMes || !meses.includes(topEquiposMes)) topEquiposMes = meses[0] || null;
-  const otMes = otPorMes(topEquiposMes);
-  const g = groupCount(otMes, r=>r.equipo).slice(0,10);
-  if(pill) pill.textContent = `${otMes.length} OT en el mes`;
-  wrap.innerHTML = `
-    <div class="chip-row" style="margin-bottom:12px;">
-      <span class="chip-row-label">Mes:</span>
-      <select id="topEquiposMesSelect" class="chip-select">${meses.map(m=>`<option value="${m}"${m===topEquiposMes?' selected':''}>${labelMes(m)}</option>`).join('')}</select>
-    </div>
-    ${g.length? rankedTable(g.map(x=>({equipo:x.key, n:x.count})), {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'n',label:'Novedades'}, noBar:true}) : '<div class="empty">Sin OT en el mes seleccionado</div>'}
-  `;
-  const mesSelect = document.getElementById('topEquiposMesSelect');
-  if(mesSelect) mesSelect.addEventListener('change', ()=>{ topEquiposMes = mesSelect.value; renderTopEquiposNovedadesWrap(); });
 }
 
 /* ============ TAB: Órdenes de Trabajo ============ */
