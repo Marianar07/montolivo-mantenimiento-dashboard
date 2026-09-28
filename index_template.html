@@ -525,9 +525,8 @@ function promedioPorDia(rows, campo, universo){
   const n = rows.filter(r=>inRange(r[campo], desde, FILTER.hasta)).length;
   return {n, dias, desde, hasta, prom: dias ? n/dias : null};
 }
-function kpiPromedioDia(label, p, unidad){
-  return kpiCard({label, value: p.prom===null?'—':p.prom.toLocaleString('es-CO',{maximumFractionDigits:1}),
-    sub: p.dias?`${p.n} ${unidad} en ${p.dias} días calendario (${p.desde.toLocaleDateString('es-CO')} – ${p.hasta.toLocaleDateString('es-CO')})`:`sin ${unidad} en el rango`});
+function kpiPromedioDia(label, p){
+  return kpiCard({label, value: p.prom===null?'—':p.prom.toLocaleString('es-CO',{maximumFractionDigits:1})});
 }
 function rangoEfectivoOT(){
   if(FILTER.desde && FILTER.hasta) return {desde:FILTER.desde, hasta:FILTER.hasta};
@@ -1141,7 +1140,7 @@ function renderOT(el){
   el.innerHTML = `
   <div class="kpi-row">
     ${kpiCard({label:'Total de OT', value:all.length})}
-    ${kpiPromedioDia('OT realizadas por día (promedio)', otDia, 'OT finalizadas')}
+    ${kpiPromedioDia('OT realizadas por día (promedio)', otDia)}
     ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
     ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}
   </div>
@@ -1752,7 +1751,7 @@ function renderSS(el){
   <div class="callout info"><b>Cumplimiento</b> = Fecha de respuesta vs. Fecha esperada (plazo del CMMS). <b>Cumplida</b> = respondida en o antes de la Fecha esperada. <b>Incumplida</b> = respondió tarde, o sigue abierta y ya se pasó la Fecha esperada. <b>Pendiente</b> = aún no llega la Fecha esperada. <b>Días de mora</b> = días pasados de la Fecha esperada (0 si está a tiempo) — ${cumplSS.total} de ${all.length} SS en el rango traen Fecha esperada.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}
-    ${kpiPromedioDia('SS creadas por día (promedio)', ssDia, 'SS')}
+    ${kpiPromedioDia('SS creadas por día (promedio)', ssDia)}
     ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
     ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtH(promResp), sub:`sobre ${conRespuesta.length} SS con respuesta — muestra chica`})}
   </div>
