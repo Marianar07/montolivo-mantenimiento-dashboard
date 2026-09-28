@@ -496,6 +496,20 @@ function wireOtSelectDur(wrapEl){
 function duracionRealOT(r){
   return (r.inicio_real && r.fin_real) ? (new Date(r.fin_real)-new Date(r.inicio_real))/3600000 : null;
 }
+// Parte un intervalo [inicio, fin] en tramos por día calendario:
+// [{key:'AAAA-MM-DD', dia:Date (00:00), dow, h}]
+function tramosPorDia(inicioStr, finStr){
+  const out = [];
+  let cur = new Date(inicioStr); const fin = new Date(finStr);
+  while(cur < fin){
+    const dia = new Date(cur.getFullYear(), cur.getMonth(), cur.getDate());
+    const sig = new Date(dia); sig.setDate(sig.getDate()+1);
+    const corte = fin < sig ? fin : sig;
+    out.push({key:`${dia.getFullYear()}-${dia.getMonth()+1}-${dia.getDate()}`, dia, dow:dia.getDay(), h:(corte-cur)/3600000});
+    cur = corte;
+  }
+  return out;
+}
 function duracionProgramadaOT(r){
   return (r.inicio_programado && r.fin_programado) ? (new Date(r.fin_programado)-new Date(r.inicio_programado))/3600000 : null;
 }
@@ -1509,17 +1523,38 @@ function renderTecnicos(el){
       if(!capMap.has(t)) capMap.set(t, {horas:0, horasExtra:0, ot:0, otsList:[]});
     });
   });
+  // Técnicos internos: trabajan máximo la jornada de cada día (HORAS_POR_DIA,
+  // 42 h/semana). La duración real de cada OT se reparte por día calendario
+  // (solo días dentro del rango) y las horas de cada técnico en un día se
+  // topan a la jornada de ese día - así una OT abierta varios días, o varias
+  // OT simultáneas, no suman más horas de las que el técnico puede trabajar.
+  // Domingo: solo cuenta como horas extra si la OT empezó ese domingo
+  // (máx. 8 h por domingo). Proveedores/otros: duración real sin tope.
+  const diaDesde = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
+  const diaHasta = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
   ot.forEach(r=>{
     const dur = duracionRealOT(r);
     const esDomingo = r.inicio_real ? new Date(r.inicio_real).getDay()===0 : false;
+    const tramos = dur!=null ? tramosPorDia(r.inicio_real, r.fin_real).filter(x=>x.dia>=diaDesde && x.dia<=diaHasta) : [];
     splitTecnicos(r.tecnico).forEach(t=>{
       const c = capMap.get(t);
       if(dur!=null){
-        if(esDomingo) c.horasExtra += dur; else c.horas += dur;
         c.ot += 1;
+        if(esInterno(t)){
+          c.porDia = c.porDia || new Map();
+          c.domingos = c.domingos || new Map();
+          tramos.forEach(x=>{
+            if(x.dow===0){ if(esDomingo) c.domingos.set(x.key, (c.domingos.get(x.key)||0)+x.h); }
+            else c.porDia.set(x.key, {dow:x.dow, h:((c.porDia.get(x.key)||{}).h||0)+x.h});
+          });
+        } else if(esDomingo) c.horasExtra += dur; else c.horas += dur;
       }
       c.otsList.push({codigo:r.ot, dur, extra:esDomingo, fecha:r.inicio_real||r.inicio_programado||r.fecha_creacion});
     });
+  });
+  capMap.forEach(c=>{
+    if(c.porDia) c.porDia.forEach(v=>{ c.horas += Math.min(v.h, HORAS_POR_DIA[v.dow]); });
+    if(c.domingos) c.domingos.forEach(h=>{ c.horasExtra += Math.min(h, 8); });
   });
   const capRowsAll = [...capMap.entries()].map(([tecnico,c])=>{
     const ocupacion = horasDisponibles? (c.horas/horasDisponibles*100) : null;

@@ -280,6 +280,16 @@ sobre la OT que le dio origen a la duración (mismo criterio de "duración
 real" que ya existía: solo cuenta si la OT tiene Fecha Inicio Real y
 Fecha Fin Real).
 
+**Tope de 42 h/semana en horas trabajadas** (pedido de Mariana: "solo
+trabajan 42 horas a la semana"): para técnicos internos, la duración real
+de cada OT se reparte por día calendario (`tramosPorDia()`, solo días dentro
+del rango) y las horas de un técnico en un día se topan a `HORAS_POR_DIA`
+de ese día. Así una OT con fechas de varios días (p. ej. OT 000029: 411 h de
+calendario) o varias OT simultáneas no suman más de la jornada, y la
+ocupación no pasa de 100%. Domingo: solo cuenta como horas extra la parte
+de una OT que empezó ese domingo, máx. 8 h por domingo. Proveedores y
+"otros" siguen con la duración real sin tope (no tienen ese horario).
+
 **Rango en "Todo el periodo":** sin "Desde" elegido, `rangoEfectivoOT()`
 arranca en `INICIO_USO_CMMS` (1-sep-2026) y `renderTecnicos()` solo cuenta
 OT creadas desde esa fecha — horas disponibles y trabajadas sobre el mismo
