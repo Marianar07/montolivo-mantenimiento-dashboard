@@ -909,7 +909,7 @@ function renderResumen(el){
   <div class="grid2">
     ${kpiGroup('Trabajo', `
       ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`, hero:true, accent:'c1'})}
-      ${kpiCard({label:'OT para reprogramar', value:otParaReprogramar, sub:'ya venció su fecha de inicio y no se ha iniciado — clic para ver el detalle', status: otParaReprogramar>0?'bad':'good', id:'otReprogramarCard', clickable:true})}
+      ${kpiCard({label:'OT para reprogramar', value:otParaReprogramar, status: otParaReprogramar>0?'bad':'good', id:'otReprogramarCard', clickable:true})}
       ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
       ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
     `)}
