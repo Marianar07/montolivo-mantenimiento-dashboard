@@ -166,6 +166,11 @@ solo_iniciadas=True)`): solo cuentan desde que el técnico inicia — estados
 "En mantenimiento" → "Finalizado". El estado lo calcula el script en
 `estado_paro`; el tablero lo pinta con `badgeEstadoParo()`.
 
+En el Resumen, la tarjeta "Paros en el periodo" tiene tres filas clicables
+con su propia lista (pedido de Mariana): **Correctivos**, **Preventivos** y
+**Sin resolver** (sin fin, resaltada en rojo; su duración se muestra como
+"N días y contando" hasta hoy).
+
 La pestaña "Paros por Equipo" **respeta el filtro de fechas y de lugar**
 (pedido de Mariana; antes lo ignoraba y mostraba solo los paros abiertos):
 muestra los paros (correctivos + preventivos) cuya fecha de paro cae en el

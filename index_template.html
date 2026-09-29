@@ -1063,9 +1063,20 @@ function renderResumen(el){
   const nParosCorrectivos = parosPeriodo.filter(p=>p.tipo==='Correctivo').length;
   const nParosPreventivos = parosPeriodo.filter(p=>p.tipo==='Preventivo').length;
   const nParosAbiertos = parosPeriodo.filter(p=>!p.fin).length;
-  const subParos = parosPeriodo.length===0 ? 'sin paros en el periodo seleccionado'
-    : `${nParosCorrectivos} correctivo${nParosCorrectivos===1?'':'s'} · ${nParosPreventivos} preventivo${nParosPreventivos===1?'':'s'}${nParosAbiertos? ' · '+nParosAbiertos+' sin resolver':''}`;
   const stParos = statusClass(nParosAbiertos, {good:0.5}, true);
+  // Tres listas separadas (pedido de Mariana): correctivos, preventivos y
+  // sin resolver (sin fin, de cualquier tipo).
+  const gruposParos = {
+    correctivos: {titulo:'Paros correctivos', rows: parosPeriodo.filter(p=>p.tipo==='Correctivo')},
+    preventivos: {titulo:'Paros preventivos', rows: parosPeriodo.filter(p=>p.tipo==='Preventivo')},
+    sin_resolver:{titulo:'Paros sin resolver', rows: parosPeriodo.filter(p=>!p.fin)},
+  };
+  const parosHtml = parosPeriodo.length===0 ? '<div class="sev-time">Sin paros en el periodo seleccionado</div>'
+    : `<div class="sev-list">
+      <button type="button" class="sev-row" data-paros="correctivos"><span>Correctivos: <b>${nParosCorrectivos}</b></span><span class="sev-time">ver cuáles ›</span></button>
+      <button type="button" class="sev-row" data-paros="preventivos"><span>Preventivos: <b>${nParosPreventivos}</b></span><span class="sev-time">ver cuáles ›</span></button>
+      <button type="button" class="sev-row${nParosAbiertos?' sev-row-alerta':''}" data-paros="sin_resolver"><span>${nParosAbiertos?'<span class="status-dot bad"></span> ':''}Sin resolver: <b>${nParosAbiertos}</b></span><span class="sev-time">ver cuáles ›</span></button>
+    </div>`;
 
   // Mismo cálculo que "Ubicación del técnico" en la pestaña Técnicos (ver
   // calcularUbicacionTecnicos/referenciaFiltro) para que ambos números
@@ -1144,7 +1155,7 @@ function renderResumen(el){
   `, true)}
 
   ${kpiGroup('Trabajo', `
-    ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
+    ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:parosHtml, status:stParos, hero:true, id:'parosActualesCard'})}
     ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
   `)}
 
@@ -1163,21 +1174,23 @@ function renderResumen(el){
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
   renderTopLugaresWrap();
-  const parosCardEl = document.getElementById('parosActualesCard');
-  if(parosCardEl) parosCardEl.addEventListener('click', ()=>{
-    const detalle = parosPeriodo.slice().sort((a,b)=>new Date(b.inicio)-new Date(a.inicio));
-    modalFiltrable('Paros en el periodo', detalle, [
+  el.querySelectorAll('[data-paros]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const g = gruposParos[btn.dataset.paros];
+    const detalle = g.rows.slice().sort((a,b)=>new Date(b.inicio)-new Date(a.inicio));
+    modalFiltrable(g.titulo, detalle, [
       {key:'tipo', label:'Tipo'},
       {key:'ot', label:'OT'},
       {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
       {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
-      {key:'equipo', label:'Artículo / equipo'},
-      {key:'lugar', label:'Lugar'},
-      {key:'tecnico', label:'Técnico asignado', fmt:v=>v?shortTecnico(v):'—'},
-      {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
-      {key:'duracion_h', label:'Duración', fmt:v=>v==null?'—':fmtH(v)},
+      {key:'equipo', label:'Artículo / equipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'tecnico', label:'Técnico asignado', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+      {key:'inicio', label:'Fecha de paro', fmt:fmtFechaHoraCorta},
+      // Sin fin todavía: cuánto lleva parado hasta hoy.
+      {key:'duracion_h', label:'Duración', fmt:(v,r)=> v!=null ? fmtH(v)
+        : (r.inicio && !r.fin ? `<span class="badge bad">${fmtDias((Date.now()-new Date(r.inicio))/86400000)} y contando</span>` : '—')},
     ], {filtros:[['tipo','Tipo'],['estado_paro','Estado'],['lugar','Lugar']]});
-  });
+  }));
   // Listados de OT del Resumen: siempre con columna Costo y el costo total
   // arriba de la tabla.
   const colCosto = {key:'costo_real', label:'Costo', num:true, fmt:v=>fmtMoney(v||0)};
