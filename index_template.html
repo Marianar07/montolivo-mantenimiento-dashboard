@@ -1059,35 +1059,40 @@ function renderResumen(el){
   const ss = getFilteredSS();
   const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).length;
   // Bloque "Solicitudes de servicio" (pedido de Mariana, 29-sep-2026): SS
-  // totales con cumplimiento (mismo cálculo que la pestaña SS) + una tarjeta
-  // por cada Estado del CMMS con su desglose por severidad (clicable).
+  // totales con cumplimiento (mismo cálculo que la pestaña SS) + tarjetas de
+  // SS abiertas y SS cerradas con desglose por severidad y estado (clicables).
   // Abierta/cerrada SIEMPRE por Fecha de respuesta, nunca por el texto del
   // Estado (ver CLAUDE.md).
   const cumplSSR = cumplimientoStatsSS(ss);
   const diasSSR = r => { if(!r.fecha_ss) return null; const fin = r.fecha_respuesta ? new Date(r.fecha_respuesta) : new Date(); return Math.max(0,(fin-new Date(r.fecha_ss))/86400000); };
   const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','No aprobada'];
-  const estadosSS = [...new Set(ss.map(r=>r.estado||'Sin estado'))]
-    .sort((a,b)=>{ const ia=ORDEN_ESTADO_SS.indexOf(a), ib=ORDEN_ESTADO_SS.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib) || a.localeCompare(b); });
   const cumplSSHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento (vs. fecha esperada, ${cumplSSR.total} SS)</div>
       ${miniMeter('Cumplidas', cumplSSR.pctSi, 'good', `${cumplSSR.si}`)}
       ${miniMeter('Incumplidas', cumplSSR.pctNo, 'bad', `${cumplSSR.no}`)}
       ${miniMeter('Pendientes', cumplSSR.pctPendiente, 'warn', `${cumplSSR.pendiente}`)}
     </div>`;
-  const tarjetaEstadoSS = (est, i) => {
-    const rows = ss.filter(r=>(r.estado||'Sin estado')===est);
-    const abiertas = rows.filter(r=>!r.fecha_respuesta).length;
-    const cerrado = abiertas===0;
+  // Dos tarjetas: SS abiertas / SS cerradas (Mariana: cerradas = Ejecutada,
+  // Evaluada y No aprobada; el resto abiertas). Se decide por Fecha de
+  // respuesta, que hoy coincide 100% con esos estados y clasifica solo
+  // cualquier estado nuevo del CMMS.
+  const ssAbiertasRows = ss.filter(r=>!r.fecha_respuesta);
+  const ssCerradasRows = ss.filter(r=>!!r.fecha_respuesta);
+  const tarjetaSS = (grupo, rows, abierta) => {
     const prom = promDias(rows, diasSSR).prom;
+    const est = groupCount(rows, r=>r.estado||'Sin estado')
+      .sort((a,b)=>{ const ia=ORDEN_ESTADO_SS.indexOf(a.key), ib=ORDEN_ESTADO_SS.indexOf(b.key); return (ia<0?99:ia)-(ib<0?99:ib); });
     const sevs = sevOrden(rows).map(sv=>{
-      const n = rows.filter(r=>(r.severidad||'Sin severidad')===sv).length;
-      return `<button type="button" class="sev-row" data-ss-estado="${esc(est)}" data-ss-sev="${esc(sv)}" title="Ver SS ${esc(est)} de severidad ${esc(sv)}"><span>${esc(sv)}: <b>${n}</b></span><span class="sev-time">›</span></button>`;
-    }).join('');
-    return kpiCard({label:`SS ${est}`, value:rows.length,
-      sub:`<div class="tipo-line"><span>${cerrado ? 'Cerradas' : (abiertas===rows.length ? 'Abiertas' : `Abiertas: <b>${abiertas}</b>`)}</span></div>`
-        + `${cerrado ? 'Solución promedio' : 'Llevan en promedio'} <b>${fmtDias(prom)}</b>${cerrado ? '' : ' abiertas'}`
-        + `<div class="sev-list">${sevs}<button type="button" class="sev-row" data-ss-estado="${esc(est)}" title="Ver todas las SS ${esc(est)}"><span>Ver todas</span><span class="sev-time">›</span></button></div>`,
-      hero:true, status: est==='No aprobada' ? '' : (cerrado ? 'good' : 'warn')});
+      const sub = rows.filter(r=>(r.severidad||'Sin severidad')===sv);
+      return `<button type="button" class="sev-row" data-ss-grupo="${grupo}" data-ss-sev="${esc(sv)}" title="Ver SS ${grupo} de severidad ${esc(sv)}"><span>${esc(sv)}: <b>${sub.length}</b></span><span class="sev-time">${fmtDias(promDias(sub, diasSSR).prom)} ›</span></button>`;
+    }).join('') || `<div class="sev-row">Sin SS ${grupo}</div>`;
+    const estados = est.map(x=>
+      `<button type="button" class="sev-row" data-ss-grupo="${grupo}" data-ss-estado="${esc(x.key)}" title="Ver SS en estado ${esc(x.key)}"><span>${esc(x.key)}: <b>${x.count}</b></span><span class="sev-time">›</span></button>`).join('');
+    return kpiCard({label:`SS ${grupo}`, value:rows.length,
+      sub:`${abierta ? 'Llevan en promedio' : 'Tiempo promedio de solución:'} <b>${fmtDias(prom)}</b>${abierta ? ' abiertas (desde la solicitud)' : ' (solicitud → respuesta)'}`
+        + `<div class="sev-list"><div class="sev-time" style="padding:0 6px;">Por severidad</div>${sevs}</div>`
+        + `<div class="sev-list"><div class="sev-time" style="padding:0 6px;">Por estado</div>${estados}</div>`,
+      hero:true, status: abierta ? 'warn' : 'good'});
   };
 
   el.innerHTML = `
@@ -1110,7 +1115,8 @@ function renderResumen(el){
 
   ${kpiGroup('Solicitudes de servicio', `
     ${kpiCard({label:'SS totales', value:ss.length, sub:`<div class="tipo-line"><span>Abiertas: <b>${ssAbiertas}</b></span><span>Cerradas: <b>${ss.length-ssAbiertas}</b></span></div><div class="sev-time">Clic para ver todas</div>${cumplSSHtml}`, hero:true, accent:'c3', id:'ssTotalesCard', clickable:true})}
-    ${estadosSS.map(tarjetaEstadoSS).join('')}
+    ${tarjetaSS('abiertas', ssAbiertasRows, true)}
+    ${tarjetaSS('cerradas', ssCerradasRows, false)}
   `, true)}
 
   ${kpiGroup('Trabajo', `
@@ -1179,10 +1185,11 @@ function renderResumen(el){
     {filtros:[['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']], placeholder:'Buscar por SS, equipo, lugar, OT...'});
   const ssTotEl = document.getElementById('ssTotalesCard');
   if(ssTotEl) ssTotEl.addEventListener('click', e=>{ if(e.target.closest('.sev-row')) return; modalSS('Solicitudes de servicio', ss); });
-  el.querySelectorAll('[data-ss-estado]').forEach(btn=>btn.addEventListener('click', ()=>{
-    const est = btn.dataset.ssEstado, sev = btn.dataset.ssSev;
-    const rows = ss.filter(r=>(r.estado||'Sin estado')===est && (!sev || (r.severidad||'Sin severidad')===sev));
-    modalSS(`SS ${est}${sev?` — severidad ${sev}`:''}`, rows);
+  el.querySelectorAll('[data-ss-grupo]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const grupo = btn.dataset.ssGrupo, sev = btn.dataset.ssSev, est = btn.dataset.ssEstado;
+    const base = grupo==='abiertas' ? ssAbiertasRows : ssCerradasRows;
+    const rows = base.filter(r=>(!sev || (r.severidad||'Sin severidad')===sev) && (!est || (r.estado||'Sin estado')===est));
+    modalSS(`SS ${grupo}${sev?` — severidad ${sev}`:''}${est?` — ${est}`:''}`, rows);
   }));
   // Costo total por lugar (clic en "Costo total mantenimiento").
   const costoTotalEl = document.getElementById('costoTotalCard');
