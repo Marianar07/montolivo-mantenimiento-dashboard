@@ -233,6 +233,9 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .sev-row .sev-time{color:var(--ink-3);font-size:11px;white-space:nowrap;}
 button.sev-row{cursor:pointer;}
 .mini-meter{padding:4px 6px;}
+.modal-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.modal-filters select{max-width:220px;}
+@media (max-width:640px){ .modal-filters select, .modal-filters .searchbox{width:100%;max-width:none;font-size:16px;} }
 #costoRepuestosCard{border-left:4px dashed var(--border);}
 #costoRepuestosCard .kpi-value{color:var(--ink-3);font-size:22px;}
 .tipo-line{font-size:12px;color:var(--ink-2);margin-bottom:6px;display:flex;flex-wrap:wrap;column-gap:12px;row-gap:2px;}
@@ -920,7 +923,6 @@ function renderResumen(el){
     .sort((a,b)=>(ORDEN_SEVERIDAD[a]??99)-(ORDEN_SEVERIDAD[b]??99) || a.localeCompare(b));
   // Costo (Total Real ya consolidado por OT en el script).
   const costoDe = rows => rows.reduce((acc,r)=>acc+(r.costo_real||0),0);
-  const costoLine = rows => `<div class="tipo-line"><span>Costo total: <b>${fmtMoney(costoDe(rows))}</b></span></div>`;
   const solCerradas = promDias(otCerradasRows, diasSolucionOT);
   const tiempoAbiertas = promDias(otAbiertasRows, diasAbiertaOT);
   // OT vencidas (= "para reprogramar"): códigos de OT únicos.
@@ -962,7 +964,7 @@ function renderResumen(el){
     return `<div class="tipo-line"><span>Abiertas: <b>${a}</b></span><span>Cerradas: <b>${rows.length-a}</b></span></div>`;
   };
   const provHtml = `<div class="sev-list">${provConteo.map(x=>
-      `<button type="button" class="sev-row" data-proveedor="${esc(x.key)}" title="Ver OT de ${esc(x.key)}"><span class="wrap-text">${esc(x.key)}${proveedoresSetR.has(x.key)?'':' <span class="badge neutral">No registrado</span>'}: <b>${x.count}</b></span><span class="sev-time">${fmtMoney(costoDe(otProveedores.filter(r=>provDeOT(r).includes(x.key))))} ›</span></button>`
+      `<button type="button" class="sev-row" data-proveedor="${esc(x.key)}" title="Ver OT de ${esc(x.key)}"><span class="wrap-text">${esc(x.key)}${proveedoresSetR.has(x.key)?'':' <span class="badge neutral">No registrado</span>'}: <b>${x.count}</b></span><span class="sev-time">›</span></button>`
     ).join('') || '<div class="sev-row">Sin OT de proveedores</div>'}</div>`;
   // Desglose del costo total (pedido de Mariana). El export de OT solo trae
   // "Total Real" por OT, sin separar mano de obra / repuestos / servicios:
@@ -1016,11 +1018,11 @@ function renderResumen(el){
   `, true)}
 
   ${kpiGroup('Órdenes de trabajo', `
-    ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+costoLine(ot)+cumplimientosHtml, hero:true, accent:'c1'})}
-    ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`${tiposHtml(otAbiertasRows)}${costoLine(otAbiertasRows)}Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
-    ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`${tiposHtml(otCerradasRows)}${costoLine(otCerradasRows)}Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
-    ${kpiCard({label:'OT de proveedores', value:new Set(otProveedores.map(r=>r.ot)).size, sub:`${tiposHtml(otProveedores)}${abiertasCerradas(otProveedores)}${costoLine(otProveedores)}${provHtml}`, hero:true, accent:'c2'})}
-    ${kpiCard({label:'OT sin técnico asignado', value:otSinTecnico.length, sub:`${tiposHtml(otSinTecnico)}${abiertasCerradas(otSinTecnico)}${costoLine(otSinTecnico)}${otSinTecnico.length?'<div class="sev-time">Clic para ver cuáles</div>':''}`, hero:true, status: otSinTecnico.length? 'bad':'good', id:'otSinTecnicoCard', clickable: otSinTecnico.length>0})}
+    ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+cumplimientosHtml, hero:true, accent:'c1'})}
+    ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`${tiposHtml(otAbiertasRows)}Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
+    ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`${tiposHtml(otCerradasRows)}Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
+    ${kpiCard({label:'OT de proveedores', value:new Set(otProveedores.map(r=>r.ot)).size, sub:`${tiposHtml(otProveedores)}${abiertasCerradas(otProveedores)}${provHtml}`, hero:true, accent:'c2'})}
+    ${kpiCard({label:'OT sin técnico asignado', value:otSinTecnico.length, sub:`${tiposHtml(otSinTecnico)}${abiertasCerradas(otSinTecnico)}${otSinTecnico.length?'<div class="sev-time">Clic para ver cuáles</div>':''}`, hero:true, status: otSinTecnico.length? 'bad':'good', id:'otSinTecnicoCard', clickable: otSinTecnico.length>0})}
   `, true)}
 
   <div class="grid2">
@@ -1051,7 +1053,7 @@ function renderResumen(el){
   const parosCardEl = document.getElementById('parosActualesCard');
   if(parosCardEl) parosCardEl.addEventListener('click', ()=>{
     const detalle = parosPeriodo.slice().sort((a,b)=>new Date(b.inicio)-new Date(a.inicio));
-    openModal('Paros en el periodo', simpleTable(detalle, [
+    modalFiltrable('Paros en el periodo', detalle, [
       {key:'tipo', label:'Tipo'},
       {key:'ot', label:'OT'},
       {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
@@ -1061,14 +1063,12 @@ function renderResumen(el){
       {key:'tecnico', label:'Técnico asignado', fmt:v=>v?shortTecnico(v):'—'},
       {key:'inicio', label:'Fecha de paro', fmt:fmtDate},
       {key:'duracion_h', label:'Duración', fmt:v=>v==null?'—':fmtH(v)},
-    ], {scroll:true}));
+    ], {filtros:[['tipo','Tipo'],['estado_paro','Estado'],['lugar','Lugar']]});
   });
   // Listados de OT del Resumen: siempre con columna Costo y el costo total
   // arriba de la tabla.
   const colCosto = {key:'costo_real', label:'Costo', num:true, fmt:v=>fmtMoney(v||0)};
-  const modalOT = (titulo, rows, cols) => openModal(`${titulo} (${rows.length})`,
-    `<div class="tipo-line" style="margin-bottom:10px;font-size:13px;"><span>Costo total: <b>${fmtMoney(costoDe(rows))}</b></span></div>`
-    + simpleTable(rows, [...cols, colCosto], {scroll:true}));
+  const modalOT = (titulo, rows, cols) => modalFiltrable(titulo, rows, [...cols, colCosto], {costo:true});
   const colsCostoOT = [
     {key:'ot', label:'O.T.'},
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
@@ -1167,6 +1167,39 @@ function renderResumen(el){
       {key:'_atraso', label:'Días de atraso', num:true, fmt:(v,r)=>`<span class="badge bad">${diasAtrasoOT(r)} d</span>`},
     ]);
   });
+}
+/* Listado en ventana emergente con filtros (Resumen Gerencial): buscador de
+   texto libre sobre todas las columnas + un desplegable por cada campo de
+   `filtros` que tenga más de un valor. Con opts.costo muestra el costo total
+   de las filas filtradas. */
+function normBusqueda(t){ return String(t??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+function modalFiltrable(titulo, rows, cols, opts={}){
+  const filtros = (opts.filtros || [['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']])
+    .map(([k,l])=>({k, l, vals:[...new Set(rows.map(r=>r[k]).filter(v=>v!=null && v!==''))].sort((a,b)=>String(a).localeCompare(String(b)))}))
+    .filter(f=>f.vals.length>1);
+  const cellText = (c,r) => { const v = c.fmt ? c.fmt(r[c.key], r) : r[c.key]; const d=document.createElement('div'); d.innerHTML = v==null?'':String(v); return d.textContent; };
+  openModal(`${titulo} (${rows.length})`, `
+    <div class="modal-filters">
+      <input class="searchbox" type="text" id="mfBuscar" placeholder="Buscar por OT, equipo, lugar, técnico...">
+      ${filtros.map(f=>`<select data-mf="${esc(f.k)}"><option value="">${esc(f.l)}: todos</option>${f.vals.map(v=>`<option value="${esc(v)}">${esc(String(v).split(',')[0])}</option>`).join('')}</select>`).join('')}
+    </div>
+    <div class="tipo-line" id="mfResumen" style="margin-bottom:8px;font-size:13px;"></div>
+    <div id="mfTabla"></div>`);
+  const body = document.getElementById('modalBody');
+  const input = body.querySelector('#mfBuscar');
+  const selects = [...body.querySelectorAll('select[data-mf]')];
+  const pintar = () => {
+    const term = normBusqueda(input.value.trim());
+    const sel = selects.map(s=>[s.dataset.mf, s.value]).filter(([,v])=>v);
+    const f = rows.filter(r => sel.every(([k,v])=>String(r[k])===v)
+      && (!term || cols.some(c=>normBusqueda(cellText(c,r)).includes(term))));
+    body.querySelector('#mfResumen').innerHTML = `<span>Mostrando <b>${f.length}</b> de ${rows.length}</span>`
+      + (opts.costo ? `<span>Costo total: <b>${fmtMoney(f.reduce((a,r)=>a+(r.costo_real||0),0))}</b></span>` : '');
+    body.querySelector('#mfTabla').innerHTML = simpleTable(f, cols, {scroll:true});
+  };
+  input.addEventListener('input', pintar);
+  selects.forEach(s=>s.addEventListener('change', pintar));
+  pintar();
 }
 function renderTopLugaresWrap(){
   const wrap = document.getElementById('topLugaresWrap');

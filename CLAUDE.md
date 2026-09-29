@@ -271,11 +271,16 @@ O.T.` (`estado==='Abierta'`).
   incluye `PROVEEDORES_EXTRA`), con tipo, abiertas/cerradas y una fila por
   proveedor clicable → sus OT.
 - **OT sin técnico asignado**: OT con `Ejecutores` vacío; clic → listado.
-- **Costos** (pedido de Mariana): cada tarjeta muestra "Costo total" de sus
-  OT (`costo_real`, ya consolidado por OT), la fila de cada proveedor su
-  costo, y todos los listados del bloque (`modalOT()`) llevan columna Costo
-  y el costo total arriba. Las severidades de "OT cerradas" también son
-  clicables (listado con fin real, días de solución y costo).
+- **Costos** (pedido de Mariana): las tarjetas de OT **no** muestran costo
+  (se quitó); el costo va solo en los listados: todos los de este bloque
+  (`modalOT()`) llevan columna Costo y el costo total de lo filtrado. Las
+  severidades de "OT cerradas" también son clicables (listado con fin real,
+  días de solución y costo).
+- **Filtros en los listados**: todos los listados emergentes del Resumen
+  (OT y "Paros en el periodo") usan `modalFiltrable()`: buscador de texto
+  (sin tildes, sobre todas las columnas) + desplegables de Tipo, Estado,
+  Severidad y Lugar (solo los que tengan más de un valor); muestra "N de M"
+  y recalcula el costo total con lo filtrado.
 - **Desglose del costo** ("Lo más importante", junto a "Costo total"): el
   export de OT solo trae `Total Real` por OT (una sola fila de todo el
   export trae un repuesto en `Código recurso`/`Nombre recurso`, sin valor
