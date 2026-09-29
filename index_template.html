@@ -1041,6 +1041,12 @@ function renderResumen(el){
   //    confirmado que sea el costo de mano de obra).
   const otProvSet = new Set(otProveedores.map(r=>r.ot));
   const costoServicios = costoDe(otProveedores);
+  // OT creadas en Mantum después de su Fecha Inicio Real (registradas
+  // cuando el trabajo ya había empezado) - pedido de Mariana.
+  const otCreadaTarde = ot.filter(r=>r.inicio_real && r.fecha_creacion && new Date(r.fecha_creacion) > new Date(r.inicio_real));
+  const nConInicioReal = ot.filter(r=>r.inicio_real).length;
+  const horasRegistroTarde = r => (new Date(r.fecha_creacion)-new Date(r.inicio_real))/3600000;
+  const creadaTardeHtml = `<div class="sev-list"><button type="button" class="sev-row" id="otCreadaTardeBtn" title="OT cuya fecha de creación es posterior a su fecha de inicio real"><span style="white-space:nowrap">Creadas después del inicio: <b>${otCreadaTarde.length}</b></span><span class="sev-time">›</span></button></div>`;
   const cumplimientosHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento</div>
       ${miniMeter('Preventivo', cumplimientoPrev, stCumpl, `${cumplidasPrev.length} de ${preventivas.length}`)}
@@ -1121,7 +1127,7 @@ function renderResumen(el){
   `, true)}
 
   ${kpiGroup('Órdenes de trabajo', `
-    ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+cumplimientosHtml, hero:true, accent:'c1'})}
+    ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+creadaTardeHtml+cumplimientosHtml, hero:true, accent:'c1'})}
     ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, corner:`<b>${fmtDias(tiempoAbiertas.prom)}</b><span>promedio abiertas</span>`, sub:`${tiposHtml(otAbiertasRows)}${sevAbiertasHtml}`, hero:true, status:'warn'})}
     ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, corner:`<b>${fmtDias(solCerradas.prom)}</b><span>solución promedio</span>`, sub:`${tiposHtml(otCerradasRows)}${sevCerradasHtml}`, hero:true, status:'good'})}
     ${kpiCard({label:'OT de proveedores', value:new Set(otProveedores.map(r=>r.ot)).size, sub:`${tiposHtml(otProveedores)}${provHtml}`, hero:true, accent:'c2'})}
@@ -1281,6 +1287,21 @@ function renderResumen(el){
       {key:'_prov', label:'Proveedor', fmt:(v,r)=>`<span class="wrap-text">${provDeOT(r).map(t=>esc(t)+(proveedoresSetR.has(t)?'':' <span class="badge neutral">No registrado</span>')).join(', ')}</span>`},
     ]));
   }));
+  const creadaTardeEl = document.getElementById('otCreadaTardeBtn');
+  if(creadaTardeEl) creadaTardeEl.addEventListener('click', ()=>{
+    const detalle = otCreadaTarde.slice().sort((a,b)=>horasRegistroTarde(b)-horasRegistroTarde(a));
+    modalOT('OT creadas después de su inicio real', detalle, [
+      {key:'ot', label:'O.T.'},
+      {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+      {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+      {key:'inicio_real', label:'Inicio real', fmt:fmtFechaHoraCorta},
+      {key:'fecha_creacion', label:'Creación', fmt:fmtFechaHoraCorta},
+      {key:'_tarde', label:'Registrada después', num:true, fmt:(v,r)=>{ const h=horasRegistroTarde(r); return h>=24 ? fmtDias(h/24) : fmtH(h); }},
+    ]);
+  });
   const sinTecEl = document.getElementById('otSinTecnicoCard');
   if(sinTecEl && otSinTecnico.length) sinTecEl.addEventListener('click', ()=>{
     const detalle = otSinTecnico.slice().sort((a,b)=>new Date(a.fecha_creacion)-new Date(b.fecha_creacion));

@@ -268,6 +268,12 @@ O.T.` (`estado==='Abierta'`).
   derecha de la tarjeta, igual que en OT cerradas y en las SS); cada severidad es clicable y abre el listado de
   esas OT (con días abierta; sin columna de "vencida", a pedido de Mariana).
 
+- **"Creadas después del inicio"** (en OT totales, pedido de Mariana): OT
+  cuya `Fecha Creación` es posterior a su `Fecha Inicio Real` — registradas
+  en Mantum cuando el trabajo ya había empezado. Se muestra "N de M" (M =
+  OT con inicio real); clic → listado con inicio real, creación y cuánto
+  después se registró. (Con inicio *programado* en vez de real serían más:
+  162 de 244 el 29-sep-2026.)
 - **OT de proveedores**: OT con algún ejecutor proveedor (`esOTProveedor`,
   incluye `PROVEEDORES_EXTRA`), con tipo y filas **Abiertas** / **Cerradas**
   clicables → listado con columna Proveedor (Mariana quitó las filas por
