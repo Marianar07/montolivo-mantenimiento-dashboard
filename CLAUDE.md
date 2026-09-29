@@ -250,7 +250,7 @@ desde la fin programada). Las abiertas que sí tienen Fecha Fin Real
 (trabajo hecho, falta cerrarlas en el CMMS) van aparte en la fila
 "Ejecutadas sin cerrar" (`sinCerrarEnSistema()`), también clicable (listado
 con inicio real, fin real y % de ejecución; el de vencidas trae inicio y
-fin programado). La
+fin programado y % de ejecución). La
 sección "Órdenes de Trabajo para reprogramar" de la pestaña OT usa el
 mismo criterio. "OT totales" muestra debajo el
 cumplimiento preventivo y correctivo (mini barras; ya no hay tarjetas

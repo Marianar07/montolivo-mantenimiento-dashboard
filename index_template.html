@@ -1055,6 +1055,7 @@ function renderResumen(el){
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'inicio_programado', label:'Inicio programado', fmt:fmtDate},
       {key:'fin_programado', label:'Fin programado', fmt:fmtDate},
+      {key:'avance', label:'% ejecución', num:true, fmt:v=>v==null?'—':fmtPct(v,0)},
       {key:'_atraso', label:'Días de atraso', num:true, fmt:(v,r)=>`<span class="badge bad">${diasAtrasoOT(r)} d</span>`},
     ], {scroll:true}));
   });
