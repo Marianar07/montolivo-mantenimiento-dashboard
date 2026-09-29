@@ -268,7 +268,8 @@ O.T.` (`estado==='Abierta'`).
   derecha de la tarjeta, igual que en OT cerradas y en las SS); cada severidad es clicable y abre el listado de
   esas OT (con días abierta; sin columna de "vencida", a pedido de Mariana).
 
-- **"Creadas después del inicio"** (en OT totales, pedido de Mariana): OT
+- **"Creadas después del inicio"** (al final de OT totales, resaltada en
+  rojo con `.sev-row-alerta`, pedido de Mariana): OT
   cuya `Fecha Creación` es posterior a su `Fecha Inicio Real` — registradas
   en Mantum cuando el trabajo ya había empezado. Se muestra "N de M" (M =
   OT con inicio real); clic → listado solo con OT, estado, entidad, lugar,
