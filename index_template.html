@@ -236,6 +236,9 @@ button.sev-row{cursor:pointer;}
 .sev-row.sev-row-alerta b, .sev-row.sev-row-alerta .sev-time{color:var(--bad-text);}
 button.sev-row.sev-row-alerta:hover{border-color:var(--bad);background:var(--bad-bg);}
 .mini-meter{padding:4px 6px;}
+.link-count{background:none;border:none;padding:2px 6px;border-radius:6px;font:inherit;font-weight:700;color:var(--maroon);text-decoration:underline;cursor:pointer;}
+.link-count:hover{background:var(--cream);}
+.link-count:focus-visible{outline:2px solid var(--maroon);outline-offset:1px;}
 .modal-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
 .modal-filters select{max-width:220px;}
 @media (max-width:640px){ .modal-filters select, .modal-filters .searchbox{width:100%;max-width:none;font-size:16px;} }
@@ -1181,7 +1184,7 @@ function renderResumen(el){
       ${chartTipoSeveridad(ot)}
     </div>
     <div class="card">
-      <div class="card-head"><h3>Top lugares con más averías correctivas</h3></div>
+      <div class="card-head"><h3>OT correctivas por lugar</h3></div>
       <div id="topLugaresWrap"></div>
     </div>
   </div>
@@ -1439,6 +1442,22 @@ function renderTopLugaresWrap(){
   `;
   const mesSelect = document.getElementById('topLugaresMesSelect');
   if(mesSelect) mesSelect.addEventListener('change', ()=>{ topLugaresMes = mesSelect.value; renderTopLugaresWrap(); });
+  // Clic en la cantidad → todas las OT correctivas de ese lugar en el mes.
+  wrap.querySelectorAll('[data-lugar-ot]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const lugar = btn.dataset.lugarOt;
+    const rows = correctivasCard.filter(r=>(r.lugar||'Sin lugar')===lugar).sort((a,b)=>new Date(b.fecha_creacion)-new Date(a.fecha_creacion));
+    modalFiltrable(`OT correctivas — ${lugar} (${labelMes(topLugaresMes)})`, rows, [
+      {key:'ot', label:'O.T.'},
+      {key:'severidad', label:'Sev.'},
+      {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+      {key:'fecha_creacion', label:'Creación', fmt:fmtFechaHoraCorta},
+      {key:'fin_real', label:'Fin real', fmt:fmtFechaHoraCorta},
+      {key:'avance', label:'% ejec.', num:true, fmt:v=>v==null?'—':fmtPct(v,0)},
+      {key:'costo_real', label:'Costo', num:true, fmt:v=>fmtMoney(v||0)},
+    ], {costo:true, filtros:[['estado','Estado'],['severidad','Severidad']]});
+  }));
 }
 const ORDEN_SEVERIDAD = {Alta:0, Media:1, Baja:2};
 function chartTipoSeveridad(ot){
@@ -1455,10 +1474,16 @@ function chartTipoSeveridad(ot){
   });
   return groupedBarChart(severidades, [correctivo, preventivo], ['var(--chart-1)','var(--chart-2)']);
 }
+// "OT correctivas por lugar" (antes "Top lugares con más averías
+// correctivas", solo 8): TODOS los lugares, con la cantidad clicable.
 function topLugaresAverias(correctivas){
-  const g = groupCount(correctivas, r=>r.lugar).slice(0,8);
+  const g = groupCount(correctivas, r=>r.lugar||'Sin lugar');
   if(!g.length) return '<div class="empty">Sin correctivas en el periodo seleccionado</div>';
-  return rankedTable(g.map(x=>({lugar:x.key, n:x.count})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'n',label:'Averías'}, noBar:true});
+  return simpleTable(g.map((x,i)=>({pos:i+1, lugar:x.key, n:x.count})), [
+    {key:'pos', label:'#', num:true},
+    {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v)}</span>`},
+    {key:'n', label:'OT', num:true, fmt:(v,r)=>`<button type="button" class="link-count" data-lugar-ot="${esc(r.lugar)}" title="Ver las OT correctivas de ${esc(r.lugar)}">${v}</button>`},
+  ], {scroll:true});
 }
 
 /* ============ TAB: Órdenes de Trabajo ============ */

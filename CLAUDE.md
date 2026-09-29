@@ -363,6 +363,14 @@ en el rango, marcados "Inactivo"): cada técnico con estado ahora
 (en sitio/programado), OT con duración, tiempo programado, tiempo trabajado,
 libres y % ocupación.
 
+### "OT correctivas por lugar" (Resumen Gerencial)
+
+Reemplazó a "Top lugares con más averías correctivas" (pedido de Mariana):
+muestra **todos** los lugares (no solo 8) con la cantidad de OT correctivas
+del mes elegido en su propio selector de mes (`topLugaresMes`); la cantidad
+es clicable → listado de esas OT con filtros y costo (`topLugaresAverias()`,
+`renderTopLugaresWrap()`).
+
 ### Ordenar tablas por columna
 
 Pedido de Mariana: **todas** las tablas se ordenan al hacer clic en el
