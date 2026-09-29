@@ -240,6 +240,10 @@ button.sev-row{cursor:pointer;}
 #costoRepuestosCard .kpi-value, #costoManoObraCard .kpi-value{color:var(--ink-3);font-size:22px;}
 .tipo-line{font-size:12px;color:var(--ink-2);margin-bottom:6px;display:flex;flex-wrap:wrap;column-gap:12px;row-gap:2px;}
 .tipo-line span{white-space:nowrap;}
+.kpi-card{position:relative;}
+.kpi-corner{position:absolute;top:14px;right:16px;text-align:right;line-height:1.2;display:flex;flex-direction:column;align-items:flex-end;}
+.kpi-corner b{font-size:15px;color:var(--ink);}
+.kpi-corner span{font-size:10.5px;color:var(--ink-3);}
 .estado-chips{display:flex;flex-wrap:wrap;gap:6px 12px;margin:2px 0 8px;font-size:12px;color:var(--ink-2);}
 .estado-chip{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
 .estado-chip b{color:var(--ink);}
@@ -677,10 +681,11 @@ function setActivePreset(id){
 }
 
 /* ============ Reusable render helpers ============ */
-function kpiCard({label, value, sub, status, hero, accent, id, clickable}){
+function kpiCard({label, value, sub, status, hero, accent, id, clickable, corner}){
   const st = status || '';
   const cls = ['kpi-card', st, hero?'hero':'', accent?'accent-'+accent:'', clickable?'clickable':''].filter(Boolean).join(' ');
   return `<div class="${cls}"${id?` id="${id}"`:''}>
+    ${corner?`<div class="kpi-corner">${corner}</div>`:''}
     <div class="kpi-label">${status?`<span class="status-dot ${st}"></span>`:''}${label}</div>
     <div class="kpi-value ${st}">${value}</div>
     ${sub?`<div class="kpi-sub">${sub}</div>`:''}
@@ -1098,7 +1103,8 @@ function renderResumen(el){
     const estados = est.map(x=>
       `<span class="estado-chip"><span class="estado-dot" style="background:${COLOR_ESTADO_SS[x.key]||'var(--ink-3)'}"></span>${esc(x.key)} <b>${x.count}</b></span>`).join('');
     return kpiCard({label:`SS ${grupo}`, value:rows.length,
-      sub:`<div class="estado-chips">${estados}</div>${abierta ? 'Llevan en promedio' : 'Tiempo promedio de solución:'} <b>${fmtDias(prom)}</b>${abierta ? ' abiertas (desde la solicitud)' : ' (solicitud → respuesta)'}`
+      corner:`<b>${fmtDias(prom)}</b><span>${abierta ? 'promedio abiertas' : 'solución promedio'}</span>`,
+      sub:`<div class="estado-chips">${estados}</div>`
         + `<div class="sev-list"><div class="sev-time" style="padding:0 6px;">Por severidad</div>${sevs}</div>`
         ,
       hero:true, status: abierta ? 'warn' : 'good'});

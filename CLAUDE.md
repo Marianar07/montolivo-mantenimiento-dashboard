@@ -308,7 +308,8 @@ Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
   días promedio abiertas (o de solución), filas por severidad (con sus días,
   clicables → listado) y, debajo del número, el conteo por estado como
   bolitas de color (`COLOR_ESTADO_SS`) con la cantidad, en línea — sin clic
-  (el estado se filtra dentro del listado).
+  (el estado se filtra dentro del listado). Los días promedio (abiertas / solución) van
+  en la esquina superior derecha de la tarjeta (`kpiCard({corner})`).
 - Los listados usan `modalFiltrable()` (buscador + filtros de Tipo, Estado,
   Severidad, Lugar) con columnas SS, tipo, severidad, estado, equipo, lugar,
   solicitud, esperada, respuesta, días, cumplimiento y OT. Esperada y
