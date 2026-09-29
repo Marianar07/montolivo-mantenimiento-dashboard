@@ -232,6 +232,9 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .sev-row b{color:var(--ink);font-size:13px;}
 .sev-row .sev-time{color:var(--ink-3);font-size:11px;white-space:nowrap;}
 button.sev-row{cursor:pointer;}
+.mini-meter{padding:4px 6px;}
+.mini-meter .sev-row{padding:0;white-space:nowrap;}
+.mini-meter .meter-track{height:6px;margin-top:4px;}
 button.sev-row:hover{border-color:var(--maroon);background:var(--cream);}
 button.sev-row:focus-visible{outline:2px solid var(--maroon);outline-offset:1px;}
 
@@ -913,6 +916,15 @@ function renderResumen(el){
       const rows = otCerradasRows.filter(r=>(r.severidad||'Sin severidad')===s);
       return `<div class="sev-row"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasSolucionOT).prom)}</span></div>`;
     }).join('') || '<div class="sev-row">Sin OT cerradas</div>'}</div>`;
+  const miniMeter = (label, pct, st, detalle) => `<div class="mini-meter">
+      <div class="sev-row"><span><span class="status-dot ${st}"></span> ${label}: <b>${fmtPct(pct)}</b></span><span class="sev-time">${detalle}</span></div>
+      <div class="meter-track ${st}"><div class="meter-fill ${st}" style="width:${pct==null?0:Math.max(0,Math.min(100,pct))}%"></div></div>
+    </div>`;
+  const cumplimientosHtml = `<div class="sev-list">
+      <div class="sev-time" style="padding:0 6px;">Cumplimiento</div>
+      ${miniMeter('Preventivo', cumplimientoPrev, stCumpl, `${cumplidasPrev.length} de ${preventivas.length}`)}
+      ${miniMeter('Correctivo', cumplimientoCorrectivo, stCumplCorrectivo, `${correctivoCumpl.si} de ${correctivas.length}`)}
+    </div>`;
   // Se cuentan códigos de OT únicos: el export trae una fila por ejecutor,
   // así que una OT con 2 técnicos aparecería dos veces.
   const otParaReprogramar = new Set(ot.filter(necesitaReprogramar).map(r=>r.ot)).size;
@@ -953,7 +965,7 @@ function renderResumen(el){
   `, true)}
 
   ${kpiGroup('Órdenes de trabajo', `
-    ${kpiCard({label:'OT totales', value:ot.length, sub:`${otAbiertasRows.length} abiertas · ${otCerradasRows.length} cerradas`, hero:true, accent:'c1'})}
+    ${kpiCard({label:'OT totales', value:ot.length, sub:cumplimientosHtml, hero:true, accent:'c1'})}
     ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
     ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
     ${kpiCard({label:'OT para reprogramar', value:otParaReprogramar, sub:'Abiertas, sin iniciar y con fecha de inicio programada vencida — clic para ver', hero:true, status: otParaReprogramar>0?'bad':'good', id:'otReprogramarCard', clickable:true})}

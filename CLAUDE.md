@@ -242,7 +242,9 @@ de arriba de la pestaña: "N de M SS en el rango".)
 
 Pedido de Mariana (29-sep-2026), en `renderResumen()`: cuatro tarjetas —
 **OT totales**, **OT abiertas**, **OT cerradas** y **OT para reprogramar**
-(`necesitaReprogramar()`, clic → listado). Abierta/cerrada según el `Estado
+(`necesitaReprogramar()`, clic → listado). "OT totales" muestra debajo el
+cumplimiento preventivo y correctivo (mini barras, mismo cálculo que "Lo más
+importante"). Abierta/cerrada según el `Estado
 O.T.` (`estado==='Abierta'`).
 - Cerradas: tiempo promedio de solución = `Fecha Fin Real` − `Fecha
   Creación` (en días, solo las que traen Fecha Fin Real; se muestra el N),
