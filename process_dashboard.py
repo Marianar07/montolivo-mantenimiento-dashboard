@@ -216,15 +216,21 @@ def cargar_tecnicos_inactivos(path):
     return sorted({ALIAS_TECNICOS.get(n, n) for n in nombres})
 
 
+# Personas que ejecutan OT a nombre de un proveedor sin estar dadas de alta
+# individualmente en "Datos Generales de Proveedores" - decisión de Mariana
+# (29-sep-2026): se cuentan como proveedor, no como "otro". Si aparece otra
+# persona así en el aviso de consola, agregarla aquí.
+PROVEEDORES_EXTRA = [
+    "SEBASTIAN BUITRAGO GRACIANO",
+]
+
+
 def cargar_proveedores(path):
     """Datos Generales de Proveedores.xlsx - maestro de proveedores/terceros
-    del CMMS, hoja única 'Sheet', columna 'Nombre'. Es solo de referencia:
-    la clasificación real de qué OT son de terceros sigue siendo "el técnico
-    no está en TECNICOS.xlsx/ALIAS_TECNICOS" (ver cargar_tecnicos) porque un
-    proveedor puede ejecutar una OT con el nombre de una persona (p.ej.
-    "SEBASTIAN BUITRAGO GRACIANO") que no aparece tal cual en este maestro
-    de empresas/proveedores. Este listado se usa solo para el aviso en
-    consola que compara ambas fuentes."""
+    del CMMS, hoja única 'Sheet', columna 'Nombre'. El tablero clasifica un
+    ejecutor no interno como "proveedor" si está en este listado (más
+    PROVEEDORES_EXTRA, ver arriba) y como "otro" si no - ver
+    esOTProveedor/esOTOtro en index_template.html."""
     df = pd.read_excel(path, sheet_name=0, dtype=str)
     return sorted({str(n).strip() for n in df["Nombre"].dropna()})
 
@@ -703,6 +709,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     tecnicos_internos = cargar_tecnicos(tecnicos_path) if tecnicos_path else None
     tecnicos_inactivos = cargar_tecnicos_inactivos(tecnicos_path) if tecnicos_path else []
     proveedores = cargar_proveedores(proveedores_path) if proveedores_path else None
+    if proveedores is not None or PROVEEDORES_EXTRA:
+        proveedores = sorted(set(proveedores or []) | set(PROVEEDORES_EXTRA))
 
     disp_by_code, crit_by_code, lugar_to_ai = construir_indices(disp, crit)
 
@@ -766,8 +774,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
         if proveedores is not None:
             no_registrados = sorted(n for n in terceros if n not in proveedores)
             if no_registrados:
-                print(f"  (de esos, no aparecen tal cual en Datos Generales de Proveedores: {no_registrados} "
-                      f"- puede ser una persona que ejecuta a nombre de un proveedor, no necesariamente un error)")
+                print(f"  (de esos, no aparecen en Datos Generales de Proveedores ni en PROVEEDORES_EXTRA: {no_registrados} "
+                      f"- van como 'Otros'; si ejecutan a nombre de un proveedor, agregarlos a PROVEEDORES_EXTRA)")
 
     return data
 

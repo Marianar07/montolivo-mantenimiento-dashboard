@@ -944,6 +944,21 @@ function renderResumen(el){
     c.sort((a,b)=>orden(a.key)-orden(b.key) || b.count-a.count);
     return `<div class="tipo-line">${c.map(x=>`<span>${esc(x.key.split(',')[0])}: <b>${x.count}</b></span>`).join('') || 'Sin OT'}</div>`;
   };
+  // OT de proveedores (ejecutor no interno que está en el maestro de
+  // proveedores o en PROVEEDORES_EXTRA) y OT sin técnico asignado.
+  const internosSetR = tecnicosInternosSetOf();
+  const proveedoresSetR = proveedoresSetOf();
+  const otProveedores = ot.filter(r=>esOTProveedor(r, internosSetR, proveedoresSetR));
+  const provDeOT = r => splitTecnicos(r.tecnico).filter(t=>!internosSetR.has(t) && proveedoresSetR.has(t));
+  const provConteo = groupCount(otProveedores.flatMap(r=>provDeOT(r).map(t=>({t}))), x=>x.t);
+  const otSinTecnico = ot.filter(r=>splitTecnicos(r.tecnico).length===0);
+  const abiertasCerradas = rows => {
+    const a = rows.filter(r=>r.estado==='Abierta').length;
+    return `<div class="tipo-line"><span>Abiertas: <b>${a}</b></span><span>Cerradas: <b>${rows.length-a}</b></span></div>`;
+  };
+  const provHtml = `<div class="sev-list">${provConteo.map(x=>
+      `<button type="button" class="sev-row" data-proveedor="${esc(x.key)}" title="Ver OT de ${esc(x.key)}"><span class="wrap-text">${esc(x.key)}: <b>${x.count}</b></span><span class="sev-time">›</span></button>`
+    ).join('') || '<div class="sev-row">Sin OT de proveedores</div>'}</div>`;
   const cumplimientosHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento</div>
       ${miniMeter('Preventivo', cumplimientoPrev, stCumpl, `${cumplidasPrev.length} de ${preventivas.length}`)}
@@ -987,6 +1002,8 @@ function renderResumen(el){
     ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+cumplimientosHtml, hero:true, accent:'c1'})}
     ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`${tiposHtml(otAbiertasRows)}Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
     ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`${tiposHtml(otCerradasRows)}Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
+    ${kpiCard({label:'OT de proveedores', value:new Set(otProveedores.map(r=>r.ot)).size, sub:`${tiposHtml(otProveedores)}${abiertasCerradas(otProveedores)}${provHtml}`, hero:true, accent:'c2'})}
+    ${kpiCard({label:'OT sin técnico asignado', value:otSinTecnico.length, sub:`${tiposHtml(otSinTecnico)}${abiertasCerradas(otSinTecnico)}${otSinTecnico.length?'<div class="sev-time">Clic para ver cuáles</div>':''}`, hero:true, status: otSinTecnico.length? 'bad':'good', id:'otSinTecnicoCard', clickable: otSinTecnico.length>0})}
   `, true)}
 
   <div class="grid2">
@@ -1042,6 +1059,31 @@ function renderResumen(el){
       {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
       {key:'_dias', label:'Días abierta', num:true, fmt:(v,r)=>{ const d=diasAbiertaOT(r); return d==null?'—':Math.floor(d)+' d'; }},    ], {scroll:true}));
   }));
+  const colsListadoOT = extra => [
+    {key:'ot', label:'O.T.'},
+    {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+    {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
+    {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    ...extra,
+    {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
+    {key:'avance', label:'% ejec.', num:true, fmt:v=>v==null?'—':fmtPct(v,0)},
+  ];
+  el.querySelectorAll('[data-proveedor]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const prov = btn.dataset.proveedor;
+    const detalle = otProveedores.filter(r=>provDeOT(r).includes(prov))
+      .sort((a,b)=>new Date(b.fecha_creacion)-new Date(a.fecha_creacion));
+    openModal(`OT de ${prov} (${detalle.length})`, simpleTable(detalle, colsListadoOT([
+      {key:'costo_real', label:'Costo', num:true, fmt:v=>fmtMoney(v)},
+    ]), {scroll:true}));
+  }));
+  const sinTecEl = document.getElementById('otSinTecnicoCard');
+  if(sinTecEl && otSinTecnico.length) sinTecEl.addEventListener('click', ()=>{
+    const detalle = otSinTecnico.slice().sort((a,b)=>new Date(a.fecha_creacion)-new Date(b.fecha_creacion));
+    openModal(`OT sin técnico asignado (${detalle.length})`, simpleTable(detalle, colsListadoOT([
+      {key:'fin_programado', label:'Fin programado', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
+    ]), {scroll:true}));
+  });
   const sinCerrarEl = document.getElementById('otSinCerrarBtn');
   if(sinCerrarEl) sinCerrarEl.addEventListener('click', ()=>{
     const porOT = new Map();
@@ -1128,8 +1170,8 @@ let otOtrosPager = null;
 //     maestro Datos Generales de Proveedores.xlsx (DATA.proveedores) - ver
 //     cargar_proveedores() en process_dashboard.py.
 //   - otro: no es interno y tampoco aparece en ese maestro de proveedores
-//     (p.ej. una persona que ejecuta a nombre de un proveedor sin estar
-//     dada de alta individualmente, como "SEBASTIAN BUITRAGO GRACIANO").
+//     ni en PROVEEDORES_EXTRA del script (ahí está p.ej. "SEBASTIAN
+//     BUITRAGO GRACIANO", que Mariana decidió contar como proveedor).
 // Si DATA.tecnicos_internos es null (no se encontró TECNICOS.xlsx) se trata
 // a todos como internos. Si DATA.proveedores es null, ningún ejecutor no
 // interno se reconoce como "proveedor" - todos caen en "otro".

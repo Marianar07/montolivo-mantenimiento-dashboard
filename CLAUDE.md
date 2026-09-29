@@ -45,9 +45,9 @@ redespliega automáticamente en el mismo enlace.
    grupos (ver detalle en "Técnicos internos vs. proveedores vs. otros" más
    abajo): **técnico interno** (está en `TECNICOS.xlsx`/`ALIAS_TECNICOS`),
    **proveedor** (no es interno, pero su nombre aparece tal cual en este
-   maestro de proveedores), u **"otro"** (no es interno y tampoco aparece
-   aquí — p.ej. una persona que ejecuta a nombre de un proveedor sin estar
-   dada de alta individualmente, como "SEBASTIAN BUITRAGO GRACIANO"). Si
+   maestro de proveedores o en `PROVEEDORES_EXTRA` del script — p. ej.
+   "SEBASTIAN BUITRAGO GRACIANO", que ejecuta a nombre de un proveedor), u
+   **"otro"** (no es interno y tampoco aparece en ninguno de los dos). Si
    no se encuentra el archivo, ningún ejecutor no interno se reconoce como
    proveedor — todos caen en "Otros".
 
@@ -266,6 +266,11 @@ O.T.` (`estado==='Abierta'`).
   desglosado por severidad; cada severidad es clicable y abre el listado de
   esas OT (con días abierta; sin columna de "vencida", a pedido de Mariana).
 
+- **OT de proveedores**: OT con algún ejecutor proveedor (`esOTProveedor`,
+  incluye `PROVEEDORES_EXTRA`), con tipo, abiertas/cerradas y una fila por
+  proveedor clicable → sus OT.
+- **OT sin técnico asignado**: OT con `Ejecutores` vacío; clic → listado.
+
 ### Promedios por día: SS creadas y OT realizadas
 
 Dos cuadros usan la misma función `promedioPorDia()`:
@@ -356,12 +361,16 @@ y las mismas reglas replicadas en `renderTecnicos()` vía `proveedoresSetOf()`
    `Datos Generales de Proveedores.xlsx`. Si ese archivo no se encuentra,
    este grupo queda vacío — nadie se reconoce como proveedor registrado.
 3. **Otro**: no es interno y tampoco aparece en el maestro de proveedores
-   — p. ej. una persona que ejecuta a nombre de un proveedor sin estar
-   dada de alta individualmente en el sistema. Hoy (referencia) el único
-   nombre que cae aquí es `SEBASTIAN BUITRAGO GRACIANO` — **no** hay que
-   agregarlo a `TECNICOS.xlsx`, a `ALIAS_TECNICOS` ni a
-   `Datos Generales de Proveedores.xlsx`, porque de verdad no es ni un
-   empleado interno ni una empresa proveedora dada de alta.
+   ni en `PROVEEDORES_EXTRA`. Hoy no hay nadie en este grupo.
+
+**`PROVEEDORES_EXTRA`** (en `process_dashboard.py`, junto a
+`cargar_proveedores`): personas que ejecutan OT a nombre de un proveedor sin
+estar dadas de alta individualmente en el maestro. Decisión de Mariana
+(29-sep-2026): `SEBASTIAN BUITRAGO GRACIANO` cuenta como **proveedor** (antes
+estaba en "Otros"). El script las suma a `DATA.proveedores`. Si el aviso de
+consola muestra otro nombre "no aparece en Datos Generales de Proveedores ni
+en PROVEEDORES_EXTRA", preguntarle a Mariana si es proveedor y agregarlo ahí
+(no a `TECNICOS.xlsx` ni a `ALIAS_TECNICOS`).
 
 **Técnicos inactivos:** `TECNICOS.xlsx` trae una columna `ESTADO`
 (ACTIVO/INACTIVO). INACTIVO = ya no trabaja en la compañía
