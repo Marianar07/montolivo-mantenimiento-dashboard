@@ -49,7 +49,8 @@ redespliega automáticamente en el mismo enlace.
    "SEBASTIAN BUITRAGO GRACIANO", que ejecuta a nombre de un proveedor), u
    **"otro"** (no es interno y tampoco aparece en ninguno de los dos). Si
    no se encuentra el archivo, ningún ejecutor no interno se reconoce como
-   proveedor — todos caen en "Otros".
+   proveedor (quedan como "otro"; el tablero igual los lista con los
+   proveedores, marcados "No registrado").
 
 2. Ejecutar el script de procesamiento:
    ```
@@ -388,16 +389,18 @@ proveedores.
 En la pestaña **"Técnicos"**, los grupos 2 y 3 se excluyen de "Capacidad y
 ocupación por técnico" y de "Dónde está cada técnico ahora" (no tiene
 sentido medirles % de ocupación contra 42h/semana ni preguntarse "dónde
-está" — no son personal de planta), y en su lugar aparecen en dos tablas
-separadas, cada una con las mismas 4 columnas (OT totales trabajadas,
-horas trabajadas, filtro de OT trabajada, duración de esa OT):
-"Servicios de proveedores" (grupo 2) y "Otros" (grupo 3).
+está" — no son personal de planta), y en su lugar aparecen en una sola
+tabla, "Servicios de proveedores" (OT totales trabajadas, horas trabajadas,
+filtro de OT trabajada, duración de esa OT).
 
 En la pestaña **"Órdenes de Trabajo"**, debajo de "Listado completo de
-Órdenes de Trabajo" hay dos tablas más con las mismas columnas que el
-listado principal: "Listado completo de Órdenes de Trabajo con
-Proveedores" (OT con algún ejecutor del grupo 2) y "Otros" (OT con algún
-ejecutor del grupo 3).
+Órdenes de Trabajo" está "Listado completo de Órdenes de Trabajo con
+Proveedores" (mismas columnas; OT con algún ejecutor del grupo 2 o 3).
+
+**No hay tablas "Otros"** (Mariana pidió quitarlas el 29-sep-2026, en
+Técnicos y en Órdenes de Trabajo): si algún ejecutor cae en el grupo 3, se
+muestra en las tablas de proveedores (y en la tarjeta "OT de proveedores" del
+Resumen) con la etiqueta "No registrado", para no perderlo de vista.
 
 **`ALIAS_TECNICOS`** (en `process_dashboard.py`, junto a `cargar_tecnicos`)
 existe porque el nombre del técnico en las OT (`Ejecutores`) a veces trae

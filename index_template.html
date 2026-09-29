@@ -948,8 +948,8 @@ function renderResumen(el){
   // proveedores o en PROVEEDORES_EXTRA) y OT sin técnico asignado.
   const internosSetR = tecnicosInternosSetOf();
   const proveedoresSetR = proveedoresSetOf();
-  const otProveedores = ot.filter(r=>esOTProveedor(r, internosSetR, proveedoresSetR));
-  const provDeOT = r => splitTecnicos(r.tecnico).filter(t=>!internosSetR.has(t) && proveedoresSetR.has(t));
+  const otProveedores = ot.filter(r=>esOTProveedor(r, internosSetR, proveedoresSetR) || esOTOtro(r, internosSetR, proveedoresSetR));
+  const provDeOT = r => splitTecnicos(r.tecnico).filter(t=>!internosSetR.has(t));
   const provConteo = groupCount(otProveedores.flatMap(r=>provDeOT(r).map(t=>({t}))), x=>x.t);
   const otSinTecnico = ot.filter(r=>splitTecnicos(r.tecnico).length===0);
   const abiertasCerradas = rows => {
@@ -957,7 +957,7 @@ function renderResumen(el){
     return `<div class="tipo-line"><span>Abiertas: <b>${a}</b></span><span>Cerradas: <b>${rows.length-a}</b></span></div>`;
   };
   const provHtml = `<div class="sev-list">${provConteo.map(x=>
-      `<button type="button" class="sev-row" data-proveedor="${esc(x.key)}" title="Ver OT de ${esc(x.key)}"><span class="wrap-text">${esc(x.key)}: <b>${x.count}</b></span><span class="sev-time">›</span></button>`
+      `<button type="button" class="sev-row" data-proveedor="${esc(x.key)}" title="Ver OT de ${esc(x.key)}"><span class="wrap-text">${esc(x.key)}${proveedoresSetR.has(x.key)?'':' <span class="badge neutral">No registrado</span>'}: <b>${x.count}</b></span><span class="sev-time">›</span></button>`
     ).join('') || '<div class="sev-row">Sin OT de proveedores</div>'}</div>`;
   const cumplimientosHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento</div>
@@ -1161,7 +1161,6 @@ function topLugaresAverias(correctivas){
 let otPager = null;
 let otTercerosPager = null;
 let otReprogPager = null;
-let otOtrosPager = null;
 // Clasificación de un ejecutor en tres grupos, reutilizada en las pestañas
 // "Órdenes de Trabajo" y "Técnicos":
 //   - interno: aparece en TECNICOS.xlsx (o ALIAS_TECNICOS) - ver
@@ -1235,8 +1234,9 @@ function renderOT(el){
   });
   const internosSet = tecnicosInternosSetOf();
   const proveedoresSet = proveedoresSetOf();
-  const terceros = all.filter(r=>esOTProveedor(r, internosSet, proveedoresSet));
-  const otros = all.filter(r=>esOTOtro(r, internosSet, proveedoresSet));
+  // Sin tabla "Otros" (pedido de Mariana): un ejecutor no interno que no está
+  // en el maestro de proveedores también se lista aquí, para no perderlo.
+  const terceros = all.filter(r=>esOTProveedor(r, internosSet, proveedoresSet) || esOTOtro(r, internosSet, proveedoresSet));
   const reprogramar = all.filter(necesitaReprogramar).sort((a,b)=>diasAtrasoOT(b)-diasAtrasoOT(a));
   const nReprogramar = new Set(reprogramar.map(r=>r.ot)).size;
   // OT realizadas = con Fecha Fin Real, contadas por esa fecha (no por la de
@@ -1307,24 +1307,14 @@ function renderOT(el){
     <div id="otTableWrap"></div>
   </div>
   <div class="card section-block">
-    ${sectionTitle('Listado completo de Órdenes de Trabajo con Proveedores', `${terceros.length} OT ejecutadas por proveedores registrados en el rango seleccionado`)}
-    <div class="callout info">Un ejecutor se considera "proveedor" solo si su nombre aparece tal cual en el maestro <b>Datos Generales de Proveedores.xlsx</b>. Las OT ejecutadas por alguien que no es técnico de planta (TECNICOS.xlsx) ni aparece en ese maestro de proveedores van en la tabla "Otros" más abajo.</div>
+    ${sectionTitle('Listado completo de Órdenes de Trabajo con Proveedores', `${terceros.length} OT ejecutadas por proveedores en el rango seleccionado`)}
+    <div class="callout info">OT con algún ejecutor que no es técnico de planta (TECNICOS.xlsx): proveedores del maestro <b>Datos Generales de Proveedores.xlsx</b> y personas que trabajan a nombre de un proveedor.</div>
     <div class="card-head">
       <input class="searchbox" type="text" id="otTercerosSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
       <select id="otTercerosEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
       <select id="otTercerosTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
     </div>
     <div id="otTercerosTableWrap"></div>
-  </div>
-  <div class="card section-block">
-    ${sectionTitle('Otros', `${otros.length} OT ejecutadas por alguien que no es técnico de planta ni proveedor registrado`)}
-    <div class="callout info">Ejecutores que no están en TECNICOS.xlsx ni en Datos Generales de Proveedores.xlsx — p.ej. una persona que trabaja a nombre de un proveedor sin estar dada de alta individualmente en el sistema.</div>
-    <div class="card-head">
-      <input class="searchbox" type="text" id="otOtrosSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
-      <select id="otOtrosEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
-      <select id="otOtrosTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
-    </div>
-    <div id="otOtrosTableWrap"></div>
   </div>
   `;
   const cols = [
@@ -1395,25 +1385,6 @@ function renderOT(el){
   document.getElementById('otTercerosEstado').addEventListener('change', refreshTerceros);
   document.getElementById('otTercerosTipo').addEventListener('change', refreshTerceros);
 
-  function currentFilteredOtros(){
-    const term = document.getElementById('otOtrosSearch').value;
-    const est = document.getElementById('otOtrosEstado').value;
-    const tip = document.getElementById('otOtrosTipo').value;
-    let rows = otros;
-    if(est) rows = rows.filter(r=>r.estado===est);
-    if(tip) rows = rows.filter(r=>r.tipo===tip);
-    return rows;
-  }
-  otOtrosPager = buildPagedTable('otOtrosTableWrap', otros, cols, {pageSize:12});
-  function refreshOtros(){
-    const rows = currentFilteredOtros();
-    otOtrosPager.refresh(rows);
-    const term = document.getElementById('otOtrosSearch').value;
-    if(term) otOtrosPager.setFilter(term);
-  }
-  document.getElementById('otOtrosSearch').addEventListener('input', refreshOtros);
-  document.getElementById('otOtrosEstado').addEventListener('change', refreshOtros);
-  document.getElementById('otOtrosTipo').addEventListener('change', refreshOtros);
 
   // Mismas columnas del listado completo + días de atraso.
   const colsReprog = [...cols, {key:'_atraso', label:'Días de atraso', num:true,
@@ -1701,8 +1672,10 @@ function renderTecnicos(el){
     return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, horasExtra:c.horasExtra, ocupacion, libres:horasDisponibles-c.horas, otsList};
   });
   const capRows = capRowsAll.filter(r=>esInterno(r.tecnico)).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
-  const tercerosRows = capRowsAll.filter(r=>!esInterno(r.tecnico) && esProveedorRegistrado(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
-  const otrosRows = capRowsAll.filter(r=>!esInterno(r.tecnico) && !esProveedorRegistrado(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
+  // Sin tabla "Otros" (pedido de Mariana): todo ejecutor no interno va en
+  // "Servicios de proveedores"; si no está en el maestro de proveedores ni en
+  // PROVEEDORES_EXTRA se marca "No registrado".
+  const tercerosRows = capRowsAll.filter(r=>!esInterno(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
 
   // Promedios por técnico interno (mismos datos de "Capacidad y ocupación"):
   // OT realizadas = OT con duración real (Fecha Inicio y Fin Real); ocupación
@@ -1759,14 +1732,10 @@ function renderTecnicos(el){
   ${tecnicosInternosSet ? `
   <div class="card section-block">
     <div class="card-head"><h3>Servicios de proveedores</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">Proveedores registrados en <b>Datos Generales de Proveedores.xlsx</b> (y que no están en el maestro TECNICOS.xlsx de planta) — no tienen horario ni capacidad de 42h/semana asignada, solo se muestra el trabajo que registraron.</div>
+    <div class="section-note" style="margin:0 0 10px;">Ejecutores que no están en el maestro TECNICOS.xlsx de planta: proveedores de <b>Datos Generales de Proveedores.xlsx</b> y personas que trabajan a nombre de un proveedor — no tienen horario ni capacidad de 42h/semana asignada, solo se muestra el trabajo que registraron.</div>
     <div id="tercerosWrap"></div>
   </div>
-  <div class="card section-block">
-    <div class="card-head"><h3>Otros</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">Ejecutores que no están en TECNICOS.xlsx ni en Datos Generales de Proveedores.xlsx — p.ej. una persona que trabaja a nombre de un proveedor sin estar dada de alta individualmente en el sistema.</div>
-    <div id="otrosTecnicosWrap"></div>
-  </div>` : ''}
+` : ''}
   `;
 
   const inactivosSet = new Set(DATA.tecnicos_inactivos || []);
@@ -1788,7 +1757,7 @@ function renderTecnicos(el){
 
   if(tecnicosInternosSet){
     const tercerosCols = [
-      {key:'tecnico', label:'Proveedor'},
+      {key:'tecnico', label:'Proveedor', fmt:v=> esc(v) + (esProveedorRegistrado(v) ? '' : ' <span class="badge neutral">No registrado</span>')},
       {key:'ot', label:'OT totales trabajadas', num:true},
       {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
       {key:'otsList', label:'Filtrar OT trabajada', fmt:(v,row)=> row.otsList.length
@@ -1803,21 +1772,6 @@ function renderTecnicos(el){
       document.getElementById('tercerosWrap').innerHTML = '<div class="empty">Sin trabajo de proveedores registrados</div>';
     }
 
-    const otrosCols = [
-      {key:'tecnico', label:'Ejecutor'},
-      {key:'ot', label:'OT totales trabajadas', num:true},
-      {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
-      {key:'otsList', label:'Filtrar OT trabajada', fmt:(v,row)=> row.otsList.length
-        ? `<select class="tec-ot-select" style="font-size:12px;padding:3px 6px;"><option value="">Selecciona OT...</option>${row.otsList.map(o=>`<option value="${esc(o.codigo)}" data-dur="${o.dur!=null?o.dur:''}">${esc(o.codigo)}</option>`).join('')}</select>`
-        : `<span style="color:var(--ink-3);font-size:12px;">Sin OT</span>` },
-      {key:'_dur', label:'Duración O.T.', fmt:()=> `<span class="tec-dur">—</span>` },
-    ];
-    if(otrosRows.length){
-      buildPagedTable('otrosTecnicosWrap', otrosRows, otrosCols, {pageSize:15});
-      wireOtSelectDur(document.getElementById('otrosTecnicosWrap'));
-    } else {
-      document.getElementById('otrosTecnicosWrap').innerHTML = '<div class="empty">Sin OT ejecutadas por "otros"</div>';
-    }
   }
 }
 
