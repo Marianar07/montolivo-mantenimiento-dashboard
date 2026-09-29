@@ -1330,7 +1330,6 @@ function renderResumen(el){
       {key:'ot', label:'OT con duración', num:true},
       {key:'horasDisp', label:'Tiempo programado (h)', num:true, fmt:fmtH},
       {key:'horasTrab', label:'Tiempo trabajado (h)', num:true, fmt:fmtH},
-      {key:'horasExtra', label:'Horas extra (domingo)', num:true, fmt:v=> v>0? `<span class="badge warn">${fmtH(v)}</span>` : fmtH(v)},
       {key:'libres', label:'Horas libres', num:true, fmt:fmtH},
       {key:'ocupacion', label:'% Ocupación', num:true, fmt:v=>{ if(v==null) return '—'; const cls = v>110?'bad':v>90?'warn':'good'; return `<span class="badge ${cls}">${fmtPct(v)}</span>`; }},
     ], {filtros:[], placeholder:'Buscar técnico...'});
@@ -1933,20 +1932,20 @@ function calcularCapacidadTecnicos(){
   const capMap = new Map();
   if(DATA.tecnicos_internos){
     DATA.tecnicos_internos.forEach(t=>{
-      if(!capMap.has(t)) capMap.set(t, {horas:0, horasExtra:0, ot:0, otsList:[]});
+      if(!capMap.has(t)) capMap.set(t, {horas:0, ot:0, otsList:[]});
     });
   }
   DATA.ot.forEach(r=>{
     splitTecnicos(r.tecnico).forEach(t=>{
-      if(!capMap.has(t)) capMap.set(t, {horas:0, horasExtra:0, ot:0, otsList:[]});
+      if(!capMap.has(t)) capMap.set(t, {horas:0, ot:0, otsList:[]});
     });
   });
   // Tiempo trabajado SIN TOPE (decisión de Mariana, 29-sep-2026: "si trabaja
   // más horas también puede salir"): cada OT suma su duración real completa
   // (Fecha Fin Real − Fecha Inicio Real) a cada técnico, aunque pase de la
   // jornada del día o de 42 h/semana. Ojo: una OT que quedó abierta varios
-  // días suma también esas noches (p. ej. OT 000130 = 169 h). Si la OT
-  // empezó en domingo va a "Horas extra (domingo)", no a trabajadas.
+  // días suma también esas noches (p. ej. OT 000130 = 169 h). Las OT de
+  // domingo también suman aquí (Mariana: "todo debe ir en tiempo trabajado").
   ot.forEach(r=>{
     const dur = duracionRealOT(r);
     const esDomingo = r.inicio_real ? new Date(r.inicio_real).getDay()===0 : false;
@@ -1954,7 +1953,7 @@ function calcularCapacidadTecnicos(){
       const c = capMap.get(t);
       if(dur!=null){
         c.ot += 1;
-        if(esDomingo) c.horasExtra += dur; else c.horas += dur;
+        c.horas += dur;
       }
       c.otsList.push({codigo:r.ot, dur, extra:esDomingo, fecha:r.inicio_real||r.inicio_programado||r.fecha_creacion});
     });
@@ -1963,7 +1962,7 @@ function calcularCapacidadTecnicos(){
     const ocupacion = horasDisponibles? (c.horas/horasDisponibles*100) : null;
     const otsList = [...c.otsList].sort((a,b)=> new Date(b.fecha||0) - new Date(a.fecha||0));
     // Sin tope, un técnico puede pasar lo programado: libres no baja de 0.
-    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, horasExtra:c.horasExtra, ocupacion, libres:Math.max(0, horasDisponibles-c.horas), otsList};
+    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, ocupacion, libres:Math.max(0, horasDisponibles-c.horas), otsList};
   });
   const capRows = capRowsAll.filter(r=>esInterno(r.tecnico)).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
   // Sin tabla "Otros" (pedido de Mariana): todo ejecutor no interno va en
@@ -2022,7 +2021,7 @@ function renderTecnicos(el){
       {key:'desde', label:'Desde', fmt:v=> v? fmtDate(v) : '—'},
     ], {scroll:true})}
   </div>
-  <div class="callout info"><b>Horas disponibles</b> = suma de las horas hábiles de cada día del rango seleccionado: lunes a jueves 8 h, viernes 7 h, sábado 3 h (42 h/semana en total). El domingo no es laborable y no suma horas disponibles. <b>Horas trabajadas</b> = suma de la duración real (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores, excluyendo las que caen en domingo. <b>Horas extra</b> = esa misma duración, pero de las OT cuya Fecha Inicio Real cae en domingo — se muestran aparte porque son trabajo fuera del horario disponible, no se restan de "Horas libres" ni cuentan en el % de ocupación. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
+  <div class="callout info"><b>Horas disponibles</b> = suma de las horas hábiles de cada día del rango seleccionado: lunes a jueves 8 h, viernes 7 h, sábado 3 h (42 h/semana en total). El domingo no es laborable y no suma horas disponibles. <b>Horas trabajadas</b> = suma de la duración real completa (Fecha Fin Real − Fecha Inicio Real) de las OT del rango donde aparece el técnico en el campo Ejecutores, sin tope por jornada y domingos incluidos — por eso la ocupación puede pasar de 100%. <b>Nota:</b> cuando una OT tiene varios técnicos asignados, se cuenta la duración completa para cada uno — es una aproximación, no un reparto exacto del tiempo entre ellos.</div>
   <div class="card">
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
@@ -2042,7 +2041,6 @@ function renderTecnicos(el){
     {key:'ot', label:'OT con duración', num:true},
     {key:'horasDisp', label:'Horas disponibles', num:true, fmt:fmtH},
     {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
-    {key:'horasExtra', label:'Horas extra (domingo)', num:true, fmt:v=> v>0? `<span class="badge warn">${fmtH(v)}</span>` : fmtH(v)},
     {key:'ocupacion', label:'% Ocupación', num:true, fmt:v=>{ if(v==null) return '—'; const cls = v>110?'bad':v>90?'warn':'good'; return `<span class="badge ${cls}">${fmtPct(v)}</span>`; }},
     {key:'libres', label:'Horas libres', num:true, fmt:fmtH},
     {key:'otsList', label:'Filtrar OT trabajada', fmt:(v,row)=> row.otsList.length

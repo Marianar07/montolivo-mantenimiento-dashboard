@@ -360,8 +360,8 @@ TECNICOS.xlsx sin ninguna OT (hoy Diego Ocampo, Jhonier Meneses, Pedro Lozada)
 cuentan en horas legales con 0 trabajadas, y bajan la ocupación.
 Clic en la tarjeta → "Tiempos por técnico" (incluye inactivos que trabajaron
 en el rango, marcados "Inactivo"): cada técnico con estado ahora
-(en sitio/programado), OT con duración, horas legales, trabajadas, extra
-(domingo), libres y % ocupación.
+(en sitio/programado), OT con duración, tiempo programado, tiempo trabajado,
+libres y % ocupación.
 
 ### Ordenar tablas por columna
 
@@ -405,15 +405,9 @@ exactamente la hora hábil de ese día de la semana (8, 7, 3 o 0 h), y un
 rango de varias semanas da el total correcto sin importar en qué día de
 la semana empieza o termina.
 
-**Horas extra (domingo):** si un técnico tiene una OT cuya `Fecha Inicio
-Real` cae en domingo, esa duración se contabiliza aparte en `horasExtra`
-(columna "Horas extra (domingo)" de la tabla), no en `horasTrab`. No se
-resta de "Horas libres" ni entra en el cálculo de `% Ocupación` — son
-horas fuera del horario disponible, no parte de la capacidad regular. El
-día de la semana se determina con `new Date(r.inicio_real).getDay()===0`
-sobre la OT que le dio origen a la duración (mismo criterio de "duración
-real" que ya existía: solo cuenta si la OT tiene Fecha Inicio Real y
-Fecha Fin Real).
+**Horas extra (domingo):** eliminado (29-sep-2026). Las horas de domingo
+suman al tiempo trabajado como cualquier otro día; el domingo sigue sin
+sumar al tiempo programado (`HORAS_POR_DIA[0] = 0`).
 
 **Tiempo trabajado SIN tope** (decisión de Mariana, 29-sep-2026, reemplaza
 al tope anterior por jornada): cada OT suma su duración real completa (Fecha
@@ -421,8 +415,9 @@ Fin Real − Fecha Inicio Real) al técnico, aunque pase de la jornada o de 42
 h/semana — "si trabaja más horas también puede salir". La ocupación puede
 pasar de 100%. Se le mostró el efecto antes de decidir: con tope 676 h, sin
 tope 913 h (29-sep-2026), porque las OT abiertas varios días suman también
-las noches (OT 000130 = 169 h de Juan José Mosquera). Si la OT empezó en
-domingo, su duración va a "Horas extra (domingo)". "Horas libres" no baja de 0. El "Tiempo programado"
+las noches (OT 000130 = 169 h de Juan José Mosquera). Las OT de domingo
+también suman al tiempo trabajado: ya **no existe** la columna "Horas extra
+(domingo)" (Mariana: "todo debe ir en tiempo trabajado"). "Horas libres" no baja de 0. El "Tiempo programado"
 sigue siendo el horario legal (`HORAS_POR_DIA`, 42 h/semana).
 
 **Rango en "Todo el periodo":** sin "Desde" elegido, `rangoEfectivoOT()`
@@ -432,14 +427,13 @@ periodo (antes una OT suelta del 19/may inflaba las horas disponibles).
 
 **Promedios por técnico** (cuadros arriba de la pestaña): "OT realizadas
 por técnico" = promedio de la columna "OT con duración"; "Ocupación por día
-por técnico" = horas trabajadas (sin domingos) / días laborables (L–S) del
+por técnico" = horas trabajadas (domingos incluidos) / días laborables (L–S) del
 rango, en h/día. Ambos solo sobre técnicos internos que aparecen en alguna
 OT del histórico (los de TECNICOS.xlsx sin ninguna OT no bajan el promedio).
 
 **No volver a un modelo de horas uniformes por día** (p. ej. dividir 42h
 entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
-3h S), y mezclar domingo como si fuera un día laborable normal ocultaría
-las horas extra reales.
+3h S), y el domingo no suma al tiempo programado.
 
 ### Técnicos internos vs. proveedores vs. otros (pestañas "Técnicos" y "Órdenes de Trabajo")
 
