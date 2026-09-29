@@ -1188,7 +1188,7 @@ function renderResumen(el){
       {key:'inicio', label:'Fecha de paro', fmt:fmtFechaHoraCorta},
       // Sin fin todavía: cuánto lleva parado hasta hoy.
       {key:'duracion_h', label:'Duración', fmt:(v,r)=> v!=null ? fmtH(v)
-        : (r.inicio && !r.fin ? `<span class="badge bad">${fmtDias((Date.now()-new Date(r.inicio))/86400000)} y contando</span>` : '—')},
+        : (r.inicio && !r.fin ? `<span class="badge bad" style="white-space:normal;display:inline-block;">${fmtDias((Date.now()-new Date(r.inicio))/86400000)} y contando</span>` : '—')},
     ], {filtros:[['tipo','Tipo'],['estado_paro','Estado'],['lugar','Lugar']]});
   }));
   // Listados de OT del Resumen: siempre con columna Costo y el costo total
