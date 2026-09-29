@@ -314,6 +314,8 @@ Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
   respuesta muestran también la **hora** (`fmtFechaHoraCorta`): el
   cumplimiento compara fecha y hora, y sin la hora una SS respondida el mismo
   día de la esperada pero más tarde parecía mal marcada como incumplida.
+  En los listados de SS abiertas (ninguna con respuesta) no se muestra la
+  columna Respuesta.
 Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 
 ### Ordenar tablas por columna

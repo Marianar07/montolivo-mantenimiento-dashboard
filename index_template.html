@@ -1184,7 +1184,10 @@ function renderResumen(el){
     {key:'_cumpl', label:'Cumpl.', fmt:(v,r)=>{ const c=cumplimientoSS(r); return c==='si'?'<span class="badge good">Cumplida</span>':c==='no'?'<span class="badge bad">Incumplida</span>':c==='pendiente'?'<span class="badge warn">Pendiente</span>':'—'; }},
     {key:'ot_asociada', label:'OT', fmt:v=>esc(v||'—')},
   ];
-  const modalSS = (titulo, rows) => modalFiltrable(titulo, rows.slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss)), colsSS,
+  // Si ninguna SS del listado tiene respuesta (p. ej. SS abiertas) se quita
+  // la columna "Respuesta" (pedido de Mariana: saldría toda en "—").
+  const modalSS = (titulo, rows) => modalFiltrable(titulo, rows.slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss)),
+    rows.some(r=>r.fecha_respuesta) ? colsSS : colsSS.filter(c=>c.key!=='fecha_respuesta'),
     {filtros:[['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']], placeholder:'Buscar por SS, equipo, lugar, OT...'});
   const ssTotEl = document.getElementById('ssTotalesCard');
   if(ssTotEl) ssTotEl.addEventListener('click', e=>{ if(e.target.closest('.sev-row')) return; modalSS('Solicitudes de servicio', ss); });
