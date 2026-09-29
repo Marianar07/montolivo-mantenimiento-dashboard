@@ -271,6 +271,11 @@ O.T.` (`estado==='Abierta'`).
   incluye `PROVEEDORES_EXTRA`), con tipo, abiertas/cerradas y una fila por
   proveedor clicable → sus OT.
 - **OT sin técnico asignado**: OT con `Ejecutores` vacío; clic → listado.
+- **Costos** (pedido de Mariana): cada tarjeta muestra "Costo total" de sus
+  OT (`costo_real`, ya consolidado por OT), la fila de cada proveedor su
+  costo, y todos los listados del bloque (`modalOT()`) llevan columna Costo
+  y el costo total arriba. Las severidades de "OT cerradas" también son
+  clicables (listado con fin real, días de solución y costo).
 
 ### Promedios por día: SS creadas y OT realizadas
 
