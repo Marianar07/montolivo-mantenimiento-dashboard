@@ -1081,8 +1081,8 @@ function renderResumen(el){
   const fmtDurParo = h => h==null ? '—' : (h<24 ? fmtH(h) : fmtDias(h/24));
   const parosHtml = parosPeriodo.length===0 ? '<div class="sev-time">Sin paros en el periodo seleccionado</div>'
     : `<div class="sev-list">
-      <button type="button" class="sev-row" data-paros="correctivos"><span>Correctivos: <b>${nParosCorrectivos}</b></span><span class="sev-time">${fmtDurParo(promDurParos(gruposParos.correctivos.rows))} ›</span></button>
-      <button type="button" class="sev-row" data-paros="preventivos"><span>Preventivos: <b>${nParosPreventivos}</b></span><span class="sev-time">${fmtDurParo(promDurParos(gruposParos.preventivos.rows))} ›</span></button>
+      <div class="sev-row"><span>Correctivos: <b>${nParosCorrectivos}</b></span><span class="sev-time">${fmtDurParo(promDurParos(gruposParos.correctivos.rows))}</span></div>
+      <div class="sev-row"><span>Preventivos: <b>${nParosPreventivos}</b></span><span class="sev-time">${fmtDurParo(promDurParos(gruposParos.preventivos.rows))}</span></div>
       <button type="button" class="sev-row${nParosAbiertos?' sev-row-alerta':''}" data-paros="sin_resolver"><span>${nParosAbiertos?'<span class="status-dot bad"></span> ':''}Sin resolver: <b>${nParosAbiertos}</b></span><span class="sev-time">${fmtDurParo(promDurAbiertos(gruposParos.sin_resolver.rows))} ›</span></button>
     </div>`;
 
