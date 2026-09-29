@@ -295,6 +295,23 @@ O.T.` (`estado==='Abierta'`).
   de mano de obra — no mostrarlo como tal hasta que Mariana lo confirme o
   llegue un dato explícito de Mantum.
 
+### Bloque "Solicitudes de servicio" del Resumen Gerencial
+
+Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
+- **SS totales**: abiertas/cerradas (por `Fecha de respuesta`) y
+  cumplimiento vs. Fecha esperada (`cumplimientoStatsSS()`, el mismo de la
+  pestaña SS: cumplidas / incumplidas / pendientes). Clic → todas las SS.
+- **Una tarjeta por cada Estado** del CMMS (orden: Creada, Editada, Leída,
+  Validada, Programada en O.T., Ejecutada, Evaluada, No aprobada; un estado
+  nuevo aparece solo, al final). Cada una: total, días promedio abiertas (o
+  de solución si ya están cerradas) y una fila por severidad clicable + "Ver
+  todas". El color abierta/cerrada sale de `Fecha de respuesta`, no del
+  texto del Estado.
+- Los listados usan `modalFiltrable()` (buscador + filtros de Tipo, Estado,
+  Severidad, Lugar) con columnas SS, tipo, severidad, estado, equipo, lugar,
+  solicitud, esperada, días, cumplimiento y OT.
+Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
+
 ### Ordenar tablas por columna
 
 Pedido de Mariana: **todas** las tablas se ordenan al hacer clic en el

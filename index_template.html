@@ -249,7 +249,7 @@ button.sev-row:focus-visible{outline:2px solid var(--maroon);outline-offset:1px;
 /* ---- Modal genérico de detalle ---- */
 .modal-overlay{position:fixed;inset:0;background:rgba(36,27,29,0.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;}
 .modal-overlay[hidden]{display:none;}
-.modal-box{background:var(--card);border-radius:10px;max-width:900px;width:100%;max-height:85vh;overflow:auto;box-shadow:0 8px 30px rgba(36,27,29,0.25);}
+.modal-box{background:var(--card);border-radius:10px;max-width:1100px;width:100%;max-height:85vh;overflow:auto;box-shadow:0 8px 30px rgba(36,27,29,0.25);}
 .modal-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--card);}
 .modal-head h3{margin:0;font-size:15px;}
 .modal-close{border:none;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--ink-3);padding:0 4px;}
@@ -1058,6 +1058,37 @@ function renderResumen(el){
 
   const ss = getFilteredSS();
   const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).length;
+  // Bloque "Solicitudes de servicio" (pedido de Mariana, 29-sep-2026): SS
+  // totales con cumplimiento (mismo cálculo que la pestaña SS) + una tarjeta
+  // por cada Estado del CMMS con su desglose por severidad (clicable).
+  // Abierta/cerrada SIEMPRE por Fecha de respuesta, nunca por el texto del
+  // Estado (ver CLAUDE.md).
+  const cumplSSR = cumplimientoStatsSS(ss);
+  const diasSSR = r => { if(!r.fecha_ss) return null; const fin = r.fecha_respuesta ? new Date(r.fecha_respuesta) : new Date(); return Math.max(0,(fin-new Date(r.fecha_ss))/86400000); };
+  const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','No aprobada'];
+  const estadosSS = [...new Set(ss.map(r=>r.estado||'Sin estado'))]
+    .sort((a,b)=>{ const ia=ORDEN_ESTADO_SS.indexOf(a), ib=ORDEN_ESTADO_SS.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib) || a.localeCompare(b); });
+  const cumplSSHtml = `<div class="sev-list">
+      <div class="sev-time" style="padding:0 6px;">Cumplimiento (vs. fecha esperada, ${cumplSSR.total} SS)</div>
+      ${miniMeter('Cumplidas', cumplSSR.pctSi, 'good', `${cumplSSR.si}`)}
+      ${miniMeter('Incumplidas', cumplSSR.pctNo, 'bad', `${cumplSSR.no}`)}
+      ${miniMeter('Pendientes', cumplSSR.pctPendiente, 'warn', `${cumplSSR.pendiente}`)}
+    </div>`;
+  const tarjetaEstadoSS = (est, i) => {
+    const rows = ss.filter(r=>(r.estado||'Sin estado')===est);
+    const abiertas = rows.filter(r=>!r.fecha_respuesta).length;
+    const cerrado = abiertas===0;
+    const prom = promDias(rows, diasSSR).prom;
+    const sevs = sevOrden(rows).map(sv=>{
+      const n = rows.filter(r=>(r.severidad||'Sin severidad')===sv).length;
+      return `<button type="button" class="sev-row" data-ss-estado="${esc(est)}" data-ss-sev="${esc(sv)}" title="Ver SS ${esc(est)} de severidad ${esc(sv)}"><span>${esc(sv)}: <b>${n}</b></span><span class="sev-time">›</span></button>`;
+    }).join('');
+    return kpiCard({label:`SS ${est}`, value:rows.length,
+      sub:`<div class="tipo-line"><span>${cerrado ? 'Cerradas' : (abiertas===rows.length ? 'Abiertas' : `Abiertas: <b>${abiertas}</b>`)}</span></div>`
+        + `${cerrado ? 'Solución promedio' : 'Llevan en promedio'} <b>${fmtDias(prom)}</b>${cerrado ? '' : ' abiertas'}`
+        + `<div class="sev-list">${sevs}<button type="button" class="sev-row" data-ss-estado="${esc(est)}" title="Ver todas las SS ${esc(est)}"><span>Ver todas</span><span class="sev-time">›</span></button></div>`,
+      hero:true, status: est==='No aprobada' ? '' : (cerrado ? 'good' : 'warn')});
+  };
 
   el.innerHTML = `
   ${sectionTitle('Indicadores clave del periodo')}
@@ -1077,15 +1108,15 @@ function renderResumen(el){
     ${kpiCard({label:'OT sin técnico asignado', value:otSinTecnico.length, sub:`${tiposHtml(otSinTecnico)}${abiertasCerradas(otSinTecnico)}${otSinTecnico.length?'<div class="sev-time">Clic para ver cuáles</div>':''}`, hero:true, status: otSinTecnico.length? 'bad':'good', id:'otSinTecnicoCard', clickable: otSinTecnico.length>0})}
   `, true)}
 
-  <div class="grid2">
-    ${kpiGroup('Trabajo', `
-      ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
-      ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
-    `)}
-    ${kpiGroup('Servicio', `
-      ${kpiCard({label:'Solicitudes de servicio', value:ss.length, sub:`${ssAbiertas} abiertas`, hero:true, accent:'c3'})}
-    `)}
-  </div>
+  ${kpiGroup('Solicitudes de servicio', `
+    ${kpiCard({label:'SS totales', value:ss.length, sub:`<div class="tipo-line"><span>Abiertas: <b>${ssAbiertas}</b></span><span>Cerradas: <b>${ss.length-ssAbiertas}</b></span></div><div class="sev-time">Clic para ver todas</div>${cumplSSHtml}`, hero:true, accent:'c3', id:'ssTotalesCard', clickable:true})}
+    ${estadosSS.map(tarjetaEstadoSS).join('')}
+  `, true)}
+
+  ${kpiGroup('Trabajo', `
+    ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
+    ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
+  `)}
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
 
@@ -1131,6 +1162,28 @@ function renderResumen(el){
     {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
   ];
   const porCostoDesc = rows => rows.slice().sort((a,b)=>(b.costo_real||0)-(a.costo_real||0));
+  const colsSS = [
+    {key:'ss', label:'SS', fmt:v=>`SS-${esc(v)}`},
+    {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'severidad', label:'Sev.'},
+    {key:'estado', label:'Estado', fmt:(v,r)=>`<span class="badge ${r.fecha_respuesta?'good':'warn'}" style="white-space:normal;display:inline-block;">${esc(v??'—')}</span>`},
+    {key:'equipo', label:'Equipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'fecha_ss', label:'Solicitud', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
+    {key:'fecha_esperada', label:'Esperada', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
+    {key:'_dias', label:'Días', num:true, fmt:(v,r)=>{ const d=diasSSR(r); return d==null?'—':Math.floor(d)+' d'; }},
+    {key:'_cumpl', label:'Cumpl.', fmt:(v,r)=>{ const c=cumplimientoSS(r); return c==='si'?'<span class="badge good">Cumplida</span>':c==='no'?'<span class="badge bad">Incumplida</span>':c==='pendiente'?'<span class="badge warn">Pendiente</span>':'—'; }},
+    {key:'ot_asociada', label:'OT', fmt:v=>esc(v||'—')},
+  ];
+  const modalSS = (titulo, rows) => modalFiltrable(titulo, rows.slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss)), colsSS,
+    {filtros:[['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']], placeholder:'Buscar por SS, equipo, lugar, OT...'});
+  const ssTotEl = document.getElementById('ssTotalesCard');
+  if(ssTotEl) ssTotEl.addEventListener('click', e=>{ if(e.target.closest('.sev-row')) return; modalSS('Solicitudes de servicio', ss); });
+  el.querySelectorAll('[data-ss-estado]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const est = btn.dataset.ssEstado, sev = btn.dataset.ssSev;
+    const rows = ss.filter(r=>(r.estado||'Sin estado')===est && (!sev || (r.severidad||'Sin severidad')===sev));
+    modalSS(`SS ${est}${sev?` — severidad ${sev}`:''}`, rows);
+  }));
   // Costo total por lugar (clic en "Costo total mantenimiento").
   const costoTotalEl = document.getElementById('costoTotalCard');
   if(costoTotalEl) costoTotalEl.addEventListener('click', ()=>{
