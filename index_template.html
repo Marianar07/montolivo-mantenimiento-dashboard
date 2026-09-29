@@ -1097,9 +1097,10 @@ function renderResumen(el){
   const nEnSitio = ubicacionRowsResumen.filter(r=>r.estado==='en_sitio').length;
   const nProgramados = ubicacionRowsResumen.filter(r=>r.estado==='programado').length;
   const nConflicto = ubicacionRowsResumen.filter(r=>r.estado==='conflicto').length;
-  const tecnicosConTrabajo = nEnSitio + nProgramados + nConflicto;
-  const subTecnicos = tecnicosConTrabajo===0 ? `de ${ubicacionRowsResumen.length} técnicos`
-    : `${nEnSitio} en sitio · ${nProgramados} programado${nProgramados===1?'':'s'}${nConflicto? ' · '+nConflicto+' con conflicto':''} · de ${ubicacionRowsResumen.length}`;
+  const nSinAsignacion = ubicacionRowsResumen.filter(r=>r.estado==='sin_asignacion').length;
+  // Tarjeta "Técnicos" (pedido de Mariana): cantidad de técnicos activos y
+  // cómo están ahora - mismas categorías de "Ubicación del técnico".
+  const ubicTecHtml = `<div class="tipo-line"><span>En sitio: <b>${nEnSitio}</b></span><span>Programados: <b>${nProgramados}</b></span><span>Sin asignación: <b>${nSinAsignacion}</b></span>${nConflicto?`<span>Varios servicios: <b>${nConflicto}</b></span>`:''}</div>`;
 
   // Horas de los técnicos internos en el rango (mismo cálculo que la pestaña
   // Técnicos). Horas legales = jornada legal (42 h/semana: L-J 8 h, V 7 h,
@@ -1116,8 +1117,6 @@ function renderResumen(el){
       <div class="sev-row"><span>Horas legales</span><b>${fmtHoras(horasLegales)}</b></div>
       <div class="sev-row"><span>Horas trabajadas</span><b>${fmtHoras(horasTrabajadas)}</b></div>
       <div class="sev-row"><span>Ocupación</span><b>${fmtPct(ocupacionTec)}</b></div>
-      <div class="sev-time" style="padding:0 6px;">${tecConsiderados.length} técnicos × ${fmtHoras(capT.horasDisponibles)} (42 h/semana), ${capT.desde.toLocaleDateString('es-CO')} → ${capT.hasta.toLocaleDateString('es-CO')}</div>
-      <div class="sev-time" style="padding:0 6px;">Clic para ver cada técnico</div>
     </div>`;
   const ss = getFilteredSS();
   const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).length;
@@ -1185,7 +1184,7 @@ function renderResumen(el){
 
   ${kpiGroup('Trabajo', `
     ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, corner: parosPeriodo.some(p=>p.duracion_h!=null) ? `<b>${fmtDurParo(promDurParos(parosPeriodo))}</b><span>duración promedio</span>` : '', sub:parosHtml, status:stParos, hero:true, id:'parosActualesCard'})}
-    ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos+horasTecHtml, hero:true, id:'tecnicosCard', clickable:true})}
+    ${kpiCard({label:'Técnicos', value:ubicacionRowsResumen.length, sub:ubicTecHtml+horasTecHtml, hero:true, id:'tecnicosCard', clickable:true})}
   `)}
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>

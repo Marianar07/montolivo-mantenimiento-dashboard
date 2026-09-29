@@ -347,8 +347,10 @@ Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 
 ### Horas de técnicos en el Resumen
 
-La tarjeta "Técnicos en sitio / programados" muestra además (pedido de
-Mariana): **Horas legales** = horas hábiles del rango (42 h/semana,
+La tarjeta **"Técnicos"** (antes "Técnicos en sitio / programados") muestra
+la cantidad de técnicos internos activos y, debajo, cuántos están En sitio /
+Programados / Sin asignación (mismas categorías de "Ubicación del técnico",
+`calcularUbicacionTecnicos`). Además (pedido de Mariana): **Horas legales** = horas hábiles del rango (42 h/semana,
 `horasDisponiblesRango`) × técnicos considerados (internos activos + los
 inactivos que trabajaron en el rango); **Horas trabajadas** = suma de horas
 trabajadas con tope por jornada; **Ocupación** = trabajadas / legales. Sale de
@@ -356,7 +358,8 @@ trabajadas con tope por jornada; **Ocupación** = trabajadas / legales. Sale de
 los números coinciden con "Capacidad y ocupación por técnico". Los técnicos de
 TECNICOS.xlsx sin ninguna OT (hoy Diego Ocampo, Jhonier Meneses, Pedro Lozada)
 cuentan en horas legales con 0 trabajadas, y bajan la ocupación.
-Clic en la tarjeta → "Tiempos por técnico": cada técnico con estado ahora
+Clic en la tarjeta → "Tiempos por técnico" (incluye inactivos que trabajaron
+en el rango, marcados "Inactivo"): cada técnico con estado ahora
 (en sitio/programado), OT con duración, horas legales, trabajadas, extra
 (domingo), libres y % ocupación.
 
