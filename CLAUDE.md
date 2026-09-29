@@ -295,6 +295,16 @@ O.T.` (`estado==='Abierta'`).
   de mano de obra — no mostrarlo como tal hasta que Mariana lo confirme o
   llegue un dato explícito de Mantum.
 
+### Ordenar tablas por columna
+
+Pedido de Mariana: **todas** las tablas se ordenan al hacer clic en el
+título. Las paginadas (`buildPagedTable`) ordenan sus datos completos
+(`.sortable-th`, `sortVal`); todas las demás (listados emergentes, tablas
+pequeñas) usan el manejador global `ordenarTablaPorColumna()`/`valorOrden()`,
+que ordena las filas visibles por el texto de la celda entendiendo dinero,
+números, %, horas/días y fechas dd/mm/aaaa. Una tabla nueva queda ordenable
+sola; para excluir una, envolverla en un elemento con `data-no-orden`.
+
 ### Promedios por día: SS creadas y OT realizadas
 
 Dos cuadros usan la misma función `promedioPorDia()`:

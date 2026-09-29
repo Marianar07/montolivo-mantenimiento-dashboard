@@ -275,7 +275,8 @@ thead th{
 }
 thead th:first-child{border-top-left-radius:6px;}
 thead th:last-child{border-top-right-radius:6px;}
-thead th.sortable-th{cursor:pointer;user-select:none;}
+thead th.sortable-th, thead th{cursor:pointer;user-select:none;}
+thead th:hover{background:var(--maroon-dark);}
 thead th.sortable-th:hover{background:var(--maroon-dark);}
 .sort-arrow{display:inline-block;margin-left:3px;font-size:9px;}
 tbody td{padding:7px 10px;border-bottom:1px solid var(--border);white-space:nowrap;}
@@ -815,6 +816,58 @@ function wireBarClicks(chartwrapEl){
 }
 
 /* generic paginated + searchable table for large datasets */
+/* Ordenar cualquier tabla al hacer clic en su título (pedido de Mariana).
+   Las tablas paginadas (buildPagedTable) ya ordenan sus datos completos con
+   .sortable-th; este manejador global cubre todas las demás (listados
+   emergentes, tablas pequeñas): ordena las filas visibles según el texto de
+   la celda, entendiendo dinero ($ 1.234.567), números, %, horas/días y
+   fechas dd/mm/aaaa. Clic de nuevo invierte el orden; vacíos siempre al final. */
+function valorOrden(txt){
+  const t = String(txt||'').trim();
+  if(!t || t==='—' || t==='-') return null;
+  const f = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2}):(\d{2})\s*([ap])?)?/i);
+  if(f){
+    let h = f[4]? +f[4] : 0;
+    if(f[6]){ const pm = f[6].toLowerCase()==='p'; if(pm && h<12) h+=12; if(!pm && h===12) h=0; }
+    return new Date(+f[3], +f[2]-1, +f[1], h, f[5]? +f[5] : 0).getTime();
+  }
+  if(t.includes('$')){ const n = t.replace(/[^\d,-]/g,'').replace(',', '.'); return n? parseFloat(n) : null; }
+  const m = t.match(/^-?[\d.,]+/);
+  if(m){
+    let n = m[0];
+    if(/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(n)) n = n.replace(/\./g,'').replace(',', '.'); // 1.234.567,8
+    else n = n.replace(',', '.');                                                        // 7.5 / 7,5
+    const v = parseFloat(n); if(!isNaN(v)) return v;
+  }
+  return t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+}
+function ordenarTablaPorColumna(th){
+  const table = th.closest('table'); const tbody = table && table.tBodies[0];
+  if(!tbody) return;
+  const idx = [...th.parentNode.children].indexOf(th);
+  const filas = [...tbody.rows].filter(tr=>!tr.querySelector('td[colspan]'));
+  if(filas.length < 2) return;
+  const dir = th.dataset.ordenDir==='asc' ? 'desc' : 'asc';
+  th.parentNode.querySelectorAll('th').forEach(x=>{ delete x.dataset.ordenDir; const a=x.querySelector('.sort-arrow'); if(a) a.textContent=''; });
+  th.dataset.ordenDir = dir;
+  let a = th.querySelector('.sort-arrow'); if(!a){ a=document.createElement('span'); a.className='sort-arrow'; th.appendChild(a); }
+  a.textContent = dir==='asc' ? ' ▲' : ' ▼';
+  const sign = dir==='asc' ? 1 : -1;
+  const conValor = filas.map(tr=>({tr, v: valorOrden(tr.cells[idx] ? tr.cells[idx].textContent : '')}));
+  conValor.sort((x,y)=>{
+    if(x.v===null && y.v===null) return 0;
+    if(x.v===null) return 1; if(y.v===null) return -1;
+    if(typeof x.v==='number' && typeof y.v==='number') return (x.v-y.v)*sign;
+    return String(x.v).localeCompare(String(y.v))*sign;
+  });
+  conValor.forEach(({tr})=>tbody.appendChild(tr));
+}
+document.addEventListener('click', e=>{
+  const th = e.target.closest('thead th');
+  if(!th || th.classList.contains('sortable-th') || th.closest('[data-no-orden]')) return;
+  ordenarTablaPorColumna(th);
+});
+
 /* generic paginated + searchable + sortable table for large datasets */
 function buildPagedTable(containerId, allRows, columns, opts={}){
   const pageSize = opts.pageSize || 15;
