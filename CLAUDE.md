@@ -240,9 +240,11 @@ de arriba de la pestaña: "N de M SS en el rango".)
 
 ### Bloque "Órdenes de trabajo" del Resumen Gerencial
 
-Pedido de Mariana (29-sep-2026), en `renderResumen()`: cuatro tarjetas —
-**OT totales**, **OT abiertas**, **OT cerradas** y **OT para reprogramar**
-(`necesitaReprogramar()`, clic → listado). "OT totales" muestra debajo el
+Pedido de Mariana (29-sep-2026), en `renderResumen()`: tres tarjetas —
+**OT totales**, **OT abiertas** y **OT cerradas**. Ya no hay tarjeta aparte
+"OT para reprogramar": dentro de "OT abiertas" hay una fila **"Vencidas"**
+(= `necesitaReprogramar()`: sin iniciar y con inicio programado ya pasado),
+clicable → listado con días de atraso. "OT totales" muestra debajo el
 cumplimiento preventivo y correctivo (mini barras; ya no hay tarjetas
 individuales de cumplimiento en "Lo más importante"). Abierta/cerrada según el `Estado
 O.T.` (`estado==='Abierta'`).
