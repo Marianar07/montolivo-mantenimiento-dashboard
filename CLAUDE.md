@@ -309,7 +309,10 @@ Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
   y por estado, todas clicables.
 - Los listados usan `modalFiltrable()` (buscador + filtros de Tipo, Estado,
   Severidad, Lugar) con columnas SS, tipo, severidad, estado, equipo, lugar,
-  solicitud, esperada, días, cumplimiento y OT.
+  solicitud, esperada, respuesta, días, cumplimiento y OT. Esperada y
+  respuesta muestran también la **hora** (`fmtFechaHoraCorta`): el
+  cumplimiento compara fecha y hora, y sin la hora una SS respondida el mismo
+  día de la esperada pero más tarde parecía mal marcada como incumplida.
 Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 
 ### Ordenar tablas por columna

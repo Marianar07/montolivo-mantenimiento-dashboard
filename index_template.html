@@ -387,6 +387,8 @@ const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
 /* ============ Helpers ============ */
 function parseD(s){ return s ? new Date(s) : null; }
 function fmtDate(s){ if(!s) return '—'; const d=parseD(s); return d.toLocaleDateString('es-CO',{year:'numeric',month:'2-digit',day:'2-digit'})+' '+d.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}); }
+// Fecha + hora en dos líneas (para tablas angostas): "22/8/2026" / "14:00".
+function fmtFechaHoraCorta(v){ if(!v) return '—'; const d=parseD(v); return `${d.toLocaleDateString('es-CO')}<br><span style="color:var(--ink-3);font-size:11px;">${d.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}</span>`; }
 function fmtMoney(n){ if(n==null) return '—'; return '$ '+Math.round(n).toLocaleString('es-CO'); }
 function fmtPct(n,d=1){ if(n==null||isNaN(n)) return '—'; return n.toFixed(d)+'%'; }
 function fmtH(n){ if(n==null||isNaN(n)) return '—'; return n.toFixed(1)+' h'; }
@@ -825,7 +827,7 @@ function wireBarClicks(chartwrapEl){
 function valorOrden(txt){
   const t = String(txt||'').trim();
   if(!t || t==='—' || t==='-') return null;
-  const f = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2}):(\d{2})\s*([ap])?)?/i);
+  const f = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]*(\d{1,2}):(\d{2})\s*([ap])?)?/i);
   if(f){
     let h = f[4]? +f[4] : 0;
     if(f[6]){ const pm = f[6].toLowerCase()==='p'; if(pm && h<12) h+=12; if(!pm && h===12) h=0; }
@@ -1176,7 +1178,8 @@ function renderResumen(el){
     {key:'equipo', label:'Equipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'fecha_ss', label:'Solicitud', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
-    {key:'fecha_esperada', label:'Esperada', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
+    {key:'fecha_esperada', label:'Esperada', fmt:fmtFechaHoraCorta},
+    {key:'fecha_respuesta', label:'Respuesta', fmt:fmtFechaHoraCorta},
     {key:'_dias', label:'Días', num:true, fmt:(v,r)=>{ const d=diasSSR(r); return d==null?'—':Math.floor(d)+' d'; }},
     {key:'_cumpl', label:'Cumpl.', fmt:(v,r)=>{ const c=cumplimientoSS(r); return c==='si'?'<span class="badge good">Cumplida</span>':c==='no'?'<span class="badge bad">Incumplida</span>':c==='pendiente'?'<span class="badge warn">Pendiente</span>':'—'; }},
     {key:'ot_asociada', label:'OT', fmt:v=>esc(v||'—')},
