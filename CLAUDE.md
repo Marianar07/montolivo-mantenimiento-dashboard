@@ -259,7 +259,7 @@ O.T.` (`estado==='Abierta'`).
   desglosado por severidad.
 - Abiertas: días promedio que llevan abiertas = hoy − `Fecha Creación`,
   desglosado por severidad; cada severidad es clicable y abre el listado de
-  esas OT (días abierta y si está para reprogramar).
+  esas OT (con días abierta; sin columna de "vencida", a pedido de Mariana).
 
 ### Promedios por día: SS creadas y OT realizadas
 

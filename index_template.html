@@ -920,8 +920,7 @@ function renderResumen(el){
       return `<button type="button" class="sev-row" data-sev-abiertas="${esc(s)}" title="Ver OT abiertas de severidad ${esc(s)}"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasAbiertaOT).prom)} ›</span></button>`;
     }).join('') || '<div class="sev-row">Sin OT abiertas</div>'}</div>
     <div class="sev-list"><button type="button" class="sev-row" id="otReprogramarCard" title="Abiertas, sin terminar y con fecha fin programada ya pasada"><span style="white-space:nowrap"><span class="status-dot ${otParaReprogramar>0?'bad':'good'}"></span> Vencidas: <b>${otParaReprogramar}</b></span><span class="sev-time">ver cuáles ›</span></button>
-    ${otSinCerrar? `<button type="button" class="sev-row" id="otSinCerrarBtn" title="Tienen Fecha Fin Real pero siguen abiertas en el sistema"><span style="white-space:nowrap"><span class="status-dot warn"></span> Terminadas sin cerrar: <b>${otSinCerrar}</b></span><span class="sev-time">ver cuáles ›</span></button>` : ''}
-    <div class="sev-time" style="padding:0 6px;">Vencida = ya pasó su fecha fin programada y no se ha terminado (hay que reprogramarla)</div></div>`;
+    ${otSinCerrar? `<button type="button" class="sev-row" id="otSinCerrarBtn" title="Tienen Fecha Fin Real pero siguen abiertas en el sistema"><span style="white-space:nowrap"><span class="status-dot warn"></span> Terminadas sin cerrar: <b>${otSinCerrar}</b></span><span class="sev-time">ver cuáles ›</span></button>` : ''}</div>`;
   const sevCerradasHtml = `<div class="sev-list">${sevOrden(otCerradasRows).map(s=>{
       const rows = otCerradasRows.filter(r=>(r.severidad||'Sin severidad')===s);
       return `<div class="sev-row"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasSolucionOT).prom)}</span></div>`;
@@ -1026,9 +1025,7 @@ function renderResumen(el){
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
-      {key:'_dias', label:'Días abierta', num:true, fmt:(v,r)=>{ const d=diasAbiertaOT(r); return d==null?'—':Math.floor(d)+' d'; }},
-      {key:'_reprog', label:'¿Vencida?', fmt:(v,r)=>necesitaReprogramar(r)?`<span class="badge bad">Sí (${diasAtrasoOT(r)} d)</span>`:'<span class="badge neutral">No</span>'},
-    ], {scroll:true}));
+      {key:'_dias', label:'Días abierta', num:true, fmt:(v,r)=>{ const d=diasAbiertaOT(r); return d==null?'—':Math.floor(d)+' d'; }},    ], {scroll:true}));
   }));
   const sinCerrarEl = document.getElementById('otSinCerrarBtn');
   if(sinCerrarEl) sinCerrarEl.addEventListener('click', ()=>{
