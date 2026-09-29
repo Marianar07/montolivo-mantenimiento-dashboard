@@ -226,6 +226,14 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .kpi-card.clickable{cursor:pointer;transition:box-shadow .15s,border-color .15s;}
 .kpi-card.clickable:hover{border-color:var(--maroon);box-shadow:0 2px 8px rgba(36,27,29,0.12);}
 .kpi-card.clickable:focus-visible{outline:2px solid var(--maroon);outline-offset:2px;}
+/* Desglose por severidad dentro de una tarjeta KPI (Resumen > Órdenes de trabajo) */
+.sev-list{margin-top:10px;border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:4px;}
+.sev-row{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;color:var(--ink-2);padding:4px 6px;border-radius:6px;border:1px solid transparent;background:none;font-family:inherit;text-align:left;width:100%;}
+.sev-row b{color:var(--ink);font-size:13px;}
+.sev-row .sev-time{color:var(--ink-3);font-size:11px;white-space:nowrap;}
+button.sev-row{cursor:pointer;}
+button.sev-row:hover{border-color:var(--maroon);background:var(--cream);}
+button.sev-row:focus-visible{outline:2px solid var(--maroon);outline-offset:1px;}
 
 /* ---- Modal genérico de detalle ---- */
 .modal-overlay{position:fixed;inset:0;background:rgba(36,27,29,0.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;}
@@ -883,7 +891,28 @@ function renderResumen(el){
   // KPIs de trabajo/servicio del periodo seleccionado (sí respetan el
   // filtro de fecha de arriba, a diferencia de "Paros por equipo" en su
   // propia pestaña, que muestra una foto del instante actual).
-  const otAbiertas = ot.filter(r=>r.estado==='Abierta').length;
+  // Bloque "Órdenes de trabajo": abiertas vs. cerradas según Estado O.T.
+  // Cerradas: tiempo de solución = Fecha Fin Real − Fecha Creación (solo las
+  // que traen Fecha Fin Real). Abiertas: días desde la Fecha Creación hasta hoy.
+  const ahoraMs = Date.now();
+  const otAbiertasRows = ot.filter(r=>r.estado==='Abierta');
+  const otCerradasRows = ot.filter(r=>r.estado!=='Abierta');
+  const diasSolucionOT = r => (r.fin_real && r.fecha_creacion) ? Math.max(0,(new Date(r.fin_real)-new Date(r.fecha_creacion))/86400000) : null;
+  const diasAbiertaOT = r => r.fecha_creacion ? Math.max(0,(ahoraMs-new Date(r.fecha_creacion))/86400000) : null;
+  const promDias = (rows, fn) => { const v=rows.map(fn).filter(x=>x!=null); return {prom: v.length? v.reduce((s,x)=>s+x,0)/v.length : null, n:v.length}; };
+  const fmtDias = d => d==null ? '—' : d.toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})+' días';
+  const sevOrden = rows => [...new Set(rows.map(r=>r.severidad||'Sin severidad'))]
+    .sort((a,b)=>(ORDEN_SEVERIDAD[a]??99)-(ORDEN_SEVERIDAD[b]??99) || a.localeCompare(b));
+  const solCerradas = promDias(otCerradasRows, diasSolucionOT);
+  const tiempoAbiertas = promDias(otAbiertasRows, diasAbiertaOT);
+  const sevAbiertasHtml = `<div class="sev-list">${sevOrden(otAbiertasRows).map(s=>{
+      const rows = otAbiertasRows.filter(r=>(r.severidad||'Sin severidad')===s);
+      return `<button type="button" class="sev-row" data-sev-abiertas="${esc(s)}" title="Ver OT abiertas de severidad ${esc(s)}"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasAbiertaOT).prom)} ›</span></button>`;
+    }).join('') || '<div class="sev-row">Sin OT abiertas</div>'}</div>`;
+  const sevCerradasHtml = `<div class="sev-list">${sevOrden(otCerradasRows).map(s=>{
+      const rows = otCerradasRows.filter(r=>(r.severidad||'Sin severidad')===s);
+      return `<div class="sev-row"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasSolucionOT).prom)}</span></div>`;
+    }).join('') || '<div class="sev-row">Sin OT cerradas</div>'}</div>`;
   // Se cuentan códigos de OT únicos: el export trae una fila por ejecutor,
   // así que una OT con 2 técnicos aparecería dos veces.
   const otParaReprogramar = new Set(ot.filter(necesitaReprogramar).map(r=>r.ot)).size;
@@ -923,10 +952,15 @@ function renderResumen(el){
     ${meterHero({label:'Cumplimiento correctivo', pct:cumplimientoCorrectivo, sub:`${correctivoCumpl.si} de ${correctivas.length} OT correctivas`, status:stCumplCorrectivo})}
   `, true)}
 
+  ${kpiGroup('Órdenes de trabajo', `
+    ${kpiCard({label:'OT totales', value:ot.length, sub:`${otAbiertasRows.length} abiertas · ${otCerradasRows.length} cerradas`, hero:true, accent:'c1'})}
+    ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
+    ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
+    ${kpiCard({label:'OT para reprogramar', value:otParaReprogramar, sub:'Abiertas, sin iniciar y con fecha de inicio programada vencida — clic para ver', hero:true, status: otParaReprogramar>0?'bad':'good', id:'otReprogramarCard', clickable:true})}
+  `, true)}
+
   <div class="grid2">
     ${kpiGroup('Trabajo', `
-      ${kpiCard({label:'Órdenes de trabajo', value:ot.length, sub:`${otAbiertas} abiertas`, hero:true, accent:'c1'})}
-      ${kpiCard({label:'OT para reprogramar', value:otParaReprogramar, status: otParaReprogramar>0?'bad':'good', id:'otReprogramarCard', clickable:true})}
       ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:subParos, status:stParos, id:'parosActualesCard', clickable:true})}
       ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
     `)}
@@ -965,6 +999,21 @@ function renderResumen(el){
       {key:'duracion_h', label:'Duración', fmt:v=>v==null?'—':fmtH(v)},
     ], {scroll:true}));
   });
+  el.querySelectorAll('[data-sev-abiertas]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const sev = btn.dataset.sevAbiertas;
+    const detalle = otAbiertasRows.filter(r=>(r.severidad||'Sin severidad')===sev)
+      .sort((a,b)=>(diasAbiertaOT(b)??-1)-(diasAbiertaOT(a)??-1));
+    openModal(`OT abiertas — severidad ${sev} (${detalle.length})`, simpleTable(detalle, [
+      {key:'ot', label:'O.T.'},
+      {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+      {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
+      {key:'_dias', label:'Días abierta', num:true, fmt:(v,r)=>{ const d=diasAbiertaOT(r); return d==null?'—':Math.floor(d)+' d'; }},
+      {key:'_reprog', label:'¿Reprogramar?', fmt:(v,r)=>necesitaReprogramar(r)?`<span class="badge bad">Sí (${diasAtrasoOT(r)} d)</span>`:'<span class="badge neutral">No</span>'},
+    ], {scroll:true}));
+  }));
   const reprogCardEl = document.getElementById('otReprogramarCard');
   if(reprogCardEl) reprogCardEl.addEventListener('click', ()=>{
     // Una fila por OT (el export repite la OT por cada ejecutor). El detalle

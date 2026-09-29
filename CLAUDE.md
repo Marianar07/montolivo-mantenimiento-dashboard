@@ -238,6 +238,19 @@ calculó". (El cuadro "Tiempo de solución promedio" se muestra en días y sin
 texto gris debajo, a pedido de Mariana; el N queda visible en la nota azul
 de arriba de la pestaña: "N de M SS en el rango".)
 
+### Bloque "Órdenes de trabajo" del Resumen Gerencial
+
+Pedido de Mariana (29-sep-2026), en `renderResumen()`: cuatro tarjetas —
+**OT totales**, **OT abiertas**, **OT cerradas** y **OT para reprogramar**
+(`necesitaReprogramar()`, clic → listado). Abierta/cerrada según el `Estado
+O.T.` (`estado==='Abierta'`).
+- Cerradas: tiempo promedio de solución = `Fecha Fin Real` − `Fecha
+  Creación` (en días, solo las que traen Fecha Fin Real; se muestra el N),
+  desglosado por severidad.
+- Abiertas: días promedio que llevan abiertas = hoy − `Fecha Creación`,
+  desglosado por severidad; cada severidad es clicable y abre el listado de
+  esas OT (días abierta y si está para reprogramar).
+
 ### Promedios por día: SS creadas y OT realizadas
 
 Dos cuadros usan la misma función `promedioPorDia()`:
