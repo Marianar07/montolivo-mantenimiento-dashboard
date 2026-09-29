@@ -1117,6 +1117,7 @@ function renderResumen(el){
       <div class="sev-row"><span>Horas trabajadas</span><b>${fmtHoras(horasTrabajadas)}</b></div>
       <div class="sev-row"><span>Ocupación</span><b>${fmtPct(ocupacionTec)}</b></div>
       <div class="sev-time" style="padding:0 6px;">${tecConsiderados.length} técnicos × ${fmtHoras(capT.horasDisponibles)} (42 h/semana), ${capT.desde.toLocaleDateString('es-CO')} → ${capT.hasta.toLocaleDateString('es-CO')}</div>
+      <div class="sev-time" style="padding:0 6px;">Clic para ver cada técnico</div>
     </div>`;
   const ss = getFilteredSS();
   const ssAbiertas = ss.filter(r=>!r.fecha_respuesta).length;
@@ -1184,7 +1185,7 @@ function renderResumen(el){
 
   ${kpiGroup('Trabajo', `
     ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, corner: parosPeriodo.some(p=>p.duracion_h!=null) ? `<b>${fmtDurParo(promDurParos(parosPeriodo))}</b><span>duración promedio</span>` : '', sub:parosHtml, status:stParos, hero:true, id:'parosActualesCard'})}
-    ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos+horasTecHtml, hero:true})}
+    ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos+horasTecHtml, hero:true, id:'tecnicosCard', clickable:true})}
   `)}
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
@@ -1331,6 +1332,24 @@ function renderResumen(el){
       {key:'_prov', label:'Proveedor', fmt:(v,r)=>`<span class="wrap-text">${provDeOT(r).map(t=>esc(t)+(proveedoresSetR.has(t)?'':' <span class="badge neutral">No registrado</span>')).join(', ')}</span>`},
     ]));
   }));
+  // Clic en la tarjeta de técnicos → cada técnico con sus tiempos (mismos
+  // datos que "Capacidad y ocupación por técnico" de la pestaña Técnicos).
+  const tecCardEl = document.getElementById('tecnicosCard');
+  if(tecCardEl) tecCardEl.addEventListener('click', ()=>{
+    const ubic = new Map(ubicacionRowsResumen.map(u=>[u.tecnico, u]));
+    const ESTADO_TXT = {en_sitio:['good','En sitio'], programado:['info','Programado'], conflicto:['warn','Varios servicios'], sin_asignacion:['neutral','Sin asignación']};
+    const filas = tecConsiderados.slice().sort((a,b)=>b.horasTrab-a.horasTrab);
+    modalFiltrable('Tiempos por técnico', filas, [
+      {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${esc(v)}</span>${inactivosT.has(v)?' <span class="badge neutral">Inactivo</span>':''}`},
+      {key:'_ahora', label:'Ahora', fmt:(v,r)=>{ const u=ubic.get(r.tecnico); if(!u) return '—'; const [c,t]=ESTADO_TXT[u.estado]||['neutral',u.estado]; return `<span class="badge ${c}">${t}</span>`; }},
+      {key:'ot', label:'OT con duración', num:true},
+      {key:'horasDisp', label:'Horas legales', num:true, fmt:fmtH},
+      {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
+      {key:'horasExtra', label:'Horas extra (domingo)', num:true, fmt:v=> v>0? `<span class="badge warn">${fmtH(v)}</span>` : fmtH(v)},
+      {key:'libres', label:'Horas libres', num:true, fmt:fmtH},
+      {key:'ocupacion', label:'% Ocupación', num:true, fmt:v=>{ if(v==null) return '—'; const cls = v>110?'bad':v>90?'warn':'good'; return `<span class="badge ${cls}">${fmtPct(v)}</span>`; }},
+    ], {filtros:[], placeholder:'Buscar técnico...'});
+  });
   const creadaTardeEl = document.getElementById('otCreadaTardeBtn');
   if(creadaTardeEl) creadaTardeEl.addEventListener('click', ()=>{
     const detalle = otCreadaTarde.slice().sort((a,b)=>horasRegistroTarde(b)-horasRegistroTarde(a));

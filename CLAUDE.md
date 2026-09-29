@@ -356,6 +356,9 @@ trabajadas con tope por jornada; **Ocupación** = trabajadas / legales. Sale de
 los números coinciden con "Capacidad y ocupación por técnico". Los técnicos de
 TECNICOS.xlsx sin ninguna OT (hoy Diego Ocampo, Jhonier Meneses, Pedro Lozada)
 cuentan en horas legales con 0 trabajadas, y bajan la ocupación.
+Clic en la tarjeta → "Tiempos por técnico": cada técnico con estado ahora
+(en sitio/programado), OT con duración, horas legales, trabajadas, extra
+(domingo), libres y % ocupación.
 
 ### Ordenar tablas por columna
 
