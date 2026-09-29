@@ -529,20 +529,6 @@ function wireOtSelectDur(wrapEl){
 function duracionRealOT(r){
   return (r.inicio_real && r.fin_real) ? (new Date(r.fin_real)-new Date(r.inicio_real))/3600000 : null;
 }
-// Parte un intervalo [inicio, fin] en tramos por día calendario:
-// [{key:'AAAA-MM-DD', dia:Date (00:00), dow, h}]
-function tramosPorDia(inicioStr, finStr){
-  const out = [];
-  let cur = new Date(inicioStr); const fin = new Date(finStr);
-  while(cur < fin){
-    const dia = new Date(cur.getFullYear(), cur.getMonth(), cur.getDate());
-    const sig = new Date(dia); sig.setDate(sig.getDate()+1);
-    const corte = fin < sig ? fin : sig;
-    out.push({key:`${dia.getFullYear()}-${dia.getMonth()+1}-${dia.getDate()}`, dia, dow:dia.getDay(), h:(corte-cur)/3600000});
-    cur = corte;
-  }
-  return out;
-}
 function duracionProgramadaOT(r){
   return (r.inicio_programado && r.fin_programado) ? (new Date(r.fin_programado)-new Date(r.inicio_programado))/3600000 : null;
 }
@@ -1114,8 +1100,8 @@ function renderResumen(el){
   const ocupacionTec = horasLegales ? horasTrabajadas/horasLegales*100 : null;
   const fmtHoras = h => Math.round(h).toLocaleString('es-CO')+' h';
   const horasTecHtml = `<div class="sev-list">
-      <div class="sev-row"><span>Horas legales</span><b>${fmtHoras(horasLegales)}</b></div>
-      <div class="sev-row"><span>Horas trabajadas</span><b>${fmtHoras(horasTrabajadas)}</b></div>
+      <div class="sev-row"><span>Tiempo programado (h)</span><b>${fmtHoras(horasLegales)}</b></div>
+      <div class="sev-row"><span>Tiempo trabajado (h)</span><b>${fmtHoras(horasTrabajadas)}</b></div>
       <div class="sev-row"><span>Ocupación</span><b>${fmtPct(ocupacionTec)}</b></div>
     </div>`;
   const ss = getFilteredSS();
@@ -1342,8 +1328,8 @@ function renderResumen(el){
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${esc(v)}</span>${inactivosT.has(v)?' <span class="badge neutral">Inactivo</span>':''}`},
       {key:'_ahora', label:'Ahora', fmt:(v,r)=>{ const u=ubic.get(r.tecnico); if(!u) return '—'; const [c,t]=ESTADO_TXT[u.estado]||['neutral',u.estado]; return `<span class="badge ${c}">${t}</span>`; }},
       {key:'ot', label:'OT con duración', num:true},
-      {key:'horasDisp', label:'Horas legales', num:true, fmt:fmtH},
-      {key:'horasTrab', label:'Horas trabajadas', num:true, fmt:fmtH},
+      {key:'horasDisp', label:'Tiempo programado (h)', num:true, fmt:fmtH},
+      {key:'horasTrab', label:'Tiempo trabajado (h)', num:true, fmt:fmtH},
       {key:'horasExtra', label:'Horas extra (domingo)', num:true, fmt:v=> v>0? `<span class="badge warn">${fmtH(v)}</span>` : fmtH(v)},
       {key:'libres', label:'Horas libres', num:true, fmt:fmtH},
       {key:'ocupacion', label:'% Ocupación', num:true, fmt:v=>{ if(v==null) return '—'; const cls = v>110?'bad':v>90?'warn':'good'; return `<span class="badge ${cls}">${fmtPct(v)}</span>`; }},
@@ -1955,43 +1941,29 @@ function calcularCapacidadTecnicos(){
       if(!capMap.has(t)) capMap.set(t, {horas:0, horasExtra:0, ot:0, otsList:[]});
     });
   });
-  // Técnicos internos: trabajan máximo la jornada de cada día (HORAS_POR_DIA,
-  // 42 h/semana). La duración real de cada OT se reparte por día calendario
-  // (solo días dentro del rango) y las horas de cada técnico en un día se
-  // topan a la jornada de ese día - así una OT abierta varios días, o varias
-  // OT simultáneas, no suman más horas de las que el técnico puede trabajar.
-  // Domingo: solo cuenta como horas extra si la OT empezó ese domingo
-  // (máx. 8 h por domingo). Proveedores/otros: duración real sin tope.
-  const diaDesde = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
-  const diaHasta = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
+  // Tiempo trabajado SIN TOPE (decisión de Mariana, 29-sep-2026: "si trabaja
+  // más horas también puede salir"): cada OT suma su duración real completa
+  // (Fecha Fin Real − Fecha Inicio Real) a cada técnico, aunque pase de la
+  // jornada del día o de 42 h/semana. Ojo: una OT que quedó abierta varios
+  // días suma también esas noches (p. ej. OT 000130 = 169 h). Si la OT
+  // empezó en domingo va a "Horas extra (domingo)", no a trabajadas.
   ot.forEach(r=>{
     const dur = duracionRealOT(r);
     const esDomingo = r.inicio_real ? new Date(r.inicio_real).getDay()===0 : false;
-    const tramos = dur!=null ? tramosPorDia(r.inicio_real, r.fin_real).filter(x=>x.dia>=diaDesde && x.dia<=diaHasta) : [];
     splitTecnicos(r.tecnico).forEach(t=>{
       const c = capMap.get(t);
       if(dur!=null){
         c.ot += 1;
-        if(esInterno(t)){
-          c.porDia = c.porDia || new Map();
-          c.domingos = c.domingos || new Map();
-          tramos.forEach(x=>{
-            if(x.dow===0){ if(esDomingo) c.domingos.set(x.key, (c.domingos.get(x.key)||0)+x.h); }
-            else c.porDia.set(x.key, {dow:x.dow, h:((c.porDia.get(x.key)||{}).h||0)+x.h});
-          });
-        } else if(esDomingo) c.horasExtra += dur; else c.horas += dur;
+        if(esDomingo) c.horasExtra += dur; else c.horas += dur;
       }
       c.otsList.push({codigo:r.ot, dur, extra:esDomingo, fecha:r.inicio_real||r.inicio_programado||r.fecha_creacion});
     });
   });
-  capMap.forEach(c=>{
-    if(c.porDia) c.porDia.forEach(v=>{ c.horas += Math.min(v.h, HORAS_POR_DIA[v.dow]); });
-    if(c.domingos) c.domingos.forEach(h=>{ c.horasExtra += Math.min(h, 8); });
-  });
   const capRowsAll = [...capMap.entries()].map(([tecnico,c])=>{
     const ocupacion = horasDisponibles? (c.horas/horasDisponibles*100) : null;
     const otsList = [...c.otsList].sort((a,b)=> new Date(b.fecha||0) - new Date(a.fecha||0));
-    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, horasExtra:c.horasExtra, ocupacion, libres:horasDisponibles-c.horas, otsList};
+    // Sin tope, un técnico puede pasar lo programado: libres no baja de 0.
+    return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, horasExtra:c.horasExtra, ocupacion, libres:Math.max(0, horasDisponibles-c.horas), otsList};
   });
   const capRows = capRowsAll.filter(r=>esInterno(r.tecnico)).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
   // Sin tabla "Otros" (pedido de Mariana): todo ejecutor no interno va en

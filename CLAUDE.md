@@ -350,10 +350,10 @@ Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 La tarjeta **"Técnicos"** (antes "Técnicos en sitio / programados") muestra
 la cantidad de técnicos internos activos y, debajo, cuántos están En sitio /
 Programados / Sin asignación (mismas categorías de "Ubicación del técnico",
-`calcularUbicacionTecnicos`). Además (pedido de Mariana): **Horas legales** = horas hábiles del rango (42 h/semana,
+`calcularUbicacionTecnicos`). Además (pedido de Mariana): **Tiempo programado (h)** (antes "Horas legales") = horas hábiles del rango (42 h/semana,
 `horasDisponiblesRango`) × técnicos considerados (internos activos + los
-inactivos que trabajaron en el rango); **Horas trabajadas** = suma de horas
-trabajadas con tope por jornada; **Ocupación** = trabajadas / legales. Sale de
+inactivos que trabajaron en el rango); **Tiempo trabajado (h)** = suma de la
+duración real de las OT, sin tope; **Ocupación** = trabajado / programado. Sale de
 `calcularCapacidadTecnicos()`, la misma función de la pestaña Técnicos, así que
 los números coinciden con "Capacidad y ocupación por técnico". Los técnicos de
 TECNICOS.xlsx sin ninguna OT (hoy Diego Ocampo, Jhonier Meneses, Pedro Lozada)
@@ -415,15 +415,15 @@ sobre la OT que le dio origen a la duración (mismo criterio de "duración
 real" que ya existía: solo cuenta si la OT tiene Fecha Inicio Real y
 Fecha Fin Real).
 
-**Tope de 42 h/semana en horas trabajadas** (pedido de Mariana: "solo
-trabajan 42 horas a la semana"): para técnicos internos, la duración real
-de cada OT se reparte por día calendario (`tramosPorDia()`, solo días dentro
-del rango) y las horas de un técnico en un día se topan a `HORAS_POR_DIA`
-de ese día. Así una OT con fechas de varios días (p. ej. OT 000029: 411 h de
-calendario) o varias OT simultáneas no suman más de la jornada, y la
-ocupación no pasa de 100%. Domingo: solo cuenta como horas extra la parte
-de una OT que empezó ese domingo, máx. 8 h por domingo. Proveedores y
-"otros" siguen con la duración real sin tope (no tienen ese horario).
+**Tiempo trabajado SIN tope** (decisión de Mariana, 29-sep-2026, reemplaza
+al tope anterior por jornada): cada OT suma su duración real completa (Fecha
+Fin Real − Fecha Inicio Real) al técnico, aunque pase de la jornada o de 42
+h/semana — "si trabaja más horas también puede salir". La ocupación puede
+pasar de 100%. Se le mostró el efecto antes de decidir: con tope 676 h, sin
+tope 913 h (29-sep-2026), porque las OT abiertas varios días suman también
+las noches (OT 000130 = 169 h de Juan José Mosquera). Si la OT empezó en
+domingo, su duración va a "Horas extra (domingo)". "Horas libres" no baja de 0. El "Tiempo programado"
+sigue siendo el horario legal (`HORAS_POR_DIA`, 42 h/semana).
 
 **Rango en "Todo el periodo":** sin "Desde" elegido, `rangoEfectivoOT()`
 arranca en `INICIO_USO_CMMS` (1-sep-2026) y `renderTecnicos()` solo cuenta
