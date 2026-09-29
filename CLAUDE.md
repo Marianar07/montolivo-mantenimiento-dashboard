@@ -363,6 +363,13 @@ en el rango, marcados "Inactivo"): cada técnico con estado ahora
 (en sitio/programado), OT con duración, tiempo programado, tiempo trabajado,
 libres y % ocupación.
 
+### "OT por severidad — histórico por mes" (Resumen Gerencial)
+
+Reemplazó a "OT por tipo y severidad" (pedido de Mariana):
+`chartSeveridadMensual()` — barras por mes (mes de Fecha Creación, incluye los
+meses vacíos entre el primero y el último) con una barra por severidad (Alta
+roja, Media ámbar, Baja azul). Respeta el filtro general.
+
 ### "OT correctivas por lugar" (Resumen Gerencial)
 
 Reemplazó a "Top lugares con más averías correctivas" (pedido de Mariana):

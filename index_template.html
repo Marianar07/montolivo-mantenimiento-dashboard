@@ -1159,8 +1159,8 @@ function renderResumen(el){
 
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>OT por tipo y severidad</h3></div>
-      ${chartTipoSeveridad(ot)}
+      <div class="card-head"><h3>OT por severidad — histórico por mes</h3></div>
+      ${chartSeveridadMensual(ot)}
     </div>
     <div class="card">
       <div class="card-head"><h3>OT correctivas por lugar</h3></div>
@@ -1428,19 +1428,27 @@ function renderTopLugaresWrap(){
   }));
 }
 const ORDEN_SEVERIDAD = {Alta:0, Media:1, Baja:2};
-function chartTipoSeveridad(ot){
+// Histórico mensual de OT por severidad (pedido de Mariana; reemplazó a "OT
+// por tipo y severidad"). Mes = mes de la Fecha Creación. Se incluyen los
+// meses sin OT entre el primero y el último, para que el histórico no salte.
+function chartSeveridadMensual(ot){
+  const meses = [...new Set(ot.map(r=>monthKey(r.fecha_creacion)).filter(Boolean))].sort();
+  if(!meses.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
+  const todos = [];
+  let [y,m] = meses[0].split('-').map(Number);
+  const [yF,mF] = meses[meses.length-1].split('-').map(Number);
+  while(y<yF || (y===yF && m<=mF)){ todos.push(`${y}-${String(m).padStart(2,'0')}`); m++; if(m>12){m=1;y++;} }
   const severidades = [...new Set(ot.map(r=>r.severidad).filter(Boolean))]
     .sort((a,b)=> (ORDEN_SEVERIDAD[a]??99)-(ORDEN_SEVERIDAD[b]??99) || a.localeCompare(b));
-  if(!severidades.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
-  const correctivo = {label:'Correctivo', values:{}};
-  const preventivo = {label:'Preventivo', values:{}};
-  severidades.forEach(sv=>{ correctivo.values[sv]=0; preventivo.values[sv]=0; });
+  const series = severidades.map(sv=>({label:sv, values:Object.fromEntries(todos.map(k=>[k,0]))}));
   ot.forEach(r=>{
-    if(!r.severidad) return;
-    if(r.tipo==='Correctivo') correctivo.values[r.severidad]++;
-    else if(r.tipo==='Preventivo') preventivo.values[r.severidad]++;
+    const k = monthKey(r.fecha_creacion); const sr = series.find(x=>x.label===r.severidad);
+    if(k && sr) sr.values[k]++;
   });
-  return groupedBarChart(severidades, [correctivo, preventivo], ['var(--chart-1)','var(--chart-2)']);
+  const COLOR_SEV = {Alta:'var(--bad)', Media:'var(--warn)', Baja:'var(--chart-1)'};
+  const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const labelMesCorto = k => { const [yy,mm]=k.split('-').map(Number); return `${MESES[mm-1]} ${yy}`; };
+  return groupedBarChart(todos, series, severidades.map(sv=>COLOR_SEV[sv]||'var(--chart-3)'), {labelFn:labelMesCorto});
 }
 // "OT correctivas por lugar" (antes "Top lugares con más averías
 // correctivas", solo 8): TODOS los lugares, con la cantidad clicable.
