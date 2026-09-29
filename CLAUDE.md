@@ -282,14 +282,15 @@ O.T.` (`estado==='Abierta'`).
   Severidad y Lugar (solo los que tengan más de un valor); muestra "N de M"
   y recalcula el costo total con lo filtrado.
 - **Desglose del costo** ("Lo más importante", junto a "Costo total"): el
-  export de OT solo trae `Total Real` por OT (una sola fila de todo el
-  export trae un repuesto en `Código recurso`/`Nombre recurso`, sin valor
-  aparte), así que: **Costo servicios (proveedores)** = Total Real de las OT
-  de proveedores; **Costo mano de obra** = Total Real del resto (técnicos
-  internos) — suman el total; **Costo repuestos** = tarjeta "Sin datos"
-  reservada para cuando Mantum reporte el costo de repuestos (entonces habrá
-  que restarlo de mano de obra si viene incluido en Total Real). Mano de obra
-  y servicios son clicables (listado de OT por costo).
+  export de OT solo trae `Total Real` por OT. **Costo servicios
+  (proveedores)** = Total Real de las OT de proveedores (clicable).
+  **Costo mano de obra** y **Costo repuestos** = tarjetas "Sin datos".
+  Decisión de Mariana (29-sep-2026): **no suponer** el costo de mano de obra.
+  Se verificó que `Total Real` = horas reales × una tarifa fija por técnico
+  (p. ej. $24.427/h Alejandro, $17.009/h Juan José/Jonathan) y que no incluye
+  el único repuesto registrado, pero no está confirmado que sea el costo real
+  de mano de obra — no mostrarlo como tal hasta que Mariana lo confirme o
+  llegue un dato explícito de Mantum.
 
 ### Promedios por día: SS creadas y OT realizadas
 
