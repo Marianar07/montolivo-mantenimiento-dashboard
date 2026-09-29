@@ -1122,8 +1122,8 @@ function renderResumen(el){
 
   ${kpiGroup('Órdenes de trabajo', `
     ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+cumplimientosHtml, hero:true, accent:'c1'})}
-    ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`${tiposHtml(otAbiertasRows)}Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
-    ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`${tiposHtml(otCerradasRows)}Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
+    ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, corner:`<b>${fmtDias(tiempoAbiertas.prom)}</b><span>promedio abiertas</span>`, sub:`${tiposHtml(otAbiertasRows)}${sevAbiertasHtml}`, hero:true, status:'warn'})}
+    ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, corner:`<b>${fmtDias(solCerradas.prom)}</b><span>solución promedio</span>`, sub:`${tiposHtml(otCerradasRows)}${sevCerradasHtml}`, hero:true, status:'good'})}
     ${kpiCard({label:'OT de proveedores', value:new Set(otProveedores.map(r=>r.ot)).size, sub:`${tiposHtml(otProveedores)}${abiertasCerradas(otProveedores)}${provHtml}`, hero:true, accent:'c2'})}
     ${kpiCard({label:'OT sin técnico asignado', value:otSinTecnico.length, sub:`${tiposHtml(otSinTecnico)}${abiertasCerradas(otSinTecnico)}${otSinTecnico.length?'<div class="sev-time">Clic para ver cuáles</div>':''}`, hero:true, status: otSinTecnico.length? 'bad':'good', id:'otSinTecnicoCard', clickable: otSinTecnico.length>0})}
   `, true)}

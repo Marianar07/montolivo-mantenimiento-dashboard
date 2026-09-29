@@ -264,7 +264,8 @@ O.T.` (`estado==='Abierta'`).
   Creación` (en días, solo las que traen Fecha Fin Real; se muestra el N),
   desglosado por severidad.
 - Abiertas: días promedio que llevan abiertas = hoy − `Fecha Creación`,
-  desglosado por severidad; cada severidad es clicable y abre el listado de
+  desglosado por severidad (el promedio general va en la esquina superior
+  derecha de la tarjeta, igual que en OT cerradas y en las SS); cada severidad es clicable y abre el listado de
   esas OT (con días abierta; sin columna de "vencida", a pedido de Mariana).
 
 - **OT de proveedores**: OT con algún ejecutor proveedor (`esOTProveedor`,
