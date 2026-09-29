@@ -1166,8 +1166,8 @@ function renderResumen(el){
 
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>OT por tipo y severidad — histórico por mes</h3></div>
-      ${chartSeveridadMensual(ot)}
+      <div class="card-head"><h3>OT por tipo de mantenimiento — histórico por mes</h3></div>
+      ${chartTipoMensual(ot)}
     </div>
     <div class="card">
       <div class="card-head"><h3>OT correctivas por lugar</h3></div>
@@ -1435,13 +1435,13 @@ function renderTopLugaresWrap(){
   }));
 }
 const ORDEN_SEVERIDAD = {Alta:0, Media:1, Baja:2};
-// Histórico mensual de OT por tipo y severidad (pedido de Mariana). Mes = mes
-// de la Fecha Creación, desde agosto 2026 (HISTORICO_DESDE: antes solo hay
-// una OT suelta de mayo). Una barra por combinación tipo × severidad presente
-// (Correctivo en rojos, Preventivo en azules, otros tipos en morados; tono
-// fuerte = Alta, claro = Media). Incluye los meses vacíos del medio.
+// Histórico mensual de OT por tipo de mantenimiento (pedido de Mariana;
+// reemplazó al de tipo × severidad). Mes = mes de la Fecha Creación, desde
+// agosto 2026 (HISTORICO_DESDE: antes solo hay una OT suelta de mayo). Una
+// barra por tipo presente (Correctivo, Preventivo y cualquier otro tipo del
+// CMMS, p. ej. Correctiva programada). Incluye los meses vacíos del medio.
 const HISTORICO_DESDE = '2026-08';
-function chartSeveridadMensual(ot){
+function chartTipoMensual(ot){
   const base = ot.filter(r=>{ const k=monthKey(r.fecha_creacion); return k && k>=HISTORICO_DESDE; });
   const meses = [...new Set(base.map(r=>monthKey(r.fecha_creacion)))].sort();
   if(!meses.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
@@ -1451,18 +1451,14 @@ function chartSeveridadMensual(ot){
   while(y<yF || (y===yF && m<=mF)){ todos.push(`${y}-${String(m).padStart(2,'0')}`); m++; if(m>12){m=1;y++;} }
   const tipoCorto = t => (t||'Sin tipo').split(',')[0];
   const ORDEN_TIPO = {'Correctivo':0, 'Preventivo':1};
-  const combos = [...new Set(base.map(r=>tipoCorto(r.tipo)+'|'+(r.severidad||'Sin severidad')))]
-    .map(k=>{ const [t,sv]=k.split('|'); return {t, sv}; })
-    .sort((a,b)=>(ORDEN_TIPO[a.t]??2)-(ORDEN_TIPO[b.t]??2) || a.t.localeCompare(b.t) || (ORDEN_SEVERIDAD[a.sv]??99)-(ORDEN_SEVERIDAD[b.sv]??99));
-  const series = combos.map(c=>({label:`${c.t} · ${c.sv}`, t:c.t, sv:c.sv, values:Object.fromEntries(todos.map(k=>[k,0]))}));
-  base.forEach(r=>{
-    const sr = series.find(x=>x.t===tipoCorto(r.tipo) && x.sv===(r.severidad||'Sin severidad'));
-    if(sr) sr.values[monthKey(r.fecha_creacion)]++;
-  });
-  const PALETA = {Correctivo:{Alta:'#DC2626', Media:'#F2A0A0', Baja:'#FBD5D5'},
-                  Preventivo:{Alta:'#2a78d6', Media:'#9CC3F0', Baja:'#D3E5FA'}};
-  const OTRO = {Alta:'#7c3aed', Media:'#C4B5FD', Baja:'#EDE9FE'};
-  const colores = series.map(sr=>(PALETA[sr.t]||OTRO)[sr.sv] || '#9ca3af');
+  const tipos = [...new Set(base.map(r=>tipoCorto(r.tipo)))]
+    .sort((a,b)=>(ORDEN_TIPO[a]??2)-(ORDEN_TIPO[b]??2) || a.localeCompare(b));
+  const series = tipos.map(t=>({label:t, values:Object.fromEntries(todos.map(k=>[k,0]))}));
+  base.forEach(r=>{ const sr = series.find(x=>x.label===tipoCorto(r.tipo)); if(sr) sr.values[monthKey(r.fecha_creacion)]++; });
+  const COLOR_TIPO = {'Correctivo':'var(--chart-1)', 'Preventivo':'var(--chart-2)'};
+  const extras = ['var(--chart-3)','#7c3aed','#6b7280'];
+  let e = 0;
+  const colores = tipos.map(t=>COLOR_TIPO[t] || extras[Math.min(e++, extras.length-1)]);
   const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const labelMesCorto = k => { const [yy,mm]=k.split('-').map(Number); return `${MESES[mm-1]} ${yy}`; };
   return groupedBarChart(todos, series, colores, {labelFn:labelMesCorto, fill:true, showValues:true});

@@ -363,14 +363,15 @@ en el rango, marcados "Inactivo"): cada técnico con estado ahora
 (en sitio/programado), OT con duración, tiempo programado, tiempo trabajado,
 libres y % ocupación.
 
-### "OT por tipo y severidad — histórico por mes" (Resumen Gerencial)
+### "OT por tipo de mantenimiento — histórico por mes" (Resumen Gerencial)
 
-Pedido de Mariana: `chartSeveridadMensual()` — barras por mes (mes de Fecha
-Creación) **desde agosto 2026** (`HISTORICO_DESDE`; antes solo hay una OT
-suelta de mayo), una barra por combinación tipo × severidad presente:
-Correctivo en rojos, Preventivo en azules, otros tipos (p. ej. Correctiva
-programada) en morados; tono fuerte = Alta, claro = Media. Incluye meses
-vacíos del medio. Respeta el filtro general.
+Pedido de Mariana (reemplazó a "OT por tipo y severidad" y luego al
+histórico tipo × severidad): `chartTipoMensual()` — barras por mes (mes de
+Fecha Creación) **desde agosto 2026** (`HISTORICO_DESDE`; antes solo hay una
+OT suelta de mayo), una barra por tipo presente (Correctivo azul, Preventivo
+naranja, otros tipos como Correctiva programada en verde), con el número
+encima (`groupedBarChart` con `fill` y `showValues`). Incluye meses vacíos
+del medio. Respeta el filtro general.
 
 ### "OT correctivas por lugar" (Resumen Gerencial)
 
