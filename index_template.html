@@ -240,6 +240,10 @@ button.sev-row{cursor:pointer;}
 #costoRepuestosCard .kpi-value, #costoManoObraCard .kpi-value{color:var(--ink-3);font-size:22px;}
 .tipo-line{font-size:12px;color:var(--ink-2);margin-bottom:6px;display:flex;flex-wrap:wrap;column-gap:12px;row-gap:2px;}
 .tipo-line span{white-space:nowrap;}
+.estado-chips{display:flex;flex-wrap:wrap;gap:6px 12px;margin:2px 0 8px;font-size:12px;color:var(--ink-2);}
+.estado-chip{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
+.estado-chip b{color:var(--ink);}
+.estado-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none;}
 .tipo-line b{color:var(--ink);}
 .mini-meter .sev-row{padding:0;white-space:nowrap;}
 .mini-meter .meter-track{height:6px;margin-top:4px;}
@@ -1067,6 +1071,9 @@ function renderResumen(el){
   // Estado (ver CLAUDE.md).
   const cumplSSR = cumplimientoStatsSS(ss);
   const diasSSR = r => { if(!r.fecha_ss) return null; const fin = r.fecha_respuesta ? new Date(r.fecha_respuesta) : new Date(); return Math.max(0,(fin-new Date(r.fecha_ss))/86400000); };
+  // Un color por estado (bolita en las tarjetas de SS abiertas/cerradas).
+  const COLOR_ESTADO_SS = {'Creada':'#DC2626','Editada':'#eb6834','Leída':'#D97706','Validada':'#2a78d6',
+    'Programada en O.T.':'#7c3aed','Ejecutada':'#16A34A','Evaluada':'#1baf7a','No aprobada':'#6b7280'};
   const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','No aprobada'];
   const cumplSSHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento (vs. fecha esperada, ${cumplSSR.total} SS)</div>
@@ -1089,11 +1096,11 @@ function renderResumen(el){
       return `<button type="button" class="sev-row" data-ss-grupo="${grupo}" data-ss-sev="${esc(sv)}" title="Ver SS ${grupo} de severidad ${esc(sv)}"><span>${esc(sv)}: <b>${sub.length}</b></span><span class="sev-time">${fmtDias(promDias(sub, diasSSR).prom)} ›</span></button>`;
     }).join('') || `<div class="sev-row">Sin SS ${grupo}</div>`;
     const estados = est.map(x=>
-      `<div class="sev-row"><span>${esc(x.key)}: <b>${x.count}</b></span></div>`).join('');
+      `<span class="estado-chip"><span class="estado-dot" style="background:${COLOR_ESTADO_SS[x.key]||'var(--ink-3)'}"></span>${esc(x.key)} <b>${x.count}</b></span>`).join('');
     return kpiCard({label:`SS ${grupo}`, value:rows.length,
-      sub:`${abierta ? 'Llevan en promedio' : 'Tiempo promedio de solución:'} <b>${fmtDias(prom)}</b>${abierta ? ' abiertas (desde la solicitud)' : ' (solicitud → respuesta)'}`
+      sub:`<div class="estado-chips">${estados}</div>${abierta ? 'Llevan en promedio' : 'Tiempo promedio de solución:'} <b>${fmtDias(prom)}</b>${abierta ? ' abiertas (desde la solicitud)' : ' (solicitud → respuesta)'}`
         + `<div class="sev-list"><div class="sev-time" style="padding:0 6px;">Por severidad</div>${sevs}</div>`
-        + `<div class="sev-list"><div class="sev-time" style="padding:0 6px;">Por estado</div>${estados}</div>`,
+        ,
       hero:true, status: abierta ? 'warn' : 'good'});
   };
 
