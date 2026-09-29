@@ -490,27 +490,6 @@ function wireLugarFiltro(selectId, checkboxId, localState, onLocalChange){
   });
 }
 
-/* ============ Filtro de mes propio de la tarjeta "Top lugares" (independiente del filtro general) ============ */
-let topLugaresMes = null; // 'YYYY-MM', se fija al mes mas reciente disponible en el primer render
-function mesesDisponiblesOT(){
-  return [...new Set(DATA.ot.map(r=>monthKey(r.fecha_creacion)).filter(Boolean))].sort().reverse();
-}
-function labelMes(key){
-  const [y,m] = key.split('-').map(Number);
-  const d = new Date(y, m-1, 1);
-  const s = d.toLocaleDateString('es-CO',{month:'long',year:'numeric'});
-  return s.charAt(0).toUpperCase()+s.slice(1);
-}
-function rangoMes(mes){
-  const [y,m] = mes.split('-').map(Number);
-  return {desde:new Date(y,m-1,1), hasta:new Date(y,m,0,23,59,59)};
-}
-function correctivasPorMes(mes){
-  if(!mes) return [];
-  const {desde,hasta} = rangoMes(mes);
-  return DATA.ot.filter(r=>r.tipo==='Correctivo' && inRange(r.fecha_creacion, desde, hasta));
-}
-
 /* ============ Filtro de equipo propio de la pestana "Tecnicos" ============ */
 function splitTecnicos(str){
   if(!str) return [];
@@ -1427,26 +1406,15 @@ function modalFiltrable(titulo, rows, cols, opts={}){
 function renderTopLugaresWrap(){
   const wrap = document.getElementById('topLugaresWrap');
   if(!wrap) return;
-  const meses = mesesDisponiblesOT();
-  if(!topLugaresMes || !meses.includes(topLugaresMes)) topLugaresMes = meses[0] || null;
-  const correctivasCard = correctivasPorMes(topLugaresMes);
-  wrap.innerHTML = `
-    <div class="card-subhead">
-      <div class="chip-row">
-        <span class="chip-row-label">Mes:</span>
-        <select id="topLugaresMesSelect" class="chip-select">${meses.map(m=>`<option value="${m}"${m===topLugaresMes?' selected':''}>${labelMes(m)}</option>`).join('')}</select>
-      </div>
-      <span class="pill">${correctivasCard.length} correctivas</span>
-    </div>
-    ${topLugaresAverias(correctivasCard)}
-  `;
-  const mesSelect = document.getElementById('topLugaresMesSelect');
-  if(mesSelect) mesSelect.addEventListener('change', ()=>{ topLugaresMes = mesSelect.value; renderTopLugaresWrap(); });
-  // Clic en la cantidad → todas las OT correctivas de ese lugar en el mes.
+  // Sin filtro de mes propio ni total (pedido de Mariana): usa el mismo
+  // filtro de fechas/lugar de arriba que el resto del Resumen.
+  const correctivasCard = getFilteredOT().filter(r=>r.tipo==='Correctivo');
+  wrap.innerHTML = topLugaresAverias(correctivasCard);
+  // Clic en la cantidad → todas las OT correctivas de ese lugar en el rango.
   wrap.querySelectorAll('[data-lugar-ot]').forEach(btn=>btn.addEventListener('click', ()=>{
     const lugar = btn.dataset.lugarOt;
     const rows = correctivasCard.filter(r=>(r.lugar||'Sin lugar')===lugar).sort((a,b)=>new Date(b.fecha_creacion)-new Date(a.fecha_creacion));
-    modalFiltrable(`OT correctivas — ${lugar} (${labelMes(topLugaresMes)})`, rows, [
+    modalFiltrable(`OT correctivas — ${lugar}`, rows, [
       {key:'ot', label:'O.T.'},
       {key:'severidad', label:'Sev.'},
       {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
