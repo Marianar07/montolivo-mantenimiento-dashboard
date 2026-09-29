@@ -246,6 +246,7 @@ button.sev-row.sev-row-alerta:hover{border-color:var(--bad);background:var(--bad
 .kpi-card{position:relative;}
 .kpi-corner{position:absolute;top:14px;right:16px;text-align:right;line-height:1.2;display:flex;flex-direction:column;align-items:flex-end;}
 .kpi-corner b{font-size:15px;color:var(--ink);}
+.kpi-card.has-corner .kpi-label{padding-right:100px;}
 .kpi-corner span{font-size:10.5px;color:var(--ink-3);}
 .estado-chips{display:flex;flex-wrap:wrap;gap:6px 12px;margin:2px 0 8px;font-size:12px;color:var(--ink-2);}
 .estado-chip{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
@@ -685,7 +686,7 @@ function setActivePreset(id){
 /* ============ Reusable render helpers ============ */
 function kpiCard({label, value, sub, status, hero, accent, id, clickable, corner}){
   const st = status || '';
-  const cls = ['kpi-card', st, hero?'hero':'', accent?'accent-'+accent:'', clickable?'clickable':''].filter(Boolean).join(' ');
+  const cls = ['kpi-card', st, hero?'hero':'', accent?'accent-'+accent:'', clickable?'clickable':'', corner?'has-corner':''].filter(Boolean).join(' ');
   return `<div class="${cls}"${id?` id="${id}"`:''}>
     ${corner?`<div class="kpi-corner">${corner}</div>`:''}
     <div class="kpi-label">${status?`<span class="status-dot ${st}"></span>`:''}${label}</div>
@@ -1071,11 +1072,18 @@ function renderResumen(el){
     preventivos: {titulo:'Paros preventivos', rows: parosPeriodo.filter(p=>p.tipo==='Preventivo')},
     sin_resolver:{titulo:'Paros sin resolver', rows: parosPeriodo.filter(p=>!p.fin)},
   };
+  // Duración promedio (pedido de Mariana): finalizados = Duración del
+  // paro; sin resolver = lo que llevan parados hasta hoy. Se muestra en
+  // horas si es menos de un día, si no en días.
+  const durParoH = p => p.duracion_h!=null ? p.duracion_h : (p.inicio && !p.fin ? (Date.now()-new Date(p.inicio))/3600000 : null);
+  const promDurParos = rows => { const v=rows.filter(p=>p.duracion_h!=null).map(p=>p.duracion_h); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; };
+  const promDurAbiertos = rows => { const v=rows.map(durParoH).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; };
+  const fmtDurParo = h => h==null ? '—' : (h<24 ? fmtH(h) : fmtDias(h/24));
   const parosHtml = parosPeriodo.length===0 ? '<div class="sev-time">Sin paros en el periodo seleccionado</div>'
     : `<div class="sev-list">
-      <button type="button" class="sev-row" data-paros="correctivos"><span>Correctivos: <b>${nParosCorrectivos}</b></span><span class="sev-time">ver cuáles ›</span></button>
-      <button type="button" class="sev-row" data-paros="preventivos"><span>Preventivos: <b>${nParosPreventivos}</b></span><span class="sev-time">ver cuáles ›</span></button>
-      <button type="button" class="sev-row${nParosAbiertos?' sev-row-alerta':''}" data-paros="sin_resolver"><span>${nParosAbiertos?'<span class="status-dot bad"></span> ':''}Sin resolver: <b>${nParosAbiertos}</b></span><span class="sev-time">ver cuáles ›</span></button>
+      <button type="button" class="sev-row" data-paros="correctivos"><span>Correctivos: <b>${nParosCorrectivos}</b></span><span class="sev-time">${fmtDurParo(promDurParos(gruposParos.correctivos.rows))} ›</span></button>
+      <button type="button" class="sev-row" data-paros="preventivos"><span>Preventivos: <b>${nParosPreventivos}</b></span><span class="sev-time">${fmtDurParo(promDurParos(gruposParos.preventivos.rows))} ›</span></button>
+      <button type="button" class="sev-row${nParosAbiertos?' sev-row-alerta':''}" data-paros="sin_resolver"><span>${nParosAbiertos?'<span class="status-dot bad"></span> ':''}Sin resolver: <b>${nParosAbiertos}</b></span><span class="sev-time">${fmtDurParo(promDurAbiertos(gruposParos.sin_resolver.rows))} ›</span></button>
     </div>`;
 
   // Mismo cálculo que "Ubicación del técnico" en la pestaña Técnicos (ver
@@ -1155,7 +1163,7 @@ function renderResumen(el){
   `, true)}
 
   ${kpiGroup('Trabajo', `
-    ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, sub:parosHtml, status:stParos, hero:true, id:'parosActualesCard'})}
+    ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, corner: parosPeriodo.some(p=>p.duracion_h!=null) ? `<b>${fmtDurParo(promDurParos(parosPeriodo))}</b><span>duración promedio</span>` : '', sub:parosHtml, status:stParos, hero:true, id:'parosActualesCard'})}
     ${kpiCard({label:'Técnicos en sitio / programados', value:tecnicosConTrabajo, sub:subTecnicos})}
   `)}
 

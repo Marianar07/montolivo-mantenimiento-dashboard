@@ -169,7 +169,10 @@ solo_iniciadas=True)`): solo cuentan desde que el técnico inicia — estados
 En el Resumen, la tarjeta "Paros en el periodo" tiene tres filas clicables
 con su propia lista (pedido de Mariana): **Correctivos**, **Preventivos** y
 **Sin resolver** (sin fin, resaltada en rojo; su duración se muestra como
-"N días y contando" hasta hoy).
+"N días y contando" hasta hoy). En la esquina: duración promedio de los
+paros finalizados (`duracion_h`); cada fila muestra su promedio (sin
+resolver = promedio de lo que llevan parados hasta hoy). Menos de un día se
+muestra en horas, si no en días.
 
 La pestaña "Paros por Equipo" **respeta el filtro de fechas y de lugar**
 (pedido de Mariana; antes lo ignoraba y mostraba solo los paros abiertos):
