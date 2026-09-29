@@ -276,6 +276,15 @@ O.T.` (`estado==='Abierta'`).
   costo, y todos los listados del bloque (`modalOT()`) llevan columna Costo
   y el costo total arriba. Las severidades de "OT cerradas" también son
   clicables (listado con fin real, días de solución y costo).
+- **Desglose del costo** ("Lo más importante", junto a "Costo total"): el
+  export de OT solo trae `Total Real` por OT (una sola fila de todo el
+  export trae un repuesto en `Código recurso`/`Nombre recurso`, sin valor
+  aparte), así que: **Costo servicios (proveedores)** = Total Real de las OT
+  de proveedores; **Costo mano de obra** = Total Real del resto (técnicos
+  internos) — suman el total; **Costo repuestos** = tarjeta "Sin datos"
+  reservada para cuando Mantum reporte el costo de repuestos (entonces habrá
+  que restarlo de mano de obra si viene incluido en Total Real). Mano de obra
+  y servicios son clicables (listado de OT por costo).
 
 ### Promedios por día: SS creadas y OT realizadas
 

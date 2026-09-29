@@ -233,6 +233,8 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .sev-row .sev-time{color:var(--ink-3);font-size:11px;white-space:nowrap;}
 button.sev-row{cursor:pointer;}
 .mini-meter{padding:4px 6px;}
+#costoRepuestosCard{border-left:4px dashed var(--border);}
+#costoRepuestosCard .kpi-value{color:var(--ink-3);font-size:22px;}
 .tipo-line{font-size:12px;color:var(--ink-2);margin-bottom:6px;display:flex;flex-wrap:wrap;column-gap:12px;row-gap:2px;}
 .tipo-line span{white-space:nowrap;}
 .tipo-line b{color:var(--ink);}
@@ -962,6 +964,15 @@ function renderResumen(el){
   const provHtml = `<div class="sev-list">${provConteo.map(x=>
       `<button type="button" class="sev-row" data-proveedor="${esc(x.key)}" title="Ver OT de ${esc(x.key)}"><span class="wrap-text">${esc(x.key)}${proveedoresSetR.has(x.key)?'':' <span class="badge neutral">No registrado</span>'}: <b>${x.count}</b></span><span class="sev-time">${fmtMoney(costoDe(otProveedores.filter(r=>provDeOT(r).includes(x.key))))} ›</span></button>`
     ).join('') || '<div class="sev-row">Sin OT de proveedores</div>'}</div>`;
+  // Desglose del costo total (pedido de Mariana). El export de OT solo trae
+  // "Total Real" por OT, sin separar mano de obra / repuestos / servicios:
+  //  - Servicios = Total Real de las OT con algún ejecutor proveedor.
+  //  - Mano de obra = Total Real del resto (OT de técnicos internos).
+  //  - Repuestos = sin dato todavía (tarjeta lista para cuando llegue).
+  const otProvSet = new Set(otProveedores.map(r=>r.ot));
+  const otManoObra = ot.filter(r=>!otProvSet.has(r.ot));
+  const costoServicios = costoDe(otProveedores);
+  const costoManoObra = costoDe(otManoObra);
   const cumplimientosHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento</div>
       ${miniMeter('Preventivo', cumplimientoPrev, stCumpl, `${cumplidasPrev.length} de ${preventivas.length}`)}
@@ -999,6 +1010,9 @@ function renderResumen(el){
 
   ${kpiGroup('Lo más importante', `
     ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`, hero:true, accent:'c2'})}
+    ${kpiCard({label:'Costo mano de obra', value:fmtMoney(costoManoObra), sub:`${tiposHtml(otManoObra)}OT de técnicos internos · clic para ver`, hero:true, accent:'c1', id:'costoManoObraCard', clickable:true})}
+    ${kpiCard({label:'Costo repuestos', value:'Sin datos', sub:'Mantum todavía no reporta el costo de repuestos por OT — se mostrará aquí cuando esté disponible', hero:true, id:'costoRepuestosCard'})}
+    ${kpiCard({label:'Costo servicios (proveedores)', value:fmtMoney(costoServicios), sub:`${tiposHtml(otProveedores)}OT de proveedores · clic para ver`, hero:true, accent:'c3', id:'costoServiciosCard', clickable:true})}
   `, true)}
 
   ${kpiGroup('Órdenes de trabajo', `
@@ -1055,6 +1069,20 @@ function renderResumen(el){
   const modalOT = (titulo, rows, cols) => openModal(`${titulo} (${rows.length})`,
     `<div class="tipo-line" style="margin-bottom:10px;font-size:13px;"><span>Costo total: <b>${fmtMoney(costoDe(rows))}</b></span></div>`
     + simpleTable(rows, [...cols, colCosto], {scroll:true}));
+  const colsCostoOT = [
+    {key:'ot', label:'O.T.'},
+    {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+    {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
+    {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'tecnico', label:'Ejecutor', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+    {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
+  ];
+  const porCostoDesc = rows => rows.slice().sort((a,b)=>(b.costo_real||0)-(a.costo_real||0));
+  const manoObraEl = document.getElementById('costoManoObraCard');
+  if(manoObraEl) manoObraEl.addEventListener('click', ()=> modalOT('Costo de mano de obra — OT de técnicos internos', porCostoDesc(otManoObra), colsCostoOT));
+  const serviciosEl = document.getElementById('costoServiciosCard');
+  if(serviciosEl) serviciosEl.addEventListener('click', ()=> modalOT('Costo de servicios — OT de proveedores', porCostoDesc(otProveedores), colsCostoOT));
   el.querySelectorAll('[data-sev-abiertas]').forEach(btn=>btn.addEventListener('click', ()=>{
     const sev = btn.dataset.sevAbiertas;
     const detalle = otAbiertasRows.filter(r=>(r.severidad||'Sin severidad')===sev)
