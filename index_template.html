@@ -1020,15 +1020,19 @@ function renderResumen(el){
   const proveedoresSetR = proveedoresSetOf();
   const otProveedores = ot.filter(r=>esOTProveedor(r, internosSetR, proveedoresSetR) || esOTOtro(r, internosSetR, proveedoresSetR));
   const provDeOT = r => splitTecnicos(r.tecnico).filter(t=>!internosSetR.has(t));
-  const provConteo = groupCount(otProveedores.flatMap(r=>provDeOT(r).map(t=>({t}))), x=>x.t);
   const otSinTecnico = ot.filter(r=>splitTecnicos(r.tecnico).length===0);
   const abiertasCerradas = rows => {
     const a = rows.filter(r=>r.estado==='Abierta').length;
     return `<div class="tipo-line"><span>Abiertas: <b>${a}</b></span><span>Cerradas: <b>${rows.length-a}</b></span></div>`;
   };
-  const provHtml = `<div class="sev-list">${provConteo.map(x=>
-      `<button type="button" class="sev-row" data-proveedor="${esc(x.key)}" title="Ver OT de ${esc(x.key)}"><span class="wrap-text">${esc(x.key)}${proveedoresSetR.has(x.key)?'':' <span class="badge neutral">No registrado</span>'}: <b>${x.count}</b></span><span class="sev-time">›</span></button>`
-    ).join('') || '<div class="sev-row">Sin OT de proveedores</div>'}</div>`;
+  // Abiertas / Cerradas clicables → listado de esas OT de proveedores
+  // (Mariana quitó las filas por nombre de proveedor).
+  const provAbiertas = otProveedores.filter(r=>r.estado==='Abierta');
+  const provCerradas = otProveedores.filter(r=>r.estado!=='Abierta');
+  const provHtml = `<div class="sev-list">
+      <button type="button" class="sev-row" data-prov-grupo="abiertas" title="Ver OT de proveedores abiertas"><span>Abiertas: <b>${provAbiertas.length}</b></span><span class="sev-time">ver cuáles ›</span></button>
+      <button type="button" class="sev-row" data-prov-grupo="cerradas" title="Ver OT de proveedores cerradas"><span>Cerradas: <b>${provCerradas.length}</b></span><span class="sev-time">ver cuáles ›</span></button>
+    </div>`;
   // Desglose del costo total (pedido de Mariana). El export de OT solo trae
   // "Total Real" por OT, sin separar mano de obra / repuestos / servicios:
   //  - Servicios = Total Real de las OT con algún ejecutor proveedor.
@@ -1120,7 +1124,7 @@ function renderResumen(el){
     ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+cumplimientosHtml, hero:true, accent:'c1'})}
     ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, corner:`<b>${fmtDias(tiempoAbiertas.prom)}</b><span>promedio abiertas</span>`, sub:`${tiposHtml(otAbiertasRows)}${sevAbiertasHtml}`, hero:true, status:'warn'})}
     ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, corner:`<b>${fmtDias(solCerradas.prom)}</b><span>solución promedio</span>`, sub:`${tiposHtml(otCerradasRows)}${sevCerradasHtml}`, hero:true, status:'good'})}
-    ${kpiCard({label:'OT de proveedores', value:new Set(otProveedores.map(r=>r.ot)).size, sub:`${tiposHtml(otProveedores)}${abiertasCerradas(otProveedores)}${provHtml}`, hero:true, accent:'c2'})}
+    ${kpiCard({label:'OT de proveedores', value:new Set(otProveedores.map(r=>r.ot)).size, sub:`${tiposHtml(otProveedores)}${provHtml}`, hero:true, accent:'c2'})}
     ${kpiCard({label:'OT sin técnico asignado', value:otSinTecnico.length, sub:`${tiposHtml(otSinTecnico)}${abiertasCerradas(otSinTecnico)}${otSinTecnico.length?'<div class="sev-time">Clic para ver cuáles</div>':''}`, hero:true, status: otSinTecnico.length? 'bad':'good', id:'otSinTecnicoCard', clickable: otSinTecnico.length>0})}
   `, true)}
 
@@ -1269,11 +1273,13 @@ function renderResumen(el){
     {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
     {key:'avance', label:'% ejec.', num:true, fmt:v=>v==null?'—':fmtPct(v,0)},
   ];
-  el.querySelectorAll('[data-proveedor]').forEach(btn=>btn.addEventListener('click', ()=>{
-    const prov = btn.dataset.proveedor;
-    const detalle = otProveedores.filter(r=>provDeOT(r).includes(prov))
+  el.querySelectorAll('[data-prov-grupo]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const grupo = btn.dataset.provGrupo;
+    const detalle = (grupo==='abiertas' ? provAbiertas : provCerradas).slice()
       .sort((a,b)=>new Date(b.fecha_creacion)-new Date(a.fecha_creacion));
-    modalOT(`OT de ${prov}`, detalle, colsListadoOT([]));
+    modalOT(`OT de proveedores ${grupo}`, detalle, colsListadoOT([
+      {key:'_prov', label:'Proveedor', fmt:(v,r)=>`<span class="wrap-text">${provDeOT(r).map(t=>esc(t)+(proveedoresSetR.has(t)?'':' <span class="badge neutral">No registrado</span>')).join(', ')}</span>`},
+    ]));
   }));
   const sinTecEl = document.getElementById('otSinTecnicoCard');
   if(sinTecEl && otSinTecnico.length) sinTecEl.addEventListener('click', ()=>{

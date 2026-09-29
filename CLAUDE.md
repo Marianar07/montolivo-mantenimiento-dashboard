@@ -269,8 +269,9 @@ O.T.` (`estado==='Abierta'`).
   esas OT (con días abierta; sin columna de "vencida", a pedido de Mariana).
 
 - **OT de proveedores**: OT con algún ejecutor proveedor (`esOTProveedor`,
-  incluye `PROVEEDORES_EXTRA`), con tipo, abiertas/cerradas y una fila por
-  proveedor clicable → sus OT.
+  incluye `PROVEEDORES_EXTRA`), con tipo y filas **Abiertas** / **Cerradas**
+  clicables → listado con columna Proveedor (Mariana quitó las filas por
+  nombre de proveedor).
 - **OT sin técnico asignado**: OT con `Ejecutores` vacío; clic → listado.
 - **Costos** (pedido de Mariana): las tarjetas de OT **no** muestran costo
   (se quitó); el costo va solo en los listados: todos los de este bloque
@@ -460,7 +461,8 @@ Proveedores" (mismas columnas; OT con algún ejecutor del grupo 2 o 3).
 **No hay tablas "Otros"** (Mariana pidió quitarlas el 29-sep-2026, en
 Técnicos y en Órdenes de Trabajo): si algún ejecutor cae en el grupo 3, se
 muestra en las tablas de proveedores (y en la tarjeta "OT de proveedores" del
-Resumen) con la etiqueta "No registrado", para no perderlo de vista.
+Resumen, en la columna Proveedor del listado) con la etiqueta "No
+registrado", para no perderlo de vista.
 
 **`ALIAS_TECNICOS`** (en `process_dashboard.py`, junto a `cargar_tecnicos`)
 existe porque el nombre del técnico en las OT (`Ejecutores`) a veces trae
