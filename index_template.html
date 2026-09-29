@@ -1290,17 +1290,17 @@ function renderResumen(el){
   const creadaTardeEl = document.getElementById('otCreadaTardeBtn');
   if(creadaTardeEl) creadaTardeEl.addEventListener('click', ()=>{
     const detalle = otCreadaTarde.slice().sort((a,b)=>horasRegistroTarde(b)-horasRegistroTarde(a));
-    modalOT('OT creadas después de su inicio real', detalle, [
+    // Columnas pedidas por Mariana (sin tipo ni costo).
+    modalFiltrable('OT creadas después de su inicio real', detalle, [
       {key:'ot', label:'O.T.'},
-      {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
       {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
       {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
-      {key:'inicio_real', label:'Inicio real', fmt:fmtFechaHoraCorta},
-      {key:'fecha_creacion', label:'Creación', fmt:fmtFechaHoraCorta},
+      {key:'fecha_creacion', label:'Fecha de creación', fmt:fmtFechaHoraCorta},
+      {key:'inicio_real', label:'Fecha de inicio', fmt:fmtFechaHoraCorta},
       {key:'_tarde', label:'Registrada después', num:true, fmt:(v,r)=>{ const h=horasRegistroTarde(r); return h>=24 ? fmtDias(h/24) : fmtH(h); }},
-    ]);
+    ], {filtros:[['estado','Estado'],['lugar','Lugar']]});
   });
   const sinTecEl = document.getElementById('otSinTecnicoCard');
   if(sinTecEl && otSinTecnico.length) sinTecEl.addEventListener('click', ()=>{
