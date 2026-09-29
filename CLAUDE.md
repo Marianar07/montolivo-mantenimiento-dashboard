@@ -345,6 +345,18 @@ Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 **Códigos de SS**: en todo el tablero se muestran solo con el número
 (p. ej. `00016`), sin prefijo "SS-" (pedido de Mariana; ver `fmtSSParo()`).
 
+### Horas de técnicos en el Resumen
+
+La tarjeta "Técnicos en sitio / programados" muestra además (pedido de
+Mariana): **Horas legales** = horas hábiles del rango (42 h/semana,
+`horasDisponiblesRango`) × técnicos considerados (internos activos + los
+inactivos que trabajaron en el rango); **Horas trabajadas** = suma de horas
+trabajadas con tope por jornada; **Ocupación** = trabajadas / legales. Sale de
+`calcularCapacidadTecnicos()`, la misma función de la pestaña Técnicos, así que
+los números coinciden con "Capacidad y ocupación por técnico". Los técnicos de
+TECNICOS.xlsx sin ninguna OT (hoy Diego Ocampo, Jhonier Meneses, Pedro Lozada)
+cuentan en horas legales con 0 trabajadas, y bajan la ocupación.
+
 ### Ordenar tablas por columna
 
 Pedido de Mariana: **todas** las tablas se ordenan al hacer clic en el
