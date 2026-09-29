@@ -960,8 +960,6 @@ function renderResumen(el){
 
   ${kpiGroup('Lo más importante', `
     ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`, hero:true, accent:'c2'})}
-    ${meterHero({label:'Cumplimiento preventivo', pct:cumplimientoPrev, sub:`${cumplidasPrev.length} de ${preventivas.length} OT preventivas`, status:stCumpl})}
-    ${meterHero({label:'Cumplimiento correctivo', pct:cumplimientoCorrectivo, sub:`${correctivoCumpl.si} de ${correctivas.length} OT correctivas`, status:stCumplCorrectivo})}
   `, true)}
 
   ${kpiGroup('Órdenes de trabajo', `
