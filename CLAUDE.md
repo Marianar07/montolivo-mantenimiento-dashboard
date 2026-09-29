@@ -243,8 +243,14 @@ de arriba de la pestaña: "N de M SS en el rango".)
 Pedido de Mariana (29-sep-2026), en `renderResumen()`: tres tarjetas —
 **OT totales**, **OT abiertas** y **OT cerradas**. Ya no hay tarjeta aparte
 "OT para reprogramar": dentro de "OT abiertas" hay una fila **"Vencidas"**
-(= `necesitaReprogramar()`: sin iniciar y con inicio programado ya pasado),
-clicable → listado con días de atraso. "OT totales" muestra debajo el
+clicable → listado con días de atraso. **Vencida = para reprogramar**
+(definición de Mariana): OT abierta cuya `Fecha Fin Programado` ya pasó y
+que no tiene `Fecha Fin Real` (`necesitaReprogramar()`; días de atraso
+desde la fin programada). Las abiertas que sí tienen Fecha Fin Real
+(trabajo hecho, falta cerrarlas en el CMMS) van aparte en la fila
+"Terminadas sin cerrar" (`sinCerrarEnSistema()`), también clicable. La
+sección "Órdenes de Trabajo para reprogramar" de la pestaña OT usa el
+mismo criterio. "OT totales" muestra debajo el
 cumplimiento preventivo y correctivo (mini barras; ya no hay tarjetas
 individuales de cumplimiento en "Lo más importante"). Abierta/cerrada según el `Estado
 O.T.` (`estado==='Abierta'`).

@@ -569,15 +569,19 @@ function rangoEfectivoOT(){
   return { desde: FILTER.desde || minF, hasta: FILTER.hasta || maxF };
 }
 
-// OT "para reprogramar": sigue abierta, no tiene Fecha Inicio Real y su
-// Fecha Inicio Programado ya pasó (respecto a hoy).
+// OT "vencida" / "para reprogramar" (definición de Mariana, 29-sep-2026):
+// sigue abierta y su Fecha Fin Programado ya pasó (respecto a hoy). Se
+// excluyen las que ya tienen Fecha Fin Real: el trabajo se hizo y solo falta
+// cerrarlas en el CMMS (ver sinCerrarEnSistema), no hay que reprogramarlas.
 function necesitaReprogramar(r){
-  return r.estado==='Abierta' && !r.inicio_real && !!r.inicio_programado
-    && new Date(r.inicio_programado) < new Date();
+  return r.estado==='Abierta' && !r.fin_real && !!r.fin_programado
+    && new Date(r.fin_programado) < new Date();
 }
-// Días completos transcurridos desde la Fecha Inicio Programado hasta hoy.
+// Abierta en el CMMS pero con Fecha Fin Real: terminada, falta cerrarla.
+function sinCerrarEnSistema(r){ return r.estado==='Abierta' && !!r.fin_real; }
+// Días completos transcurridos desde la Fecha Fin Programado hasta hoy.
 function diasAtrasoOT(r){
-  return Math.floor((new Date() - new Date(r.inicio_programado))/86400000);
+  return Math.floor((new Date() - new Date(r.fin_programado))/86400000);
 }
 
 /* ============ Tabs config ============ */
@@ -910,12 +914,14 @@ function renderResumen(el){
   const tiempoAbiertas = promDias(otAbiertasRows, diasAbiertaOT);
   // OT vencidas (= "para reprogramar"): códigos de OT únicos.
   const otParaReprogramar = new Set(ot.filter(necesitaReprogramar).map(r=>r.ot)).size;
+  const otSinCerrar = new Set(ot.filter(sinCerrarEnSistema).map(r=>r.ot)).size;
   const sevAbiertasHtml = `<div class="sev-list">${sevOrden(otAbiertasRows).map(s=>{
       const rows = otAbiertasRows.filter(r=>(r.severidad||'Sin severidad')===s);
       return `<button type="button" class="sev-row" data-sev-abiertas="${esc(s)}" title="Ver OT abiertas de severidad ${esc(s)}"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasAbiertaOT).prom)} ›</span></button>`;
     }).join('') || '<div class="sev-row">Sin OT abiertas</div>'}</div>
-    <div class="sev-list"><button type="button" class="sev-row" id="otReprogramarCard" title="Abiertas, sin iniciar y con fecha de inicio programada vencida"><span style="white-space:nowrap"><span class="status-dot ${otParaReprogramar>0?'bad':'good'}"></span> Vencidas: <b>${otParaReprogramar}</b></span><span class="sev-time">ver cuáles ›</span></button>
-    <div class="sev-time" style="padding:0 6px;">Vencida = sin iniciar y con fecha de inicio programada ya pasada</div></div>`;
+    <div class="sev-list"><button type="button" class="sev-row" id="otReprogramarCard" title="Abiertas, sin terminar y con fecha fin programada ya pasada"><span style="white-space:nowrap"><span class="status-dot ${otParaReprogramar>0?'bad':'good'}"></span> Vencidas: <b>${otParaReprogramar}</b></span><span class="sev-time">ver cuáles ›</span></button>
+    ${otSinCerrar? `<button type="button" class="sev-row" id="otSinCerrarBtn" title="Tienen Fecha Fin Real pero siguen abiertas en el sistema"><span style="white-space:nowrap"><span class="status-dot warn"></span> Terminadas sin cerrar: <b>${otSinCerrar}</b></span><span class="sev-time">ver cuáles ›</span></button>` : ''}
+    <div class="sev-time" style="padding:0 6px;">Vencida = ya pasó su fecha fin programada y no se ha terminado (hay que reprogramarla)</div></div>`;
   const sevCerradasHtml = `<div class="sev-list">${sevOrden(otCerradasRows).map(s=>{
       const rows = otCerradasRows.filter(r=>(r.severidad||'Sin severidad')===s);
       return `<div class="sev-row"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasSolucionOT).prom)}</span></div>`;
@@ -1024,6 +1030,19 @@ function renderResumen(el){
       {key:'_reprog', label:'¿Vencida?', fmt:(v,r)=>necesitaReprogramar(r)?`<span class="badge bad">Sí (${diasAtrasoOT(r)} d)</span>`:'<span class="badge neutral">No</span>'},
     ], {scroll:true}));
   }));
+  const sinCerrarEl = document.getElementById('otSinCerrarBtn');
+  if(sinCerrarEl) sinCerrarEl.addEventListener('click', ()=>{
+    const porOT = new Map();
+    ot.filter(sinCerrarEnSistema).forEach(r=>{ if(!porOT.has(r.ot)) porOT.set(r.ot, r); });
+    const detalle = [...porOT.values()].sort((a,b)=>new Date(a.fin_real)-new Date(b.fin_real));
+    openModal(`OT terminadas sin cerrar en el sistema (${detalle.length})`, simpleTable(detalle, [
+      {key:'ot', label:'O.T.'},
+      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+      {key:'fin_real', label:'Fin real', fmt:fmtDate},
+    ], {scroll:true}));
+  });
   const reprogCardEl = document.getElementById('otReprogramarCard');
   if(reprogCardEl) reprogCardEl.addEventListener('click', ()=>{
     // Una fila por OT (el export repite la OT por cada ejecutor). El detalle
@@ -1035,7 +1054,7 @@ function renderResumen(el){
       {key:'ot', label:'O.T.'},
       {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
-      {key:'inicio_programado', label:'Inicio programado', fmt:fmtDate},
+      {key:'fin_programado', label:'Fin programado', fmt:fmtDate},
       {key:'_atraso', label:'Días de atraso', num:true, fmt:(v,r)=>`<span class="badge bad">${diasAtrasoOT(r)} d</span>`},
     ], {scroll:true}));
   });
@@ -1205,7 +1224,7 @@ function renderOT(el){
     </div>
   </div>
   <div class="card section-block">
-    ${sectionTitle('Órdenes de Trabajo para reprogramar', `${nReprogramar} OT abiertas que ya pasaron su fecha de inicio programada y no se han iniciado — de la más atrasada a la más reciente`)}
+    ${sectionTitle('Órdenes de Trabajo para reprogramar', `${nReprogramar} OT abiertas que ya pasaron su fecha fin programada y no se han terminado (sin Fecha Fin Real) — de la más atrasada a la más reciente`)}
     ${reprogramar.length!==nReprogramar ? `<div class="callout info">Algunas OT tienen más de un técnico asignado y aparecen una vez por técnico, igual que en el listado completo (${reprogramar.length} filas para ${nReprogramar} OT).</div>` : ''}
     <div class="card-head">
       <input class="searchbox" type="text" id="otReprogSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
