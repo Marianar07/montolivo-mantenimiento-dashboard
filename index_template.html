@@ -1089,7 +1089,7 @@ function renderResumen(el){
       return `<button type="button" class="sev-row" data-ss-grupo="${grupo}" data-ss-sev="${esc(sv)}" title="Ver SS ${grupo} de severidad ${esc(sv)}"><span>${esc(sv)}: <b>${sub.length}</b></span><span class="sev-time">${fmtDias(promDias(sub, diasSSR).prom)} ›</span></button>`;
     }).join('') || `<div class="sev-row">Sin SS ${grupo}</div>`;
     const estados = est.map(x=>
-      `<button type="button" class="sev-row" data-ss-grupo="${grupo}" data-ss-estado="${esc(x.key)}" title="Ver SS en estado ${esc(x.key)}"><span>${esc(x.key)}: <b>${x.count}</b></span><span class="sev-time">›</span></button>`).join('');
+      `<div class="sev-row"><span>${esc(x.key)}: <b>${x.count}</b></span></div>`).join('');
     return kpiCard({label:`SS ${grupo}`, value:rows.length,
       sub:`${abierta ? 'Llevan en promedio' : 'Tiempo promedio de solución:'} <b>${fmtDias(prom)}</b>${abierta ? ' abiertas (desde la solicitud)' : ' (solicitud → respuesta)'}`
         + `<div class="sev-list"><div class="sev-time" style="padding:0 6px;">Por severidad</div>${sevs}</div>`

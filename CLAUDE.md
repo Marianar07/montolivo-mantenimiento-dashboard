@@ -305,8 +305,9 @@ Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
   tarjetas por estado). Cerradas = Ejecutada, Evaluada y No aprobada; el
   resto abiertas — el código lo decide por `Fecha de respuesta`, que coincide
   100% con esa lista y clasifica solo cualquier estado nuevo. Cada tarjeta:
-  días promedio abiertas (o de solución), filas por severidad (con sus días)
-  y por estado, todas clicables.
+  días promedio abiertas (o de solución), filas por severidad (con sus días,
+  clicables → listado) y conteo por estado (solo el número, sin clic — el
+  estado se filtra dentro del listado).
 - Los listados usan `modalFiltrable()` (buscador + filtros de Tipo, Estado,
   Severidad, Lugar) con columnas SS, tipo, severidad, estado, equipo, lugar,
   solicitud, esperada, respuesta, días, cumplimiento y OT. Esperada y
