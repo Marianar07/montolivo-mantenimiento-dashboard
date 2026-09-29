@@ -1072,12 +1072,14 @@ function renderResumen(el){
     preventivos: {titulo:'Paros preventivos', rows: parosPeriodo.filter(p=>p.tipo==='Preventivo')},
     sin_resolver:{titulo:'Paros sin resolver', rows: parosPeriodo.filter(p=>!p.fin)},
   };
-  // Duración promedio (pedido de Mariana): finalizados = Duración del
-  // paro; sin resolver = lo que llevan parados hasta hoy. Se muestra en
-  // horas si es menos de un día, si no en días.
+  // Duración promedio (pedido de Mariana). Cada paro cuenta con su duración
+  // si ya terminó, o con lo que lleva parado hasta hoy si sigue sin resolver
+  // — solo con los finalizados el promedio salía muy bajo (1,1 días el
+  // 29-sep-2026) porque los sin resolver son justamente los más largos.
+  // Menos de un día se muestra en horas, si no en días.
   const durParoH = p => p.duracion_h!=null ? p.duracion_h : (p.inicio && !p.fin ? (Date.now()-new Date(p.inicio))/3600000 : null);
-  const promDurParos = rows => { const v=rows.filter(p=>p.duracion_h!=null).map(p=>p.duracion_h); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; };
   const promDurAbiertos = rows => { const v=rows.map(durParoH).filter(x=>x!=null); return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; };
+  const promDurParos = promDurAbiertos;
   const fmtDurParo = h => h==null ? '—' : (h<24 ? fmtH(h) : fmtDias(h/24));
   const parosHtml = parosPeriodo.length===0 ? '<div class="sev-time">Sin paros en el periodo seleccionado</div>'
     : `<div class="sev-list">
