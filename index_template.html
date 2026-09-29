@@ -328,6 +328,12 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 .bar-seg:hover{filter:brightness(1.08);}
 .bar-seg .bar-val{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:5px;font-size:11px;font-weight:700;color:var(--ink);background:var(--card);padding:1px 6px;border-radius:4px;border:1px solid var(--border);white-space:nowrap;display:none;box-shadow:0 1px 4px rgba(0,0,0,.12);z-index:2;}
 .bar-seg.active .bar-val{display:block;}
+/* Variante que reparte las columnas en todo el ancho y muestra el número
+   encima de cada barra (histórico mensual del Resumen). */
+.chart-fill .chartcol{flex:1;width:auto;}
+.chart-xlabels.chart-fill .lbl{flex:1;width:auto;}
+.bar-seg .bar-num{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:2px;font-size:10.5px;font-weight:700;color:var(--ink-2);white-space:nowrap;}
+.bar-seg.active .bar-num{display:none;}
 .chart-xlabels{display:flex;gap:24px;padding:0 8px;margin-left:38px;margin-top:8px;}
 .chart-xlabels .lbl{width:64px;flex-shrink:0;text-align:center;font-size:11px;font-weight:600;color:var(--ink-2);}
 .legend{display:flex;gap:16px;font-size:11.5px;color:var(--ink-2);margin-top:10px;margin-left:38px;flex-wrap:wrap;}
@@ -771,21 +777,22 @@ function groupedBarChart(categories, series, colors, opts){
     const bars = series.map((s,i)=>{
       const v = s.values[c]||0;
       const h = niceMax? Math.round(v/niceMax*PLOT_H) : 0;
-      return `<div class="bar-seg" title="${esc(s.label)}: ${v}" style="height:${h}px;background:${colors[i]}"><span class="bar-val">${esc(s.label)}: ${v}</span></div>`;
+      return `<div class="bar-seg" title="${esc(s.label)}: ${v}" style="height:${h}px;background:${colors[i]}">${opts.showValues && v>0 ? `<span class="bar-num">${v}</span>` : ''}<span class="bar-val">${esc(s.label)}: ${v}</span></div>`;
     }).join('');
     return `<div class="chartcol"><div class="chartbars">${bars}</div></div>`;
   }).join('');
   const xlabels = categories.map(c=>`<div class="lbl">${esc(labelFn(c))}</div>`).join('');
   const legend = series.map((s,i)=>`<span><span class="sw" style="background:${colors[i]}"></span>${esc(s.label)}</span>`).join('');
+  const fill = opts.fill ? ' chart-fill' : '';
   return `
-  <div class="chartwrap">
+  <div class="chartwrap${fill}">
     <div class="chart-axis">${axisHtml}</div>
     <div class="chart-plot">
       <div>${gridHtml}</div>
       <div class="chartbox">${cols}</div>
     </div>
   </div>
-  <div class="chart-xlabels">${xlabels}</div>
+  <div class="chart-xlabels${fill}">${xlabels}</div>
   <div class="legend">${legend}</div>`;
 }
 function wireBarClicks(chartwrapEl){
@@ -1159,7 +1166,7 @@ function renderResumen(el){
 
   <div class="grid2">
     <div class="card">
-      <div class="card-head"><h3>OT por severidad — histórico por mes</h3></div>
+      <div class="card-head"><h3>OT por tipo y severidad — histórico por mes</h3></div>
       ${chartSeveridadMensual(ot)}
     </div>
     <div class="card">
@@ -1428,27 +1435,37 @@ function renderTopLugaresWrap(){
   }));
 }
 const ORDEN_SEVERIDAD = {Alta:0, Media:1, Baja:2};
-// Histórico mensual de OT por severidad (pedido de Mariana; reemplazó a "OT
-// por tipo y severidad"). Mes = mes de la Fecha Creación. Se incluyen los
-// meses sin OT entre el primero y el último, para que el histórico no salte.
+// Histórico mensual de OT por tipo y severidad (pedido de Mariana). Mes = mes
+// de la Fecha Creación, desde agosto 2026 (HISTORICO_DESDE: antes solo hay
+// una OT suelta de mayo). Una barra por combinación tipo × severidad presente
+// (Correctivo en rojos, Preventivo en azules, otros tipos en morados; tono
+// fuerte = Alta, claro = Media). Incluye los meses vacíos del medio.
+const HISTORICO_DESDE = '2026-08';
 function chartSeveridadMensual(ot){
-  const meses = [...new Set(ot.map(r=>monthKey(r.fecha_creacion)).filter(Boolean))].sort();
+  const base = ot.filter(r=>{ const k=monthKey(r.fecha_creacion); return k && k>=HISTORICO_DESDE; });
+  const meses = [...new Set(base.map(r=>monthKey(r.fecha_creacion)))].sort();
   if(!meses.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
   const todos = [];
   let [y,m] = meses[0].split('-').map(Number);
   const [yF,mF] = meses[meses.length-1].split('-').map(Number);
   while(y<yF || (y===yF && m<=mF)){ todos.push(`${y}-${String(m).padStart(2,'0')}`); m++; if(m>12){m=1;y++;} }
-  const severidades = [...new Set(ot.map(r=>r.severidad).filter(Boolean))]
-    .sort((a,b)=> (ORDEN_SEVERIDAD[a]??99)-(ORDEN_SEVERIDAD[b]??99) || a.localeCompare(b));
-  const series = severidades.map(sv=>({label:sv, values:Object.fromEntries(todos.map(k=>[k,0]))}));
-  ot.forEach(r=>{
-    const k = monthKey(r.fecha_creacion); const sr = series.find(x=>x.label===r.severidad);
-    if(k && sr) sr.values[k]++;
+  const tipoCorto = t => (t||'Sin tipo').split(',')[0];
+  const ORDEN_TIPO = {'Correctivo':0, 'Preventivo':1};
+  const combos = [...new Set(base.map(r=>tipoCorto(r.tipo)+'|'+(r.severidad||'Sin severidad')))]
+    .map(k=>{ const [t,sv]=k.split('|'); return {t, sv}; })
+    .sort((a,b)=>(ORDEN_TIPO[a.t]??2)-(ORDEN_TIPO[b.t]??2) || a.t.localeCompare(b.t) || (ORDEN_SEVERIDAD[a.sv]??99)-(ORDEN_SEVERIDAD[b.sv]??99));
+  const series = combos.map(c=>({label:`${c.t} · ${c.sv}`, t:c.t, sv:c.sv, values:Object.fromEntries(todos.map(k=>[k,0]))}));
+  base.forEach(r=>{
+    const sr = series.find(x=>x.t===tipoCorto(r.tipo) && x.sv===(r.severidad||'Sin severidad'));
+    if(sr) sr.values[monthKey(r.fecha_creacion)]++;
   });
-  const COLOR_SEV = {Alta:'var(--bad)', Media:'var(--warn)', Baja:'var(--chart-1)'};
+  const PALETA = {Correctivo:{Alta:'#DC2626', Media:'#F2A0A0', Baja:'#FBD5D5'},
+                  Preventivo:{Alta:'#2a78d6', Media:'#9CC3F0', Baja:'#D3E5FA'}};
+  const OTRO = {Alta:'#7c3aed', Media:'#C4B5FD', Baja:'#EDE9FE'};
+  const colores = series.map(sr=>(PALETA[sr.t]||OTRO)[sr.sv] || '#9ca3af');
   const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const labelMesCorto = k => { const [yy,mm]=k.split('-').map(Number); return `${MESES[mm-1]} ${yy}`; };
-  return groupedBarChart(todos, series, severidades.map(sv=>COLOR_SEV[sv]||'var(--chart-3)'), {labelFn:labelMesCorto});
+  return groupedBarChart(todos, series, colores, {labelFn:labelMesCorto, fill:true, showValues:true});
 }
 // "OT correctivas por lugar" (antes "Top lugares con más averías
 // correctivas", solo 8): TODOS los lugares, con la cantidad clicable.
