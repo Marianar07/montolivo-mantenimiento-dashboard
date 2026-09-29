@@ -281,6 +281,9 @@ O.T.` (`estado==='Abierta'`).
   (sin tildes, sobre todas las columnas) + desplegables de Tipo, Estado,
   Severidad y Lugar (solo los que tengan más de un valor); muestra "N de M"
   y recalcula el costo total con lo filtrado.
+- **Costo total mantenimiento** es clicable → tabla de costo por lugar (OT,
+  correctivo, preventivo, correctiva programada, total y % del total), con
+  buscador; respeta el filtro de fechas/lugar como el resto del Resumen.
 - **Desglose del costo** ("Lo más importante", junto a "Costo total"): el
   export de OT solo trae `Total Real` por OT. **Costo servicios
   (proveedores)** = Total Real de las OT de proveedores (clicable).

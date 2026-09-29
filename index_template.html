@@ -1010,7 +1010,7 @@ function renderResumen(el){
   ${sectionTitle('Indicadores clave del periodo')}
 
   ${kpiGroup('Lo más importante', `
-    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}`, hero:true, accent:'c2'})}
+    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}<div class="sev-time" style="margin-top:4px;">Clic para ver el costo por lugar</div>`, hero:true, accent:'c2', id:'costoTotalCard', clickable:true})}
     ${kpiCard({label:'Costo mano de obra', value:'Sin datos', sub:'Mantum todavía no reporta el costo de mano de obra por OT — se mostrará aquí cuando esté disponible', hero:true, id:'costoManoObraCard'})}
     ${kpiCard({label:'Costo repuestos', value:'Sin datos', sub:'Mantum todavía no reporta el costo de repuestos por OT — se mostrará aquí cuando esté disponible', hero:true, id:'costoRepuestosCard'})}
     ${kpiCard({label:'Costo servicios (proveedores)', value:fmtMoney(costoServicios), sub:`${tiposHtml(otProveedores)}OT de proveedores · clic para ver`, hero:true, accent:'c3', id:'costoServiciosCard', clickable:true})}
@@ -1078,6 +1078,28 @@ function renderResumen(el){
     {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
   ];
   const porCostoDesc = rows => rows.slice().sort((a,b)=>(b.costo_real||0)-(a.costo_real||0));
+  // Costo total por lugar (clic en "Costo total mantenimiento").
+  const costoTotalEl = document.getElementById('costoTotalCard');
+  if(costoTotalEl) costoTotalEl.addEventListener('click', ()=>{
+    const m = new Map();
+    ot.forEach(r=>{
+      const k = r.lugar || 'Sin lugar';
+      if(!m.has(k)) m.set(k, {lugar:k, n:0, corr:0, prev:0, otro:0, costo_real:0});
+      const c = m.get(k), v = r.costo_real||0;
+      c.n++; c.costo_real += v;
+      if(r.tipo==='Correctivo') c.corr += v; else if(r.tipo==='Preventivo') c.prev += v; else c.otro += v;
+    });
+    const filas = [...m.values()].sort((a,b)=>b.costo_real-a.costo_real);
+    modalFiltrable('Costo de mantenimiento por lugar', filas, [
+      {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v)}</span>`},
+      {key:'n', label:'OT', num:true},
+      {key:'corr', label:'Correctivo', num:true, fmt:fmtMoney},
+      {key:'prev', label:'Preventivo', num:true, fmt:fmtMoney},
+      {key:'otro', label:'Correctiva programada', num:true, fmt:fmtMoney},
+      {key:'costo_real', label:'Costo total', num:true, fmt:v=>`<b>${fmtMoney(v)}</b>`},
+      {key:'_pct', label:'% del total', num:true, fmt:(v,r)=>costoTotal? fmtPct(r.costo_real/costoTotal*100) : '—'},
+    ], {costo:true, filtros:[], placeholder:'Buscar lugar...'});
+  });
   const serviciosEl = document.getElementById('costoServiciosCard');
   if(serviciosEl) serviciosEl.addEventListener('click', ()=> modalOT('Costo de servicios — OT de proveedores', porCostoDesc(otProveedores), colsCostoOT));
   el.querySelectorAll('[data-sev-abiertas]').forEach(btn=>btn.addEventListener('click', ()=>{
@@ -1177,7 +1199,7 @@ function modalFiltrable(titulo, rows, cols, opts={}){
   const cellText = (c,r) => { const v = c.fmt ? c.fmt(r[c.key], r) : r[c.key]; const d=document.createElement('div'); d.innerHTML = v==null?'':String(v); return d.textContent; };
   openModal(`${titulo} (${rows.length})`, `
     <div class="modal-filters">
-      <input class="searchbox" type="text" id="mfBuscar" placeholder="Buscar por OT, equipo, lugar, técnico...">
+      <input class="searchbox" type="text" id="mfBuscar" placeholder="${esc(opts.placeholder||'Buscar por OT, equipo, lugar, técnico...')}">
       ${filtros.map(f=>`<select data-mf="${esc(f.k)}"><option value="">${esc(f.l)}: todos</option>${f.vals.map(v=>`<option value="${esc(v)}">${esc(String(v).split(',')[0])}</option>`).join('')}</select>`).join('')}
     </div>
     <div class="tipo-line" id="mfResumen" style="margin-bottom:8px;font-size:13px;"></div>
