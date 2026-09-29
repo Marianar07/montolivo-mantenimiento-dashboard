@@ -245,9 +245,10 @@ Pedido de Mariana (29-sep-2026), en `renderResumen()`: tres tarjetas —
 "OT para reprogramar": dentro de "OT abiertas" hay una fila **"Vencidas"**
 clicable → listado con días de atraso. **Vencida = para reprogramar**
 (definición de Mariana): OT abierta cuya `Fecha Fin Programado` ya pasó y
-que no tiene `Fecha Fin Real` (`necesitaReprogramar()`; días de atraso
-desde la fin programada). Las abiertas que sí tienen Fecha Fin Real
-(trabajo hecho, falta cerrarlas en el CMMS) van aparte en la fila
+que no está hecha — sin `Fecha Fin Real` **o con `Ejecución (%)` < 100**
+(`necesitaReprogramar()`; días de atraso desde la fin programada). Las
+abiertas con Fecha Fin Real y 100% de ejecución (trabajo hecho, falta
+cerrarlas en el CMMS, `otEjecutadaCompleta()`) van aparte en la fila
 "Ejecutadas sin cerrar" (`sinCerrarEnSistema()`), también clicable (listado
 con inicio real, fin real y % de ejecución; el de vencidas trae inicio y
 fin programado y % de ejecución). La

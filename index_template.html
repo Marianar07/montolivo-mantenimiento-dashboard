@@ -570,15 +570,18 @@ function rangoEfectivoOT(){
 }
 
 // OT "vencida" / "para reprogramar" (definición de Mariana, 29-sep-2026):
-// sigue abierta y su Fecha Fin Programado ya pasó (respecto a hoy). Se
-// excluyen las que ya tienen Fecha Fin Real: el trabajo se hizo y solo falta
-// cerrarlas en el CMMS (ver sinCerrarEnSistema), no hay que reprogramarlas.
+// sigue abierta, su Fecha Fin Programado ya pasó (respecto a hoy) y el
+// trabajo no está hecho — sin Fecha Fin Real o con Ejecución < 100% (una OT
+// con fin real pero ejecución parcial tampoco se ha hecho). Las que sí están
+// ejecutadas al 100% solo falta cerrarlas (ver sinCerrarEnSistema).
+function otEjecutadaCompleta(r){ return !!r.fin_real && (r.avance||0) >= 100; }
 function necesitaReprogramar(r){
-  return r.estado==='Abierta' && !r.fin_real && !!r.fin_programado
+  return r.estado==='Abierta' && !otEjecutadaCompleta(r) && !!r.fin_programado
     && new Date(r.fin_programado) < new Date();
 }
-// Abierta en el CMMS pero con Fecha Fin Real: terminada, falta cerrarla.
-function sinCerrarEnSistema(r){ return r.estado==='Abierta' && !!r.fin_real; }
+// Abierta en el CMMS pero con Fecha Fin Real y 100% de ejecución: el
+// trabajo se hizo, falta cerrarla.
+function sinCerrarEnSistema(r){ return r.estado==='Abierta' && otEjecutadaCompleta(r); }
 // Días completos transcurridos desde la Fecha Fin Programado hasta hoy.
 function diasAtrasoOT(r){
   return Math.floor((new Date() - new Date(r.fin_programado))/86400000);
@@ -920,7 +923,7 @@ function renderResumen(el){
       return `<button type="button" class="sev-row" data-sev-abiertas="${esc(s)}" title="Ver OT abiertas de severidad ${esc(s)}"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasAbiertaOT).prom)} ›</span></button>`;
     }).join('') || '<div class="sev-row">Sin OT abiertas</div>'}</div>
     <div class="sev-list"><button type="button" class="sev-row" id="otReprogramarCard" title="Abiertas, sin terminar y con fecha fin programada ya pasada"><span style="white-space:nowrap"><span class="status-dot ${otParaReprogramar>0?'bad':'good'}"></span> Vencidas: <b>${otParaReprogramar}</b></span><span class="sev-time">ver cuáles ›</span></button>
-    ${otSinCerrar? `<button type="button" class="sev-row" id="otSinCerrarBtn" title="Tienen Fecha Fin Real pero siguen abiertas en el sistema"><span style="white-space:nowrap"><span class="status-dot warn"></span> Ejecutadas sin cerrar: <b>${otSinCerrar}</b></span><span class="sev-time">ver cuáles ›</span></button>` : ''}</div>`;
+    ${otSinCerrar? `<button type="button" class="sev-row" id="otSinCerrarBtn" title="Tienen Fecha Fin Real y 100% de ejecución pero siguen abiertas en el sistema"><span style="white-space:nowrap"><span class="status-dot warn"></span> Ejecutadas sin cerrar: <b>${otSinCerrar}</b></span><span class="sev-time">ver cuáles ›</span></button>` : ''}</div>`;
   const sevCerradasHtml = `<div class="sev-list">${sevOrden(otCerradasRows).map(s=>{
       const rows = otCerradasRows.filter(r=>(r.severidad||'Sin severidad')===s);
       return `<div class="sev-row"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasSolucionOT).prom)}</span></div>`;
@@ -1225,7 +1228,7 @@ function renderOT(el){
     </div>
   </div>
   <div class="card section-block">
-    ${sectionTitle('Órdenes de Trabajo para reprogramar', `${nReprogramar} OT abiertas que ya pasaron su fecha fin programada y no se han terminado (sin Fecha Fin Real) — de la más atrasada a la más reciente`)}
+    ${sectionTitle('Órdenes de Trabajo para reprogramar', `${nReprogramar} OT abiertas que ya pasaron su fecha fin programada y no se han hecho (sin Fecha Fin Real o con ejecución menor a 100%) — de la más atrasada a la más reciente`)}
     ${reprogramar.length!==nReprogramar ? `<div class="callout info">Algunas OT tienen más de un técnico asignado y aparecen una vez por técnico, igual que en el listado completo (${reprogramar.length} filas para ${nReprogramar} OT).</div>` : ''}
     <div class="card-head">
       <input class="searchbox" type="text" id="otReprogSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
