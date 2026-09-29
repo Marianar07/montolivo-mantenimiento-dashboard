@@ -579,7 +579,8 @@ function badgeEstadoParo(r){
   return `<span class="badge ${cls}">${esc(e)}</span>`;
 }
 // ss_codigo de un paro puede traer varias SS ("00325, 00326")
-function fmtSSParo(v){ return v ? String(v).split(',').map(x=>'SS-'+x.trim()).join(', ') : '—'; }
+// Código(s) de SS tal cual (solo el número, sin prefijo "SS-" - pedido de Mariana).
+function fmtSSParo(v){ return v ? String(v).split(',').map(x=>esc(x.trim())).join(', ') : '—'; }
 function rangoEfectivoOT(){
   if(FILTER.desde && FILTER.hasta) return {desde:FILTER.desde, hasta:FILTER.hasta};
   const fechas = DATA.ot.map(r=>r.fecha_creacion).filter(Boolean).map(s=>new Date(s));
@@ -1216,7 +1217,7 @@ function renderResumen(el){
   ];
   const porCostoDesc = rows => rows.slice().sort((a,b)=>(b.costo_real||0)-(a.costo_real||0));
   const colsSS = [
-    {key:'ss', label:'SS', fmt:v=>`SS-${esc(v)}`},
+    {key:'ss', label:'SS', fmt:v=>esc(v??'—')},
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'severidad', label:'Sev.'},
     {key:'estado', label:'Estado', fmt:(v,r)=>`<span class="badge ${r.fecha_respuesta?'good':'warn'}" style="white-space:normal;display:inline-block;">${esc(v??'—')}</span>`},

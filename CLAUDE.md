@@ -342,6 +342,9 @@ Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
   columna Respuesta.
 Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 
+**Códigos de SS**: en todo el tablero se muestran solo con el número
+(p. ej. `00016`), sin prefijo "SS-" (pedido de Mariana; ver `fmtSSParo()`).
+
 ### Ordenar tablas por columna
 
 Pedido de Mariana: **todas** las tablas se ordenan al hacer clic en el
