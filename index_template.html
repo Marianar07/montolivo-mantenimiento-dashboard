@@ -233,6 +233,9 @@ main{padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
 .sev-row .sev-time{color:var(--ink-3);font-size:11px;white-space:nowrap;}
 button.sev-row{cursor:pointer;}
 .mini-meter{padding:4px 6px;}
+.tipo-line{font-size:12px;color:var(--ink-2);margin-bottom:6px;display:flex;flex-wrap:wrap;column-gap:12px;row-gap:2px;}
+.tipo-line span{white-space:nowrap;}
+.tipo-line b{color:var(--ink);}
 .mini-meter .sev-row{padding:0;white-space:nowrap;}
 .mini-meter .meter-track{height:6px;margin-top:4px;}
 button.sev-row:hover{border-color:var(--maroon);background:var(--cream);}
@@ -932,6 +935,15 @@ function renderResumen(el){
       <div class="sev-row"><span><span class="status-dot ${st}"></span> ${label}: <b>${fmtPct(pct)}</b></span><span class="sev-time">${detalle}</span></div>
       <div class="meter-track ${st}"><div class="meter-fill ${st}" style="width:${pct==null?0:Math.max(0,Math.min(100,pct))}%"></div></div>
     </div>`;
+  // Conteo por tipo de OT (Correctivo / Preventivo primero; cualquier otro
+  // tipo que traiga el CMMS, p. ej. "Correctiva programada, Sistemática",
+  // se muestra con su nombre para que la suma cuadre con el total).
+  const tiposHtml = rows => {
+    const c = groupCount(rows, r=>r.tipo||'Sin tipo');
+    const orden = t => t==='Correctivo'?0 : t==='Preventivo'?1 : 2;
+    c.sort((a,b)=>orden(a.key)-orden(b.key) || b.count-a.count);
+    return `<div class="tipo-line">${c.map(x=>`<span>${esc(x.key.split(',')[0])}: <b>${x.count}</b></span>`).join('') || 'Sin OT'}</div>`;
+  };
   const cumplimientosHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento</div>
       ${miniMeter('Preventivo', cumplimientoPrev, stCumpl, `${cumplidasPrev.length} de ${preventivas.length}`)}
@@ -972,9 +984,9 @@ function renderResumen(el){
   `, true)}
 
   ${kpiGroup('Órdenes de trabajo', `
-    ${kpiCard({label:'OT totales', value:ot.length, sub:cumplimientosHtml, hero:true, accent:'c1'})}
-    ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
-    ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
+    ${kpiCard({label:'OT totales', value:ot.length, sub:tiposHtml(ot)+cumplimientosHtml, hero:true, accent:'c1'})}
+    ${kpiCard({label:'OT abiertas', value:otAbiertasRows.length, sub:`${tiposHtml(otAbiertasRows)}Llevan en promedio <b>${fmtDias(tiempoAbiertas.prom)}</b> abiertas (desde su creación)${sevAbiertasHtml}`, hero:true, status:'warn'})}
+    ${kpiCard({label:'OT cerradas', value:otCerradasRows.length, sub:`${tiposHtml(otCerradasRows)}Tiempo promedio de solución: <b>${fmtDias(solCerradas.prom)}</b> (creación → fin real, ${solCerradas.n} OT)${sevCerradasHtml}`, hero:true, status:'good'})}
   `, true)}
 
   <div class="grid2">

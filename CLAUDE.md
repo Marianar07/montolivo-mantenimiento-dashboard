@@ -241,7 +241,9 @@ de arriba de la pestaña: "N de M SS en el rango".)
 ### Bloque "Órdenes de trabajo" del Resumen Gerencial
 
 Pedido de Mariana (29-sep-2026), en `renderResumen()`: tres tarjetas —
-**OT totales**, **OT abiertas** y **OT cerradas**. Ya no hay tarjeta aparte
+**OT totales**, **OT abiertas** y **OT cerradas**, cada una con el conteo
+por tipo debajo del número (Correctivo · Preventivo · cualquier otro tipo del
+CMMS, p. ej. "Correctiva programada", para que sume el total). Ya no hay tarjeta aparte
 "OT para reprogramar": dentro de "OT abiertas" hay una fila **"Vencidas"**
 clicable → listado con días de atraso. **Vencida = para reprogramar**
 (definición de Mariana): OT abierta cuya `Fecha Fin Programado` ya pasó y
