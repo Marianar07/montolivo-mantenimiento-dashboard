@@ -920,7 +920,7 @@ function renderResumen(el){
       return `<button type="button" class="sev-row" data-sev-abiertas="${esc(s)}" title="Ver OT abiertas de severidad ${esc(s)}"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasAbiertaOT).prom)} ›</span></button>`;
     }).join('') || '<div class="sev-row">Sin OT abiertas</div>'}</div>
     <div class="sev-list"><button type="button" class="sev-row" id="otReprogramarCard" title="Abiertas, sin terminar y con fecha fin programada ya pasada"><span style="white-space:nowrap"><span class="status-dot ${otParaReprogramar>0?'bad':'good'}"></span> Vencidas: <b>${otParaReprogramar}</b></span><span class="sev-time">ver cuáles ›</span></button>
-    ${otSinCerrar? `<button type="button" class="sev-row" id="otSinCerrarBtn" title="Tienen Fecha Fin Real pero siguen abiertas en el sistema"><span style="white-space:nowrap"><span class="status-dot warn"></span> Terminadas sin cerrar: <b>${otSinCerrar}</b></span><span class="sev-time">ver cuáles ›</span></button>` : ''}</div>`;
+    ${otSinCerrar? `<button type="button" class="sev-row" id="otSinCerrarBtn" title="Tienen Fecha Fin Real pero siguen abiertas en el sistema"><span style="white-space:nowrap"><span class="status-dot warn"></span> Ejecutadas sin cerrar: <b>${otSinCerrar}</b></span><span class="sev-time">ver cuáles ›</span></button>` : ''}</div>`;
   const sevCerradasHtml = `<div class="sev-list">${sevOrden(otCerradasRows).map(s=>{
       const rows = otCerradasRows.filter(r=>(r.severidad||'Sin severidad')===s);
       return `<div class="sev-row"><span>${esc(s)}: <b>${rows.length}</b></span><span class="sev-time">${fmtDias(promDias(rows, diasSolucionOT).prom)}</span></div>`;
@@ -1032,12 +1032,14 @@ function renderResumen(el){
     const porOT = new Map();
     ot.filter(sinCerrarEnSistema).forEach(r=>{ if(!porOT.has(r.ot)) porOT.set(r.ot, r); });
     const detalle = [...porOT.values()].sort((a,b)=>new Date(a.fin_real)-new Date(b.fin_real));
-    openModal(`OT terminadas sin cerrar en el sistema (${detalle.length})`, simpleTable(detalle, [
+    openModal(`OT ejecutadas sin cerrar en el sistema (${detalle.length})`, simpleTable(detalle, [
       {key:'ot', label:'O.T.'},
       {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+      {key:'inicio_real', label:'Inicio real', fmt:fmtDate},
       {key:'fin_real', label:'Fin real', fmt:fmtDate},
+      {key:'avance', label:'% ejecución', num:true, fmt:v=>v==null?'—':fmtPct(v,0)},
     ], {scroll:true}));
   });
   const reprogCardEl = document.getElementById('otReprogramarCard');
@@ -1051,6 +1053,7 @@ function renderResumen(el){
       {key:'ot', label:'O.T.'},
       {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'inicio_programado', label:'Inicio programado', fmt:fmtDate},
       {key:'fin_programado', label:'Fin programado', fmt:fmtDate},
       {key:'_atraso', label:'Días de atraso', num:true, fmt:(v,r)=>`<span class="badge bad">${diasAtrasoOT(r)} d</span>`},
     ], {scroll:true}));
