@@ -601,9 +601,17 @@ colores, o agregar una pestaña, el cambio va en `index_template.html`
 ## Identidad de marca
 
 Colores extraídos del tablero de referencia de la empresa (paleta ya
-aplicada en `index_template.html`, no recalcular):
+aplicada en `index_template.html`, no recalcular). Paleta corporativa
+(pedido de Mariana, 1-oct-2026: "muchos colores, que se vea más
+profesional"): vino de la marca + neutros cálidos; verde/ámbar/rojo
+apagados **solo** para semáforos (alertas, cumplimiento, vencidas). Todas
+las tarjetas destacadas (`accent-c1/c2/c3` y `good`) llevan borde y número
+en vino. No volver a azul/naranja/verde/morado en tarjetas ni gráficas.
 ```
 --maroon-dark:#52101E;  --maroon:#7A1A2E;  --cream:#F8F3EE;
---good:#16A34A; --warn:#D97706; --bad:#DC2626;
---chart-1:#2a78d6; --chart-2:#eb6834; --chart-3:#1baf7a;
+--good:#3F7D5C; --warn:#B7832F; --bad:#B3261E;
+--chart-1:#7A1A2E (vino, Correctivo)  --chart-2:#A08463 (bronce, Preventivo)
+--chart-3:#5B6770 (pizarra)  --chart-4:#B9737E  --chart-5:#3E4A52  --chart-6:#9A8F8B
 ```
+Los colores por tipo de las gráficas salen de `tiposYColores()`: Correctivo
+y Preventivo fijos, los demás tipos toman el siguiente `--chart-N` libre.
