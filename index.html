@@ -289,8 +289,8 @@ button.sev-row.sev-row-alerta:hover{border-color:var(--bad);background:var(--bad
 .modal-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
 .modal-filters select{max-width:220px;}
 @media (max-width:640px){ .modal-filters select, .modal-filters .searchbox{width:100%;max-width:none;font-size:16px;} }
-#costoRepuestosCard, #costoManoObraCard{border-left:4px dashed var(--border);}
-#costoRepuestosCard .kpi-value, #costoManoObraCard .kpi-value{color:var(--ink-3);font-size:22px;}
+#costoRepuestosCard{border-left:4px dashed var(--border);}
+#costoRepuestosCard .kpi-value{color:var(--ink-3);font-size:22px;}
 .tipo-line{font-size:12px;color:var(--ink-2);margin-bottom:6px;display:flex;flex-wrap:wrap;column-gap:12px;row-gap:2px;}
 .tipo-line span{white-space:nowrap;}
 .kpi-card{position:relative;}
@@ -33945,9 +33945,9 @@ function renderResumen(el){
   // Desglose del costo total (pedido de Mariana). El export de OT solo trae
   // "Total Real" por OT, sin separar mano de obra / repuestos / servicios:
   //  - Servicios = Total Real de las OT con algún ejecutor proveedor.
-  //  - Mano de obra y Repuestos = "Sin datos" (Mariana, 29-sep-2026: no
-  //    suponer; Total Real parece horas × tarifa del técnico, pero no está
-  //    confirmado que sea el costo de mano de obra).
+  //  - Mano de obra = Total Real de todas las OT (= Costo total). Mariana lo
+  //    confirmó el 1-oct-2026 (antes "Sin datos" mientras no estaba confirmado).
+  //  - Repuestos = "Sin datos" (Mantum todavía no lo reporta).
   const otProvSet = new Set(otProveedores.map(r=>r.ot));
   const costoServicios = costoDe(otProveedores);
   // OT creadas en Mantum después de su Fecha Inicio Real (registradas
@@ -34089,7 +34089,9 @@ function renderResumen(el){
 
   ${kpiGroup('Lo más importante', `
     ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}<div class="sev-time" style="margin-top:4px;">Clic para ver el costo por lugar</div>`, hero:true, accent:'c2', id:'costoTotalCard', clickable:true})}
-    ${kpiCard({label:'Costo mano de obra', value:'Sin datos', sub:'Mantum todavía no reporta el costo de mano de obra por OT — se mostrará aquí cuando esté disponible', hero:true, id:'costoManoObraCard'})}
+    ${/* Mariana confirmó (1-oct-2026) que el Total Real de las OT es costo de
+         mano de obra (aún no hay repuestos): mismo valor que Costo total. */''}
+    ${kpiCard({label:'Costo mano de obra', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}<div class="sev-time" style="margin-top:4px;">Clic para ver el costo por lugar</div>`, hero:true, accent:'c1', id:'costoManoObraCard', clickable:true})}
     ${kpiCard({label:'Costo repuestos', value:'Sin datos', sub:'Mantum todavía no reporta el costo de repuestos por OT — se mostrará aquí cuando esté disponible', hero:true, id:'costoRepuestosCard'})}
     ${kpiCard({label:'Costo servicios (proveedores)', value:fmtMoney(costoServicios), sub:`${tiposHtml(otProveedores)}OT de proveedores · clic para ver`, hero:true, accent:'c3', id:'costoServiciosCard', clickable:true})}
   `, true)}
@@ -34231,7 +34233,7 @@ function renderResumen(el){
   }));
   // Costo total por lugar (clic en "Costo total mantenimiento").
   const costoTotalEl = document.getElementById('costoTotalCard');
-  if(costoTotalEl) costoTotalEl.addEventListener('click', ()=>{
+  const costoPorLugar = titulo => {
     const m = new Map();
     ot.forEach(r=>{
       const k = r.lugar || 'Sin lugar';
@@ -34241,7 +34243,7 @@ function renderResumen(el){
       if(r.tipo==='Correctivo') c.corr += v; else if(r.tipo==='Preventivo') c.prev += v; else c.otro += v;
     });
     const filas = [...m.values()].sort((a,b)=>b.costo_real-a.costo_real);
-    modalFiltrable('Costo de mantenimiento por lugar', filas, [
+    modalFiltrable(titulo, filas, [
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v)}</span>`},
       {key:'n', label:'OT', num:true},
       {key:'corr', label:'Correctivo', num:true, fmt:fmtMoney},
@@ -34250,7 +34252,10 @@ function renderResumen(el){
       {key:'costo_real', label:'Costo total', num:true, fmt:v=>`<b>${fmtMoney(v)}</b>`},
       {key:'_pct', label:'% del total', num:true, fmt:(v,r)=>costoTotal? fmtPct(r.costo_real/costoTotal*100) : '—'},
     ], {costo:true, filtros:[], placeholder:'Buscar lugar...'});
-  });
+  };
+  if(costoTotalEl) costoTotalEl.addEventListener('click', ()=>costoPorLugar('Costo de mantenimiento por lugar'));
+  const manoObraEl = document.getElementById('costoManoObraCard');
+  if(manoObraEl) manoObraEl.addEventListener('click', ()=>costoPorLugar('Costo de mano de obra por lugar'));
   const serviciosEl = document.getElementById('costoServiciosCard');
   if(serviciosEl) serviciosEl.addEventListener('click', ()=> modalOT('Costo de servicios — OT de proveedores', porCostoDesc(otProveedores), colsCostoOT));
   el.querySelectorAll('[data-sev-abiertas]').forEach(btn=>btn.addEventListener('click', ()=>{

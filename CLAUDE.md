@@ -315,13 +315,14 @@ O.T.` (`estado==='Abierta'`).
 - **Desglose del costo** ("Lo más importante", junto a "Costo total"): el
   export de OT solo trae `Total Real` por OT. **Costo servicios
   (proveedores)** = Total Real de las OT de proveedores (clicable).
-  **Costo mano de obra** y **Costo repuestos** = tarjetas "Sin datos".
-  Decisión de Mariana (29-sep-2026): **no suponer** el costo de mano de obra.
-  Se verificó que `Total Real` = horas reales × una tarifa fija por técnico
-  (p. ej. $24.427/h Alejandro, $17.009/h Juan José/Jonathan) y que no incluye
-  el único repuesto registrado, pero no está confirmado que sea el costo real
-  de mano de obra — no mostrarlo como tal hasta que Mariana lo confirme o
-  llegue un dato explícito de Mantum.
+  **Costo mano de obra** = Total Real de todas las OT (mismo valor que Costo
+  total, clicable → costo por lugar). **Mariana lo confirmó el 1-oct-2026**:
+  el costo total es costo de mano de obra (`Total Real` = horas reales × una
+  tarifa fija por técnico, p. ej. $24.427/h Alejandro, $17.009/h Juan
+  José/Jonathan). Antes (29-sep) la tarjeta decía "Sin datos" porque no
+  estaba confirmado. **Costo repuestos** sigue "Sin datos" (Mantum no lo
+  reporta). Ojo: Costo servicios (proveedores) es un subconjunto del mismo
+  Total Real, no se suma aparte.
 
 ### Bloque "Solicitudes de servicio" del Resumen Gerencial
 
