@@ -35303,7 +35303,17 @@ function cumplimientoStatsSS(rows){
 function renderSS(el){
   let all = getFilteredSS();
   if(!FILTER.lugarGlobal && ssLugarFiltro.value) all = all.filter(r=>r.lugar===ssLugarFiltro.value);
-  const pendientes = all.filter(r=>r.estado==='Creada').length;
+  // SS abiertas / cerradas (pedido de Mariana, 1-oct-2026; reemplaza a
+  // "Pendientes de gestión (Creada)", que contaba solo las Creada). Abiertas =
+  // Creada, Editada, Leída, Validada, Programada en O.T.; cerradas = Ejecutada,
+  // Evaluada, No aprobada. Se decide por Fecha de respuesta (coincide 100% con
+  // esa lista y clasifica solo cualquier estado nuevo — ver CLAUDE.md).
+  const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','No aprobada'];
+  const ssAbiertasT = all.filter(r=>!r.fecha_respuesta);
+  const ssCerradasT = all.filter(r=>!!r.fecha_respuesta);
+  const estadosSS = rows => `<div class="estado-chips">${groupCount(rows, r=>r.estado||'Sin estado')
+    .sort((a,b)=>{ const ia=ORDEN_ESTADO_SS.indexOf(a.key), ib=ORDEN_ESTADO_SS.indexOf(b.key); return (ia<0?99:ia)-(ib<0?99:ib); })
+    .map(x=>`<span class="estado-chip">${esc(x.key)}: <b>${x.count}</b></span>`).join('')}</div>`;
   const conRespuesta = all.filter(r=>r.fecha_respuesta);
   const tResp = conRespuesta.map(r=>(new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/3600000);
   const promResp = tResp.length? tResp.reduce((a,b)=>a+b,0)/tResp.length : null;
@@ -35321,7 +35331,8 @@ function renderSS(el){
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiPromedioDia('SS creadas por día (promedio)', ssDia)}
-    ${kpiCard({label:'Pendientes de gestión (Creada)', value:pendientes, status: pendientes>all.length*0.5?'bad':'warn'})}
+    ${kpiCard({label:'SS abiertas', value:ssAbiertasT.length, sub:estadosSS(ssAbiertasT), status:'warn'})}
+    ${kpiCard({label:'SS cerradas', value:ssCerradasT.length, sub:estadosSS(ssCerradasT), status:'good'})}
     ${kpiCard({label:'Tiempo de solución promedio (SS cerradas)', value:fmtDiasDeHoras(promResp)})}
     ${kpiCard({label:'Antigüedad promedio (SS no resueltas)', value:fmtDiasDeHoras(promEdadAbiertas)})}
   </div>

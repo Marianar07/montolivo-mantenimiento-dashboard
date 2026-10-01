@@ -229,6 +229,13 @@ nuevo en una corrida futura, revisar con el mismo cruce Estado vs. Fecha de
 respuesta si debe listarse como abierto o cerrado en las notas de la UI,
 pero no hace falta tocar la lógica de cálculo.
 
+En la pestaña **Solicitudes de Servicio**, las tarjetas **SS abiertas**
+(Creada, Editada, Leída, Validada, Programada en O.T.) y **SS cerradas**
+(Ejecutada, Evaluada, No aprobada), cada una con el conteo por estado,
+reemplazaron a "Pendientes de gestión (Creada)" (pedido de Mariana,
+1-oct-2026: las pendientes no son solo las Creada). Se calculan por
+`Fecha de respuesta`, igual que en el Resumen.
+
 Por lo tanto: "Fecha de respuesta" menos "Fecha de solicitud" **sí es un
 tiempo de solución válido**, calculado solo sobre las SS que ya están
 cerradas (Ejecutada, Evaluada o No aprobada) — no es un promedio de
