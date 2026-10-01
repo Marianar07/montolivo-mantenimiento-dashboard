@@ -488,8 +488,13 @@ rango, en h/día. Ambos solo sobre técnicos internos que aparecen en alguna
 OT del histórico (los de TECNICOS.xlsx sin ninguna OT no bajan el promedio).
 
 **"Horas laborales vs. horas trabajadas por semana"** (pedido de Mariana,
-1-oct-2026; pestaña Técnicos, debajo de "Capacidad y ocupación",
-`tablaHorasSemanales()`): filas = técnicos internos (mismas `capRows`),
+1-oct-2026; pestaña Técnicos, debajo de "Capacidad y ocupación"). En la
+pestaña es una **gráfica** (`graficaHorasSemanales()`, Mariana pidió cambiar
+la tabla por gráfica): por técnico y semana, barra de horas trabajadas con
+línea negra en las laborales (escala hasta 150%; si pasa, barra llena con
+borde y el número real). La versión en tabla (`tablaHorasSemanales()`)
+queda solo en el modal "Ver detalle por semana" del Resumen. Ambas usan
+`datosHorasSemanales()`: filas = técnicos internos (mismas `capRows`),
 columnas = semanas lunes–domingo del rango, cada celda = horas trabajadas y %
 sobre las laborales de esa semana (42 h, o `horasDisponiblesRango` si la
 semana queda cortada por el rango), más Laborales / Trabajadas / Diferencia y

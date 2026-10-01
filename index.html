@@ -263,6 +263,20 @@ button.sev-row.sev-row-alerta:hover{border-color:var(--bad);background:var(--bad
 .ht-val{font-size:11.5px;color:var(--ink-2);white-space:nowrap;text-align:right;}
 .ht-val b{color:var(--ink);}
 @media (max-width:600px){ .ht-row{grid-template-columns:80px 1fr;} .ht-val{grid-column:1 / -1;} }
+.hw-chart{overflow-x:auto;}
+.hw-inner{min-width:760px;}
+.hw-row{display:grid;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);}
+.hw-head{font-size:11px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.3px;border-bottom:2px solid var(--maroon);}
+.hw-head span{display:block;font-size:9.5px;font-weight:600;text-transform:none;letter-spacing:0;color:var(--ink-3);}
+.hw-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hw-track{position:relative;height:12px;background:var(--cream);border-radius:3px;}
+.hw-bar{height:100%;border-radius:3px;background:var(--maroon);}
+.hw-bar.bad{background:var(--bad);} .hw-bar.warn{background:var(--chart-2);}
+.hw-bar.hw-over{border-right:3px solid var(--ink);}
+.hw-lab{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);}
+.hw-num{font-size:11px;color:var(--ink-2);margin-top:3px;white-space:nowrap;}
+.hw-num b{color:var(--ink);}
+.hw-tot{background:var(--maroon-wash);padding:4px 6px;border-radius:5px;}
 .hs-table td{vertical-align:top;}
 .hs-table th .hs-lab{font-size:9.5px;font-weight:600;opacity:.8;text-transform:none;letter-spacing:0;}
 .hs-pct{font-size:10.5px;font-weight:700;color:var(--ink-3);}
@@ -35054,7 +35068,7 @@ function inactivosSetOf(){ return new Set(DATA.tecnicos_inactivos || []); }
    semana recortada al rango (42 h si está completa). Cada OT con duración
    suma completa en la semana de su Fecha Inicio Real (si cae fuera del rango,
    en la primera/última semana), así el total coincide con "Horas trabajadas". */
-function tablaHorasSemanales(capRows, desde, hasta, inactivosSet){
+function datosHorasSemanales(capRows, desde, hasta){
   const d0 = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
   const dF = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
   const lunes = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return x; };
@@ -35064,7 +35078,7 @@ function tablaHorasSemanales(capRows, desde, hasta, inactivosSet){
     const ini = s < d0 ? d0 : s, hasta2 = fin > dF ? dF : fin;
     semanas.push({ini:s, lab:horasDisponiblesRango(ini, hasta2), lblIni:ini, lblFin:hasta2});
   }
-  if(!semanas.length || !capRows.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
+  if(!semanas.length || !capRows.length) return null;
   const idxSemana = f => {
     const t = lunes(new Date(f)).getTime();
     const i = semanas.findIndex(s=>s.ini.getTime()===t);
@@ -35072,13 +35086,6 @@ function tablaHorasSemanales(capRows, desde, hasta, inactivosSet){
     return t < semanas[0].ini.getTime() ? 0 : semanas.length-1;
   };
   const labTotal = semanas.reduce((a,s)=>a+s.lab,0);
-  const fmtCorta = d => `${d.getDate()}/${d.getMonth()+1}`;
-  const fmt1 = v => v.toLocaleString('es-CO',{minimumFractionDigits:1, maximumFractionDigits:1});
-  const claseOcup = p => p==null ? '' : p>110 ? 'bad' : p<50 ? 'warn' : 'good';
-  const celda = (trab, lab) => {
-    const p = lab ? trab/lab*100 : null;
-    return `<b>${fmt1(trab)} h</b><div class="hs-pct ${claseOcup(p)}">${p==null?'—':fmtPct(p,0)}</div>`;
-  };
   const filas = capRows.map(r=>{
     const porSem = semanas.map(()=>0);
     r.otsList.forEach(o=>{ if(o.dur!=null && o.fecha) porSem[idxSemana(o.fecha)] += o.dur; });
@@ -35086,6 +35093,52 @@ function tablaHorasSemanales(capRows, desde, hasta, inactivosSet){
   }).sort((a,b)=>b.total-a.total || a.r.tecnico.localeCompare(b.r.tecnico));
   const totSem = semanas.map((_,i)=>filas.reduce((a,f)=>a+f.porSem[i],0));
   const totTrab = totSem.reduce((a,b)=>a+b,0);
+  return {semanas, filas, labTotal, totSem, totTrab};
+}
+const fmtSemCorta = d => `${d.getDate()}/${d.getMonth()+1}`;
+const fmtH1 = v => v.toLocaleString('es-CO',{minimumFractionDigits:1, maximumFractionDigits:1});
+const claseOcupHoras = p => p==null ? '' : p>110 ? 'bad' : p<50 ? 'warn' : 'good';
+/* Gráfica "Horas laborales vs. trabajadas por semana" de la pestaña Técnicos
+   (Mariana pidió cambiar la tabla por una gráfica, 1-oct-2026): una fila por
+   técnico y una columna por semana; cada celda es una barra de horas
+   trabajadas con una línea en las horas laborales de esa semana. La escala de
+   cada celda llega hasta 150% de las laborales (si pasa, la barra queda llena
+   con borde rojo y el número dice el valor real). Mismos datos que
+   tablaHorasSemanales (que sigue en el modal del Resumen). */
+function graficaHorasSemanales(capRows, desde, hasta, inactivosSet){
+  const d = datosHorasSemanales(capRows, desde, hasta);
+  if(!d) return '<div class="empty">Sin datos en el rango seleccionado</div>';
+  const TOPE = 1.5;
+  const mini = (trab, lab) => {
+    const p = lab ? trab/lab*100 : null;
+    const cls = claseOcupHoras(p);
+    const ancho = lab ? Math.min(trab/lab, TOPE)/TOPE*100 : 0;
+    return `<div class="hw-cell" title="${fmtH1(trab)} h trabajadas de ${fmtH1(lab)} h laborales">
+      <div class="hw-track"><div class="hw-bar ${cls}${lab && trab/lab>TOPE?' hw-over':''}" style="width:${ancho.toFixed(1)}%"></div><div class="hw-lab" style="left:${(100/TOPE).toFixed(1)}%"></div></div>
+      <div class="hw-num"><b>${fmtH1(trab)} h</b> <span class="hs-pct ${cls}">${p==null?'—':fmtPct(p,0)}</span></div>
+    </div>`;
+  };
+  const cols = `minmax(110px,190px) repeat(${d.semanas.length}, minmax(90px,1fr)) minmax(110px,1.2fr)`;
+  const head = `<div class="hw-row hw-head" style="grid-template-columns:${cols}"><div>Técnico</div>${
+    d.semanas.map(s=>`<div>${fmtSemCorta(s.lblIni)} – ${fmtSemCorta(s.lblFin)}<span>${fmtH1(s.lab)} h laborales</span></div>`).join('')
+  }<div>Total<span>${fmtH1(d.labTotal)} h laborales</span></div></div>`;
+  const body = d.filas.map(f=>`<div class="hw-row" style="grid-template-columns:${cols}">
+    <div class="hw-name" title="${esc(f.r.tecnico)}">${esc(shortTecnico(f.r.tecnico))}${inactivosSet.has(f.r.tecnico)?' <span class="badge neutral">Inactivo</span>':''}</div>
+    ${f.porSem.map((v,i)=>mini(v, d.semanas[i].lab)).join('')}
+    <div class="hw-tot">${mini(f.total, d.labTotal)}</div>
+  </div>`).join('');
+  const legend = `<div class="ht-legend"><span><span class="sw" style="background:var(--maroon)"></span>Horas trabajadas</span><span><span class="ht-lab-sw"></span>Horas laborales de la semana (42 h)</span><span><span class="sw" style="background:var(--bad)"></span>Más de 110%</span><span><span class="sw" style="background:var(--chart-2)"></span>Menos de 50%</span></div>`;
+  return `${legend}<div class="hw-chart"><div class="hw-inner">${head}${body}</div></div>`;
+}
+function tablaHorasSemanales(capRows, desde, hasta, inactivosSet){
+  const d = datosHorasSemanales(capRows, desde, hasta);
+  if(!d) return '<div class="empty">Sin datos en el rango seleccionado</div>';
+  const {semanas, filas, labTotal, totSem, totTrab} = d;
+  const fmtCorta = fmtSemCorta, fmt1 = fmtH1, claseOcup = claseOcupHoras;
+  const celda = (trab, lab) => {
+    const p = lab ? trab/lab*100 : null;
+    return `<b>${fmt1(trab)} h</b><div class="hs-pct ${claseOcup(p)}">${p==null?'—':fmtPct(p,0)}</div>`;
+  };
   const n = filas.length;
   const th = semanas.map(s=>`<th class="num">${fmtCorta(s.lblIni)} – ${fmtCorta(s.lblFin)}<div class="hs-lab">${fmt1(s.lab)} h lab.</div></th>`).join('');
   const body = filas.map(f=>`<tr>
@@ -35162,8 +35215,8 @@ function renderTecnicos(el){
   </div>
   <div class="card">
     <div class="card-head"><h3>Horas laborales vs. horas trabajadas por semana</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">Cada celda: horas trabajadas del técnico en la semana (lunes a domingo) y su % sobre las horas laborales de esa semana (42 h; menos si la semana queda cortada por el rango). Cada OT cuenta en la semana de su Fecha Inicio Real, con su duración completa — una OT de varios días suma toda en esa semana.</div>
-    ${tablaHorasSemanales(capRows, desde, hasta, inactivosSetOf())}
+    <div class="section-note" style="margin:0 0 10px;">Cada barra: horas trabajadas del técnico en la semana (lunes a domingo); la línea negra marca las horas laborales de esa semana (42 h; menos si la semana queda cortada por el rango). Cada OT cuenta en la semana de su Fecha Inicio Real, con su duración completa — una OT de varios días suma toda en esa semana.</div>
+    ${graficaHorasSemanales(capRows, desde, hasta, inactivosSetOf())}
   </div>
   ${tecnicosInternosSet ? `
   <div class="card section-block">
