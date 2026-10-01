@@ -247,6 +247,22 @@ button.sev-row.sev-row-alerta:hover{border-color:var(--bad);background:var(--bad
 .tl-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:10.5px;font-weight:700;overflow:hidden;white-space:nowrap;min-width:0;}
 .tl-total{font-size:12px;font-weight:700;color:var(--ink-2);}
 @media (max-width:600px){.tl-row{grid-template-columns:96px 1fr 28px;gap:6px;}}
+@media (min-width:900px){ .tec-horas-card{grid-column:span 2;} }
+@media (min-width:1200px){ .tec-horas-card{grid-column:span 3;} }
+.ht-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;color:var(--ink-2);margin:8px 0 10px;}
+.ht-legend > span{display:inline-flex;align-items:center;gap:6px;}
+.ht-legend .sw{width:10px;height:10px;border-radius:2px;display:inline-block;}
+.ht-lab-sw{width:2px;height:12px;background:var(--ink);display:inline-block;}
+.ht-chart{display:flex;flex-direction:column;gap:7px;}
+.ht-row{display:grid;grid-template-columns:minmax(90px,150px) 1fr 140px;align-items:center;gap:10px;}
+.ht-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ht-track{position:relative;height:14px;background:var(--cream);border-radius:3px;}
+.ht-bar{height:100%;border-radius:3px;background:var(--maroon);}
+.ht-bar.bad{background:var(--bad);} .ht-bar.warn{background:var(--chart-2);}
+.ht-lab{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);}
+.ht-val{font-size:11.5px;color:var(--ink-2);white-space:nowrap;text-align:right;}
+.ht-val b{color:var(--ink);}
+@media (max-width:600px){ .ht-row{grid-template-columns:80px 1fr;} .ht-val{grid-column:1 / -1;} }
 .hs-table td{vertical-align:top;}
 .hs-table th .hs-lab{font-size:9.5px;font-weight:600;opacity:.8;text-transform:none;letter-spacing:0;}
 .hs-pct{font-size:10.5px;font-weight:700;color:var(--ink-3);}
@@ -1200,6 +1216,7 @@ function renderResumen(el){
   ${kpiGroup('Trabajo', `
     ${kpiCard({label:'Paros en el periodo', value:parosPeriodo.length, corner: parosPeriodo.some(p=>p.duracion_h!=null) ? `<b>${fmtDurParo(promDurParos(parosPeriodo))}</b><span>duración promedio</span>` : '', sub:parosHtml, status:stParos, hero:true, id:'parosActualesCard'})}
     ${kpiCard({label:'Técnicos', value:ubicacionRowsResumen.length, sub:ubicTecHtml+horasTecHtml, hero:true, id:'tecnicosCard', clickable:true})}
+    ${chartHorasTecnicos(tecConsiderados, capT.horasDisponibles, inactivosT)}
   `)}
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
@@ -1389,6 +1406,12 @@ function renderResumen(el){
   }));
   // Clic en la tarjeta de técnicos → cada técnico con sus tiempos (mismos
   // datos que "Capacidad y ocupación por técnico" de la pestaña Técnicos).
+  const verSemanaBtn = document.getElementById('horasTecSemanaBtn');
+  if(verSemanaBtn) verSemanaBtn.addEventListener('click', ()=>{
+    openModal('Horas laborales vs. horas trabajadas por semana',
+      `<div class="section-note" style="margin:0 0 10px;padding:0;">Cada celda: horas trabajadas en la semana (lunes a domingo) y % sobre las horas laborales de esa semana (42 h). Cada OT cuenta completa en la semana de su Fecha Inicio Real.</div>`
+      + tablaHorasSemanales(capT.capRows, capT.desde, capT.hasta, inactivosT));
+  });
   const tecCardEl = document.getElementById('tecnicosCard');
   if(tecCardEl) tecCardEl.addEventListener('click', ()=>{
     const ubic = new Map(ubicacionRowsResumen.map(u=>[u.tecnico, u]));
@@ -2110,6 +2133,33 @@ function calcularCapacidadTecnicos(){
   // PROVEEDORES_EXTRA se marca "No registrado".
   const tercerosRows = capRowsAll.filter(r=>!esInterno(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
   return {desde, hasta, ot, horasDisponibles, semanas, tecnicosInternosSet, esInterno, proveedoresSet, esProveedorRegistrado, capRowsAll, capRows, tercerosRows};
+}
+/* Gráfico "Horas laborales vs. trabajadas por técnico" en la fila "Trabajo"
+   del Resumen (pedido de Mariana, 1-oct-2026): por técnico, barra de horas
+   trabajadas y una línea vertical en sus horas laborales del rango (42 h/semana,
+   horasDisponiblesRango). Mismos técnicos y números que la tarjeta "Técnicos"
+   (tecConsiderados). Botón → tabla semanal (tablaHorasSemanales) en modal. */
+function chartHorasTecnicos(rows, horasLab, inactivosSet){
+  if(!rows.length) return '';
+  const filas = rows.slice().sort((a,b)=>b.horasTrab-a.horasTrab);
+  const escala = Math.max(horasLab, ...filas.map(r=>r.horasTrab)) || 1;
+  const pctLab = (horasLab/escala*100).toFixed(1);
+  const n0 = h => Math.round(h).toLocaleString('es-CO');
+  const html = filas.map(r=>{
+    const p = horasLab ? r.horasTrab/horasLab*100 : null;
+    const cls = p==null ? '' : p>110 ? 'bad' : p<50 ? 'warn' : 'good';
+    return `<div class="ht-row">
+      <div class="ht-name" title="${esc(r.tecnico)}">${esc(shortTecnico(r.tecnico))}${inactivosSet.has(r.tecnico)?' <span class="badge neutral">Inactivo</span>':''}</div>
+      <div class="ht-track"><div class="ht-bar ${cls}" style="width:${(r.horasTrab/escala*100).toFixed(1)}%"></div><div class="ht-lab" style="left:${pctLab}%"></div></div>
+      <div class="ht-val"><b>${n0(r.horasTrab)}</b> / ${n0(horasLab)} h <span class="hs-pct ${cls}">${p==null?'—':fmtPct(p,0)}</span></div>
+    </div>`;
+  }).join('');
+  return `<div class="kpi-card hero tec-horas-card">
+    <div class="kpi-label">Horas laborales vs. trabajadas por técnico</div>
+    <div class="ht-legend"><span><span class="sw" style="background:var(--maroon)"></span>Trabajadas</span><span><span class="ht-lab-sw"></span>Laborales (42 h/semana: ${n0(horasLab)} h en el rango)</span></div>
+    <div class="ht-chart">${html}</div>
+    <button type="button" class="sev-row" id="horasTecSemanaBtn" style="margin-top:8px;"><span>Ver detalle por semana</span><span class="sev-time">›</span></button>
+  </div>`;
 }
 function inactivosSetOf(){ return new Set(DATA.tecnicos_inactivos || []); }
 /* "Horas laborales vs. horas trabajadas por semana" (pedido de Mariana,

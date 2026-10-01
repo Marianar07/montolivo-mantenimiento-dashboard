@@ -487,6 +487,11 @@ semana queda cortada por el rango), más Laborales / Trabajadas / Diferencia y
 fila de total. Cada OT suma completa en la semana de su Fecha Inicio Real
 (fuera del rango → primera/última semana), así los totales coinciden con
 "Capacidad y ocupación". Colores del %: >110% rojo, <50% ámbar.
+También en el **Resumen, fila "Trabajo"** (junto a la tarjeta Técnicos,
+`chartHorasTecnicos()`): gráfico por técnico con barra de horas trabajadas y
+línea vertical en sus horas laborales del rango (mismos `tecConsiderados` y
+números de la tarjeta Técnicos), y botón "Ver detalle por semana" que abre
+`tablaHorasSemanales()` en un modal.
 
 **No volver a un modelo de horas uniformes por día** (p. ej. dividir 42h
 entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
