@@ -338,7 +338,13 @@ O.T.` (`estado==='Abierta'`).
   tarifa fija por técnico, p. ej. $24.427/h Alejandro, $17.009/h Juan
   José/Jonathan). Antes (29-sep) la tarjeta decía "Sin datos" porque no
   estaba confirmado. **Costo repuestos** sigue "Sin datos" (Mantum no lo
-  reporta). Costo servicios (proveedores) sale del mismo Total Real, por eso
+  reporta). Validado el 1-oct-2026 con `Datos Generales de Recursos.xlsx`
+  (catálogo de recursos asignables a una OT, cargado desde SIESA): 205
+  repuestos, **todos con `Valor Unitario` = 0**. El export de OT ya trae
+  columnas `Código recurso`, `Nombre recurso`, `Cantidad real`, `Cantidad
+  estimada`, pero solo 1 OT (000082, RP0130 ×1) tiene un recurso asignado.
+  Cuando los recursos traigan precio y se asignen en las OT, costo
+  repuestos = Σ `Cantidad real` × `Valor Unitario` (cruce por código). Costo servicios (proveedores) sale del mismo Total Real, por eso
   se resta de mano de obra (no se cuenta dos veces).
 
 ### Bloque "Solicitudes de servicio" del Resumen Gerencial
