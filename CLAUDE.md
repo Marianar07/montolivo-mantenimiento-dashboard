@@ -341,6 +341,13 @@ Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
   En los listados de SS abiertas (ninguna con respuesta) no se muestra la
   columna Respuesta.
 Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
+- **SS con OT asignada** (pedido de Mariana, 1-oct-2026, `tarjetaSSOT`):
+  SS con OT en la columna `OTs` del export (`ot_asociada`), con filas **OT
+  abierta** / **OT cerrada** según el `Estado O.T.` de esa OT (buscada en
+  todas las OT, no solo las del filtro) y aparte **SS sin OT asignada**;
+  cada fila con su % sobre las SS del rango y clicable → `modalSS`. Si
+  alguna OT enlazada no aparece en el export sale una fila "OT no
+  encontrada" (hoy 0; 1-oct-2026: 77 de 397 con OT, 33 abierta / 44 cerrada).
 
 **Códigos de SS**: en todo el tablero se muestran solo con el número
 (p. ej. `00016`), sin prefijo "SS-" (pedido de Mariana; ver `fmtSSParo()`).

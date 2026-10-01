@@ -1149,6 +1149,28 @@ function renderResumen(el){
         ,
       hero:true, status: abierta ? 'warn' : 'good'});
   };
+  // "SS con OT asignada" (pedido de Mariana, 1-oct-2026): SS con OT en la
+  // columna OTs del export (ot_asociada), separadas por el estado de esa OT
+  // (se busca en todas las OT, no solo las del filtro: la OT puede haberse
+  // creado fuera del rango), y las SS sin OT asignada.
+  const estadoOT = new Map(DATA.ot.map(r=>[r.ot, r.estado]));
+  const grupoOTdeSS = r => !r.ot_asociada ? 'sin_ot'
+    : String(r.ot_asociada).split(',').map(x=>estadoOT.get(x.trim())).some(e=>e==='Abierta') ? 'ot_abierta'
+    : String(r.ot_asociada).split(',').some(x=>estadoOT.has(x.trim())) ? 'ot_cerrada' : 'ot_no_encontrada';
+  const ssPorOT = {sin_ot:[], ot_abierta:[], ot_cerrada:[], ot_no_encontrada:[]};
+  ss.forEach(r=>ssPorOT[grupoOTdeSS(r)].push(r));
+  const ssConOT = ss.length - ssPorOT.sin_ot.length;
+  const TITULO_SS_OT = {ot_abierta:'SS con OT asignada — OT abierta', ot_cerrada:'SS con OT asignada — OT cerrada', ot_no_encontrada:'SS con OT asignada — OT no encontrada en el export', sin_ot:'SS sin OT asignada'};
+  const filaSSOT = (g, label, extra) => `<button type="button" class="sev-row${extra||''}" data-ss-ot="${g}"><span>${label}: <b>${ssPorOT[g].length}</b></span><span class="sev-time">${ss.length?fmtPct(ssPorOT[g].length/ss.length*100,0):'—'} ›</span></button>`;
+  const tarjetaSSOT = kpiCard({label:'SS con OT asignada', value:ssConOT,
+    corner:`<b>${ss.length?fmtPct(ssConOT/ss.length*100,0):'—'}</b><span>de las SS</span>`,
+    sub:`<div class="sev-list"><div class="sev-time" style="padding:0 6px;">Estado de la OT</div>
+        ${filaSSOT('ot_abierta','OT abierta')}
+        ${filaSSOT('ot_cerrada','OT cerrada')}
+        ${ssPorOT.ot_no_encontrada.length ? filaSSOT('ot_no_encontrada','OT no encontrada') : ''}
+      </div>
+      <div class="sev-list">${filaSSOT('sin_ot','SS sin OT asignada')}</div>`,
+    hero:true, accent:'c1'});
 
   el.innerHTML = `
   ${sectionTitle('Indicadores clave del periodo')}
@@ -1172,6 +1194,7 @@ function renderResumen(el){
     ${kpiCard({label:'SS totales', value:ss.length, sub:`<div class="tipo-line"><span>Abiertas: <b>${ssAbiertas}</b></span><span>Cerradas: <b>${ss.length-ssAbiertas}</b></span></div><div class="sev-time">Clic para ver todas</div>${cumplSSHtml}`, hero:true, accent:'c3', id:'ssTotalesCard', clickable:true})}
     ${tarjetaSS('abiertas', ssAbiertasRows, true)}
     ${tarjetaSS('cerradas', ssCerradasRows, false)}
+    ${tarjetaSSOT}
   `, true)}
 
   ${kpiGroup('Trabajo', `
@@ -1278,6 +1301,10 @@ function renderResumen(el){
     {filtros:[['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']], placeholder:'Buscar por SS, equipo, lugar, OT...'});
   const ssTotEl = document.getElementById('ssTotalesCard');
   if(ssTotEl) ssTotEl.addEventListener('click', e=>{ if(e.target.closest('.sev-row')) return; modalSS('Solicitudes de servicio', ss); });
+  el.querySelectorAll('[data-ss-ot]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const g = btn.dataset.ssOt;
+    modalSS(TITULO_SS_OT[g], ssPorOT[g]);
+  }));
   // Clic en un punto de venta de "SS por punto de venta" → sus SS del rango.
   el.querySelectorAll('[data-ss-lugar]').forEach(btn=>btn.addEventListener('click', ()=>{
     const lugar = btn.dataset.ssLugar;
