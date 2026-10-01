@@ -391,6 +391,18 @@ Clic en el nombre del lugar → listado de sus OT (`modalFiltrable`, con filtro
 de Tipo y costo). Las OT con varias entidades traen el lugar como
 "SAN DIEGO, SJ-0016 | ..." — `lugarCortoOT()` las agrupa en su lugar.
 
+### Gráficas de SS (Resumen Gerencial)
+
+Pedido de Mariana (1-oct-2026), al final del Resumen, lado a lado:
+**"SS por tipo — histórico por mes"** (`chartTipoMensual(ss, 'fecha_ss')`,
+desde agosto 2026 como el de OT) y **"SS por punto de venta"**
+(`chartTipoLugar(ss, 'data-ss-lugar')`, barras por lugar segmentadas por
+tipo de SS; clic en el lugar → `modalSS`). Ambas reutilizan las funciones
+de las gráficas de OT; los colores por tipo salen de `tiposYColores()`
+(Correctivo azul, Preventivo naranja, el resto por frecuencia). Los tipos de
+SS se muestran tal cual vienen del CMMS (p. ej. "Correctivos de emergencia"
+y "Correctiva de Emergencia" quedan separados).
+
 ### Ordenar tablas por columna
 
 Pedido de Mariana: **todas** las tablas se ordenan al hacer clic en el

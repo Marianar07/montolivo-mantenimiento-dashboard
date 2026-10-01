@@ -1188,6 +1188,17 @@ function renderResumen(el){
     <div class="card-head"><h3>OT por lugar y tipo de mantenimiento</h3></div>
     <div id="tipoLugarWrap">${chartTipoLugar(ot)}</div>
   </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-head"><h3>SS por tipo — histórico por mes</h3></div>
+      ${chartTipoMensual(ss, 'fecha_ss')}
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>SS por punto de venta</h3></div>
+      ${chartTipoLugar(ss, 'data-ss-lugar')}
+    </div>
+  </div>
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
   renderTopLugaresWrap();
@@ -1259,6 +1270,11 @@ function renderResumen(el){
     {filtros:[['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']], placeholder:'Buscar por SS, equipo, lugar, OT...'});
   const ssTotEl = document.getElementById('ssTotalesCard');
   if(ssTotEl) ssTotEl.addEventListener('click', e=>{ if(e.target.closest('.sev-row')) return; modalSS('Solicitudes de servicio', ss); });
+  // Clic en un punto de venta de "SS por punto de venta" → sus SS del rango.
+  el.querySelectorAll('[data-ss-lugar]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const lugar = btn.dataset.ssLugar;
+    modalSS(`SS — ${lugar}`, ss.filter(r=>lugarCortoOT(r)===lugar));
+  }));
   el.querySelectorAll('[data-ss-grupo]').forEach(btn=>btn.addEventListener('click', ()=>{
     const grupo = btn.dataset.ssGrupo, sev = btn.dataset.ssSev, est = btn.dataset.ssEstado;
     const base = grupo==='abiertas' ? ssAbiertasRows : ssCerradasRows;
@@ -1470,25 +1486,35 @@ const ORDEN_SEVERIDAD = {Alta:0, Media:1, Baja:2};
 // agosto 2026 (HISTORICO_DESDE: antes solo hay una OT suelta de mayo). Una
 // barra por tipo presente (Correctivo, Preventivo y cualquier otro tipo del
 // CMMS, p. ej. Correctiva programada). Incluye los meses vacíos del medio.
+// También se usa para "SS por tipo — histórico por mes" (fechaKey='fecha_ss').
 const HISTORICO_DESDE = '2026-08';
-function chartTipoMensual(ot){
-  const base = ot.filter(r=>{ const k=monthKey(r.fecha_creacion); return k && k>=HISTORICO_DESDE; });
-  const meses = [...new Set(base.map(r=>monthKey(r.fecha_creacion)))].sort();
+// Colores por tipo compartidos por los históricos y las gráficas por lugar:
+// Correctivo azul, Preventivo naranja; el resto (otros tipos de OT y los
+// tipos de SS) en orden de frecuencia con la paleta extra.
+const tipoCorto = t => (t||'Sin tipo').split(',')[0];
+function tiposYColores(rows){
+  const ORDEN_TIPO = {'Correctivo':0, 'Preventivo':1};
+  const cnt = {}; rows.forEach(r=>{ const t=tipoCorto(r.tipo); cnt[t]=(cnt[t]||0)+1; });
+  const tipos = Object.keys(cnt).sort((a,b)=>(ORDEN_TIPO[a]??2)-(ORDEN_TIPO[b]??2) || cnt[b]-cnt[a] || a.localeCompare(b));
+  const COLOR_TIPO = {'Correctivo':'var(--chart-1)', 'Preventivo':'var(--chart-2)'};
+  const extras = ['var(--chart-3)','#7c3aed','#0891b2','#ca8a04','#6b7280'];
+  let e = 0;
+  const colores = Object.fromEntries(tipos.map(t=>[t, COLOR_TIPO[t] || extras[Math.min(e++, extras.length-1)]]));
+  return {tipos, colores, cnt};
+}
+function chartTipoMensual(rows, fechaKey){
+  fechaKey = fechaKey || 'fecha_creacion';
+  const base = rows.filter(r=>{ const k=monthKey(r[fechaKey]); return k && k>=HISTORICO_DESDE; });
+  const meses = [...new Set(base.map(r=>monthKey(r[fechaKey])))].sort();
   if(!meses.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
   const todos = [];
   let [y,m] = meses[0].split('-').map(Number);
   const [yF,mF] = meses[meses.length-1].split('-').map(Number);
   while(y<yF || (y===yF && m<=mF)){ todos.push(`${y}-${String(m).padStart(2,'0')}`); m++; if(m>12){m=1;y++;} }
-  const tipoCorto = t => (t||'Sin tipo').split(',')[0];
-  const ORDEN_TIPO = {'Correctivo':0, 'Preventivo':1};
-  const tipos = [...new Set(base.map(r=>tipoCorto(r.tipo)))]
-    .sort((a,b)=>(ORDEN_TIPO[a]??2)-(ORDEN_TIPO[b]??2) || a.localeCompare(b));
+  const {tipos, colores:colorDe} = tiposYColores(base);
   const series = tipos.map(t=>({label:t, values:Object.fromEntries(todos.map(k=>[k,0]))}));
-  base.forEach(r=>{ const sr = series.find(x=>x.label===tipoCorto(r.tipo)); if(sr) sr.values[monthKey(r.fecha_creacion)]++; });
-  const COLOR_TIPO = {'Correctivo':'var(--chart-1)', 'Preventivo':'var(--chart-2)'};
-  const extras = ['var(--chart-3)','#7c3aed','#6b7280'];
-  let e = 0;
-  const colores = tipos.map(t=>COLOR_TIPO[t] || extras[Math.min(e++, extras.length-1)]);
+  base.forEach(r=>{ const sr = series.find(x=>x.label===tipoCorto(r.tipo)); if(sr) sr.values[monthKey(r[fechaKey])]++; });
+  const colores = tipos.map(t=>colorDe[t]);
   const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const labelMesCorto = k => { const [yy,mm]=k.split('-').map(Number); return `${MESES[mm-1]} ${yy}`; };
   return groupedBarChart(todos, series, colores, {labelFn:labelMesCorto, fill:true, showValues:true});
@@ -1499,18 +1525,13 @@ function chartTipoMensual(ot){
 // → listado de sus OT. Cuando una OT tiene varias entidades, el lugar viene
 // como "SAN DIEGO, SJ-0016 | ..." — se agrupa por la parte antes del código.
 function lugarCortoOT(r){ return (r.lugar||'Sin lugar').split(/, [A-Z]{1,4}-\d+ \|/)[0]; }
-function chartTipoLugar(ot){
-  if(!ot.length) return '<div class="empty">Sin OT en el rango seleccionado</div>';
-  const tipoCorto = t => (t||'Sin tipo').split(',')[0];
-  const ORDEN_TIPO = {'Correctivo':0, 'Preventivo':1};
-  const tipos = [...new Set(ot.map(r=>tipoCorto(r.tipo)))]
-    .sort((a,b)=>(ORDEN_TIPO[a]??2)-(ORDEN_TIPO[b]??2) || a.localeCompare(b));
-  const COLOR_TIPO = {'Correctivo':'var(--chart-1)', 'Preventivo':'var(--chart-2)'};
-  const extras = ['var(--chart-3)','#7c3aed','#6b7280'];
-  let e = 0;
-  const colores = Object.fromEntries(tipos.map(t=>[t, COLOR_TIPO[t] || extras[Math.min(e++, extras.length-1)]]));
+// También se usa para "SS por punto de venta" (attr='data-ss-lugar').
+function chartTipoLugar(rows, attr){
+  attr = attr || 'data-tipo-lugar';
+  if(!rows.length) return '<div class="empty">Sin registros en el rango seleccionado</div>';
+  const {tipos, colores, cnt} = tiposYColores(rows);
   const porLugar = new Map();
-  ot.forEach(r=>{
+  rows.forEach(r=>{
     const l = lugarCortoOT(r);
     if(!porLugar.has(l)) porLugar.set(l, {});
     const m = porLugar.get(l); const t = tipoCorto(r.tipo); m[t] = (m[t]||0)+1;
@@ -1520,13 +1541,13 @@ function chartTipoLugar(ot){
   const max = filas[0].total;
   const html = filas.map(f=>`
     <div class="tl-row">
-      <button type="button" class="tl-lugar" data-tipo-lugar="${esc(f.lugar)}" title="Ver las OT de ${esc(f.lugar)}">${esc(f.lugar)}</button>
+      <button type="button" class="tl-lugar" ${attr}="${esc(f.lugar)}" title="Ver el detalle de ${esc(f.lugar)}">${esc(f.lugar)}</button>
       <div class="tl-track"><div class="tl-bar" style="width:${(f.total/max*100).toFixed(1)}%">${
         tipos.filter(t=>f.m[t]).map(t=>`<div class="tl-seg" style="flex:${f.m[t]};background:${colores[t]}" title="${esc(t)}: ${f.m[t]}">${f.m[t]}</div>`).join('')
       }</div></div>
       <div class="tl-total">${f.total}</div>
     </div>`).join('');
-  const legend = tipos.map(t=>`<span><span class="sw" style="background:${colores[t]}"></span>${esc(t)} (${ot.filter(r=>tipoCorto(r.tipo)===t).length})</span>`).join('');
+  const legend = tipos.map(t=>`<span><span class="sw" style="background:${colores[t]}"></span>${esc(t)} (${cnt[t]})</span>`).join('');
   return `<div class="legend" style="margin:0 0 10px">${legend}</div><div class="tl-chart">${html}</div>`;
 }
 // "OT correctivas por lugar" (antes "Top lugares con más averías
