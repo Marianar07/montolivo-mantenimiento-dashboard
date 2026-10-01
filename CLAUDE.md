@@ -368,8 +368,8 @@ libres y % ocupación.
 Pedido de Mariana (reemplazó a "OT por tipo y severidad" y luego al
 histórico tipo × severidad): `chartTipoMensual()` — barras por mes (mes de
 Fecha Creación) **desde agosto 2026** (`HISTORICO_DESDE`; antes solo hay una
-OT suelta de mayo), una barra por tipo presente (Correctivo azul, Preventivo
-naranja, otros tipos como Correctiva programada en verde), con el número
+OT suelta de mayo), una barra por tipo presente (Correctivo vino, Preventivo
+bronce, otros tipos como Correctiva programada en pizarra), con el número
 encima (`groupedBarChart` con `fill` y `showValues`). Incluye meses vacíos
 del medio. Respeta el filtro general.
 
@@ -399,7 +399,7 @@ desde agosto 2026 como el de OT) y **"SS por punto de venta"**
 (`chartTipoLugar(ss, 'data-ss-lugar')`, barras por lugar segmentadas por
 tipo de SS; clic en el lugar → `modalSS`). Ambas reutilizan las funciones
 de las gráficas de OT; los colores por tipo salen de `tiposYColores()`
-(Correctivo azul, Preventivo naranja, el resto por frecuencia). Los tipos de
+(Correctivo vino, Preventivo bronce, el resto por frecuencia). Los tipos de
 SS se muestran tal cual vienen del CMMS (p. ej. "Correctivos de emergencia"
 y "Correctiva de Emergencia" quedan separados).
 
