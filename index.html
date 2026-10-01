@@ -34592,10 +34592,13 @@ function renderOT(el){
   // creación que usa el filtro general); respeta el filtro de lugar
   const lugarOT = (!FILTER.lugarGlobal && otLugarFiltro.value) ? otLugarFiltro.value : (FILTER.lugarGlobal ? FILTER.lugar : null);
   const otDia = promedioPorDia(DATA.ot.filter(r=>!lugarOT || r.lugar===lugarOT), 'fin_real', DATA.ot);
+  // OT creadas por día (pedido de Mariana, 1-oct-2026): mismo cálculo, por Fecha Creación.
+  const otCreadasDia = promedioPorDia(DATA.ot.filter(r=>!lugarOT || r.lugar===lugarOT), 'fecha_creacion', DATA.ot);
 
   el.innerHTML = `
   <div class="kpi-row">
     ${kpiCard({label:'Total de OT', value:all.length})}
+    ${kpiPromedioDia('OT creadas por día (promedio)', otCreadasDia)}
     ${kpiPromedioDia('OT realizadas por día (promedio)', otDia)}
     ${kpiCard({label:'Abiertas sin iniciar (0% avance)', value:sinIniciar, status: sinIniciar>0?'warn':'good'})}
     ${kpiCard({label:'Abiertas con avance (>0%)', value:conAvance})}

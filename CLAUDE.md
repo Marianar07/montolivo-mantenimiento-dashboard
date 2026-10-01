@@ -427,6 +427,8 @@ Dos cuadros usan la misma función `promedioPorDia()`:
   por `fecha_ss`.
 - "OT realizadas por día (promedio)" (pestaña Órdenes de Trabajo): OT con
   `Fecha Fin Real`, contadas por esa fecha (no por la de creación).
+- "OT creadas por día (promedio)" (pestaña Órdenes de Trabajo, pedido de
+  Mariana 1-oct-2026, al lado del anterior): OT por `Fecha Creación`.
 
 Cálculo = registros en el rango / días calendario del rango (incluye
 domingos). El rango se acota a las fechas que traen los datos (un filtro que
