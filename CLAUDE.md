@@ -471,6 +471,16 @@ por técnico" = horas trabajadas (domingos incluidos) / días laborables (L–S)
 rango, en h/día. Ambos solo sobre técnicos internos que aparecen en alguna
 OT del histórico (los de TECNICOS.xlsx sin ninguna OT no bajan el promedio).
 
+**"Horas laborales vs. horas trabajadas por semana"** (pedido de Mariana,
+1-oct-2026; pestaña Técnicos, debajo de "Capacidad y ocupación",
+`tablaHorasSemanales()`): filas = técnicos internos (mismas `capRows`),
+columnas = semanas lunes–domingo del rango, cada celda = horas trabajadas y %
+sobre las laborales de esa semana (42 h, o `horasDisponiblesRango` si la
+semana queda cortada por el rango), más Laborales / Trabajadas / Diferencia y
+fila de total. Cada OT suma completa en la semana de su Fecha Inicio Real
+(fuera del rango → primera/última semana), así los totales coinciden con
+"Capacidad y ocupación". Colores del %: >110% rojo, <50% ámbar.
+
 **No volver a un modelo de horas uniformes por día** (p. ej. dividir 42h
 entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
 3h S), y el domingo no suma al tiempo programado.

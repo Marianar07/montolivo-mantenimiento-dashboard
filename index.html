@@ -247,6 +247,12 @@ button.sev-row.sev-row-alerta:hover{border-color:var(--bad);background:var(--bad
 .tl-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:10.5px;font-weight:700;overflow:hidden;white-space:nowrap;min-width:0;}
 .tl-total{font-size:12px;font-weight:700;color:var(--ink-2);}
 @media (max-width:600px){.tl-row{grid-template-columns:96px 1fr 28px;gap:6px;}}
+.hs-table td{vertical-align:top;}
+.hs-table th .hs-lab{font-size:9.5px;font-weight:600;opacity:.8;text-transform:none;letter-spacing:0;}
+.hs-pct{font-size:10.5px;font-weight:700;color:var(--ink-3);}
+.hs-pct.good{color:var(--good-text);} .hs-pct.warn{color:var(--warn-text);} .hs-pct.bad{color:var(--bad-text);}
+.hs-table td.hs-tot{background:var(--maroon-wash);}
+.hs-table tfoot td{border-top:2px solid var(--maroon);padding:7px 10px;white-space:nowrap;background:var(--cream);}
 .link-count{background:none;border:none;padding:2px 6px;border-radius:6px;font:inherit;font-weight:700;color:var(--maroon);text-decoration:underline;cursor:pointer;}
 .link-count:hover{background:var(--cream);}
 .link-count:focus-visible{outline:2px solid var(--maroon);outline-offset:1px;}
@@ -34960,6 +34966,65 @@ function calcularCapacidadTecnicos(){
   const tercerosRows = capRowsAll.filter(r=>!esInterno(r.tecnico)).sort((a,b)=>b.horasTrab-a.horasTrab);
   return {desde, hasta, ot, horasDisponibles, semanas, tecnicosInternosSet, esInterno, proveedoresSet, esProveedorRegistrado, capRowsAll, capRows, tercerosRows};
 }
+function inactivosSetOf(){ return new Set(DATA.tecnicos_inactivos || []); }
+/* "Horas laborales vs. horas trabajadas por semana" (pedido de Mariana,
+   1-oct-2026): filas = técnicos internos (capRows de calcularCapacidadTecnicos,
+   mismos totales que "Capacidad y ocupación"), columnas = semanas lunes-domingo
+   del rango efectivo. Laborales por semana = horasDisponiblesRango() de esa
+   semana recortada al rango (42 h si está completa). Cada OT con duración
+   suma completa en la semana de su Fecha Inicio Real (si cae fuera del rango,
+   en la primera/última semana), así el total coincide con "Horas trabajadas". */
+function tablaHorasSemanales(capRows, desde, hasta, inactivosSet){
+  const d0 = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate());
+  const dF = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
+  const lunes = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return x; };
+  const semanas = [];
+  for(let s = lunes(d0); s <= dF; s = new Date(s.getFullYear(), s.getMonth(), s.getDate()+7)){
+    const fin = new Date(s.getFullYear(), s.getMonth(), s.getDate()+6);
+    const ini = s < d0 ? d0 : s, hasta2 = fin > dF ? dF : fin;
+    semanas.push({ini:s, lab:horasDisponiblesRango(ini, hasta2), lblIni:ini, lblFin:hasta2});
+  }
+  if(!semanas.length || !capRows.length) return '<div class="empty">Sin datos en el rango seleccionado</div>';
+  const idxSemana = f => {
+    const t = lunes(new Date(f)).getTime();
+    const i = semanas.findIndex(s=>s.ini.getTime()===t);
+    if(i>=0) return i;
+    return t < semanas[0].ini.getTime() ? 0 : semanas.length-1;
+  };
+  const labTotal = semanas.reduce((a,s)=>a+s.lab,0);
+  const fmtCorta = d => `${d.getDate()}/${d.getMonth()+1}`;
+  const fmt1 = v => v.toLocaleString('es-CO',{minimumFractionDigits:1, maximumFractionDigits:1});
+  const claseOcup = p => p==null ? '' : p>110 ? 'bad' : p<50 ? 'warn' : 'good';
+  const celda = (trab, lab) => {
+    const p = lab ? trab/lab*100 : null;
+    return `<b>${fmt1(trab)} h</b><div class="hs-pct ${claseOcup(p)}">${p==null?'—':fmtPct(p,0)}</div>`;
+  };
+  const filas = capRows.map(r=>{
+    const porSem = semanas.map(()=>0);
+    r.otsList.forEach(o=>{ if(o.dur!=null && o.fecha) porSem[idxSemana(o.fecha)] += o.dur; });
+    return {r, porSem, total:porSem.reduce((a,b)=>a+b,0)};
+  }).sort((a,b)=>b.total-a.total || a.r.tecnico.localeCompare(b.r.tecnico));
+  const totSem = semanas.map((_,i)=>filas.reduce((a,f)=>a+f.porSem[i],0));
+  const totTrab = totSem.reduce((a,b)=>a+b,0);
+  const n = filas.length;
+  const th = semanas.map(s=>`<th class="num">${fmtCorta(s.lblIni)} – ${fmtCorta(s.lblFin)}<div class="hs-lab">${fmt1(s.lab)} h lab.</div></th>`).join('');
+  const body = filas.map(f=>`<tr>
+    <td>${esc(f.r.tecnico)}${inactivosSet.has(f.r.tecnico)?' <span class="badge neutral">Inactivo</span>':''}</td>
+    ${f.porSem.map((v,i)=>`<td class="num">${celda(v, semanas[i].lab)}</td>`).join('')}
+    <td class="num hs-tot">${fmt1(labTotal)} h</td>
+    <td class="num hs-tot">${celda(f.total, labTotal)}</td>
+    <td class="num hs-tot">${fmt1(f.total-labTotal)} h</td>
+  </tr>`).join('');
+  const pie = `<tr class="hs-pie">
+    <td><b>Total (${n} técnicos)</b></td>
+    ${totSem.map((v,i)=>`<td class="num">${celda(v, semanas[i].lab*n)}</td>`).join('')}
+    <td class="num"><b>${fmt1(labTotal*n)} h</b></td>
+    <td class="num">${celda(totTrab, labTotal*n)}</td>
+    <td class="num"><b>${fmt1(totTrab-labTotal*n)} h</b></td>
+  </tr>`;
+  return `<div class="tablewrap"><table class="hs-table"><thead><tr><th>Técnico</th>${th}<th class="num">Laborales</th><th class="num">Trabajadas</th><th class="num">Diferencia</th></tr></thead>
+    <tbody>${body}</tbody><tfoot>${pie}</tfoot></table></div>`;
+}
 function renderTecnicos(el){
   const {desde, hasta, ot, horasDisponibles, semanas, tecnicosInternosSet, esInterno, proveedoresSet, esProveedorRegistrado, capRowsAll, capRows, tercerosRows} = calcularCapacidadTecnicos();
 
@@ -35014,6 +35079,11 @@ function renderTecnicos(el){
   <div class="card">
     <div class="card-head"><h3>Capacidad y ocupación por técnico</h3></div>
     <div id="capTecnicosWrap"></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3>Horas laborales vs. horas trabajadas por semana</h3></div>
+    <div class="section-note" style="margin:0 0 10px;">Cada celda: horas trabajadas del técnico en la semana (lunes a domingo) y su % sobre las horas laborales de esa semana (42 h; menos si la semana queda cortada por el rango). Cada OT cuenta en la semana de su Fecha Inicio Real, con su duración completa — una OT de varios días suma toda en esa semana.</div>
+    ${tablaHorasSemanales(capRows, desde, hasta, inactivosSetOf())}
   </div>
   ${tecnicosInternosSet ? `
   <div class="card section-block">
