@@ -236,6 +236,15 @@ button.sev-row{cursor:pointer;}
 .sev-row.sev-row-alerta b, .sev-row.sev-row-alerta .sev-time{color:var(--bad-text);}
 button.sev-row.sev-row-alerta:hover{border-color:var(--bad);background:var(--bad-bg);}
 .mini-meter{padding:4px 6px;}
+.tl-chart{display:flex;flex-direction:column;gap:5px;}
+.tl-row{display:grid;grid-template-columns:minmax(110px,220px) 1fr 34px;align-items:center;gap:10px;}
+.tl-lugar{background:none;border:none;padding:0;font:inherit;font-size:12px;color:var(--ink);text-align:right;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tl-lugar:hover{color:var(--maroon);text-decoration:underline;}
+.tl-track{min-width:0;}
+.tl-bar{display:flex;height:18px;border-radius:4px;overflow:hidden;min-width:4px;}
+.tl-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:10.5px;font-weight:700;overflow:hidden;white-space:nowrap;min-width:0;}
+.tl-total{font-size:12px;font-weight:700;color:var(--ink-2);}
+@media (max-width:600px){.tl-row{grid-template-columns:96px 1fr 28px;gap:6px;}}
 .link-count{background:none;border:none;padding:2px 6px;border-radius:6px;font:inherit;font-weight:700;color:var(--maroon);text-decoration:underline;cursor:pointer;}
 .link-count:hover{background:var(--cream);}
 .link-count:focus-visible{outline:2px solid var(--maroon);outline-offset:1px;}
@@ -1174,9 +1183,30 @@ function renderResumen(el){
       <div id="topLugaresWrap"></div>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-head"><h3>OT por lugar y tipo de mantenimiento</h3></div>
+    <div id="tipoLugarWrap">${chartTipoLugar(ot)}</div>
+  </div>
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
   renderTopLugaresWrap();
+  // Clic en un lugar de "OT por lugar y tipo" → sus OT del rango (todos los tipos).
+  el.querySelectorAll('[data-tipo-lugar]').forEach(btn=>btn.addEventListener('click', ()=>{
+    const lugar = btn.dataset.tipoLugar;
+    const rows = ot.filter(r=>lugarCortoOT(r)===lugar).sort((a,b)=>new Date(b.fecha_creacion)-new Date(a.fecha_creacion));
+    modalFiltrable(`OT — ${lugar}`, rows, [
+      {key:'ot', label:'O.T.'},
+      {key:'tipo', label:'Tipo'},
+      {key:'severidad', label:'Sev.'},
+      {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
+      {key:'fecha_creacion', label:'Creación', fmt:fmtFechaHoraCorta},
+      {key:'fin_real', label:'Fin real', fmt:fmtFechaHoraCorta},
+      {key:'costo_real', label:'Costo', num:true, fmt:v=>fmtMoney(v||0)},
+    ], {costo:true, filtros:[['tipo','Tipo'],['estado','Estado'],['severidad','Severidad']]});
+  }));
   el.querySelectorAll('[data-paros]').forEach(btn=>btn.addEventListener('click', ()=>{
     const g = gruposParos[btn.dataset.paros];
     const detalle = g.rows.slice().sort((a,b)=>new Date(b.inicio)-new Date(a.inicio));
@@ -1462,6 +1492,42 @@ function chartTipoMensual(ot){
   const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const labelMesCorto = k => { const [yy,mm]=k.split('-').map(Number); return `${MESES[mm-1]} ${yy}`; };
   return groupedBarChart(todos, series, colores, {labelFn:labelMesCorto, fill:true, showValues:true});
+}
+// "OT por lugar y tipo de mantenimiento" (pedido de Mariana): una barra
+// horizontal por lugar, segmentada por tipo (mismos colores que el histórico
+// mensual), ordenada por total. Respeta el filtro general; clic en el lugar
+// → listado de sus OT. Cuando una OT tiene varias entidades, el lugar viene
+// como "SAN DIEGO, SJ-0016 | ..." — se agrupa por la parte antes del código.
+function lugarCortoOT(r){ return (r.lugar||'Sin lugar').split(/, [A-Z]{1,4}-\d+ \|/)[0]; }
+function chartTipoLugar(ot){
+  if(!ot.length) return '<div class="empty">Sin OT en el rango seleccionado</div>';
+  const tipoCorto = t => (t||'Sin tipo').split(',')[0];
+  const ORDEN_TIPO = {'Correctivo':0, 'Preventivo':1};
+  const tipos = [...new Set(ot.map(r=>tipoCorto(r.tipo)))]
+    .sort((a,b)=>(ORDEN_TIPO[a]??2)-(ORDEN_TIPO[b]??2) || a.localeCompare(b));
+  const COLOR_TIPO = {'Correctivo':'var(--chart-1)', 'Preventivo':'var(--chart-2)'};
+  const extras = ['var(--chart-3)','#7c3aed','#6b7280'];
+  let e = 0;
+  const colores = Object.fromEntries(tipos.map(t=>[t, COLOR_TIPO[t] || extras[Math.min(e++, extras.length-1)]]));
+  const porLugar = new Map();
+  ot.forEach(r=>{
+    const l = lugarCortoOT(r);
+    if(!porLugar.has(l)) porLugar.set(l, {});
+    const m = porLugar.get(l); const t = tipoCorto(r.tipo); m[t] = (m[t]||0)+1;
+  });
+  const filas = [...porLugar.entries()].map(([lugar,m])=>({lugar, m, total:Object.values(m).reduce((a,b)=>a+b,0)}))
+    .sort((a,b)=>b.total-a.total || a.lugar.localeCompare(b.lugar));
+  const max = filas[0].total;
+  const html = filas.map(f=>`
+    <div class="tl-row">
+      <button type="button" class="tl-lugar" data-tipo-lugar="${esc(f.lugar)}" title="Ver las OT de ${esc(f.lugar)}">${esc(f.lugar)}</button>
+      <div class="tl-track"><div class="tl-bar" style="width:${(f.total/max*100).toFixed(1)}%">${
+        tipos.filter(t=>f.m[t]).map(t=>`<div class="tl-seg" style="flex:${f.m[t]};background:${colores[t]}" title="${esc(t)}: ${f.m[t]}">${f.m[t]}</div>`).join('')
+      }</div></div>
+      <div class="tl-total">${f.total}</div>
+    </div>`).join('');
+  const legend = tipos.map(t=>`<span><span class="sw" style="background:${colores[t]}"></span>${esc(t)} (${ot.filter(r=>tipoCorto(r.tipo)===t).length})</span>`).join('');
+  return `<div class="legend" style="margin:0 0 10px">${legend}</div><div class="tl-chart">${html}</div>`;
 }
 // "OT correctivas por lugar" (antes "Top lugares con más averías
 // correctivas", solo 8): TODOS los lugares, con la cantidad clicable.

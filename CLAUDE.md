@@ -381,6 +381,16 @@ del rango del filtro general de arriba (ya **no** tiene selector de mes propio
 ni el total de correctivas, a pedido de Mariana); la cantidad es clicable → listado de esas OT con filtros y costo (`topLugaresAverias()`,
 `renderTopLugaresWrap()`).
 
+### "OT por lugar y tipo de mantenimiento" (Resumen Gerencial)
+
+Pedido de Mariana (1-oct-2026), tarjeta a todo el ancho debajo de las dos
+anteriores (`chartTipoLugar()`): una barra horizontal por lugar, segmentada
+por tipo (mismos colores que el histórico mensual), ordenada por total, con
+la cantidad en cada segmento y el total al final. Respeta el filtro general.
+Clic en el nombre del lugar → listado de sus OT (`modalFiltrable`, con filtro
+de Tipo y costo). Las OT con varias entidades traen el lugar como
+"SAN DIEGO, SJ-0016 | ..." — `lugarCortoOT()` las agrupa en su lugar.
+
 ### Ordenar tablas por columna
 
 Pedido de Mariana: **todas** las tablas se ordenan al hacer clic en el
