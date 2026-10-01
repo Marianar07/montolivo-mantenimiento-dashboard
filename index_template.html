@@ -2411,7 +2411,7 @@ function renderDisponibilidad(el){
     {key:'lugar', label:'Lugar'},
     {key:'mantenible', label:'Tipo', fmt:v=>v?'Mantenible':'No mantenible'},
     {key:'criticidad', label:'Criticidad', fmt:v=>v?`<span class="badge ${v==='Alta'?'bad':v==='Media'?'warn':'good'}">${v}</span>`:'—'},
-    {key:'disponibilidad_pct', label:'Disponibilidad', num:true, fmt:v=>fmtPct((v||0)*100)},
+    {key:'disponibilidad_pct', label:'Disponibilidad', num:true, fmt:v=>v==null ? '—' : fmtPct(v*100)}, // sin dato = activo nuevo de "Datos Generales Activos" que aún no está en Disponibilidad
   ];
   let eqPager = null;
   // Los cuadros de arriba se calculan sobre los mismos equipos que muestra

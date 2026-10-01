@@ -31,6 +31,21 @@ redespliega automáticamente en el mismo enlace.
      de los ~2323 activos del maestro. Reemplaza al antiguo export "EQxIP"
      (hoja `Novedades`) — ver nota en "Paros por equipo" más abajo.
 
+   También opcional pero recomendado: **`Datos Generales Activos.xlsx`**
+   (nombre contiene "datos generales activos"; agregado por Mariana el
+   1-oct-2026 para tener los equipos nuevos). Es el export de **Activos**
+   del CMMS, más actualizado que Disponibilidad, con otro formato: columnas
+   `Codigo` (sin tilde), `Nombre`, `Código IP.`, `Instalación Proceso`,
+   `Provoca Paro` (sin "?") y **sin `Criticidad`**. `integrar_activos()` lo
+   usa como maestro de activos: agrega a Disponibilidad los activos que
+   faltan (salen en el directorio y en el total de equipos, sin % de
+   disponibilidad → "—"), actualiza la ubicación de los trasladados, toma
+   `Provoca Paro` de aquí y conserva la `Criticidad` de "Datos Generales de
+   Equipos" (los nuevos quedan sin criticidad). El script imprime cuántos
+   activos nuevos, trasladados y sin criticidad hay. 1-oct-2026: 2393 activos
+   (70 nuevos: 68 granizadoras 2T + nevera Coca-Cola y granizadora Artiq de
+   Arkadia, estas dos "Provoca Paro" = Sí), 15 trasladados.
+
    Además, opcionalmente, **`TECNICOS.xlsx`** (nombre contiene "tecnicos")
    — maestro de técnicos de planta, columnas `NOMBRE`, `CEDULA`, `CIUDAD`.
    No es uno de los 4 exports periódicos del CMMS — es una lista de

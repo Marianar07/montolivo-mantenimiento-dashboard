@@ -121,11 +121,15 @@ def encontrar_archivos(carpeta: Path):
     tecnicos_path = elegir("TECNICOS", tecnicos_candidatos) if tecnicos_candidatos else None
     proveedores_candidatos = buscar(["proveedores"])
     proveedores_path = elegir("Datos Generales de Proveedores", proveedores_candidatos) if proveedores_candidatos else None
+    activos_candidatos = buscar(["datos generales activos"])
+    activos_path = elegir("Datos Generales Activos", activos_candidatos) if activos_candidatos else None
 
     # OT y SS: de los archivos restantes, identificar por columnas propias
     # de cada export (más confiable que el nombre de archivo, que el CMMS
     # no siempre exporta igual entre corridas).
     excluidos = {disp_path, crit_path}
+    if activos_path:
+        excluidos.add(activos_path)
     if tecnicos_path:
         excluidos.add(tecnicos_path)
     if proveedores_path:
@@ -137,7 +141,7 @@ def encontrar_archivos(carpeta: Path):
     ot_path = elegir("OT (Órdenes de Trabajo)", ot_candidatos)
     ss_path = elegir("SS (Solicitudes de Servicio)", [a for a in ss_candidatos if a != ot_path])
 
-    return ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path
+    return ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path
 
 
 # ============================================================
@@ -175,6 +179,71 @@ def cargar_criticidad(path):
     decidir qué correctivos cuentan como paro (ver nota ahí)."""
     crit = pd.read_excel(path, sheet_name="Sheet", dtype={"Código": str})
     return crit
+
+
+def integrar_activos(path, disp, crit):
+    """'Datos Generales Activos.xlsx' (opcional, agregado por Mariana el
+    1-oct-2026 para tener los equipos nuevos) - export de ACTIVOS del CMMS,
+    más actualizado que Disponibilidad y que Datos Generales de Equipos, pero
+    con otro formato: columnas 'Codigo' (sin tilde), 'Nombre', 'Código IP.',
+    'Instalación Proceso', 'Provoca Paro' (sin '?') y SIN 'Criticidad'.
+
+    Se usa como maestro de activos:
+      - agrega a `disp` los activos que no están en Disponibilidad (sin datos
+        de disponibilidad - ese módulo igual reporta 100% para todos), para
+        que cuenten en el total de equipos, salgan en el directorio y las OT/SS
+        sobre ellos se resuelvan a equipo/lugar;
+      - actualiza la 'Instalación de Proceso' de los que ya estaban (equipos
+        trasladados de punto de venta) y su nombre;
+      - en `crit`, toma 'Provoca Paro?' de este archivo y conserva la
+        'Criticidad' de Datos Generales de Equipos; los activos nuevos quedan
+        sin criticidad (None) hasta que llegue un export que la traiga.
+    Devuelve (disp, crit, resumen) con `resumen` para el reporte de consola."""
+    act = pd.read_excel(path, sheet_name=0, dtype={"Codigo": str, "Código IP.": str})
+    act = act[act["Codigo"].notna()].drop_duplicates("Codigo")
+    act["Codigo"] = act["Codigo"].str.strip()
+    instalacion = act["Código IP."].fillna("").str.strip() + " | " + act["Instalación Proceso"].fillna("").str.strip()
+    act_inst = dict(zip(act["Codigo"], instalacion))
+    act_nombre = dict(zip(act["Codigo"], act["Nombre"]))
+
+    # Disponibilidad: actualizar ubicación/nombre y agregar los nuevos
+    disp = disp.copy()
+    antes = disp["Instalación de Proceso"].copy()
+    en_act = disp["Código"].isin(act_inst)
+    disp.loc[en_act, "Instalación de Proceso"] = disp.loc[en_act, "Código"].map(act_inst)
+    disp.loc[en_act, "Equipo"] = disp.loc[en_act, "Código"].map(act_nombre)
+    trasladados = int((antes[en_act] != disp.loc[en_act, "Instalación de Proceso"]).sum())
+    nuevos = act[~act["Codigo"].isin(set(disp["Código"]))]
+    if len(nuevos):
+        filas = pd.DataFrame({
+            "Código": nuevos["Codigo"].values,
+            "Equipo": nuevos["Nombre"].values,
+            "Instalación de Proceso": [act_inst[c] for c in nuevos["Codigo"]],
+        })
+        for col in disp.columns:
+            if col not in filas.columns:
+                filas[col] = 0.0 if "Paro" in col else pd.NA
+        disp = pd.concat([disp, filas[disp.columns]], ignore_index=True)
+
+    # Maestro de criticidad / provoca paro
+    crit_old = crit.drop_duplicates("Código").set_index("Código")
+    crit_new = pd.DataFrame({
+        "Código": act["Codigo"].values,
+        "Nombre": act["Nombre"].values,
+        "Provoca Paro?": act["Provoca Paro"].astype(str).str.strip().values,
+    })
+    crit_new["Criticidad"] = crit_new["Código"].map(crit_old["Criticidad"]) if "Criticidad" in crit_old else None
+    # activos que solo estén en el maestro viejo (no debería pasar) se conservan
+    solo_viejo = crit[~crit["Código"].isin(set(crit_new["Código"]))][["Código", "Nombre", "Provoca Paro?", "Criticidad"]]
+    crit = pd.concat([crit_new, solo_viejo], ignore_index=True)
+
+    resumen = {
+        "activos": len(act),
+        "nuevos": nuevos[["Codigo", "Nombre", "Instalación Proceso", "Provoca Paro"]].values.tolist(),
+        "trasladados": trasladados,
+        "sin_criticidad": int(crit["Criticidad"].isna().sum()),
+    }
+    return disp, crit, resumen
 
 
 # El campo Ejecutores de las OT a veces trae el nombre completo del técnico
@@ -701,11 +770,14 @@ def construir_criticidad_totales(crit):
 # ENSAMBLAJE FINAL
 # ============================================================
 
-def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None, proveedores_path=None):
+def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None, proveedores_path=None, activos_path=None):
     ot_raw = cargar_ot(ot_path)
     ss_raw = cargar_ss(ss_path)
     disp, periodo_texto = cargar_disponibilidad(disp_path)
     crit = cargar_criticidad(crit_path)
+    resumen_activos = None
+    if activos_path:
+        disp, crit, resumen_activos = integrar_activos(activos_path, disp, crit)
     tecnicos_internos = cargar_tecnicos(tecnicos_path) if tecnicos_path else None
     tecnicos_inactivos = cargar_tecnicos_inactivos(tecnicos_path) if tecnicos_path else []
     proveedores = cargar_proveedores(proveedores_path) if proveedores_path else None
@@ -762,6 +834,12 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     mantenibles = sum(1 for e in equipos if e["mantenible"])
     print(f"Equipos en directorio: {len(equipos)} de {total_maestro} en el maestro ({mantenibles} mantenibles, {len(equipos)-mantenibles} no mantenibles)")
     print(f"Criticidad: {criticidad_totales}")
+    if resumen_activos:
+        ra = resumen_activos
+        print(f"Datos Generales Activos: {ra['activos']} activos - {len(ra['nuevos'])} nuevos frente a Disponibilidad, "
+              f"{ra['trasladados']} con ubicación actualizada, {ra['sin_criticidad']} sin criticidad")
+        for cod, nom, lugar, paro in ra["nuevos"]:
+            print(f"   nuevo: {cod} | {nom} | {lugar} | provoca paro: {paro}")
     if tecnicos_internos is not None:
         nombres_en_ot = {
             n.strip() for r in ot_records if isinstance(r.get("tecnico"), str)
@@ -815,7 +893,11 @@ def main():
         ot_path, ss_path, disp_path, crit_path = (Path(p) for p in sys.argv[1:5])
         tecnicos_path = None
         proveedores_path = None
+        activos_path = None
         for carpeta in (CARPETA_DATOS, CARPETA_BASE):
+            candidatos_act = [a for a in carpeta.glob("*.xlsx") if "datos generales activos" in a.name.lower()]
+            if candidatos_act and activos_path is None:
+                activos_path = sorted(candidatos_act, key=lambda a: a.stat().st_mtime, reverse=True)[0]
             candidatos = [a for a in carpeta.glob("*.xlsx") if "tecnicos" in a.name.lower()]
             if candidatos and tecnicos_path is None:
                 tecnicos_path = sorted(candidatos, key=lambda a: a.stat().st_mtime, reverse=True)[0]
@@ -824,12 +906,13 @@ def main():
                 proveedores_path = sorted(candidatos_prov, key=lambda a: a.stat().st_mtime, reverse=True)[0]
     else:
         carpeta = CARPETA_DATOS if any(CARPETA_DATOS.glob("*.xlsx")) else CARPETA_BASE
-        ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path = encontrar_archivos(carpeta)
+        ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path = encontrar_archivos(carpeta)
 
     print(f"OT:           {ot_path.name}")
     print(f"SS:           {ss_path.name}")
     print(f"Disponibilidad: {disp_path.name}")
     print(f"Datos Generales de Equipos: {crit_path.name}")
+    print(f"Datos Generales Activos: {activos_path.name if activos_path else 'no encontrado - se usa solo Disponibilidad como maestro'}")
     if tecnicos_path:
         print(f"Técnicos:     {tecnicos_path.name}")
     else:
@@ -840,7 +923,7 @@ def main():
         print("Proveedores:  no encontrado (Datos Generales de Proveedores.xlsx) - se omite el aviso de cruce")
     print()
 
-    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path)
+    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path)
     data = limpiar_nan(data)
 
     SALIDA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
