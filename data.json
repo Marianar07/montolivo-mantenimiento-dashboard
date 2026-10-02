@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-02T09:03:26",
+  "generado": "2026-10-02T13:17:47",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -1420,16 +1420,16 @@
       "fecha_creacion": "2026-09-05T10:48:03",
       "inicio_programado": "2026-09-07T00:00:00",
       "fin_programado": "2026-09-07T01:00:00",
-      "inicio_real": null,
-      "fin_real": null,
-      "estado": "Abierta",
-      "avance": 0.0,
+      "inicio_real": "2026-09-07T00:00:00",
+      "fin_real": "2026-09-07T01:00:00",
+      "estado": "Cerrada",
+      "avance": 100.0,
       "lugar": "EL TESORO",
       "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
       "equipo_cod": "AI-0132",
       "criticidad": "Baja",
-      "tecnico": null,
-      "costo_real": 0.0,
+      "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
+      "costo_real": 17009.25,
       "comentarios": null
     },
     {
@@ -1815,17 +1815,17 @@
       "fecha_creacion_ss": "2026-09-01T11:14:19",
       "fecha_creacion": "2026-09-08T14:33:04",
       "inicio_programado": "2026-09-01T10:00:00",
-      "fin_programado": "2026-09-01T11:00:00",
-      "inicio_real": null,
-      "fin_real": null,
-      "estado": "Abierta",
-      "avance": 0.0,
+      "fin_programado": "2026-09-01T13:00:00",
+      "inicio_real": "2026-09-01T10:00:00",
+      "fin_real": "2026-09-01T13:00:00",
+      "estado": "Cerrada",
+      "avance": 100.0,
       "lugar": "PUERTA DEL NORTE",
       "equipo": "ADECUACIÓN E INSTALACIÓN PUERTA DEL NORTE",
       "equipo_cod": "AI-0115",
       "criticidad": "Baja",
-      "tecnico": null,
-      "costo_real": 0.0,
+      "tecnico": "JUAN JOSE MOSQUERA VARGAS",
+      "costo_real": 51027.75,
       "comentarios": null
     },
     {
@@ -2333,28 +2333,6 @@
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
       "costo_real": 49668.66,
       "comentarios": "[2026-09-12 07:45 a 09:47]\n\n-Actividades Realizadas:\nHP-0012-C-001 | Reparación General\n\n-Descripcion:\nCorrectivo, obstrucción en ducto de lavado, sonda B3 y parlante no cumple con la función correspondiente, se hace su respectivas correcciónes, equipo queda operativo\n\n---------------------------------------------------------------------------------------------"
-    },
-    {
-      "ot": "000118",
-      "tipo": "Correctivo",
-      "severidad": "Alta",
-      "viene_ss": true,
-      "ss_codigo": "00214",
-      "fecha_creacion_ss": "2026-09-11T15:39:27",
-      "fecha_creacion": "2026-09-12T08:37:30",
-      "inicio_programado": "2026-09-12T09:00:00",
-      "fin_programado": "2026-09-12T10:00:00",
-      "inicio_real": null,
-      "fin_real": null,
-      "estado": "Abierta",
-      "avance": 0.0,
-      "lugar": "PREMIUM PLAZA",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
-      "equipo_cod": "NR-0108",
-      "criticidad": "Alta",
-      "tecnico": null,
-      "costo_real": 0.0,
-      "comentarios": null
     },
     {
       "ot": "000119",
@@ -5382,7 +5360,7 @@
       "fin_programado": "2026-09-29T11:30:00",
       "inicio_real": "2026-09-29T07:30:00",
       "fin_real": "2026-09-29T11:30:00",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "avance": 100.0,
       "lugar": "BODEGA MANTENIMIENTO",
       "equipo": "HORNO PROTEINAS UNOX",
@@ -5466,17 +5444,17 @@
       "ss_codigo": null,
       "fecha_creacion_ss": null,
       "fecha_creacion": "2026-09-29T14:26:44",
-      "inicio_programado": "2026-09-29T10:00:00",
-      "fin_programado": "2026-09-29T12:00:00",
+      "inicio_programado": "2026-09-29T10:05:00",
+      "fin_programado": "2026-09-29T12:15:00",
       "inicio_real": "2026-09-29T10:05:00",
       "fin_real": "2026-09-29T12:15:00",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "avance": 100.0,
       "lugar": "BASE DE OPERACIONES",
       "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO DE PRODUCCION",
       "equipo_cod": "AI-0097",
       "criticidad": "Baja",
-      "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, OSCAR DARIO CASTAÑEDA GARAY",
+      "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
       "costo_real": 36853.38,
       "comentarios": "[2026-09-29 10:05 a 12:15]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nse gestiona material eléctrico para PDV santa fe \nse inicia proceso para lavado de tanque \n\n---------------------------------------------------------------------------------------------"
     },
@@ -5620,11 +5598,11 @@
       "ss_codigo": null,
       "fecha_creacion_ss": null,
       "fecha_creacion": "2026-09-29T15:25:23",
-      "inicio_programado": "2026-09-30T07:30:00",
-      "fin_programado": "2026-09-30T11:30:00",
+      "inicio_programado": "2026-09-30T08:10:00",
+      "fin_programado": "2026-09-30T10:30:00",
       "inicio_real": "2026-09-30T08:10:00",
       "fin_real": "2026-09-30T10:30:00",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "avance": 100.0,
       "lugar": "PREMIUM PLAZA",
       "equipo": "HORNO PROTEINAS RATIONAL",
@@ -5778,7 +5756,7 @@
       "fin_programado": "2026-09-30T16:00:00",
       "inicio_real": "2026-09-30T13:00:00",
       "fin_real": "2026-09-30T16:00:00",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "avance": 100.0,
       "lugar": "BASE DE OPERACIONES",
       "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO DE PRODUCCION",
@@ -5888,7 +5866,7 @@
       "fin_programado": "2026-10-01T11:00:00",
       "inicio_real": "2026-10-01T07:30:00",
       "fin_real": "2026-10-01T11:00:00",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "avance": 100.0,
       "lugar": "FABRICATO",
       "equipo": "SISTEMA DE EXTRACCION",
@@ -5910,7 +5888,7 @@
       "fin_programado": "2026-10-01T08:00:00",
       "inicio_real": "2026-10-01T06:00:00",
       "fin_real": "2026-10-01T08:00:00",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "avance": 100.0,
       "lugar": "BASE DE OPERACIONES",
       "equipo": "ADECUACIÓN E INSTALACIÓN CENTRO DE PRODUCCION",
@@ -5996,17 +5974,17 @@
       "fecha_creacion": "2026-10-01T13:34:49",
       "inicio_programado": "2026-10-01T14:00:00",
       "fin_programado": "2026-10-01T16:00:00",
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-10-01T14:00:00",
+      "fin_real": "2026-10-01T16:00:00",
       "estado": "Abierta",
-      "avance": 0.0,
+      "avance": 50.0,
       "lugar": "VIVA LAURELES",
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
       "equipo_cod": "AI-0121",
       "criticidad": "Baja",
       "tecnico": "YOHAN ESTIBEN SANCHEZ NARANJO",
-      "costo_real": 0.0,
-      "comentarios": null
+      "costo_real": 26918.98,
+      "comentarios": "[2026-10-01 14:00 a 16:00]\n\n-Actividades Realizadas:\nAI-0121-C-001 | Reparación General\n\n-Descripcion:\nse realiza revisión de microondas para entregar en viva laureles junto con 8 empaques y la grasa.\n\n---------------------------------------------------------------------------------------------"
     },
     {
       "ot": "000291",
@@ -6038,11 +6016,11 @@
       "ss_codigo": null,
       "fecha_creacion_ss": null,
       "fecha_creacion": "2026-10-01T15:27:49",
-      "inicio_programado": "2026-10-01T14:00:00",
-      "fin_programado": "2026-10-01T16:00:00",
+      "inicio_programado": "2026-10-01T14:15:00",
+      "fin_programado": "2026-10-01T16:15:00",
       "inicio_real": "2026-10-01T14:15:00",
       "fin_real": "2026-10-01T16:15:00",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "avance": 100.0,
       "lugar": "SANTAFÉ MEDELLÍN",
       "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
@@ -6104,8 +6082,8 @@
       "ss_codigo": "00446",
       "fecha_creacion_ss": "2026-09-26T11:59:03",
       "fecha_creacion": "2026-10-01T23:09:30",
-      "inicio_programado": "2026-10-01T07:30:00",
-      "fin_programado": "2026-10-01T12:00:00",
+      "inicio_programado": "2026-10-02T07:30:00",
+      "fin_programado": "2026-10-02T12:00:00",
       "inicio_real": null,
       "fin_real": null,
       "estado": "Abierta",
@@ -6115,6 +6093,50 @@
       "equipo_cod": "SE-0023",
       "criticidad": "Alta",
       "tecnico": "JONATHAN RESTREPO RAMIREZ, YOHAN ESTIBEN SANCHEZ NARANJO",
+      "costo_real": 0.0,
+      "comentarios": null
+    },
+    {
+      "ot": "000296",
+      "tipo": "Correctivo",
+      "severidad": "Media",
+      "viene_ss": true,
+      "ss_codigo": "00314",
+      "fecha_creacion_ss": "2026-09-15T19:33:42",
+      "fecha_creacion": "2026-10-02T10:35:28",
+      "inicio_programado": "2026-12-15T07:00:00",
+      "fin_programado": "2026-12-15T08:00:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "equipo": "NEVERA CONGELACION VERTICAL 1P DUKERS",
+      "equipo_cod": "NC-0023",
+      "criticidad": "Alta",
+      "tecnico": "REFRIGER COLOMBIA SAS",
+      "costo_real": 0.0,
+      "comentarios": null
+    },
+    {
+      "ot": "000297",
+      "tipo": "Correctivo",
+      "severidad": "Media",
+      "viene_ss": true,
+      "ss_codigo": "00425",
+      "fecha_creacion_ss": "2026-09-25T13:05:02",
+      "fecha_creacion": "2026-10-02T10:52:05",
+      "inicio_programado": "2026-10-03T07:30:00",
+      "fin_programado": "2026-10-03T09:30:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "LA CENTRAL",
+      "equipo": "HORNO MICROONDAS INDUSTRIAL",
+      "equipo_cod": "HI-0016",
+      "criticidad": "Media",
+      "tecnico": "ANDRES FELIPE LONDOÑO GUERRA",
       "costo_real": 0.0,
       "comentarios": null
     }
@@ -6254,11 +6276,11 @@
       "lugar": "FABRICATO",
       "fecha_ss": "2026-08-27T16:48:12",
       "fecha_esperada": "2026-08-31T10:00:00",
-      "fecha_respuesta": null,
-      "estado": "Validada",
+      "fecha_respuesta": "2026-10-02T08:20:39",
+      "estado": "No aprobada",
       "ot_asociada": null,
       "descripcion": "se revisa horno microondas que preventa fallas ",
-      "comentarios": "Validada / MARCELA HENAO SANTAMARIA / 2026-09-04 09:33 / se revisa horno microondas que preventa fallas\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-04 09:33 / Sin descripción"
+      "comentarios": "No aprobada / SEBASTIAN BUITRAGO GRACIANO / 2026-10-02 08:20 / ESTAS FUERON LAS PRIMERAS SS SE HICIEORN Y NO SE ASIGANRON UNA OT\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-04 09:33 / se revisa horno microondas que preventa fallas"
     },
     {
       "ss": "00016",
@@ -6310,8 +6332,8 @@
       "lugar": "PUERTA DEL NORTE",
       "fecha_ss": "2026-09-01T11:14:19",
       "fecha_esperada": "2026-09-01T15:14:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
+      "fecha_respuesta": "2026-09-01T13:00:00",
+      "estado": "Ejecutada",
       "ot_asociada": "000086",
       "descripcion": "el horno de lasaña está malo mas de 8 días no dan repuesta ",
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-08 14:33 / Sin descripción\nValidada / Administración Montolivo / 2026-09-01 14:46 / el horno de lasaña está malo mas de 8 días no dan repuesta"
@@ -6380,11 +6402,11 @@
       "lugar": "EL TESORO",
       "fecha_ss": "2026-09-04T15:35:06",
       "fecha_esperada": "2026-09-05T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
+      "fecha_respuesta": "2026-09-07T01:00:00",
+      "estado": "Ejecutada",
       "ot_asociada": "000067",
       "descripcion": "horno rational no está haciendo un correcto lavado y presenta un sistema de alarma y no deja manipularlo",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-05 10:48 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-05 09:14 / horno rational no está haciendo un correcto lavado y presenta un sistema de alarma y no deja manipularlo"
+      "comentarios": "Ejecutada / Administración Montolivo / 2026-09-07 01:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000066 [Descripción O.T.]: REALIZAR MTTO PREVENTIVO Y CORRECTIVO\n\n\nEntidad a intervenir: \n EL TESORO \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00043 [Fecha Esperada] 2026-09-05 11:00 [Solicitante] ELDA MARLENY PALACIOS CARDENAS [Descripción] horno rational no está haciendo un correcto lavado y presenta un sistema de alarma y no deja manipularlo / [Realimentación O.T.]: .\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-05 10:48 / Sin descripción"
     },
     {
       "ss": "00045",
@@ -6709,20 +6731,6 @@
       "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-26 09:50 / Cierre automático de S.S. por la Orden de Trabajo con código 000235 [Descripción O.T.]: VIVA LAURELES: PEGAR Y REVISAR CHAPA DE BOTIQUIN, PARRILLAS DE HORNO\nEntidades a intervenir: \nHORNO PROTEINAS RATIONAL \n\nActividades de mantenimiento incluidas:\n Reparación General: Realizar reparación según condición\n\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir: \nVIVA LAURELES \n\nActividades de mantenimiento incluidas:\n Reparación Locativa General: Realizar reparación según condición\n\nSS-00082 [Fecha Esperada] 2026-09-07 15:43 [Solicitante] VIVA LAURELES PDV [Descripción] cambio del caucho del horno de proteínas y la revisión del desnivel del equipo. \nSS-00366 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] cambio de 3 parrillas que estaban en mal estado.OJO YA ME LAS CAMBIARON ME\nSS-00369 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] botiquín esta suelto por favor me colaboran SST que podía solicitarlo con ustedes / [Realimentación O.T.]: Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:46 a 09:48]\n\n-Actividades Realizadas:\nHP-0055-C-001 | Reparación General\n\n-Descripcion:\narreglo chapa botiquín \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:48 a 09:50]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 14:58 / Sin descripción"
     },
     {
-      "ss": "00084",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-07T11:45:11",
-      "fecha_esperada": "2026-09-07T15:45:00",
-      "fecha_respuesta": "2026-09-09T10:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000092",
-      "descripcion": "extractor no hala adecuadamente el humo ya le.habian echo mantenimiento nos toca retirar filtros para q circule adecuadamente",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-09 10:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000092 [Descripción O.T.]: REVISAR EXTRACTOR\n\n\nEntidad a intervenir: \n VIVA LAURELES \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00084 [Fecha Esperada] 2026-09-07 15:45 [Solicitante] VIVA LAURELES PDV [Descripción] extractor no hala adecuadamente el humo ya le.habian echo mantenimiento nos toca retirar filtros para q circule adecuadamente / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-09 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa sistema de extracción y se encuentra trabajando en óptimas condiciones y parámetro adecuado se deja funcional. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-09 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa sistema de extracción y se encuentra trabajando en óptimas condiciones y parámetro adecuado se deja funcional. \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-08 16:08 / Sin descripción"
-    },
-    {
       "ss": "00083",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -6735,6 +6743,20 @@
       "ot_asociada": null,
       "descripcion": "no tiene rejilla",
       "comentarios": "Creada / FLORIDA ET 2 PDV / 2026-09-07 11:45 / no tiene rejilla"
+    },
+    {
+      "ss": "00084",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-07T11:45:11",
+      "fecha_esperada": "2026-09-07T15:45:00",
+      "fecha_respuesta": "2026-09-09T10:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000092",
+      "descripcion": "extractor no hala adecuadamente el humo ya le.habian echo mantenimiento nos toca retirar filtros para q circule adecuadamente",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-09 10:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000092 [Descripción O.T.]: REVISAR EXTRACTOR\n\n\nEntidad a intervenir: \n VIVA LAURELES \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00084 [Fecha Esperada] 2026-09-07 15:45 [Solicitante] VIVA LAURELES PDV [Descripción] extractor no hala adecuadamente el humo ya le.habian echo mantenimiento nos toca retirar filtros para q circule adecuadamente / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-09 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa sistema de extracción y se encuentra trabajando en óptimas condiciones y parámetro adecuado se deja funcional. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-09 07:00 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa sistema de extracción y se encuentra trabajando en óptimas condiciones y parámetro adecuado se deja funcional. \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-08 16:08 / Sin descripción"
     },
     {
       "ss": "00085",
@@ -6835,48 +6857,6 @@
       "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-07 11:40 / Cierre automático de S.S. por la Orden de Trabajo con código 000068 [Descripción O.T.]: \nEntidad a intervenir: \n FABRICATO \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00078 [Fecha Esperada] 2026-09-08 10:11 [Solicitante] PARQUE FABRICATO PDV [Descripción] se apaga el horno de proteínas y no enciende  / [Realimentación O.T.]: Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-07 08:15 a 11:40]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nCorrectivo horno proteinas, se encontró corto en relec sólido por calentamiento excesivo, se cambia relec, ventilador y bocina, equipo queda operativo\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-07 11:19 / Sin descripción"
     },
     {
-      "ss": "00102",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
-      "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-07T17:37:00",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
-      "descripcion": "tubo de gas de la estufa se despega y hay fuga",
-      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-14 07:33 / Sin descripción\nCreada / SANTAFE PDV / 2026-09-07 17:37 / tubo de gas de la estufa se despega y hay fuga"
-    },
-    {
-      "ss": "00099",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-07T16:17:34",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": "2026-09-08T12:30:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000082",
-      "descripcion": "horno de lasañas se le revienta el caucho por favor,se quedo pegada la puerta cuando la abrimos el caucho esta reventado",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-08 12:30 / Cierre automático de S.S. por la Orden de Trabajo con código 000082 [Descripción O.T.]: LLEVAR REJILLAS\n\n\nEntidad a intervenir: \n VIVA LAURELES \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00099 [Fecha Esperada] 2026-09-08 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] horno de lasañas se le revienta el caucho por favor,se quedo pegada la puerta cuando la abrimos el caucho esta reventado / [Realimentación O.T.]: Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-08 10:30 a 12:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza cambio de empaque al horno de lasaña se deja funcional y se lubrican bisagras. \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-08 11:40 / Sin descripción"
-    },
-    {
-      "ss": "00100",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
-      "lugar": "MALL PLAZA MANIZALES",
-      "fecha_ss": "2026-09-07T16:19:00",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": "2026-09-16T15:14:00",
-      "estado": "Ejecutada",
-      "ot_asociada": null,
-      "descripcion": "el horno se apaga en ocasiones necesito intervencion) ",
-      "comentarios": "Validada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-16 15:14 / el horno se apaga en ocasiones necesito intervencion)\nLeída / SEBASTIAN BUITRAGO GRACIANO / 2026-09-16 15:14 / Sin descripción"
-    },
-    {
       "ss": "00101",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -6891,32 +6871,18 @@
       "comentarios": "Creada / MALL PLAZA PDV / 2026-09-07 16:39 / sistema de extracción no funciona , no absorbe, no enciende el guarda motor necesito intervencion"
     },
     {
-      "ss": "00103",
+      "ss": "00100",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T17:54:19",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA MANIZALES",
+      "lugar": "MALL PLAZA MANIZALES",
+      "fecha_ss": "2026-09-07T16:19:00",
       "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Validada",
+      "fecha_respuesta": "2026-09-16T15:14:00",
+      "estado": "Ejecutada",
       "ot_asociada": null,
-      "descripcion": "nevera de refrigeración vertical NR019\ncon empaques en mal estado ",
-      "comentarios": "Validada / MARCELA HENAO SANTAMARIA / 2026-09-10 09:13 / nevera de refrigeración vertical NR019\ncon empaques en mal estado\nComentario / MARCELA HENAO SANTAMARIA / 2026-09-10 09:13 / SE ENVIARA PROVEEDOR"
-    },
-    {
-      "ss": "00105",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
-      "lugar": "EL TESORO",
-      "fecha_ss": "2026-09-07T18:01:57",
-      "fecha_esperada": "2026-09-08T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Validada",
-      "ot_asociada": null,
-      "descripcion": "nevera  vertical de refrigeración Nar-0099 caucho en mal estado perdida de cadena de frío patillas peladas y oxidadas ",
-      "comentarios": "Validada / MARCELA HENAO SANTAMARIA / 2026-09-10 09:53 / nevera  vertical de refrigeración Nar-0099 caucho en mal estado perdida de cadena de frío patillas peladas y oxidadas\nComentario / MARCELA HENAO SANTAMARIA / 2026-09-10 09:52 / SE ENVIA PROVEEDOR"
+      "descripcion": "el horno se apaga en ocasiones necesito intervencion) ",
+      "comentarios": "Validada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-16 15:14 / el horno se apaga en ocasiones necesito intervencion)\nLeída / SEBASTIAN BUITRAGO GRACIANO / 2026-09-16 15:14 / Sin descripción"
     },
     {
       "ss": "00106",
@@ -6987,6 +6953,62 @@
       "ot_asociada": "000103",
       "descripcion": "horno de proteínas sin funcionar aún no le han dado solución ",
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-10 10:51 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-10 10:49 / horno de proteínas sin funcionar aún no le han dado solución"
+    },
+    {
+      "ss": "00099",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-07T16:17:34",
+      "fecha_esperada": "2026-09-08T11:00:00",
+      "fecha_respuesta": "2026-09-08T12:30:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000082",
+      "descripcion": "horno de lasañas se le revienta el caucho por favor,se quedo pegada la puerta cuando la abrimos el caucho esta reventado",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-08 12:30 / Cierre automático de S.S. por la Orden de Trabajo con código 000082 [Descripción O.T.]: LLEVAR REJILLAS\n\n\nEntidad a intervenir: \n VIVA LAURELES \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00099 [Fecha Esperada] 2026-09-08 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] horno de lasañas se le revienta el caucho por favor,se quedo pegada la puerta cuando la abrimos el caucho esta reventado / [Realimentación O.T.]: Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-08 10:30 a 12:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza cambio de empaque al horno de lasaña se deja funcional y se lubrican bisagras. \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-08 11:40 / Sin descripción"
+    },
+    {
+      "ss": "00103",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-07T17:54:19",
+      "fecha_esperada": "2026-09-08T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Validada",
+      "ot_asociada": null,
+      "descripcion": "nevera de refrigeración vertical NR019\ncon empaques en mal estado ",
+      "comentarios": "Validada / MARCELA HENAO SANTAMARIA / 2026-09-10 09:13 / nevera de refrigeración vertical NR019\ncon empaques en mal estado\nComentario / MARCELA HENAO SANTAMARIA / 2026-09-10 09:13 / SE ENVIARA PROVEEDOR"
+    },
+    {
+      "ss": "00102",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "fecha_ss": "2026-09-07T17:37:00",
+      "fecha_esperada": "2026-09-08T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Leída",
+      "ot_asociada": null,
+      "descripcion": "tubo de gas de la estufa se despega y hay fuga",
+      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-14 07:33 / Sin descripción\nCreada / SANTAFE PDV / 2026-09-07 17:37 / tubo de gas de la estufa se despega y hay fuga"
+    },
+    {
+      "ss": "00105",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN EL TESORO",
+      "lugar": "EL TESORO",
+      "fecha_ss": "2026-09-07T18:01:57",
+      "fecha_esperada": "2026-09-08T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Validada",
+      "ot_asociada": null,
+      "descripcion": "nevera  vertical de refrigeración Nar-0099 caucho en mal estado perdida de cadena de frío patillas peladas y oxidadas ",
+      "comentarios": "Validada / MARCELA HENAO SANTAMARIA / 2026-09-10 09:53 / nevera  vertical de refrigeración Nar-0099 caucho en mal estado perdida de cadena de frío patillas peladas y oxidadas\nComentario / MARCELA HENAO SANTAMARIA / 2026-09-10 09:52 / SE ENVIA PROVEEDOR"
     },
     {
       "ss": "00118",
@@ -7115,20 +7137,6 @@
       "comentarios": "Creada / LA COLINA PDV / 2026-09-08 14:03 / Maquina selladora de jugos presenta falla en la palanca; no baja y no sella los jugos\nEditada / LA COLINA PDV / 2026-09-08 14:03 / Maquina selladora de jugos presenta falla en la palanca; no baja y no sella los jugos"
     },
     {
-      "ss": "00130",
-      "tipo": "Correctivo Programado",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
-      "lugar": "GRAN PLAZA",
-      "fecha_ss": "2026-09-08T19:13:35",
-      "fecha_esperada": "2026-09-09T15:00:00",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
-      "descripcion": "me ayudas por fa escaleras en mal estado ",
-      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-09 16:07 / SE ESTA SOLICTANDO LA COMPRA POR PARTE DE SEBASTIAN\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-09 16:07 / Sin descripción"
-    },
-    {
       "ss": "00127",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
@@ -7143,32 +7151,18 @@
       "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-17 13:06 / SE EL INFORMA A MARCELA. QUE DEBE DE LLAMAR A EL PROVEEDOR PARA EL CAMBIO DE LA TAPA\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-17 13:05 / Sin descripción"
     },
     {
-      "ss": "00134",
-      "tipo": "Correctivos de emergencia",
+      "ss": "00130",
+      "tipo": "Correctivo Programado",
       "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "lugar": "VEGAS PLAZA",
-      "fecha_ss": "2026-09-09T16:03:00",
-      "fecha_esperada": "2026-09-10T11:00:00",
-      "fecha_respuesta": "2026-09-28T14:57:49",
-      "estado": "No aprobada",
-      "ot_asociada": null,
-      "descripcion": "horno fuga de agua ",
-      "comentarios": "No aprobada / MARCELA HENAO SANTAMARIA / 2026-09-28 14:57 / YA SE REALIZO EL TRABAJO\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-28 14:57 / horno fuga de agua"
-    },
-    {
-      "ss": "00135",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN PARQUE ARBOLEDA",
-      "lugar": "PARQUE ARBOLEDA",
-      "fecha_ss": "2026-09-09T16:55:00",
-      "fecha_esperada": "2026-09-10T11:00:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
+      "lugar": "GRAN PLAZA",
+      "fecha_ss": "2026-09-08T19:13:35",
+      "fecha_esperada": "2026-09-09T15:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
-      "descripcion": "llave de la poceta esta dañada, tiene un sonido extraño mientras esta cerrada.",
-      "comentarios": "Creada / PARQUE ARBOLEDA PDV / 2026-09-09 16:55 / llave de la poceta esta dañada, tiene un sonido extraño mientras esta cerrada."
+      "descripcion": "me ayudas por fa escaleras en mal estado ",
+      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-09 16:07 / SE ESTA SOLICTANDO LA COMPRA POR PARTE DE SEBASTIAN\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-09 16:07 / Sin descripción"
     },
     {
       "ss": "00136",
@@ -7197,6 +7191,34 @@
       "ot_asociada": null,
       "descripcion": "colocar las perillas faltantes de la estufa, graduacion de llamas y fuga de gas",
       "comentarios": "Editada / FUNDADORES PDV / 2026-09-09 17:04 / colocar las perillas faltantes de la estufa, graduacion de llamas y fuga de gas\nCreada / FUNDADORES PDV / 2026-09-09 17:04 / colocar las perillas faltantes de la estufa, graduacion de llamas y fuga de gas"
+    },
+    {
+      "ss": "00135",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN PARQUE ARBOLEDA",
+      "lugar": "PARQUE ARBOLEDA",
+      "fecha_ss": "2026-09-09T16:55:00",
+      "fecha_esperada": "2026-09-10T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "llave de la poceta esta dañada, tiene un sonido extraño mientras esta cerrada.",
+      "comentarios": "Creada / PARQUE ARBOLEDA PDV / 2026-09-09 16:55 / llave de la poceta esta dañada, tiene un sonido extraño mientras esta cerrada."
+    },
+    {
+      "ss": "00134",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "VEGAS PLAZA",
+      "fecha_ss": "2026-09-09T16:03:00",
+      "fecha_esperada": "2026-09-10T11:00:00",
+      "fecha_respuesta": "2026-09-28T14:57:49",
+      "estado": "No aprobada",
+      "ot_asociada": null,
+      "descripcion": "horno fuga de agua ",
+      "comentarios": "No aprobada / MARCELA HENAO SANTAMARIA / 2026-09-28 14:57 / YA SE REALIZO EL TRABAJO\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-28 14:57 / horno fuga de agua"
     },
     {
       "ss": "00148",
@@ -7395,46 +7417,18 @@
       "comentarios": "Creada / FUNDADORES PDV / 2026-09-10 15:53 / SE NECESITA LA LAMPARA DEL DEL TECHO DEL LADO DE LA ESTUFA, QUITA MUCHA VISIBILIDAD AL MOMENTO DE EJECUTAR LAS PREPARACIONES, COCINA MUY OSCURA"
     },
     {
-      "ss": "00188",
+      "ss": "00175",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:49:58",
+      "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO MEDELLIN",
+      "lugar": "UNICENTRO MEDELLÍN",
+      "fecha_ss": "2026-09-10T20:32:00",
       "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Validada",
       "ot_asociada": null,
-      "descripcion": "Piso en muy mal estado, baldosas quebradas ",
-      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:49 / Piso en muy mal estado, baldosas quebradas"
-    },
-    {
-      "ss": "00181",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:22:00",
-      "fecha_esperada": "2026-09-11T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno ",
-      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:22 / Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno\nEditada / LOS MOLINOS PDV / 2026-09-10 22:22 / Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno"
-    },
-    {
-      "ss": "00179",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:21:48",
-      "fecha_esperada": "2026-09-11T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "Por favor me ayudan con la estufa. el regular está malo y hay fuga, fuegos muy bajos ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 17:09 / MTTO A ESTUFA\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-14 12:02 / Por favor me ayudan con la estufa. el regular está malo y hay fuga, fuegos muy bajos"
+      "descripcion": "Horno proteinas",
+      "comentarios": "Validada / MARCELA HENAO SANTAMARIA / 2026-09-23 15:50 / Horno proteinas\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-23 15:50 / Sin descripción"
     },
     {
       "ss": "00187",
@@ -7451,18 +7445,46 @@
       "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:41 / campana no absorve bien el humo y nos ahoga, se siente mucho el calor\nEditada / LOS MOLINOS PDV / 2026-09-10 22:41 / campana no absorve bien el humo y nos ahoga, se siente mucho el calor"
     },
     {
-      "ss": "00175",
+      "ss": "00181",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN UNICENTRO MEDELLIN",
-      "lugar": "UNICENTRO MEDELLÍN",
-      "fecha_ss": "2026-09-10T20:32:00",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:22:00",
       "fecha_esperada": "2026-09-11T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Validada",
+      "estado": "Editada",
       "ot_asociada": null,
-      "descripcion": "Horno proteinas",
-      "comentarios": "Validada / MARCELA HENAO SANTAMARIA / 2026-09-23 15:50 / Horno proteinas\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-23 15:50 / Sin descripción"
+      "descripcion": "Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno ",
+      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:22 / Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno\nEditada / LOS MOLINOS PDV / 2026-09-10 22:22 / Hola. microondas la parecer tiene la puerta desajustada y hay que moverla para que pueda funcionar. agradezco me ayuden con esto, ya que el otro que tenemos tampoco funciona y para el voleo de fin de semana me es difícil trabajar solo con uno"
+    },
+    {
+      "ss": "00188",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:49:58",
+      "fecha_esperada": "2026-09-11T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Piso en muy mal estado, baldosas quebradas ",
+      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:49 / Piso en muy mal estado, baldosas quebradas"
+    },
+    {
+      "ss": "00179",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:21:48",
+      "fecha_esperada": "2026-09-11T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "Por favor me ayudan con la estufa. el regular está malo y hay fuga, fuegos muy bajos ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 17:09 / MTTO A ESTUFA\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-14 12:02 / Por favor me ayudan con la estufa. el regular está malo y hay fuga, fuegos muy bajos"
     },
     {
       "ss": "00176",
@@ -7507,20 +7529,6 @@
       "comentarios": "Creada / SANTAFE PDV / 2026-09-10 21:02 / nevera de refrigeración no esta enfriando correctamente\nEditada / SANTAFE PDV / 2026-09-10 21:02 / nevera de refrigeración no esta enfriando correctamente"
     },
     {
-      "ss": "00174",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA CENTRAL",
-      "lugar": "PLAZA CENTRAL",
-      "fecha_ss": "2026-09-10T18:47:17",
-      "fecha_esperada": "2026-09-11T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
-      "descripcion": "Tomas corrientes sin energia",
-      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-14 09:16 / Sin descripción\nCreada / PLAZA CENTRAL PDV / 2026-09-10 18:47 / Tomas corrientes sin energia"
-    },
-    {
       "ss": "00178",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
@@ -7533,6 +7541,20 @@
       "ot_asociada": "000148",
       "descripcion": "Me ayudan por favor con 5 lámparas para cambio. una de ellas ya no funciona, las otras 4 están próximas a quemarse",
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 17:12 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-14 12:03 / Me ayudan por favor con 5 lámparas para cambio. una de ellas ya no funciona, las otras 4 están próximas a quemarse"
+    },
+    {
+      "ss": "00174",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA CENTRAL",
+      "lugar": "PLAZA CENTRAL",
+      "fecha_ss": "2026-09-10T18:47:17",
+      "fecha_esperada": "2026-09-11T13:00:00",
+      "fecha_respuesta": null,
+      "estado": "Leída",
+      "ot_asociada": null,
+      "descripcion": "Tomas corrientes sin energia",
+      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-14 09:16 / Sin descripción\nCreada / PLAZA CENTRAL PDV / 2026-09-10 18:47 / Tomas corrientes sin energia"
     },
     {
       "ss": "00133",
@@ -7549,20 +7571,6 @@
       "comentarios": "Editada / MALL PLAZA PDV / 2026-09-09 15:25 / SE SOLICITA CAMBIO DE CAUCHO EN NEVERA DE PROTEINAS (SE ENCUENTRA EN MAL ESTADO)\nCreada / MALL PLAZA PDV / 2026-09-09 15:25 / SE SOLICITA CAMBIO DE CAUCHO EN NEVERA DE PROTEINAS (SE ENCUENTRA EN MAL ESTADO)"
     },
     {
-      "ss": "00184",
-      "tipo": "Correctivo Programado",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:38:00",
-      "fecha_esperada": "2026-09-11T15:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "Malla de la reja en mal estado ",
-      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:38 / Malla de la reja en mal estado\nEditada / LOS MOLINOS PDV / 2026-09-10 22:38 / Malla de la reja en mal estado"
-    },
-    {
       "ss": "00191",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
@@ -7575,6 +7583,20 @@
       "ot_asociada": null,
       "descripcion": "Me ayudan calibrando las grameras por favor. Adicional se envió una balanza que estaba mala y el técnico dijo que la iban a cambiar o cambiar el cable para que por favor me la devuelvan en lo posible ",
       "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:50 / Me ayudan calibrando las grameras por favor. Adicional se envió una balanza que estaba mala y el técnico dijo que la iban a cambiar o cambiar el cable para que por favor me la devuelvan en lo posible\nEditada / LOS MOLINOS PDV / 2026-09-10 22:50 / Me ayudan calibrando las grameras por favor. Adicional se envió una balanza que estaba mala y el técnico dijo que la iban a cambiar o cambiar el cable para que por favor me la devuelvan en lo posible"
+    },
+    {
+      "ss": "00184",
+      "tipo": "Correctivo Programado",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:38:00",
+      "fecha_esperada": "2026-09-11T15:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "Malla de la reja en mal estado ",
+      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:38 / Malla de la reja en mal estado\nEditada / LOS MOLINOS PDV / 2026-09-10 22:38 / Malla de la reja en mal estado"
     },
     {
       "ss": "00194",
@@ -7689,18 +7711,18 @@
       "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-23 15:59 / LA SOLICITUD FUE MAL INGRESADA AL SISTEMA POR APRTE DEL PDV , EL CUAL NO ASOCIARON LA ENTIDAD OSE EL HORNO SI NO EL PDV. SE CIERRA LA SS.\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-23 15:49 / Horno de proteinas (vota demaciada agua, se apaga en servicio)"
     },
     {
-      "ss": "00251",
+      "ss": "00219",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ESTUFA",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-11T21:28:00",
+      "equipo": "LICUADORA",
+      "lugar": "PUERTA DEL NORTE",
+      "fecha_ss": "2026-09-11T16:38:00",
       "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "me colaboran por favor con un mantenimiento para la estufa",
-      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-11 21:28 / me colaboran por favor con un mantenimiento para la estufa\nEditada / VIVA LAURELES PDV / 2026-09-11 21:28 / me colaboran por favor con un mantenimiento para la estufa"
+      "fecha_respuesta": "2026-09-15T10:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000125",
+      "descripcion": "La licuadora en medio del servicio se apaga y demora en encender ",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-15 10:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000125 [Descripción O.T.]: \nEntidad a intervenir: \n LICUADORA \n\nActividad de mantenimiento incluida:\nReparación General: Realizar reparación según condición \n\nSS-00219 [Fecha Esperada] 2026-09-12 11:00 [Solicitante] PUERTA DEL NORTE PDV [Descripción] La licuadora en medio del servicio se apaga y demora en encender  / [Realimentación O.T.]: Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-15 08:00 a 10:00]\n\n-Actividades Realizadas:\nLC-0022-C-001 | Reparación General\n\n-Descripcion:\nse entrega licuadora  0064 y se envía con mercado la licuadora mala 0022 \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-12 09:12 / Sin descripción"
     },
     {
       "ss": "00231",
@@ -7731,6 +7753,20 @@
       "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-19 07:09 / Sin descripción\nCreada / MAYORCA ET 2 PDV / 2026-09-11 17:59 / Cajones en mal estado"
     },
     {
+      "ss": "00237",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN BUENAVISTA",
+      "lugar": "BUENAVISTA",
+      "fecha_ss": "2026-09-11T18:24:45",
+      "fecha_esperada": "2026-09-12T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Toma corriente presenta fallas, puede dar choques eléctricos ",
+      "comentarios": "Creada / BUENAVISTA PDV / 2026-09-11 18:24 / Toma corriente presenta fallas, puede dar choques eléctricos"
+    },
+    {
       "ss": "00229",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -7745,18 +7781,18 @@
       "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-26 07:25 / SE ENVIARA A REALIZAR MTTO DE DUCTO\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-26 07:24 / Sin descripción"
     },
     {
-      "ss": "00237",
+      "ss": "00238",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN BUENAVISTA",
+      "equipo": "HORNO PROTEINAS RATIONAL",
       "lugar": "BUENAVISTA",
-      "fecha_ss": "2026-09-11T18:24:45",
+      "fecha_ss": "2026-09-11T18:28:00",
       "fecha_esperada": "2026-09-12T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Editada",
       "ot_asociada": null,
-      "descripcion": "Toma corriente presenta fallas, puede dar choques eléctricos ",
-      "comentarios": "Creada / BUENAVISTA PDV / 2026-09-11 18:24 / Toma corriente presenta fallas, puede dar choques eléctricos"
+      "descripcion": "Horno no lava automático presenta fallas y en servicio se apaga",
+      "comentarios": "Creada / BUENAVISTA PDV / 2026-09-11 18:28 / Horno no lava automático presenta fallas y en servicio se apaga\nEditada / BUENAVISTA PDV / 2026-09-11 18:28 / Horno no lava automático presenta fallas y en servicio se apaga"
     },
     {
       "ss": "00228",
@@ -7801,20 +7837,6 @@
       "comentarios": "Creada / LA COLINA PDV / 2026-09-11 17:24 / La manguera del horno no entra por lo tanto queda por fuera y el horno tarda en tomar temperatura."
     },
     {
-      "ss": "00238",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "lugar": "BUENAVISTA",
-      "fecha_ss": "2026-09-11T18:28:00",
-      "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "Horno no lava automático presenta fallas y en servicio se apaga",
-      "comentarios": "Creada / BUENAVISTA PDV / 2026-09-11 18:28 / Horno no lava automático presenta fallas y en servicio se apaga\nEditada / BUENAVISTA PDV / 2026-09-11 18:28 / Horno no lava automático presenta fallas y en servicio se apaga"
-    },
-    {
       "ss": "00241",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -7827,6 +7849,20 @@
       "ot_asociada": null,
       "descripcion": "presencia de gotera en el local hatmos \nposibilidad de cierre del punto ",
       "comentarios": "Creada / VIVA BARRANQUILLA PDV / 2026-09-11 18:51 / presencia de gotera en el local hatmos \nposibilidad de cierre del punto"
+    },
+    {
+      "ss": "00242",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "NEVERA CONGELACION VERTICAL 2P TORNADO",
+      "lugar": "VIVA BARRANQUILLA",
+      "fecha_ss": "2026-09-11T18:59:14",
+      "fecha_esperada": "2026-09-12T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Nevera con rodachines en mal estado, posibilidad de caerse en cualquier momento ",
+      "comentarios": "Creada / VIVA BARRANQUILLA PDV / 2026-09-11 18:59 / Nevera con rodachines en mal estado, posibilidad de caerse en cualquier momento"
     },
     {
       "ss": "00221",
@@ -7843,32 +7879,18 @@
       "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-12 09:14 / Sin descripción\nCreada / PUERTA DEL NORTE PDV / 2026-09-11 16:41 / estufa se le cae  la baranda  y huele mucho gas"
     },
     {
-      "ss": "00219",
+      "ss": "00230",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "LICUADORA",
-      "lugar": "PUERTA DEL NORTE",
-      "fecha_ss": "2026-09-11T16:38:00",
+      "equipo": "MESA TIPO ISLA",
+      "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
+      "fecha_ss": "2026-09-11T17:55:40",
       "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": "2026-09-15T10:00:00",
+      "fecha_respuesta": "2026-09-25T11:00:00",
       "estado": "Ejecutada",
-      "ot_asociada": "000125",
-      "descripcion": "La licuadora en medio del servicio se apaga y demora en encender ",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-15 10:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000125 [Descripción O.T.]: \nEntidad a intervenir: \n LICUADORA \n\nActividad de mantenimiento incluida:\nReparación General: Realizar reparación según condición \n\nSS-00219 [Fecha Esperada] 2026-09-12 11:00 [Solicitante] PUERTA DEL NORTE PDV [Descripción] La licuadora en medio del servicio se apaga y demora en encender  / [Realimentación O.T.]: Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-15 08:00 a 10:00]\n\n-Actividades Realizadas:\nLC-0022-C-001 | Reparación General\n\n-Descripcion:\nse entrega licuadora  0064 y se envía con mercado la licuadora mala 0022 \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-12 09:12 / Sin descripción"
-    },
-    {
-      "ss": "00242",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA CONGELACION VERTICAL 2P TORNADO",
-      "lugar": "VIVA BARRANQUILLA",
-      "fecha_ss": "2026-09-11T18:59:14",
-      "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "Nevera con rodachines en mal estado, posibilidad de caerse en cualquier momento ",
-      "comentarios": "Creada / VIVA BARRANQUILLA PDV / 2026-09-11 18:59 / Nevera con rodachines en mal estado, posibilidad de caerse en cualquier momento"
+      "ot_asociada": "000236",
+      "descripcion": "Isla En mal estado ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-26 07:24 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-26 07:23 / Isla En mal estado"
     },
     {
       "ss": "00243",
@@ -7913,20 +7935,6 @@
       "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-28 13:30 / Cierre automático de S.S. por la Orden de Trabajo con código 000253 [Descripción O.T.]: ENVIAR MANGUERA GRANIZADORA\n\n\nEntidad a intervenir: \n PLAZA DE LAS AMÉRICAS \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00248 [Fecha Esperada] 2026-09-12 11:00 [Solicitante] PLAZA DE LAS AMERICAS PDV [Descripción] manguerita   la máquina granizadora en donde sale el agua ( se rompe al momento de lavarla )  / [Realimentación O.T.]: Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-28 13:20 a 13:30]\n\n-Actividades Realizadas:\nMTV-PV-BG-PA-C-001 | Reparación Locativa General\n\n-Descripcion:\nEnvío Mangurea\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-28 12:00 / Sin descripción"
     },
     {
-      "ss": "00217",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 1P  IMBERA",
-      "lugar": "FUNDADORES",
-      "fecha_ss": "2026-09-11T16:25:00",
-      "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "SE SOLICITA CAMBIO DE EMPAQUE O CAUCHOS DE NEVERA DE REFRIGERACION VERTICAL DE NEVERA YA QUE AL CERRARLA EN OCASIONES\n  SE ABRE SOLA ",
-      "comentarios": "Editada / FUNDADORES PDV / 2026-09-11 16:25 / SE SOLICITA CAMBIO DE EMPAQUE O CAUCHOS DE NEVERA DE REFRIGERACION VERTICAL DE NEVERA YA QUE AL CERRARLA EN OCASIONES\n  SE ABRE SOLA\nCreada / FUNDADORES PDV / 2026-09-11 16:25 / SE SOLICITA CAMBIO DE EMPAQUE O CAUCHOS DE NEVERA DE REFRIGERACION VERTICAL DE NEVERA YA QUE AL CERRARLA EN OCASIONES\n  SE ABRE SOLA"
-    },
-    {
       "ss": "00249",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -7941,18 +7949,32 @@
       "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-26 09:45 / Cierre automático de S.S. por la Orden de Trabajo con código 000234 [Descripción O.T.]: VIVA LAURELES: MTTO PREVENTIVO DE HORNO Y BURLETTE RATIONAL\nEntidades a intervenir: \nVIVA LAURELES \n\nActividades de mantenimiento incluidas:\n Reparación Locativa General: Realizar reparación según condición\n\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir: \nHORNO PROTEINAS RATIONAL \n\nActividades de mantenimiento incluidas:\n MANTENIMIENTO HORNOS DE PROTEINA: MANTENIMIENTO PREVENTIVO AL HORNO DE PROTEINAS\n\nSS-00249 [Fecha Esperada] 2026-09-12 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] me colaboran por favor con caucho para horno de proteinas ya esta feo  / [Realimentación O.T.]: Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 07:10 a 09:40]\n\n-Actividades Realizadas:\nHP-0055-AMG-0004 | MANTENIMIENTO HORNOS DE PROTEINA\n\n-Descripcion:\nPreventivo\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:41 a 09:45]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio burlette \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 14:43 / Sin descripción"
     },
     {
-      "ss": "00230",
+      "ss": "00217",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "MESA TIPO ISLA",
-      "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
-      "fecha_ss": "2026-09-11T17:55:40",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 1P  IMBERA",
+      "lugar": "FUNDADORES",
+      "fecha_ss": "2026-09-11T16:25:00",
       "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": "2026-09-25T11:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000236",
-      "descripcion": "Isla En mal estado ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-26 07:24 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-26 07:23 / Isla En mal estado"
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "SE SOLICITA CAMBIO DE EMPAQUE O CAUCHOS DE NEVERA DE REFRIGERACION VERTICAL DE NEVERA YA QUE AL CERRARLA EN OCASIONES\n  SE ABRE SOLA ",
+      "comentarios": "Editada / FUNDADORES PDV / 2026-09-11 16:25 / SE SOLICITA CAMBIO DE EMPAQUE O CAUCHOS DE NEVERA DE REFRIGERACION VERTICAL DE NEVERA YA QUE AL CERRARLA EN OCASIONES\n  SE ABRE SOLA\nCreada / FUNDADORES PDV / 2026-09-11 16:25 / SE SOLICITA CAMBIO DE EMPAQUE O CAUCHOS DE NEVERA DE REFRIGERACION VERTICAL DE NEVERA YA QUE AL CERRARLA EN OCASIONES\n  SE ABRE SOLA"
+    },
+    {
+      "ss": "00251",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ESTUFA",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-11T21:28:00",
+      "fecha_esperada": "2026-09-12T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "me colaboran por favor con un mantenimiento para la estufa",
+      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-11 21:28 / me colaboran por favor con un mantenimiento para la estufa\nEditada / VIVA LAURELES PDV / 2026-09-11 21:28 / me colaboran por favor con un mantenimiento para la estufa"
     },
     {
       "ss": "00252",
@@ -7969,20 +7991,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-17 13:03 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-17 13:02 / se desprende un lado de la vitrina de exhibición de tortas ya se habia reportado anteriormente nos habian dicho que ya esta en proceso de recoger el vidrio con distribuidor"
     },
     {
-      "ss": "00214",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
-      "lugar": "PREMIUM PLAZA",
-      "fecha_ss": "2026-09-11T15:39:27",
-      "fecha_esperada": "2026-09-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000119",
-      "descripcion": "la puerta no sierra",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-12 08:37 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-12 08:35 / la puerta no sierra"
-    },
-    {
       "ss": "00253",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -7995,6 +8003,20 @@
       "ot_asociada": "000263",
       "descripcion": "cambio caucho nevera ",
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-29 09:50 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-29 09:49 / cambio caucho nevera"
+    },
+    {
+      "ss": "00214",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
+      "lugar": "PREMIUM PLAZA",
+      "fecha_ss": "2026-09-11T15:39:27",
+      "fecha_esperada": "2026-09-12T11:00:00",
+      "fecha_respuesta": "2026-10-02T11:06:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000119",
+      "descripcion": "la puerta no sierra",
+      "comentarios": "Ejecutada / MARCELA HENAO SANTAMARIA / 2026-10-02 11:06 / TRABAJO YA REALIZADO, SE CREARON 2 O.T POR ERROR\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-12 08:37 / Sin descripción"
     },
     {
       "ss": "00213",
@@ -8039,6 +8061,48 @@
       "comentarios": "Creada / SANTAFE BOGOTÁ PDV / 2026-09-12 10:33 / Se solicita mejoras locativas instalación de entrepaño ya q no contamos con bodega y no tenemos donde almacenar algunas cosas\nEditada / SANTAFE BOGOTÁ PDV / 2026-09-12 10:33 / Se solicita mejoras locativas instalación de entrepaño ya q no contamos con bodega y no tenemos donde almacenar algunas cosas"
     },
     {
+      "ss": "00239",
+      "tipo": "Correctivo Programado",
+      "severidad": "Alta",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
+      "lugar": "BUENAVISTA",
+      "fecha_ss": "2026-09-11T18:33:45",
+      "fecha_esperada": "2026-09-14T10:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Cauchos de neveras partidas y me presentan fallas en alteración en temperatura y productos",
+      "comentarios": "Creada / BUENAVISTA PDV / 2026-09-11 18:33 / Cauchos de neveras partidas y me presentan fallas en alteración en temperatura y productos"
+    },
+    {
+      "ss": "00192",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:51:38",
+      "fecha_esperada": "2026-09-14T10:00:00",
+      "fecha_respuesta": null,
+      "estado": "Validada",
+      "ot_asociada": null,
+      "descripcion": "isla está muy inestable para que me ayuden por favor ",
+      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-14 11:55 / SE ENVIA EL TECNICO OSCAR A REVISAR\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-14 11:54 / isla está muy inestable para que me ayuden por favor"
+    },
+    {
+      "ss": "00185",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:38:00",
+      "fecha_esperada": "2026-09-14T10:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "pintura para cielo razo y local en general,  zócalos en mal estado ",
+      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:38 / pintura para cielo razo y local en general,  zócalos en mal estado\nEditada / LOS MOLINOS PDV / 2026-09-10 22:38 / pintura para cielo razo y local en general,  zócalos en mal estado"
+    },
+    {
       "ss": "00240",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
@@ -8067,48 +8131,6 @@
       "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:37 / Bruja sin una pata\nEditada / LOS MOLINOS PDV / 2026-09-10 22:37 / Bruja sin una pata"
     },
     {
-      "ss": "00239",
-      "tipo": "Correctivo Programado",
-      "severidad": "Alta",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
-      "lugar": "BUENAVISTA",
-      "fecha_ss": "2026-09-11T18:33:45",
-      "fecha_esperada": "2026-09-14T10:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "Cauchos de neveras partidas y me presentan fallas en alteración en temperatura y productos",
-      "comentarios": "Creada / BUENAVISTA PDV / 2026-09-11 18:33 / Cauchos de neveras partidas y me presentan fallas en alteración en temperatura y productos"
-    },
-    {
-      "ss": "00185",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:38:00",
-      "fecha_esperada": "2026-09-14T10:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "pintura para cielo razo y local en general,  zócalos en mal estado ",
-      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:38 / pintura para cielo razo y local en general,  zócalos en mal estado\nEditada / LOS MOLINOS PDV / 2026-09-10 22:38 / pintura para cielo razo y local en general,  zócalos en mal estado"
-    },
-    {
-      "ss": "00192",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:51:38",
-      "fecha_esperada": "2026-09-14T10:00:00",
-      "fecha_respuesta": null,
-      "estado": "Validada",
-      "ot_asociada": null,
-      "descripcion": "isla está muy inestable para que me ayuden por favor ",
-      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-14 11:55 / SE ENVIA EL TECNICO OSCAR A REVISAR\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-14 11:54 / isla está muy inestable para que me ayuden por favor"
-    },
-    {
       "ss": "00257",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -8123,18 +8145,18 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-30 16:23 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-30 16:13 / Se solicita pintar cielo raso ya que tiene desprendimiento de pintura y lleva más de 6 meses asi"
     },
     {
-      "ss": "00265",
+      "ss": "00268",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "LICUADORA",
-      "lugar": "VEGAS PLAZA",
-      "fecha_ss": "2026-09-12T17:07:52",
+      "equipo": "ADECUACIÓN E INSTALACIÓN LA CENTRAL",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-12T22:36:17",
       "fecha_esperada": "2026-09-14T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "se solicita reparación o cambio de motor ya que presenta un sonido extraño\n",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-30 16:10 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-30 16:10 / se solicita reparación o cambio de motor ya que presenta un sonido extraño"
+      "fecha_respuesta": "2026-09-14T13:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000131",
+      "descripcion": "El desagüe de los Pozuelos de lava loza el acordeón está roto se sale el agua y no llega a la trampa de grasa mantiene la cocina mojada ",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-14 13:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000131 [Descripción O.T.]: CAMBIO DE ACORDEÓN\n\n\nEntidad a intervenir: \n LA CENTRAL \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00268 [Fecha Esperada] 2026-09-14 11:00 [Solicitante] LA CENTRAL PDV [Descripción] El desagüe de los Pozuelos de lava loza el acordeón está roto se sale el agua y no llega a la trampa de grasa mantiene la cocina mojada  / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-14 07:15 a 07:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó cambio de sifón flexible sencillo de lavaplatos.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-14 07:15 a 07:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó cambio de sifón flexible sencillo de lavaplatos.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-14 08:00 a 13:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó cambio de sifón flexible sencillo de lavaplatos.\nse dejó en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 11:04 / Sin descripción"
     },
     {
       "ss": "00259",
@@ -8193,6 +8215,20 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 08:54 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-25 08:54 / lámparas de servicio se están dañando están intermitentes"
     },
     {
+      "ss": "00265",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "LICUADORA",
+      "lugar": "VEGAS PLAZA",
+      "fecha_ss": "2026-09-12T17:07:52",
+      "fecha_esperada": "2026-09-14T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "se solicita reparación o cambio de motor ya que presenta un sonido extraño\n",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-30 16:10 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-30 16:10 / se solicita reparación o cambio de motor ya que presenta un sonido extraño"
+    },
+    {
       "ss": "00267",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -8205,20 +8241,6 @@
       "ot_asociada": null,
       "descripcion": "Maquina selladora\nAl conectar genera humo en la parte del sellado, la palanca del sellado se queda atascada hasta con jugos adentro \n",
       "comentarios": "Creada / EL TESORO PDV / 2026-09-12 18:16 / Maquina selladora\nAl conectar genera humo en la parte del sellado, la palanca del sellado se queda atascada hasta con jugos adentro"
-    },
-    {
-      "ss": "00268",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN LA CENTRAL",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-12T22:36:17",
-      "fecha_esperada": "2026-09-14T11:00:00",
-      "fecha_respuesta": "2026-09-14T13:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000131",
-      "descripcion": "El desagüe de los Pozuelos de lava loza el acordeón está roto se sale el agua y no llega a la trampa de grasa mantiene la cocina mojada ",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-14 13:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000131 [Descripción O.T.]: CAMBIO DE ACORDEÓN\n\n\nEntidad a intervenir: \n LA CENTRAL \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00268 [Fecha Esperada] 2026-09-14 11:00 [Solicitante] LA CENTRAL PDV [Descripción] El desagüe de los Pozuelos de lava loza el acordeón está roto se sale el agua y no llega a la trampa de grasa mantiene la cocina mojada  / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-14 07:15 a 07:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó cambio de sifón flexible sencillo de lavaplatos.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-14 07:15 a 07:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó cambio de sifón flexible sencillo de lavaplatos.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-14 08:00 a 13:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-LC-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realizó cambio de sifón flexible sencillo de lavaplatos.\nse dejó en buenas condiciones y funcionamiento.\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 11:04 / Sin descripción"
     },
     {
       "ss": "00276",
@@ -8277,18 +8299,18 @@
       "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-21 08:05 / Cierre automático de S.S. por la Orden de Trabajo con código 000130 [Descripción O.T.]: \nEntidad a intervenir: \n MESA AUXILIAR HORNO LASAÑAS \n\nActividad de mantenimiento incluida:\nReparación General: Realizar reparación según condición \n\nSS-00284 [Fecha Esperada] 2026-09-14 11:56 [Solicitante] LA CENTRAL PDV [Descripción] el horno de lasaña no calienta  / [Realimentación O.T.]: Ejecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-14 06:40 a 06:55]\n\n-Actividades Realizadas:\nMA-0008-C-001 | Reparación General\n\n-Descripcion:\nse registró horario diferente para poder darle cierre a el OT.\nse realizó revisión y reparación de horno de lasaña que se encontró con dcorto circuito en conexiones de termostato.\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-09-21 08:00 a 08:05]\n\n-Actividades Realizadas:\nMA-0008-C-001 | Reparación General\n\n-Descripcion:\nse realiza reparación de horno lasañas que tenía corto en conexiónes de termostato \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 11:02 / Sin descripción"
     },
     {
-      "ss": "00277",
+      "ss": "00269",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN TITAN PLAZA",
-      "lugar": "TITAN PLAZA",
-      "fecha_ss": "2026-09-13T14:56:57",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-12T23:33:00",
       "fecha_esperada": "2026-09-14T13:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Editada",
       "ot_asociada": null,
-      "descripcion": "(baldosas para cambiar están en mal estado)",
-      "comentarios": "Creada / TITÁN PLAZA PDV / 2026-09-13 14:56 / (baldosas para cambiar están en mal estado)"
+      "descripcion": "el compresor esta botando agua ",
+      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-14 07:39 / Sin descripción\nCreada / DISTRITO VERA PDV / 2026-09-12 23:33 / el compresor esta botando agua"
     },
     {
       "ss": "00263",
@@ -8305,20 +8327,6 @@
       "comentarios": "Creada / GRAN ESTACIÓN PDV / 2026-09-12 15:40 / cambio de antideslizante escalera bodega"
     },
     {
-      "ss": "00269",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
-      "lugar": "DISTRITO VERA",
-      "fecha_ss": "2026-09-12T23:33:00",
-      "fecha_esperada": "2026-09-14T13:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "el compresor esta botando agua ",
-      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-14 07:39 / Sin descripción\nCreada / DISTRITO VERA PDV / 2026-09-12 23:33 / el compresor esta botando agua"
-    },
-    {
       "ss": "00271",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
@@ -8331,6 +8339,20 @@
       "ot_asociada": null,
       "descripcion": "puerta del baño esta en mal estado",
       "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-12 23:33 / puerta del baño esta en mal estado"
+    },
+    {
+      "ss": "00277",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN TITAN PLAZA",
+      "lugar": "TITAN PLAZA",
+      "fecha_ss": "2026-09-13T14:56:57",
+      "fecha_esperada": "2026-09-14T13:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "(baldosas para cambiar están en mal estado)",
+      "comentarios": "Creada / TITÁN PLAZA PDV / 2026-09-13 14:56 / (baldosas para cambiar están en mal estado)"
     },
     {
       "ss": "00202",
@@ -8431,18 +8453,32 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-17 09:14 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-17 09:11 / la granizadora tiene que hacérsele cambio de cauchos, se le bota el agua y no está granizado"
     },
     {
-      "ss": "00236",
+      "ss": "00235",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
-      "equipo": "TRAMPA DE GRASA POZUELO ML0020",
-      "lugar": "MAYORCA ETAPA 2",
-      "fecha_ss": "2026-09-11T18:09:34",
+      "equipo": "MESON LAVAPLATOS",
+      "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
+      "fecha_ss": "2026-09-11T18:07:34",
+      "fecha_esperada": "2026-09-15T09:00:00",
+      "fecha_respuesta": "2026-09-30T12:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000276",
+      "descripcion": "llave en mal estado está floja ",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-30 12:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000276 [Descripción O.T.]: MAYORCA 2: PEGAR LOGO, CAMBIO DE LLAVE LAVA PLATOS Y DESTAQUEO DE LAVA TRAPEROS\nEntidades a intervenir: \nMAYORCA ETAPA 2 \n\nActividades de mantenimiento incluidas:\n Reparación Locativa General: Realizar reparación según condición\n\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir: \nMESON LAVAPLATOS \n\nActividades de mantenimiento incluidas:\n Reparación General: Realizar reparación según condición\n\nSS-00235 [Fecha Esperada] 2026-09-15 09:00 [Solicitante] MAYORCA ET 2 PDV [Descripción] llave en mal estado está floja \nSS-00492 [Fecha Esperada] 2026-09-30 11:00 [Solicitante] MAYORCA ET 2 PDV [Descripción] nos colaboran por favor con la poseta de la trapera que está estancada y no hace su desagüe correctamente y tiene mal olor / [Realimentación O.T.]: Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-30 08:30 a 10:15]\n\n-Actividades Realizadas:\nML-0020-C-001 | Reparación General\n\n-Descripcion:\nse organiza taco en poceta se destaquea y se deja funcional.\nse realiza cambio de llave lavaplatos completa se deja funcional. \nse instala logo de Montolivo en entrada. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-30 10:15 a 12:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-M2-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-30 08:29 / Sin descripción"
+    },
+    {
+      "ss": "00247",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-11T19:52:29",
       "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
       "estado": "Programada en O.T.",
       "ot_asociada": null,
-      "descripcion": "acordeon en mal estado ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-19 10:14 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-19 10:14 / acordeon en mal estado"
+      "descripcion": "base metálica se despega de la pared ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-19 09:54 / V. ENV: REVISAR BASE\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-19 09:47 / base metálica se despega de la pared"
     },
     {
       "ss": "00215",
@@ -8473,62 +8509,6 @@
       "comentarios": "Creada / FUNDADORES PDV / 2026-09-11 16:28 / SE SOLICITAN RUEDAS PARA LA ISLA"
     },
     {
-      "ss": "00247",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-11T19:52:29",
-      "fecha_esperada": "2026-09-15T09:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "base metálica se despega de la pared ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-19 09:54 / V. ENV: REVISAR BASE\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-19 09:47 / base metálica se despega de la pared"
-    },
-    {
-      "ss": "00246",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "TRAMPA DE GRASA POZUELO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-11T19:50:00",
-      "fecha_esperada": "2026-09-15T09:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000186",
-      "descripcion": "acordeones en mal estado ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-19 09:58 / V. ENV: CAMBIAR ACORDEONES\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-19 09:57 / acordeones en mal estado"
-    },
-    {
-      "ss": "00244",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-11T19:42:28",
-      "fecha_esperada": "2026-09-15T09:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "baldosa  de la pared de la estufa se  están despegando ",
-      "comentarios": "Creada / VIVA ENVIGADO PDV / 2026-09-11 19:42 / baldosa  de la pared de la estufa se  están despegando"
-    },
-    {
-      "ss": "00235",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "MESON LAVAPLATOS",
-      "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
-      "fecha_ss": "2026-09-11T18:07:34",
-      "fecha_esperada": "2026-09-15T09:00:00",
-      "fecha_respuesta": "2026-09-30T12:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000276",
-      "descripcion": "llave en mal estado está floja ",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-30 12:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000276 [Descripción O.T.]: MAYORCA 2: PEGAR LOGO, CAMBIO DE LLAVE LAVA PLATOS Y DESTAQUEO DE LAVA TRAPEROS\nEntidades a intervenir: \nMAYORCA ETAPA 2 \n\nActividades de mantenimiento incluidas:\n Reparación Locativa General: Realizar reparación según condición\n\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir: \nMESON LAVAPLATOS \n\nActividades de mantenimiento incluidas:\n Reparación General: Realizar reparación según condición\n\nSS-00235 [Fecha Esperada] 2026-09-15 09:00 [Solicitante] MAYORCA ET 2 PDV [Descripción] llave en mal estado está floja \nSS-00492 [Fecha Esperada] 2026-09-30 11:00 [Solicitante] MAYORCA ET 2 PDV [Descripción] nos colaboran por favor con la poseta de la trapera que está estancada y no hace su desagüe correctamente y tiene mal olor / [Realimentación O.T.]: Ejecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-30 08:30 a 10:15]\n\n-Actividades Realizadas:\nML-0020-C-001 | Reparación General\n\n-Descripcion:\nse organiza taco en poceta se destaquea y se deja funcional.\nse realiza cambio de llave lavaplatos completa se deja funcional. \nse instala logo de Montolivo en entrada. \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-30 10:15 a 12:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-M2-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-30 08:29 / Sin descripción"
-    },
-    {
       "ss": "00222",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -8557,18 +8537,46 @@
       "comentarios": "Creada / FUNDADORES PDV / 2026-09-11 16:53 / SE SOLICITA PINTURA PARA REJILLAS DE NEVERAS, PRESENTAN OXIDACCION"
     },
     {
-      "ss": "00302",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA CONGELACIÓN VERTICAL 2P DUKERS",
-      "lugar": "SANTAFÉ BOGOTÁ",
-      "fecha_ss": "2026-09-15T09:41:00",
-      "fecha_esperada": "2026-09-15T13:41:00",
+      "ss": "00244",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-11T19:42:28",
+      "fecha_esperada": "2026-09-15T09:00:00",
       "fecha_respuesta": null,
-      "estado": "Editada",
+      "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "Congelador esta haciendo costra de hielo en el ventilador ",
-      "comentarios": "Creada / SANTAFE BOGOTÁ PDV / 2026-09-15 09:41 / Congelador esta haciendo costra de hielo en el ventilador\nEditada / SANTAFE BOGOTÁ PDV / 2026-09-15 09:41 / Congelador esta haciendo costra de hielo en el ventilador"
+      "descripcion": "baldosa  de la pared de la estufa se  están despegando ",
+      "comentarios": "Creada / VIVA ENVIGADO PDV / 2026-09-11 19:42 / baldosa  de la pared de la estufa se  están despegando"
+    },
+    {
+      "ss": "00236",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "TRAMPA DE GRASA POZUELO ML0020",
+      "lugar": "MAYORCA ETAPA 2",
+      "fecha_ss": "2026-09-11T18:09:34",
+      "fecha_esperada": "2026-09-15T09:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "acordeon en mal estado ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-19 10:14 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-19 10:14 / acordeon en mal estado"
+    },
+    {
+      "ss": "00246",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "TRAMPA DE GRASA POZUELO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-11T19:50:00",
+      "fecha_esperada": "2026-09-15T09:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000186",
+      "descripcion": "acordeones en mal estado ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-19 09:58 / V. ENV: CAMBIAR ACORDEONES\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-19 09:57 / acordeones en mal estado"
     },
     {
       "ss": "00303",
@@ -8583,6 +8591,20 @@
       "ot_asociada": null,
       "descripcion": "Nevera proteinas en descongelscion tiene ruido en el ventilador, aclaro esa nevera ya se le cambió ventilad la semana pasada ",
       "comentarios": "Creada / SANTAFE BOGOTÁ PDV / 2026-09-15 09:41 / Nevera proteinas en descongelscion tiene ruido en el ventilador, aclaro esa nevera ya se le cambió ventilad la semana pasada\nEditada / SANTAFE BOGOTÁ PDV / 2026-09-15 09:41 / Nevera proteinas en descongelscion tiene ruido en el ventilador, aclaro esa nevera ya se le cambió ventilad la semana pasada"
+    },
+    {
+      "ss": "00302",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "NEVERA CONGELACIÓN VERTICAL 2P DUKERS",
+      "lugar": "SANTAFÉ BOGOTÁ",
+      "fecha_ss": "2026-09-15T09:41:00",
+      "fecha_esperada": "2026-09-15T13:41:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "Congelador esta haciendo costra de hielo en el ventilador ",
+      "comentarios": "Creada / SANTAFE BOGOTÁ PDV / 2026-09-15 09:41 / Congelador esta haciendo costra de hielo en el ventilador\nEditada / SANTAFE BOGOTÁ PDV / 2026-09-15 09:41 / Congelador esta haciendo costra de hielo en el ventilador"
     },
     {
       "ss": "00304",
@@ -8613,20 +8635,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-24 13:04 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-24 13:03 / Caucho de nevera en mal estado"
     },
     {
-      "ss": "00283",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-13T23:19:03",
-      "fecha_esperada": "2026-09-15T14:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000137",
-      "descripcion": "Buenas tardes, me ayudan instalando uno de los extintores que se nos cayó por favor ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 11:51 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-14 11:48 / Buenas tardes, me ayudan instalando uno de los extintores que se nos cayó por favor"
-    },
-    {
       "ss": "00266",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -8653,6 +8661,20 @@
       "ot_asociada": null,
       "descripcion": "estanteria se desprende tornillo",
       "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-14 16:39 / Sin descripción\nCreada / DISTRITO VERA PDV / 2026-09-12 23:43 / estanteria se desprende tornillo"
+    },
+    {
+      "ss": "00283",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MOLINOS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-13T23:19:03",
+      "fecha_esperada": "2026-09-15T14:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000137",
+      "descripcion": "Buenas tardes, me ayudan instalando uno de los extintores que se nos cayó por favor ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-14 11:51 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-14 11:48 / Buenas tardes, me ayudan instalando uno de los extintores que se nos cayó por favor"
     },
     {
       "ss": "00305",
@@ -8837,6 +8859,20 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-23 12:21 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-23 12:19 / La Máquina no sella bien los vasos ,queda una parte de los vasos destapados, la palanca está dura, y el cable conector está pelado, puede generar un corto."
     },
     {
+      "ss": "00325",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "PUERTA DEL NORTE",
+      "fecha_ss": "2026-09-16T16:50:36",
+      "fecha_esperada": "2026-09-17T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "Cambio de cauchos para el hornos de proteínas y mantenimiento ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-23 12:39 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-23 12:38 / Cambio de cauchos para el hornos de proteínas y mantenimiento"
+    },
+    {
       "ss": "00326",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -8893,20 +8929,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-19 09:44 / V. ENV: REVISAR GRANIZADORA\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-19 09:43 / la granizadora queda encendida no apaga a la hora de bajarla para el lavado"
     },
     {
-      "ss": "00325",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "lugar": "PUERTA DEL NORTE",
-      "fecha_ss": "2026-09-16T16:50:36",
-      "fecha_esperada": "2026-09-17T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "Cambio de cauchos para el hornos de proteínas y mantenimiento ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-23 12:39 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-23 12:38 / Cambio de cauchos para el hornos de proteínas y mantenimiento"
-    },
-    {
       "ss": "00306",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -8935,20 +8957,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-17 09:31 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-17 09:22 / lámpara intermitente"
     },
     {
-      "ss": "00313",
-      "tipo": "Correctivo Programado",
-      "severidad": "Media",
-      "equipo": "NEVERA CONGELACION VERTICAL 1P DUKERS",
-      "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-15T19:31:14",
-      "fecha_esperada": "2026-09-17T14:00:00",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
-      "descripcion": "cambio de caucho mal estado congelador, pierde temperatura ",
-      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-29 10:00 / Sin descripción\nCreada / SANTAFE PDV / 2026-09-15 19:31 / cambio de caucho mal estado congelador, pierde temperatura"
-    },
-    {
       "ss": "00311",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
@@ -8961,6 +8969,20 @@
       "ot_asociada": null,
       "descripcion": "cambio de caucho mal estado, pierde temperatura ",
       "comentarios": "Creada / SANTAFE PDV / 2026-09-15 19:22 / cambio de caucho mal estado, pierde temperatura"
+    },
+    {
+      "ss": "00310",
+      "tipo": "Correctivo Programado",
+      "severidad": "Media",
+      "equipo": "NEVERA CONGELACION VERTICAL 1P TORNADO",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "fecha_ss": "2026-09-15T19:16:45",
+      "fecha_esperada": "2026-09-17T14:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "caucho mal estado congelación, pierde temperatura ",
+      "comentarios": "Creada / SANTAFE PDV / 2026-09-15 19:16 / caucho mal estado congelación, pierde temperatura"
     },
     {
       "ss": "00312",
@@ -8977,18 +8999,18 @@
       "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-29 10:03 / Sin descripción\nCreada / SANTAFE PDV / 2026-09-15 19:28 / cambio de caucho mal estado refrigerador, pierde temperatura"
     },
     {
-      "ss": "00310",
+      "ss": "00313",
       "tipo": "Correctivo Programado",
       "severidad": "Media",
-      "equipo": "NEVERA CONGELACION VERTICAL 1P TORNADO",
+      "equipo": "NEVERA CONGELACION VERTICAL 1P DUKERS",
       "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-15T19:16:45",
+      "fecha_ss": "2026-09-15T19:31:14",
       "fecha_esperada": "2026-09-17T14:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
-      "descripcion": "caucho mal estado congelación, pierde temperatura ",
-      "comentarios": "Creada / SANTAFE PDV / 2026-09-15 19:16 / caucho mal estado congelación, pierde temperatura"
+      "descripcion": "cambio de caucho mal estado congelador, pierde temperatura ",
+      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-29 10:00 / Sin descripción\nCreada / SANTAFE PDV / 2026-09-15 19:31 / cambio de caucho mal estado congelador, pierde temperatura"
     },
     {
       "ss": "00334",
@@ -9173,6 +9195,20 @@
       "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-19 11:53 / para retirar una silleta"
     },
     {
+      "ss": "00362",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-20T23:10:38",
+      "fecha_esperada": "2026-09-21T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "tuberia del lavado de servicio esta con gotera",
+      "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-20 23:10 / tuberia del lavado de servicio esta con gotera"
+    },
+    {
       "ss": "00363",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -9185,48 +9221,6 @@
       "ot_asociada": null,
       "descripcion": "tuberia de la poseta de cocina esta dañado, específicamente el griffo",
       "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-20 23:11 / tuberia de la poseta de cocina esta dañado, específicamente el griffo"
-    },
-    {
-      "ss": "00356",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO DE LASAÑAS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-19T12:36:00",
-      "fecha_esperada": "2026-09-21T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "me ayudan por favor con el caucho del horno de lasaña, el calor se le sale y tengo mucho pedido entrando y tiempo subiendo ",
-      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-19 12:36 / me ayudan por favor con el caucho del horno de lasaña, el calor se le sale y tengo mucho pedido entrando y tiempo subiendo\nEditada / LOS MOLINOS PDV / 2026-09-19 12:36 / me ayudan por favor con el caucho del horno de lasaña, el calor se le sale y tengo mucho pedido entrando y tiempo subiendo"
-    },
-    {
-      "ss": "00359",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
-      "lugar": "SANTAFÉ MEDELLÍN",
-      "fecha_ss": "2026-09-20T13:27:43",
-      "fecha_esperada": "2026-09-21T11:00:00",
-      "fecha_respuesta": "2026-09-28T16:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000255",
-      "descripcion": "local se queda sin energía ",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-28 16:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000255 [Descripción O.T.]: SANTAFE: REVISAR PDV SIN ENERGIA Y VALIDAR CARGAS\n\n\nEntidad a intervenir: \n SANTAFÉ MEDELLÍN \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00359 [Fecha Esperada] 2026-09-21 11:00 [Solicitante] SANTAFE PDV [Descripción] local se queda sin energía  / [Realimentación O.T.]: Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-28 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-SM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa el totalizador y sistemas de energía \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-28 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-SM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa el totalizador y sistemas de energía \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-28 13:19 / Sin descripción"
-    },
-    {
-      "ss": "00360",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO DE LASAÑAS",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-20T13:48:00",
-      "fecha_esperada": "2026-09-21T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "horno lasañas se queda pegado por favor me colaboran ",
-      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-20 13:48 / horno lasañas se queda pegado por favor me colaboran\nEditada / VIVA LAURELES PDV / 2026-09-20 13:48 / horno lasañas se queda pegado por favor me colaboran"
     },
     {
       "ss": "00361",
@@ -9243,18 +9237,46 @@
       "comentarios": "Creada / CENTRO MAYOR PDV / 2026-09-20 20:44 / fuga de gas en tuberías dentro de la estufa requiere arreglo URGUENTE YA QUE LA FUGA PERSISTE"
     },
     {
-      "ss": "00362",
+      "ss": "00360",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
-      "lugar": "DISTRITO VERA",
-      "fecha_ss": "2026-09-20T23:10:38",
+      "equipo": "HORNO DE LASAÑAS",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-20T13:48:00",
       "fecha_esperada": "2026-09-21T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Editada",
       "ot_asociada": null,
-      "descripcion": "tuberia del lavado de servicio esta con gotera",
-      "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-20 23:10 / tuberia del lavado de servicio esta con gotera"
+      "descripcion": "horno lasañas se queda pegado por favor me colaboran ",
+      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-20 13:48 / horno lasañas se queda pegado por favor me colaboran\nEditada / VIVA LAURELES PDV / 2026-09-20 13:48 / horno lasañas se queda pegado por favor me colaboran"
+    },
+    {
+      "ss": "00359",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN SANTAFE MEDELLIN",
+      "lugar": "SANTAFÉ MEDELLÍN",
+      "fecha_ss": "2026-09-20T13:27:43",
+      "fecha_esperada": "2026-09-21T11:00:00",
+      "fecha_respuesta": "2026-09-28T16:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000255",
+      "descripcion": "local se queda sin energía ",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-28 16:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000255 [Descripción O.T.]: SANTAFE: REVISAR PDV SIN ENERGIA Y VALIDAR CARGAS\n\n\nEntidad a intervenir: \n SANTAFÉ MEDELLÍN \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00359 [Fecha Esperada] 2026-09-21 11:00 [Solicitante] SANTAFE PDV [Descripción] local se queda sin energía  / [Realimentación O.T.]: Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-09-28 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-SM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa el totalizador y sistemas de energía \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJEFFERSON OSORIO BUSTAMANTE\n\n\n[2026-09-28 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-SM-C-001 | Reparación Locativa General\n\n-Descripcion:\nse revisa el totalizador y sistemas de energía \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-28 13:19 / Sin descripción"
+    },
+    {
+      "ss": "00356",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO DE LASAÑAS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-19T12:36:00",
+      "fecha_esperada": "2026-09-21T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "me ayudan por favor con el caucho del horno de lasaña, el calor se le sale y tengo mucho pedido entrando y tiempo subiendo ",
+      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-19 12:36 / me ayudan por favor con el caucho del horno de lasaña, el calor se le sale y tengo mucho pedido entrando y tiempo subiendo\nEditada / LOS MOLINOS PDV / 2026-09-19 12:36 / me ayudan por favor con el caucho del horno de lasaña, el calor se le sale y tengo mucho pedido entrando y tiempo subiendo"
     },
     {
       "ss": "00364",
@@ -9313,6 +9335,20 @@
       "comentarios": "Creada / VIVA BARRANQUILLA PDV / 2026-09-18 15:23 / lámparas Led no encienden"
     },
     {
+      "ss": "00369",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-21T16:09:15",
+      "fecha_esperada": "2026-09-22T11:00:00",
+      "fecha_respuesta": "2026-09-26T09:50:00",
+      "estado": "Ejecutada",
+      "ot_asociada": null,
+      "descripcion": "botiquín esta suelto por favor me colaboran SST que podía solicitarlo con ustedes",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-26 09:50 / Cierre automático de S.S. por la Orden de Trabajo con código 000235 [Descripción O.T.]: VIVA LAURELES: PEGAR Y REVISAR CHAPA DE BOTIQUIN, PARRILLAS DE HORNO\nEntidades a intervenir: \nHORNO PROTEINAS RATIONAL \n\nActividades de mantenimiento incluidas:\n Reparación General: Realizar reparación según condición\n\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir: \nVIVA LAURELES \n\nActividades de mantenimiento incluidas:\n Reparación Locativa General: Realizar reparación según condición\n\nSS-00082 [Fecha Esperada] 2026-09-07 15:43 [Solicitante] VIVA LAURELES PDV [Descripción] cambio del caucho del horno de proteínas y la revisión del desnivel del equipo. \nSS-00366 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] cambio de 3 parrillas que estaban en mal estado.OJO YA ME LAS CAMBIARON ME\nSS-00369 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] botiquín esta suelto por favor me colaboran SST que podía solicitarlo con ustedes / [Realimentación O.T.]: Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:46 a 09:48]\n\n-Actividades Realizadas:\nHP-0055-C-001 | Reparación General\n\n-Descripcion:\narreglo chapa botiquín \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:48 a 09:50]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 14:55 / Sin descripción"
+    },
+    {
       "ss": "00370",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -9339,20 +9375,6 @@
       "ot_asociada": null,
       "descripcion": "cambio de 3 parrillas que estaban en mal estado.OJO YA ME LAS CAMBIARON ME",
       "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-26 09:50 / Cierre automático de S.S. por la Orden de Trabajo con código 000235 [Descripción O.T.]: VIVA LAURELES: PEGAR Y REVISAR CHAPA DE BOTIQUIN, PARRILLAS DE HORNO\nEntidades a intervenir: \nHORNO PROTEINAS RATIONAL \n\nActividades de mantenimiento incluidas:\n Reparación General: Realizar reparación según condición\n\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir: \nVIVA LAURELES \n\nActividades de mantenimiento incluidas:\n Reparación Locativa General: Realizar reparación según condición\n\nSS-00082 [Fecha Esperada] 2026-09-07 15:43 [Solicitante] VIVA LAURELES PDV [Descripción] cambio del caucho del horno de proteínas y la revisión del desnivel del equipo. \nSS-00366 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] cambio de 3 parrillas que estaban en mal estado.OJO YA ME LAS CAMBIARON ME\nSS-00369 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] botiquín esta suelto por favor me colaboran SST que podía solicitarlo con ustedes / [Realimentación O.T.]: Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:46 a 09:48]\n\n-Actividades Realizadas:\nHP-0055-C-001 | Reparación General\n\n-Descripcion:\narreglo chapa botiquín \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:48 a 09:50]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 14:57 / Sin descripción"
-    },
-    {
-      "ss": "00369",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-21T16:09:15",
-      "fecha_esperada": "2026-09-22T11:00:00",
-      "fecha_respuesta": "2026-09-26T09:50:00",
-      "estado": "Ejecutada",
-      "ot_asociada": null,
-      "descripcion": "botiquín esta suelto por favor me colaboran SST que podía solicitarlo con ustedes",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-26 09:50 / Cierre automático de S.S. por la Orden de Trabajo con código 000235 [Descripción O.T.]: VIVA LAURELES: PEGAR Y REVISAR CHAPA DE BOTIQUIN, PARRILLAS DE HORNO\nEntidades a intervenir: \nHORNO PROTEINAS RATIONAL \n\nActividades de mantenimiento incluidas:\n Reparación General: Realizar reparación según condición\n\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir: \nVIVA LAURELES \n\nActividades de mantenimiento incluidas:\n Reparación Locativa General: Realizar reparación según condición\n\nSS-00082 [Fecha Esperada] 2026-09-07 15:43 [Solicitante] VIVA LAURELES PDV [Descripción] cambio del caucho del horno de proteínas y la revisión del desnivel del equipo. \nSS-00366 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] cambio de 3 parrillas que estaban en mal estado.OJO YA ME LAS CAMBIARON ME\nSS-00369 [Fecha Esperada] 2026-09-22 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] botiquín esta suelto por favor me colaboran SST que podía solicitarlo con ustedes / [Realimentación O.T.]: Ejecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:46 a 09:48]\n\n-Actividades Realizadas:\nHP-0055-C-001 | Reparación General\n\n-Descripcion:\narreglo chapa botiquín \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nALEJANDRO DE JESUS CARDONA CARMONA\n\n\n[2026-09-26 09:48 a 09:50]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 14:55 / Sin descripción"
     },
     {
       "ss": "00357",
@@ -9733,20 +9755,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-30 17:02 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-30 17:01 / parte de arriba del horno se revienta la la la rosca"
     },
     {
-      "ss": "00415",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "LICUADORA",
-      "lugar": "UNICENTRO MEDELLÍN",
-      "fecha_ss": "2026-09-24T17:56:22",
-      "fecha_esperada": "2026-09-25T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000240",
-      "descripcion": "no prende y necesitamos licuar la bechamel y el pesto verde para el servicio",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 09:44 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-25 09:42 / no prende y necesitamos licuar la bechamel y el pesto verde para el servicio"
-    },
-    {
       "ss": "00416",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -9759,6 +9767,20 @@
       "ot_asociada": null,
       "descripcion": "se daña enchufe y queda sin energía energía nevera de coca cola y televisor ",
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-26 08:07 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-26 08:07 / se daña enchufe y queda sin energía energía nevera de coca cola y televisor"
+    },
+    {
+      "ss": "00415",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "LICUADORA",
+      "lugar": "UNICENTRO MEDELLÍN",
+      "fecha_ss": "2026-09-24T17:56:22",
+      "fecha_esperada": "2026-09-25T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000240",
+      "descripcion": "no prende y necesitamos licuar la bechamel y el pesto verde para el servicio",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-25 09:44 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-25 09:42 / no prende y necesitamos licuar la bechamel y el pesto verde para el servicio"
     },
     {
       "ss": "00420",
@@ -9887,20 +9909,6 @@
       "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 16:01 / SST me dicen que si me pueden colaborar con botiquín que esta flojo la palanca y no cierra la puertica del botiquín"
     },
     {
-      "ss": "00425",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO MICROONDAS INDUSTRIAL",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-25T13:05:02",
-      "fecha_esperada": "2026-09-26T09:05:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "no calienta,marca como si calentara pero los productos siguen igual ",
-      "comentarios": "Creada / LA CENTRAL PDV / 2026-09-25 13:05 / no calienta,marca como si calentara pero los productos siguen igual"
-    },
-    {
       "ss": "00426",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -9929,62 +9937,6 @@
       "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-30 06:45 / Sin descripción\nCreada / OVIEDO PDV / 2026-09-24 11:16 / el techo de la cocina requiere pintura"
     },
     {
-      "ss": "00427",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-25T15:55:30",
-      "fecha_esperada": "2026-09-26T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": "000265",
-      "descripcion": "caucho mal estado, por favor solicitar tambien mantenimiento para esta nevera por favor",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-29 09:58 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-29 09:56 / caucho mal estado, por favor solicitar tambien mantenimiento para esta nevera por favor"
-    },
-    {
-      "ss": "00431",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-25T15:59:34",
-      "fecha_esperada": "2026-09-26T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "baldosas quebradas ",
-      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 15:59 / baldosas quebradas"
-    },
-    {
-      "ss": "00428",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-25T15:57:00",
-      "fecha_esperada": "2026-09-26T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "solicitar mantenimiento por favor ",
-      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 15:57 / solicitar mantenimiento por favor"
-    },
-    {
-      "ss": "00433",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ESTUFA",
-      "lugar": "VIVA LAURELES",
-      "fecha_ss": "2026-09-25T16:02:29",
-      "fecha_esperada": "2026-09-26T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "solicitar mantenimiento para la estufa",
-      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 16:02 / solicitar mantenimiento para la estufa"
-    },
-    {
       "ss": "00442",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -10007,10 +9959,80 @@
       "fecha_ss": "2026-09-25T15:58:31",
       "fecha_esperada": "2026-09-26T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Creada",
+      "estado": "Leída",
       "ot_asociada": null,
       "descripcion": "delicado esta nevera ya a sido repara anteriormente ahora NUEVAMENTE vuelve y se le suelta el empaque  en la parte superior",
-      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 15:58 / delicado esta nevera ya a sido repara anteriormente ahora NUEVAMENTE vuelve y se le suelta el empaque  en la parte superior"
+      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-10-02 10:00 / Sin descripción\nCreada / VIVA LAURELES PDV / 2026-09-25 15:58 / delicado esta nevera ya a sido repara anteriormente ahora NUEVAMENTE vuelve y se le suelta el empaque  en la parte superior"
+    },
+    {
+      "ss": "00431",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA LAURELES",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-25T15:59:34",
+      "fecha_esperada": "2026-09-26T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "baldosas quebradas ",
+      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 15:59 / baldosas quebradas"
+    },
+    {
+      "ss": "00433",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ESTUFA",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-25T16:02:29",
+      "fecha_esperada": "2026-09-26T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "solicitar mantenimiento para la estufa",
+      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 16:02 / solicitar mantenimiento para la estufa"
+    },
+    {
+      "ss": "00427",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-25T15:55:30",
+      "fecha_esperada": "2026-09-26T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000265",
+      "descripcion": "caucho mal estado, por favor solicitar tambien mantenimiento para esta nevera por favor",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-29 09:58 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-29 09:56 / caucho mal estado, por favor solicitar tambien mantenimiento para esta nevera por favor"
+    },
+    {
+      "ss": "00428",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "NEVERA REFRIGERACION VERTICAL 1P IMBERA",
+      "lugar": "VIVA LAURELES",
+      "fecha_ss": "2026-09-25T15:57:00",
+      "fecha_esperada": "2026-09-26T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "solicitar mantenimiento por favor ",
+      "comentarios": "Creada / VIVA LAURELES PDV / 2026-09-25 15:57 / solicitar mantenimiento por favor"
+    },
+    {
+      "ss": "00425",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "HORNO MICROONDAS INDUSTRIAL",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-25T13:05:02",
+      "fecha_esperada": "2026-09-26T09:05:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000297",
+      "descripcion": "no calienta,marca como si calentara pero los productos siguen igual ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-10-02 10:51 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-10-02 10:51 / no calienta,marca como si calentara pero los productos siguen igual"
     },
     {
       "ss": "00463",
@@ -10111,18 +10133,18 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-10-01 23:02 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-10-01 23:01 / creo que se descolgó algo de la  elise y cada vez que da vuelta suena como si se fuese a desarmar, por esta razón no se prende la campana"
     },
     {
-      "ss": "00459",
+      "ss": "00453",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "NEVERA CONGELACION VERTICAL 1P TORNADO",
-      "lugar": "SAN DIEGO",
-      "fecha_ss": "2026-09-27T13:42:10",
+      "equipo": "ADECUACIÓN E INSTALACIÓN MAYORCA ET 1",
+      "lugar": "MAYORCA ETAPA 1",
+      "fecha_ss": "2026-09-26T17:35:57",
       "fecha_esperada": "2026-09-28T11:00:00",
       "fecha_respuesta": null,
-      "estado": "Leída",
+      "estado": "Creada",
       "ot_asociada": null,
-      "descripcion": "ruedas de congelador en muy mal estado en cualquier momento se cae",
-      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-28 09:12 / SE ENVIA TECNICO A REVISAR\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-28 09:12 / Sin descripción"
+      "descripcion": "reparación urgente de baldosas del muro en área  de zona caliente ",
+      "comentarios": "Creada / MAYORCA ET 1 PDV / 2026-09-26 17:35 / reparación urgente de baldosas del muro en área  de zona caliente"
     },
     {
       "ss": "00448",
@@ -10139,20 +10161,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-10-01 22:54 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-10-01 22:52 / no está funcionando correctamente algo le está colgando en todo ala elise y siempre que da vueltas golpea eso muy duro"
     },
     {
-      "ss": "00457",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "SELLADORA DE JUGOS",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-27T13:37:06",
-      "fecha_esperada": "2026-09-28T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "no enciende la selladora so sabemos si es cable o falla de ella, no tenemos selladora de jugos, no tenemos como trabajar hoy ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-10-01 22:59 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-10-01 22:55 / no enciende la selladora so sabemos si es cable o falla de ella, no tenemos selladora de jugos, no tenemos como trabajar hoy"
-    },
-    {
       "ss": "00452",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -10165,20 +10173,6 @@
       "ot_asociada": null,
       "descripcion": "solicita reparación locativo baldosas del piso, despicadas, no cumple requerimientos de ministerio de salud ",
       "comentarios": "Creada / MAYORCA ET 1 PDV / 2026-09-26 17:35 / solicita reparación locativo baldosas del piso, despicadas, no cumple requerimientos de ministerio de salud"
-    },
-    {
-      "ss": "00453",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN MAYORCA ET 1",
-      "lugar": "MAYORCA ETAPA 1",
-      "fecha_ss": "2026-09-26T17:35:57",
-      "fecha_esperada": "2026-09-28T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "reparación urgente de baldosas del muro en área  de zona caliente ",
-      "comentarios": "Creada / MAYORCA ET 1 PDV / 2026-09-26 17:35 / reparación urgente de baldosas del muro en área  de zona caliente"
     },
     {
       "ss": "00454",
@@ -10195,6 +10189,20 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-28 09:23 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-28 09:23 / horno de lasañas requiere cambio de caucho roto y reparación de bisagras de la puerta (se pegan o se salen)"
     },
     {
+      "ss": "00455",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ESTUFA",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-27T12:40:08",
+      "fecha_esperada": "2026-09-28T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Leída",
+      "ot_asociada": null,
+      "descripcion": "los quemadores están ",
+      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-28 13:00 / Sin descripción\nCreada / VIVA ENVIGADO PDV / 2026-09-27 12:40 / los quemadores están"
+    },
+    {
       "ss": "00456",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -10209,18 +10217,32 @@
       "comentarios": "No aprobada / MARCELA HENAO SANTAMARIA / 2026-10-01 22:51 / LO REVISO EL TECNICO ANDRES EN DISPONIBILIDAD\nValidada / MARCELA HENAO SANTAMARIA / 2026-10-01 22:51 / se apagó y no funciona ya se desconecto y se conecto mil veces se reviso monitos todo está conectado y nada que enciende"
     },
     {
-      "ss": "00455",
+      "ss": "00457",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
-      "equipo": "ESTUFA",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-27T12:40:08",
+      "equipo": "SELLADORA DE JUGOS",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-27T13:37:06",
+      "fecha_esperada": "2026-09-28T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "no enciende la selladora so sabemos si es cable o falla de ella, no tenemos selladora de jugos, no tenemos como trabajar hoy ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-10-01 22:59 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-10-01 22:55 / no enciende la selladora so sabemos si es cable o falla de ella, no tenemos selladora de jugos, no tenemos como trabajar hoy"
+    },
+    {
+      "ss": "00459",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "NEVERA CONGELACION VERTICAL 1P TORNADO",
+      "lugar": "SAN DIEGO",
+      "fecha_ss": "2026-09-27T13:42:10",
       "fecha_esperada": "2026-09-28T11:00:00",
       "fecha_respuesta": null,
       "estado": "Leída",
       "ot_asociada": null,
-      "descripcion": "los quemadores están ",
-      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-28 13:00 / Sin descripción\nCreada / VIVA ENVIGADO PDV / 2026-09-27 12:40 / los quemadores están"
+      "descripcion": "ruedas de congelador en muy mal estado en cualquier momento se cae",
+      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-28 09:12 / SE ENVIA TECNICO A REVISAR\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-28 09:12 / Sin descripción"
     },
     {
       "ss": "00468",
@@ -10237,20 +10259,6 @@
       "comentarios": "Creada / CAMILO ANDRES CASTAÑEDA ZAPATA / 2026-09-28 08:22 / cava de fruver con acumulación de hielo en el condensador"
     },
     {
-      "ss": "00450",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
-      "lugar": "VIVA ENVIGADO",
-      "fecha_ss": "2026-09-26T16:22:22",
-      "fecha_esperada": "2026-09-28T13:00:00",
-      "fecha_respuesta": "2026-09-28T16:00:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000254",
-      "descripcion": "granizadora no funciona así  le pierde una pieza ",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-28 16:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000254 [Descripción O.T.]: VIVA ENVIGADO: REVISAR GRANIZADORA\n\n\nEntidad a intervenir: \n VIVA ENVIGADO \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00450 [Fecha Esperada] 2026-09-28 13:00 [Solicitante] VIVA ENVIGADO PDV [Descripción] granizadora no funciona así  le pierde una pieza \nSS-00480 [Fecha Esperada] 2026-09-29 08:06 [Solicitante] VIVA ENVIGADO PDV [Descripción] No está granizando  / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-28 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VE-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza revisión de granizadora que se encontraba sin temperatura de congelación por la cual se hace la calibración y se deja en total funcionamiento, la otra granizadora  le hacía falta un repuesto que no te tenía la cual se llevó y se instaló.\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-28 13:07 / Sin descripción"
-    },
-    {
       "ss": "00458",
       "tipo": "Correctivos de emergencia",
       "severidad": "Media",
@@ -10263,6 +10271,20 @@
       "ot_asociada": null,
       "descripcion": "piso de punto de venta muy poroso calidad pide q lo arregle",
       "comentarios": "Creada / SAN DIEGO PDV / 2026-09-27 13:38 / piso de punto de venta muy poroso calidad pide q lo arregle"
+    },
+    {
+      "ss": "00450",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
+      "lugar": "VIVA ENVIGADO",
+      "fecha_ss": "2026-09-26T16:22:22",
+      "fecha_esperada": "2026-09-28T13:00:00",
+      "fecha_respuesta": "2026-09-28T16:00:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000254",
+      "descripcion": "granizadora no funciona así  le pierde una pieza ",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-28 16:00 / Cierre automático de S.S. por la Orden de Trabajo con código 000254 [Descripción O.T.]: VIVA ENVIGADO: REVISAR GRANIZADORA\n\n\nEntidad a intervenir: \n VIVA ENVIGADO \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00450 [Fecha Esperada] 2026-09-28 13:00 [Solicitante] VIVA ENVIGADO PDV [Descripción] granizadora no funciona así  le pierde una pieza \nSS-00480 [Fecha Esperada] 2026-09-29 08:06 [Solicitante] VIVA ENVIGADO PDV [Descripción] No está granizando  / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-28 13:00 a 16:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VE-C-001 | Reparación Locativa General\n\n-Descripcion:\nse realiza revisión de granizadora que se encontraba sin temperatura de congelación por la cual se hace la calibración y se deja en total funcionamiento, la otra granizadora  le hacía falta un repuesto que no te tenía la cual se llevó y se instaló.\n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-28 13:07 / Sin descripción"
     },
     {
       "ss": "00460",
@@ -10503,20 +10525,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-28 16:01 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-28 16:01 / instalar mesa a la dosificadora de planta de producción para evitar accidentes"
     },
     {
-      "ss": "00482",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO MICROONDAS INDUSTRIAL",
-      "lugar": "LA CENTRAL",
-      "fecha_ss": "2026-09-28T16:01:59",
-      "fecha_esperada": "2026-09-29T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "El horno microondas no calienta se devolvió a la planta, ya no tenemos microondas ",
-      "comentarios": "Creada / LA CENTRAL PDV / 2026-09-28 16:01 / El horno microondas no calienta se devolvió a la planta, ya no tenemos microondas"
-    },
-    {
       "ss": "00483",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -10529,6 +10537,20 @@
       "ot_asociada": null,
       "descripcion": "Se reportar una novedad tras el mantenimiento de la licuadora. Al revisarla, noté que quedaron residuos de pegamento en la base, los cuales corren el riesgo de desprenderse.\n\nSe solicita revisar este inconveniente y asegurar que el equipo quede en óptimas condiciones. Quedamos atentos a sus comentarios\n\n",
       "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-30 08:27 / Sin descripción\nCreada / HAROLD RAFAEL MARTÍNEZ / 2026-09-28 16:22 / Se reportar una novedad tras el mantenimiento de la licuadora. Al revisarla, noté que quedaron residuos de pegamento en la base, los cuales corren el riesgo de desprenderse.\n\nSe solicita revisar este inconveniente y asegurar que el equipo quede en óptimas condiciones. Quedamos atentos a sus comentarios"
+    },
+    {
+      "ss": "00482",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Media",
+      "equipo": "HORNO MICROONDAS INDUSTRIAL",
+      "lugar": "LA CENTRAL",
+      "fecha_ss": "2026-09-28T16:01:59",
+      "fecha_esperada": "2026-09-29T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "El horno microondas no calienta se devolvió a la planta, ya no tenemos microondas ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-10-02 10:51 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-10-02 10:50 / El horno microondas no calienta se devolvió a la planta, ya no tenemos microondas"
     },
     {
       "ss": "00485",
@@ -10671,20 +10693,6 @@
       "comentarios": "Creada / GRAN ESTACIÓN PDV / 2026-09-30 11:48 / máquina de Jugo bota humo al encender"
     },
     {
-      "ss": "00504",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS UNOX",
-      "lugar": "MALL PLAZA MANIZALES",
-      "fecha_ss": "2026-09-30T16:03:00",
-      "fecha_esperada": "2026-10-01T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "HORNO DE PROTEINA PRESENTA FUGA EN EL ASPERSOR, PCASIONANDO FILTRACION DE AGUA DURANTE TODA LA NOCHE POR LO TANTO HAY QUE CERRAR LA LLAVE DE PASO DE AGUA ",
-      "comentarios": "Creada / MALL PLAZA PDV / 2026-09-30 16:03 / HORNO DE PROTEINA PRESENTA FUGA EN EL ASPERSOR, PCASIONANDO FILTRACION DE AGUA DURANTE TODA LA NOCHE POR LO TANTO HAY QUE CERRAR LA LLAVE DE PASO DE AGUA\nEditada / MALL PLAZA PDV / 2026-09-30 16:03 / HORNO DE PROTEINA PRESENTA FUGA EN EL ASPERSOR, PCASIONANDO FILTRACION DE AGUA DURANTE TODA LA NOCHE POR LO TANTO HAY QUE CERRAR LA LLAVE DE PASO DE AGUA"
-    },
-    {
       "ss": "00505",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -10697,6 +10705,20 @@
       "ot_asociada": null,
       "descripcion": "granizadora no quiere encender ",
       "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-30 17:26 / granizadora no quiere encender\nEditada / DISTRITO VERA PDV / 2026-09-30 17:26 / granizadora no quiere encender"
+    },
+    {
+      "ss": "00504",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS UNOX",
+      "lugar": "MALL PLAZA MANIZALES",
+      "fecha_ss": "2026-09-30T16:03:00",
+      "fecha_esperada": "2026-10-01T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "HORNO DE PROTEINA PRESENTA FUGA EN EL ASPERSOR, PCASIONANDO FILTRACION DE AGUA DURANTE TODA LA NOCHE POR LO TANTO HAY QUE CERRAR LA LLAVE DE PASO DE AGUA ",
+      "comentarios": "Creada / MALL PLAZA PDV / 2026-09-30 16:03 / HORNO DE PROTEINA PRESENTA FUGA EN EL ASPERSOR, PCASIONANDO FILTRACION DE AGUA DURANTE TODA LA NOCHE POR LO TANTO HAY QUE CERRAR LA LLAVE DE PASO DE AGUA\nEditada / MALL PLAZA PDV / 2026-09-30 16:03 / HORNO DE PROTEINA PRESENTA FUGA EN EL ASPERSOR, PCASIONANDO FILTRACION DE AGUA DURANTE TODA LA NOCHE POR LO TANTO HAY QUE CERRAR LA LLAVE DE PASO DE AGUA"
     },
     {
       "ss": "00509",
@@ -10825,20 +10847,6 @@
       "comentarios": "Creada / SEBASTIAN CALDERON ZAPATA / 2026-10-01 15:04 / instalación mesa de trabajo de la dosificadora de planta para evitar accidentes"
     },
     {
-      "ss": "00522",
-      "tipo": "Correctivos de emergencia",
-      "severidad": "Alta",
-      "equipo": "HORNO PROTEINAS RATIONAL",
-      "lugar": "UNICENTRO MEDELLÍN",
-      "fecha_ss": "2026-10-01T20:17:25",
-      "fecha_esperada": "2026-10-02T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Creada",
-      "ot_asociada": null,
-      "descripcion": "sale alarma y no dejo hacer el lavado y mañana necesitamos brindar el servicio",
-      "comentarios": "Creada / UNICENTRO BOGOTA  PDV / 2026-10-01 20:17 / sale alarma y no dejo hacer el lavado y mañana necesitamos brindar el servicio"
-    },
-    {
       "ss": "00519",
       "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
@@ -10853,6 +10861,48 @@
       "comentarios": "Creada / SEBASTIAN CALDERON ZAPATA / 2026-10-01 16:34 / aire acondicionado con gotera"
     },
     {
+      "ss": "00522",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "HORNO PROTEINAS RATIONAL",
+      "lugar": "UNICENTRO MEDELLÍN",
+      "fecha_ss": "2026-10-01T20:17:25",
+      "fecha_esperada": "2026-10-02T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "sale alarma y no dejo hacer el lavado y mañana necesitamos brindar el servicio",
+      "comentarios": "Creada / UNICENTRO BOGOTA  PDV / 2026-10-01 20:17 / sale alarma y no dejo hacer el lavado y mañana necesitamos brindar el servicio"
+    },
+    {
+      "ss": "00524",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "MARMITA",
+      "lugar": "BASE DE OPERACIONES",
+      "fecha_ss": "2026-10-02T08:46:29",
+      "fecha_esperada": "2026-10-02T12:46:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "sonido extraño, motor con movimiento anormal",
+      "comentarios": "Creada / JUAN FELIPE ZAPATA / 2026-10-02 08:46 / sonido extraño, motor con movimiento anormal"
+    },
+    {
+      "ss": "00525",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "MARMITA",
+      "lugar": "BASE DE OPERACIONES",
+      "fecha_ss": "2026-10-02T08:49:00",
+      "fecha_esperada": "2026-10-02T12:49:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "Poca llama lo que restrasa mucho el procesos ",
+      "comentarios": "Creada / JUAN FELIPE ZAPATA / 2026-10-02 08:49 / Poca llama lo que restrasa mucho el procesos"
+    },
+    {
       "ss": "00520",
       "tipo": "Correctivo Programado",
       "severidad": "Alta",
@@ -10865,6 +10915,20 @@
       "ot_asociada": null,
       "descripcion": "SE SOLICITA CAMBIO DE PARRILAS PARA LOS REFRIGERADORES YA QUE LAS QUE TENEMOS NOS ESTA OCASIONANDO ACCIDENTES, MUCHAS GRACIAS ",
       "comentarios": "Creada / MALL PLAZA PDV / 2026-10-01 17:08 / SE SOLICITA CAMBIO DE PARRILAS PARA LOS REFRIGERADORES YA QUE LAS QUE TENEMOS NOS ESTA OCASIONANDO ACCIDENTES, MUCHAS GRACIAS"
+    },
+    {
+      "ss": "00526",
+      "tipo": "Correctivos de emergencia",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN GRAN PLAZA",
+      "lugar": "GRAN PLAZA",
+      "fecha_ss": "2026-10-02T11:06:28",
+      "fecha_esperada": "2026-10-03T07:06:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "nevera de cocacola con producto de Montolivo botando agua en la parte de arriba me llena las cocas de las proteínas de agua ",
+      "comentarios": "Creada / GRAN PLAZA PDV / 2026-10-02 11:06 / nevera de cocacola con producto de Montolivo botando agua en la parte de arriba me llena las cocas de las proteínas de agua"
     },
     {
       "ss": "00523",
@@ -11077,20 +11141,6 @@
       "comentarios": "Creada / PARQUE FABRICATO PDV / 2026-09-08 14:19 / grietas en paredes y pisos\nEditada / PARQUE FABRICATO PDV / 2026-09-08 14:19 / grietas en paredes y pisos"
     },
     {
-      "ss": "00123",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
-      "lugar": "FABRICATO",
-      "fecha_ss": "2026-09-08T14:20:00",
-      "fecha_esperada": "2026-10-22T11:20:00",
-      "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
-      "descripcion": "se solicita tapón de seguridad  la llave de válvulas de la red contra incedios",
-      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-11 11:24 / SE ESTA GESTIONANDO CON LA COMPRA\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-11 05:52 / Sin descripción"
-    },
-    {
       "ss": "00124",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
@@ -11103,6 +11153,20 @@
       "ot_asociada": null,
       "descripcion": "se solicita drenaje de grasa para la campana de grasa ",
       "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-11 11:20 / SS PENDIENTE, SE DEBE PROGRAMAR SOLDADURA\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-11 05:54 / Sin descripción"
+    },
+    {
+      "ss": "00123",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "lugar": "FABRICATO",
+      "fecha_ss": "2026-09-08T14:20:00",
+      "fecha_esperada": "2026-10-22T11:20:00",
+      "fecha_respuesta": null,
+      "estado": "Leída",
+      "ot_asociada": null,
+      "descripcion": "se solicita tapón de seguridad  la llave de válvulas de la red contra incedios",
+      "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-11 11:24 / SE ESTA GESTIONANDO CON LA COMPRA\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-11 05:52 / Sin descripción"
     },
     {
       "ss": "00125",
@@ -11203,20 +11267,6 @@
       "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-11 10:42 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-11 10:39 / cambio del logo esta deteriorado parte de la caja"
     },
     {
-      "ss": "00154",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
-      "lugar": "FABRICATO",
-      "fecha_ss": "2026-09-10T11:33:00",
-      "fecha_esperada": "2026-10-24T09:33:00",
-      "fecha_respuesta": null,
-      "estado": "Programada en O.T.",
-      "ot_asociada": null,
-      "descripcion": "en la parte de los breques hay un huecos posible avergue de cucarachas ",
-      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-11 10:12 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-11 10:09 / en la parte de los breques hay un huecos posible avergue de cucarachas"
-    },
-    {
       "ss": "00155",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
@@ -11229,6 +11279,20 @@
       "ot_asociada": null,
       "descripcion": "Baldosas quebradas en el lavado y junto a nevera de mariscos",
       "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-11 10:08 / LA SS QUEDA PENDIENTE, DEBE DE SER EN TRASNOCHO\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-11 10:08 / Sin descripción"
+    },
+    {
+      "ss": "00154",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "lugar": "FABRICATO",
+      "fecha_ss": "2026-09-10T11:33:00",
+      "fecha_esperada": "2026-10-24T09:33:00",
+      "fecha_respuesta": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": null,
+      "descripcion": "en la parte de los breques hay un huecos posible avergue de cucarachas ",
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-11 10:12 / Sin descripción\nValidada / MARCELA HENAO SANTAMARIA / 2026-09-11 10:09 / en la parte de los breques hay un huecos posible avergue de cucarachas"
     },
     {
       "ss": "00156",
@@ -11245,20 +11309,6 @@
       "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-11 10:06 / SE ENVIA TECNICO A TOMAR MEDIDAS PARA LA FABRICACIÓN\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-11 05:42 / Sin descripción"
     },
     {
-      "ss": "00158",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Alta",
-      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
-      "lugar": "FABRICATO",
-      "fecha_ss": "2026-09-10T12:22:00",
-      "fecha_esperada": "2026-10-24T10:22:00",
-      "fecha_respuesta": "2026-09-11T12:30:00",
-      "estado": "Ejecutada",
-      "ot_asociada": "000109",
-      "descripcion": "la licuadora nesecita botón ",
-      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-11 12:30 / Cierre automático de S.S. por la Orden de Trabajo con código 000109 [Descripción O.T.]: \nEntidad a intervenir: \n FABRICATO \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00158 [Fecha Esperada] 2026-10-24 10:22 [Solicitante] PARQUE FABRICATO PDV [Descripción] la licuadora nesecita botón  / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-11 11:00 a 12:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nse le cambió botonera a licuadora se deja ok \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-11 11:00 a 12:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nse le cambió botonera a licuadora se deja ok \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-11 10:03 / Sin descripción"
-    },
-    {
       "ss": "00157",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Alta",
@@ -11271,6 +11321,20 @@
       "ot_asociada": null,
       "descripcion": "cielo razo con humedacion ",
       "comentarios": "Comentario / MARCELA HENAO SANTAMARIA / 2026-09-11 10:04 / SS PENDIENTE, SE DEBE DE REALIZAR EN TRASNOCHO\nLeída / MARCELA HENAO SANTAMARIA / 2026-09-11 05:41 / Sin descripción"
+    },
+    {
+      "ss": "00158",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Alta",
+      "equipo": "ADECUACIÓN E INSTALACIÓN FABRICATO",
+      "lugar": "FABRICATO",
+      "fecha_ss": "2026-09-10T12:22:00",
+      "fecha_esperada": "2026-10-24T10:22:00",
+      "fecha_respuesta": "2026-09-11T12:30:00",
+      "estado": "Ejecutada",
+      "ot_asociada": "000109",
+      "descripcion": "la licuadora nesecita botón ",
+      "comentarios": "Ejecutada / SEBASTIAN BUITRAGO GRACIANO / 2026-09-11 12:30 / Cierre automático de S.S. por la Orden de Trabajo con código 000109 [Descripción O.T.]: \nEntidad a intervenir: \n FABRICATO \n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición \n\nSS-00158 [Fecha Esperada] 2026-10-24 10:22 [Solicitante] PARQUE FABRICATO PDV [Descripción] la licuadora nesecita botón  / [Realimentación O.T.]: Ejecutores:\nYOHAN ESTIBEN SANCHEZ NARANJO\n\n\n[2026-09-11 11:00 a 12:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nse le cambió botonera a licuadora se deja ok \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-11 11:00 a 12:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-FB-C-001 | Reparación Locativa General\n\n-Descripcion:\nse le cambió botonera a licuadora se deja ok \n\n---------------------------------------------------------------------------------------------\n.\nProgramada en O.T. / MARCELA HENAO SANTAMARIA / 2026-09-11 10:03 / Sin descripción"
     },
     {
       "ss": "00159",
@@ -11595,20 +11659,6 @@
       "comentarios": "Creada / MALL PLAZA PDV / 2026-09-08 10:02 / poseta lavamos de pedal despegado\nEditada / MALL PLAZA PDV / 2026-09-08 10:02 / poseta lavamos de pedal despegado"
     },
     {
-      "ss": "00182",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Media",
-      "equipo": "NEVERA CONGELACION VERTICAL 2P DUKERS",
-      "lugar": "LOS MOLINOS",
-      "fecha_ss": "2026-09-10T22:22:00",
-      "fecha_esperada": "2026-12-10T15:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "Persiana se cae, y necesito dos soportes para las parrillas del congelador por favor ",
-      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:22 / Persiana se cae, y necesito dos soportes para las parrillas del congelador por favor\nEditada / LOS MOLINOS PDV / 2026-09-10 22:22 / Persiana se cae, y necesito dos soportes para las parrillas del congelador por favor"
-    },
-    {
       "ss": "00189",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Media",
@@ -11621,6 +11671,20 @@
       "ot_asociada": null,
       "descripcion": "Tengo 4  neveras con parrillas oxidadas, incluidas ahí las dos de coca-cola y las de coca necesitan cambio de empaque también por favor ",
       "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:50 / Tengo 4  neveras con parrillas oxidadas, incluidas ahí las dos de coca-cola y las de coca necesitan cambio de empaque también por favor\nEditada / LOS MOLINOS PDV / 2026-09-10 22:50 / Tengo 4  neveras con parrillas oxidadas, incluidas ahí las dos de coca-cola y las de coca necesitan cambio de empaque también por favor"
+    },
+    {
+      "ss": "00182",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Media",
+      "equipo": "NEVERA CONGELACION VERTICAL 2P DUKERS",
+      "lugar": "LOS MOLINOS",
+      "fecha_ss": "2026-09-10T22:22:00",
+      "fecha_esperada": "2026-12-10T15:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "Persiana se cae, y necesito dos soportes para las parrillas del congelador por favor ",
+      "comentarios": "Creada / LOS MOLINOS PDV / 2026-09-10 22:22 / Persiana se cae, y necesito dos soportes para las parrillas del congelador por favor\nEditada / LOS MOLINOS PDV / 2026-09-10 22:22 / Persiana se cae, y necesito dos soportes para las parrillas del congelador por favor"
     },
     {
       "ss": "00255",
@@ -11637,20 +11701,6 @@
       "comentarios": "Creada / PARQUE FABRICATO PDV / 2026-09-12 10:24 / pared del fogón mal estado, Baldosas quebradas"
     },
     {
-      "ss": "00273",
-      "tipo": "Mejoras Tecnicas",
-      "severidad": "Media",
-      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
-      "lugar": "DISTRITO VERA",
-      "fecha_ss": "2026-09-12T23:40:00",
-      "fecha_esperada": "2026-12-12T11:00:00",
-      "fecha_respuesta": null,
-      "estado": "Editada",
-      "ot_asociada": null,
-      "descripcion": "humedad debajo de la escalera",
-      "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-12 23:40 / humedad debajo de la escalera\nEditada / DISTRITO VERA PDV / 2026-09-12 23:40 / humedad debajo de la escalera"
-    },
-    {
       "ss": "00274",
       "tipo": "Mejoras Tecnicas",
       "severidad": "Media",
@@ -11663,6 +11713,20 @@
       "ot_asociada": null,
       "descripcion": "en las instalaciones,  se encuentran huecos.",
       "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-12 23:40 / en las instalaciones,  se encuentran huecos.\nEditada / DISTRITO VERA PDV / 2026-09-12 23:40 / en las instalaciones,  se encuentran huecos."
+    },
+    {
+      "ss": "00273",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN DISTRITO VERA",
+      "lugar": "DISTRITO VERA",
+      "fecha_ss": "2026-09-12T23:40:00",
+      "fecha_esperada": "2026-12-12T11:00:00",
+      "fecha_respuesta": null,
+      "estado": "Editada",
+      "ot_asociada": null,
+      "descripcion": "humedad debajo de la escalera",
+      "comentarios": "Creada / DISTRITO VERA PDV / 2026-09-12 23:40 / humedad debajo de la escalera\nEditada / DISTRITO VERA PDV / 2026-09-12 23:40 / humedad debajo de la escalera"
     },
     {
       "ss": "00300",
@@ -11687,10 +11751,10 @@
       "fecha_ss": "2026-09-15T19:33:42",
       "fecha_esperada": "2026-12-15T15:00:00",
       "fecha_respuesta": null,
-      "estado": "Leída",
-      "ot_asociada": null,
+      "estado": "Programada en O.T.",
+      "ot_asociada": "000296",
       "descripcion": "cambio de caucho mal estado congelacion, pierde temperatura ",
-      "comentarios": "Leída / MARCELA HENAO SANTAMARIA / 2026-09-29 09:59 / Sin descripción\nCreada / SANTAFE PDV / 2026-09-15 19:33 / cambio de caucho mal estado congelacion, pierde temperatura"
+      "comentarios": "Programada en O.T. / MARCELA HENAO SANTAMARIA / 2026-10-02 10:35 / Sin descripción\nComentario / MARCELA HENAO SANTAMARIA / 2026-10-02 10:32 / SE ENVIA A REFRIGER PARA CAMBIO DE EMPAQUE"
     },
     {
       "ss": "00331",
@@ -11831,6 +11895,34 @@
       "ot_asociada": null,
       "descripcion": "ARRGLAR PISO DE PINTURA EPOXICA",
       "comentarios": "Creada / MALL PLAZA PDV / 2026-10-01 17:31 / ARRGLAR PISO DE PINTURA EPOXICA"
+    },
+    {
+      "ss": "00528",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Media",
+      "equipo": "ADECUACIÓN E INSTALACIÓN PARQUE ARBOLEDA",
+      "lugar": "PARQUE ARBOLEDA",
+      "fecha_ss": "2026-10-02T10:54:00",
+      "fecha_esperada": "2026-10-28T14:46:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "REJILLAS DE LAS NEVERAS",
+      "comentarios": "Creada / PARQUE ARBOLEDA PDV / 2026-10-02 10:54 / REJILLAS DE LAS NEVERAS"
+    },
+    {
+      "ss": "00527",
+      "tipo": "Mejoras Tecnicas",
+      "severidad": "Media",
+      "equipo": null,
+      "lugar": null,
+      "fecha_ss": "2026-10-02T11:06:27",
+      "fecha_esperada": "2027-01-02T10:06:00",
+      "fecha_respuesta": null,
+      "estado": "Creada",
+      "ot_asociada": null,
+      "descripcion": "\nmontura de las rejillas de las neveras ",
+      "comentarios": "Creada / PARQUE ARBOLEDA PDV / 2026-10-02 11:06 / \nmontura de las rejillas de las neveras"
     },
     {
       "ss": "00047",
@@ -12655,7 +12747,7 @@
       "duracion_h": 4.0,
       "estado_paro": "Finalizado",
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "ss_codigo": null
     },
     {
@@ -12737,6 +12829,38 @@
       "tecnico": null,
       "estado": null,
       "ss_codigo": "00522"
+    },
+    {
+      "ot": null,
+      "equipo": "MARMITA",
+      "equipo_cod": "EP-0016",
+      "lugar": "BASE DE OPERACIONES",
+      "criticidad": "Alta",
+      "inicio": "2026-10-02T08:46:29",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00524"
+    },
+    {
+      "ot": null,
+      "equipo": "MARMITA",
+      "equipo_cod": "EP-0017",
+      "lugar": "BASE DE OPERACIONES",
+      "criticidad": "Alta",
+      "inicio": "2026-10-02T08:49:00",
+      "inicio_trabajo": null,
+      "iniciado": false,
+      "fin": null,
+      "duracion_h": null,
+      "estado_paro": "Fuera de servicio",
+      "tecnico": null,
+      "estado": null,
+      "ss_codigo": "00525"
     }
   ],
   "paros_programados": [
@@ -13321,7 +13445,7 @@
       "fin": "2026-09-30T10:30:00",
       "duracion_h": 2.33,
       "tecnico": "ALEJANDRO DE JESUS CARDONA CARMONA",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "ss_codigo": null,
       "estado_paro": "Finalizado"
     },
@@ -13336,7 +13460,7 @@
       "fin": "2026-10-01T11:00:00",
       "duracion_h": 3.5,
       "tecnico": "ANDRES FELIPE LONDOÑO GUERRA, YOHAN ESTIBEN SANCHEZ NARANJO",
-      "estado": "Abierta",
+      "estado": "Cerrada",
       "ss_codigo": null,
       "estado_paro": "Finalizado"
     }
