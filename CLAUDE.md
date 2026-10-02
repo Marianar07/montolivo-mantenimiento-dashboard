@@ -324,6 +324,12 @@ O.T.` (`estado==='Abierta'`).
   (sin tildes, sobre todas las columnas) + desplegables de Tipo, Estado,
   Severidad y Lugar (solo los que tengan más de un valor); muestra "N de M"
   y recalcula el costo total con lo filtrado.
+- **Columna Comentarios** (pedido de Mariana, 2-oct-2026): `modalFiltrable()`
+  la agrega sola al final de todo listado cuyas filas traen `comentarios`
+  (OT y SS). OT = `Realimentación` (sin el bloque "Ejecutores:");
+  SS = columna `Comentarios` del export (historial "Estado / Persona /
+  fecha / texto", más reciente primero, un renglón por cambio;
+  `limpiar_comentarios_ss()` parte por "SEPARADOR-COMENTARIOS").
 - **Costo total mantenimiento** es clicable → tabla de costo por lugar (OT,
   correctivo, preventivo, correctiva programada, total y % del total), con
   buscador; respeta el filtro de fechas/lugar como el resto del Resumen.

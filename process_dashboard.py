@@ -396,6 +396,16 @@ def limpiar_comentarios(texto):
     return limpio or None
 
 
+# La columna "Comentarios" del export de SS trae el historial de estados
+# ("Estado / Persona / fecha / texto"), más reciente primero, separados por
+# el texto literal "SEPARADOR-COMENTARIOS" -> uno por línea.
+def limpiar_comentarios_ss(texto):
+    if pd.isna(texto):
+        return None
+    partes = [p.strip() for p in str(texto).split("SEPARADOR-COMENTARIOS") if p.strip()]
+    return "\n".join(partes) or None
+
+
 def severidad_desde_prioridad(valor):
     if pd.isna(valor):
         return None
@@ -529,6 +539,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
             "estado": r["Estado"],
             "ot_asociada": ot_por_ss.get(r["Código"]),
             "descripcion": r["Descripción"],
+            "comentarios": limpiar_comentarios_ss(r.get("Comentarios")),
         })
     return pd.DataFrame(registros)
 

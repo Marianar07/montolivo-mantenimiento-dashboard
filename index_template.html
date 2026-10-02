@@ -316,6 +316,7 @@ button.sev-row:focus-visible{outline:2px solid var(--maroon);outline-offset:1px;
 .modal-close{border:none;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--ink-3);padding:0 4px;}
 .modal-body{padding:16px 18px;}
 .wrap-text{white-space:normal;}
+.celda-comentario{white-space:pre-line;min-width:260px;max-width:420px;max-height:130px;overflow-y:auto;font-size:12px;line-height:1.35;}
 
 .section-block{margin-top:30px;}
 
@@ -1509,7 +1510,12 @@ function renderResumen(el){
    `filtros` que tenga más de un valor. Con opts.costo muestra el costo total
    de las filas filtradas. */
 function normBusqueda(t){ return String(t??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+// Columna "Comentarios" (pedido de Mariana, 2-oct-2026): se agrega sola a
+// todo listado de OT o SS (filas con campo `comentarios`). OT = Realimentación
+// del CMMS; SS = historial de estados de la columna "Comentarios".
+const colComentarios = {key:'comentarios', label:'Comentarios', fmt:v=>v?`<div class="celda-comentario">${esc(v)}</div>`:'—'};
 function modalFiltrable(titulo, rows, cols, opts={}){
+  if(rows.some(r=>'comentarios' in r) && !cols.some(c=>c.key==='comentarios')) cols = [...cols, colComentarios];
   const filtros = (opts.filtros || [['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']])
     .map(([k,l])=>({k, l, vals:[...new Set(rows.map(r=>r[k]).filter(v=>v!=null && v!==''))].sort((a,b)=>String(a).localeCompare(String(b)))}))
     .filter(f=>f.vals.length>1);
