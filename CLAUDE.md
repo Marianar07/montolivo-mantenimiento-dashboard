@@ -689,18 +689,8 @@ en vino. No volver a azul/naranja/verde/morado en tarjetas ni gráficas.
 Los colores por tipo de las gráficas salen de `tiposYColores()`: Correctivo
 y Preventivo fijos, los demás tipos toman el siguiente `--chart-N` libre.
 
-**Diseño igual al Tablero de Compras** (aprobado por Mariana con capturas,
-5-oct-2026; referencia: `../Compras/Bases para actualizar Claude/
-Tablero_Indicadores_Compras.html`). Va en el bloque "Tema visual igual al
-Tablero de Indicadores de Compras" al final del `<style>` de
-`index_template.html` (sobrescribe los estilos de arriba, solo CSS):
-tipografía Lato (Google Fonts); encabezado fijo "MONTOLIVO" + "Gestión de
-Mantenimiento · Inversiones Montolivo SAS" + "Tablero de Indicadores —
-Mantenimiento"; barra de filtros ("FILTRAR:") **arriba** de las pestañas;
-pestañas con ícono (campo `icon` en `TABS`); tarjetas blancas sin borde,
-radio 14px, sombra suave y franja superior al pasar el mouse (ámbar/roja fija
-en las de semáforo); "Costo total mantenimiento" (`#costoTotalCard`) en vino
-como tarjeta destacada; títulos de sección en vino con línea fina; títulos
-de tarjeta en vino y mayúsculas; encabezados de tabla en rosado claro con
-letra vino; pie de página vino oscuro. Antes de cambiar el diseño, mandarle
-captura a Mariana para aprobar.
+5-oct-2026: se probó copiar el diseño del Tablero de Compras (Lato,
+encabezado "MONTOLIVO", tarjetas sin borde con sombra, encabezados de tabla
+claros; commit fa54f81) y Mariana pidió volver a este diseño ("no me
+convence"). No volver a aplicarlo sin que ella lo pida; ante cualquier
+cambio de diseño, mandarle captura para aprobar antes de subir.
