@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard de Mantenimiento — Inversiones Montolivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --maroon-dark:#52101E;
@@ -407,6 +409,140 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
   .pager button{padding:8px 14px;font-size:13px;}
   .pager span{flex:1 1 100%;order:-1;text-align:center;margin-bottom:4px;}
 }
+
+/* =====================================================================
+   Tema visual igual al Tablero de Indicadores de Compras (pedido de
+   Mariana, 5-oct-2026): tipografía Lato, encabezado "MONTOLIVO" con
+   módulo, tarjetas blancas sin borde con sombra suave y redondeo 14px,
+   tarjeta destacada en vino, títulos de tarjeta en vino en mayúsculas,
+   encabezados de tabla claros. Solo estilo: no cambia ningún cálculo.
+   ===================================================================== */
+:root{
+  --wine-dark:#4F0F1D; --wine-mid:#9B2740; --wine-light:#C4516A;
+  --wine-pale:#F5E6EA; --wine-ghost:#FCF3F5;
+  --gold:#B7A254; --charcoal:#1A1218; --text-muted:#7A6B72; --text-light:#AFA4A9;
+  --radius-sm:8px; --radius-md:14px;
+  --shadow-sm:0 2px 12px rgba(122,26,46,0.08);
+  --shadow-md:0 8px 32px rgba(122,26,46,0.13);
+}
+body{font-family:'Lato',system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--charcoal);}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-thumb{background:rgba(122,26,46,0.22);border-radius:99px;}
+
+/* Encabezado */
+.topbar{
+  position:sticky;top:0;z-index:90;
+  background:linear-gradient(135deg,var(--wine-dark) 0%,var(--maroon) 55%,var(--wine-mid) 100%);
+  padding:0 2rem;min-height:64px;flex-wrap:nowrap;
+  box-shadow:0 4px 24px rgba(79,15,29,0.35);
+}
+.topbar-left{align-items:center;gap:1rem;flex-wrap:nowrap;}
+.header-logo{font-size:1.45rem;font-weight:700;letter-spacing:0.06em;line-height:1;color:#fff;}
+.header-sub{font-size:0.7rem;color:rgba(255,255,255,0.62);font-weight:400;letter-spacing:0.05em;margin-top:3px;}
+.header-sep{width:1px;height:32px;background:rgba(255,255,255,0.2);}
+.header-module{font-size:0.8rem;color:rgba(255,255,255,0.75);letter-spacing:0.03em;}
+.topbar-right{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:99px;
+  padding:4px 12px;font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:0.04em;}
+.dot{width:7px;height:7px;animation:pulse-dot 2s infinite;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.5);}50%{box-shadow:0 0 0 5px rgba(74,222,128,0);}}
+@media (max-width:640px){ .topbar{padding:10px 16px;} .header-sep,.header-module{display:none;} .header-logo{font-size:1.2rem;} }
+
+/* Barra de filtros */
+.filterbar{padding:0.85rem 2rem;gap:0.85rem;border-bottom:1px solid rgba(122,26,46,0.1);}
+.filter-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);font-weight:700;white-space:nowrap;}
+.filterbar label{font-size:0.78rem;color:var(--text-muted);}
+.filterbar select, .filterbar input[type=date], .filterbar input[type=text]{
+  border:1.5px solid rgba(122,26,46,0.18);border-radius:var(--radius-sm);background:var(--cream);
+  font-size:0.82rem;padding:6px 10px;transition:all .18s;}
+.filterbar input[type=date]:hover, .filterbar select:hover{border-color:var(--maroon);background:var(--wine-pale);}
+.filterbar input:focus, .filterbar select:focus{outline:none;border-color:var(--maroon);box-shadow:0 0 0 3px rgba(122,26,46,0.12);}
+.chip{border:1.5px solid rgba(122,26,46,0.18);background:var(--cream);border-radius:var(--radius-sm);font-size:0.78rem;color:var(--charcoal);font-weight:400;transition:all .18s;}
+.chip:hover{border-color:var(--maroon);background:var(--wine-pale);}
+.chip.active{background:var(--maroon);color:#fff;border-color:var(--maroon);font-weight:700;}
+.btn{border-radius:var(--radius-sm);font-weight:700;transition:all .18s;}
+.btn:hover{background:var(--wine-dark);transform:translateY(-1px);box-shadow:0 4px 12px rgba(122,26,46,0.3);}
+#btnLimpiar{background:var(--maroon);color:#fff;}
+#btnLimpiar:hover{background:var(--wine-dark);}
+#rangoResumen{margin-left:auto;background:none;border:none;font-size:0.72rem;font-weight:400;color:var(--text-light);}
+
+/* Pestañas */
+.tabs{border-bottom:2px solid rgba(122,26,46,0.1);padding:0 2rem;}
+.tab-btn{font-family:inherit;padding:0.85rem 1.4rem;font-size:0.82rem;font-weight:400;color:var(--text-muted);transition:all .18s;}
+.tab-btn:hover{color:var(--maroon);background:var(--wine-ghost);}
+.tab-btn.active{color:var(--maroon);border-bottom-color:var(--maroon);font-weight:700;}
+.tab-btn .tab-ico{margin-right:6px;}
+
+/* Contenido */
+main{padding:2rem;max-width:1600px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.tabpanel.active{animation:fadeIn .35s ease;}
+.section-title{font-size:1.3rem;font-weight:400;color:var(--maroon);gap:0.75rem;margin:30px 0 16px;}
+.section-title .bar{display:none;}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(122,26,46,0.2),transparent);}
+.section-note{padding-left:0;color:var(--text-light);}
+.kpi-group-title{font-size:0.7rem;letter-spacing:0.14em;color:var(--maroon);margin-bottom:10px;}
+.kpi-row{gap:1.25rem;}
+
+/* Tarjetas KPI */
+.kpi-card{background:#fff;border:none;border-radius:var(--radius-md);padding:1.35rem 1.35rem 1.1rem;
+  box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .22s,box-shadow .22s;}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--maroon),var(--wine-light));opacity:0;transition:opacity .22s;}
+.kpi-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.kpi-card:hover::before{opacity:1;}
+.kpi-card.clickable:hover{border-color:transparent;box-shadow:var(--shadow-md);}
+.kpi-card.good, .kpi-card.accent-c1, .kpi-card.accent-c2, .kpi-card.accent-c3{border-left:none;}
+/* semáforos: se mantienen como franja superior de color */
+.kpi-card.warn, .kpi-card.bad{border-left:none;}
+.kpi-card.warn::before{background:var(--warn);opacity:1;}
+.kpi-card.bad::before{background:var(--bad);opacity:1;}
+.kpi-label{font-size:0.65rem;letter-spacing:0.14em;color:var(--text-muted);font-weight:700;}
+.kpi-value{font-size:1.7rem;font-weight:400;color:var(--charcoal);margin-top:6px;}
+.kpi-card.hero .kpi-value{font-size:1.9rem;}
+.kpi-value.good, .kpi-card.accent-c1 .kpi-value, .kpi-card.accent-c2 .kpi-value, .kpi-card.accent-c3 .kpi-value{color:var(--charcoal);}
+.kpi-sub{font-size:0.72rem;color:var(--text-muted);}
+.kpi-corner b{font-weight:700;color:var(--maroon);}
+.sev-list{border-top:1px solid rgba(122,26,46,0.08);}
+button.sev-row:hover{border-color:transparent;background:var(--wine-ghost);}
+#costoRepuestosCard{border-left:none;border:1.5px dashed rgba(122,26,46,0.2);box-shadow:none;}
+#costoRepuestosCard .kpi-value{color:var(--text-light);}
+
+/* Tarjeta destacada (como "Gasto neto" de Compras) */
+#costoTotalCard{background:linear-gradient(135deg,var(--wine-dark) 0%,var(--maroon) 100%);color:#fff;}
+#costoTotalCard::before{display:none;}
+#costoTotalCard .kpi-label, #costoTotalCard .kpi-sub, #costoTotalCard .sev-time{color:rgba(255,255,255,0.72);}
+#costoTotalCard .kpi-value{color:#fff;}
+
+/* Tarjetas de gráficas y tablas */
+.card{background:#fff;border:none;border-radius:var(--radius-md);padding:1.35rem;box-shadow:var(--shadow-sm);margin-bottom:1.25rem;}
+.card-head h3{font-size:0.78rem;font-weight:700;color:var(--maroon);text-transform:uppercase;letter-spacing:0.1em;}
+.pill{background:var(--wine-pale);border:none;color:var(--maroon);border-radius:99px;font-size:0.68rem;}
+.grid2, .grid3{gap:1.25rem;}
+
+/* Tablas */
+table{font-size:0.8rem;}
+thead th{background:var(--wine-ghost);color:var(--maroon);font-size:0.68rem;letter-spacing:0.1em;font-weight:700;
+  border-bottom:2px solid rgba(122,26,46,0.15);}
+thead th:hover, thead th.sortable-th:hover{background:var(--wine-pale);}
+thead th:first-child, thead th:last-child{border-radius:0;}
+tbody td{border-bottom:1px solid rgba(122,26,46,0.07);}
+tbody tr:nth-child(even){background:transparent;}
+tbody tr:hover, tbody tr:nth-child(even):hover{background:var(--wine-ghost);}
+.badge{border-radius:99px;padding:3px 9px;font-size:0.68rem;}
+.barwrap{background:var(--wine-ghost);height:6px;border-radius:99px;}
+.barfill{background:linear-gradient(90deg,var(--wine-dark),var(--wine-light));border-radius:99px;}
+
+/* Notas y avisos (como "Lectura gerencial") */
+.callout{border-radius:var(--radius-md);}
+.callout.info{background:linear-gradient(135deg,var(--wine-ghost) 0%,#fff 100%);border:1.5px solid rgba(122,26,46,0.14);color:var(--charcoal);}
+
+/* Modal */
+.modal-box{border-radius:var(--radius-md);box-shadow:0 20px 60px rgba(122,26,46,0.18);}
+.modal-head h3{color:var(--maroon);font-weight:700;}
+.pager button{border-radius:var(--radius-sm);border:1.5px solid rgba(122,26,46,0.18);}
+
+/* Pie de página */
+.footer-note{margin-top:3rem;padding:1.5rem 2rem;background:var(--wine-dark);color:rgba(255,255,255,0.55);font-size:0.72rem;letter-spacing:0.04em;}
 </style>
 </head>
 <body>
@@ -414,24 +550,27 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 <div class="topbar">
   <div class="topbar-left">
     <div>
-      <h1>Inversiones Montolivo</h1>
-      <span class="tag">Dashboard de Mantenimiento</span>
+      <div class="header-logo">MONTOLIVO</div>
+      <div class="header-sub">Gestión de Mantenimiento · Inversiones Montolivo SAS</div>
     </div>
+    <div class="header-sep"></div>
+    <div class="header-module">Tablero de Indicadores — Mantenimiento</div>
   </div>
   <div class="topbar-right"><span class="dot"></span><span id="hdrDate">—</span></div>
 </div>
 
-<nav class="tabs" id="tabs"></nav>
-<div class="tabs-select-wrap">
-  <select class="tabs-select" id="tabsSelect"></select>
-</div>
-
 <div class="filterbar">
+  <span class="filter-label">Filtrar:</span>
   <div class="grp"><label>Desde</label><input type="date" id="fDesde"></div>
   <div class="grp"><label>Hasta</label><input type="date" id="fHasta"></div>
   <div class="presetrow" id="presets"></div>
   <button class="btn ghost" id="btnLimpiar">↺ Limpiar</button>
   <span class="pill" id="rangoResumen"></span>
+</div>
+
+<nav class="tabs" id="tabs"></nav>
+<div class="tabs-select-wrap">
+  <select class="tabs-select" id="tabsSelect"></select>
 </div>
 
 <main id="main"></main>
@@ -634,13 +773,13 @@ function diasAtrasoOT(r){
 
 /* ============ Tabs config ============ */
 const TABS = [
-  {id:'resumen', label:'Resumen Gerencial', render: renderResumen},
-  {id:'ot', label:'Órdenes de Trabajo', render: renderOT},
-  {id:'tecnicos', label:'Técnicos', render: renderTecnicos},
-  {id:'ss', label:'Solicitudes de Servicio', render: renderSS},
-  {id:'paros', label:'Paros por Equipo', render: renderParos},
-  {id:'disponibilidad', label:'Equipos', render: renderDisponibilidad},
-  {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
+  {id:'resumen', icon:'📊', label:'Resumen Gerencial', render: renderResumen},
+  {id:'ot', icon:'🛠️', label:'Órdenes de Trabajo', render: renderOT},
+  {id:'tecnicos', icon:'👷', label:'Técnicos', render: renderTecnicos},
+  {id:'ss', icon:'📝', label:'Solicitudes de Servicio', render: renderSS},
+  {id:'paros', icon:'⛔', label:'Paros por Equipo', render: renderParos},
+  {id:'disponibilidad', icon:'⚙️', label:'Equipos', render: renderDisponibilidad},
+  {id:'costos', icon:'💲', label:'Costos de Mantenimiento', render: renderCostos},
 ];
 
 function activateTab(id){
@@ -651,7 +790,7 @@ function activateTab(id){
 }
 function buildTabsNav(){
   const nav = document.getElementById('tabs');
-  nav.innerHTML = TABS.map((t,i)=>`<button class="tab-btn${i===0?' active':''}" data-tab="${t.id}">${t.label}</button>`).join('');
+  nav.innerHTML = TABS.map((t,i)=>`<button class="tab-btn${i===0?' active':''}" data-tab="${t.id}"><span class="tab-ico">${t.icon||''}</span>${t.label}</button>`).join('');
   nav.querySelectorAll('.tab-btn').forEach(btn=>{
     btn.addEventListener('click', ()=> activateTab(btn.dataset.tab));
   });
