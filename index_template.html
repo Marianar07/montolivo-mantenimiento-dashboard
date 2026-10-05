@@ -1155,7 +1155,7 @@ function renderResumen(el){
   // Estado (ver CLAUDE.md).
   const cumplSSR = cumplimientoStatsSS(ss);
   const diasSSR = r => { if(!r.fecha_ss) return null; const fin = r.fecha_respuesta ? new Date(r.fecha_respuesta) : new Date(); return Math.max(0,(fin-new Date(r.fecha_ss))/86400000); };
-  const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','No aprobada'];
+  const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','Recibida a Satisfacción','No aprobada'];
   const cumplSSHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento (vs. fecha esperada, ${cumplSSR.total} SS)</div>
       ${miniMeter('Cumplidas', cumplSSR.pctSi, 'good', `${cumplSSR.si}`)}
@@ -2494,7 +2494,7 @@ function renderSS(el){
   // Creada, Editada, Leída, Validada, Programada en O.T.; cerradas = Ejecutada,
   // Evaluada, No aprobada. Se decide por Fecha de respuesta (coincide 100% con
   // esa lista y clasifica solo cualquier estado nuevo — ver CLAUDE.md).
-  const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','No aprobada'];
+  const ORDEN_ESTADO_SS = ['Creada','Editada','Leída','Validada','Programada en O.T.','Ejecutada','Evaluada','Recibida a Satisfacción','No aprobada'];
   const ssAbiertasT = all.filter(r=>!r.fecha_respuesta);
   const ssCerradasT = all.filter(r=>!!r.fecha_respuesta);
   const estadosSS = rows => `<div class="estado-chips">${groupCount(rows, r=>r.estado||'Sin estado')
@@ -2512,7 +2512,7 @@ function renderSS(el){
   const promEdadAbiertas = edadesAbiertas.length ? edadesAbiertas.reduce((a,b)=>a+b,0)/edadesAbiertas.length : null;
 
   el.innerHTML = `
-  <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Ejecutada</b>, <b>Evaluada</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Cualquier otro estado (Creada, Editada, Leída, Programada en O.T., Validada) sigue abierto y no tiene Fecha de respuesta — el filtro "Todos los estados" del histórico abajo siempre refleja los estados reales del CMMS.</div>
+  <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Ejecutada</b>, <b>Evaluada</b>, <b>Recibida a Satisfacción</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Cualquier otro estado (Creada, Editada, Leída, Programada en O.T., Validada) sigue abierto y no tiene Fecha de respuesta — el filtro "Todos los estados" del histórico abajo siempre refleja los estados reales del CMMS.</div>
   <div class="callout info"><b>Cumplimiento</b> = Fecha de respuesta vs. Fecha esperada (plazo del CMMS). <b>Cumplida</b> = respondida en o antes de la Fecha esperada. <b>Incumplida</b> = respondió tarde, o sigue abierta y ya se pasó la Fecha esperada. <b>Pendiente</b> = aún no llega la Fecha esperada. <b>Días de mora</b> = días pasados de la Fecha esperada (0 si está a tiempo) — ${cumplSS.total} de ${all.length} SS en el rango traen Fecha esperada.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}

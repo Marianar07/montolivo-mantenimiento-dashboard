@@ -45,6 +45,12 @@ redespliega automáticamente en el mismo enlace.
    activos nuevos, trasladados y sin criticidad hay. 1-oct-2026: 2393 activos
    (70 nuevos: 68 granizadoras 2T + nevera Coca-Cola y granizadora Artiq de
    Arkadia, estas dos "Provoca Paro" = Sí), 15 trasladados.
+   **Si no está ese archivo** (5-oct-2026, Mariana: "tiene los mismos equipos
+   que Datos Generales de Equipos"), `integrar_activos(None, ...)` usa
+   **Datos Generales de Equipos** como maestro: ese export ya trae los
+   activos nuevos y las columnas `Código Instalación de Proceso` / `Nombre
+   Instalación de Proceso`. 5-oct-2026: 2400 activos, 77 nuevos frente a
+   Disponibilidad, 15 trasladados, 0 sin criticidad.
 
    Además, opcionalmente, **`TECNICOS.xlsx`** (nombre contiene "tecnicos")
    — maestro de técnicos de planta, columnas `NOMBRE`, `CEDULA`, `CIUDAD`.
@@ -229,7 +235,8 @@ estados nuevos Ejecutada/Editada):
   Fecha de respuesta llena. Son estados de una SS que **sigue abierta**,
   sin solución todavía.
 - **Ejecutada** (se resolvió con una OT), **Evaluada** (mantenimiento
-  programado, casi siempre) y **No aprobada** (la solicitud es duplicada,
+  programado, casi siempre), **Recibida a Satisfacción** (estado nuevo,
+  5-oct-2026: 2 de 2 con respuesta) y **No aprobada** (la solicitud es duplicada,
   se creó mal, o ya se solucionó de otra forma) → 100% tienen Fecha de
   respuesta llena, y se cierran el mismo día de esa fecha.
 

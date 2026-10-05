@@ -199,7 +199,20 @@ def integrar_activos(path, disp, crit):
         'Criticidad' de Datos Generales de Equipos; los activos nuevos quedan
         sin criticidad (None) hasta que llegue un export que la traiga.
     Devuelve (disp, crit, resumen) con `resumen` para el reporte de consola."""
-    act = pd.read_excel(path, sheet_name=0, dtype={"Codigo": str, "Código IP.": str})
+    if path is None:
+        # Sin 'Datos Generales Activos.xlsx': el export de Datos Generales de
+        # Equipos (5-oct-2026) ya trae los mismos activos y su instalación de
+        # proceso, así que hace de maestro con las columnas renombradas.
+        act = crit.rename(columns={
+            "Código": "Codigo",
+            "Código Instalación de Proceso": "Código IP.",
+            "Nombre Instalación de Proceso": "Instalación Proceso",
+            "Provoca Paro?": "Provoca Paro",
+        })[["Codigo", "Nombre", "Código IP.", "Instalación Proceso", "Provoca Paro"]].copy()
+        act["Codigo"] = act["Codigo"].astype("string")
+        act["Código IP."] = act["Código IP."].astype("string")
+    else:
+        act = pd.read_excel(path, sheet_name=0, dtype={"Codigo": str, "Código IP.": str})
     act = act[act["Codigo"].notna()].drop_duplicates("Codigo")
     act["Codigo"] = act["Codigo"].str.strip()
     instalacion = act["Código IP."].fillna("").str.strip() + " | " + act["Instalación Proceso"].fillna("").str.strip()
@@ -787,7 +800,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     disp, periodo_texto = cargar_disponibilidad(disp_path)
     crit = cargar_criticidad(crit_path)
     resumen_activos = None
-    if activos_path:
+    if activos_path or {"Código Instalación de Proceso", "Nombre Instalación de Proceso"} <= set(crit.columns):
         disp, crit, resumen_activos = integrar_activos(activos_path, disp, crit)
     tecnicos_internos = cargar_tecnicos(tecnicos_path) if tecnicos_path else None
     tecnicos_inactivos = cargar_tecnicos_inactivos(tecnicos_path) if tecnicos_path else []
@@ -923,7 +936,7 @@ def main():
     print(f"SS:           {ss_path.name}")
     print(f"Disponibilidad: {disp_path.name}")
     print(f"Datos Generales de Equipos: {crit_path.name}")
-    print(f"Datos Generales Activos: {activos_path.name if activos_path else 'no encontrado - se usa solo Disponibilidad como maestro'}")
+    print(f"Datos Generales Activos: {activos_path.name if activos_path else 'no encontrado - se usa Datos Generales de Equipos como maestro'}")
     if tecnicos_path:
         print(f"Técnicos:     {tecnicos_path.name}")
     else:
