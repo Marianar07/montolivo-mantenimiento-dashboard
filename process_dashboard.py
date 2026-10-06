@@ -267,8 +267,9 @@ def integrar_activos(path, disp, crit):
 # aquí (revisar el aviso que imprime el script).
 ALIAS_TECNICOS = {
     "ALEJANDRO CARDONA CARMONA": "ALEJANDRO DE JESUS CARDONA CARMONA",
-    "JEFFERSON ANDRES OSORIO": "JEFFERSON OSORIO BUSTAMANTE",
-    "JEFFERSON ANDRES OSORIO BUSTAMANTE": "JEFFERSON OSORIO BUSTAMANTE",
+    # 6-oct-2026: las OT ya traen el nombre completo (como en TECNICOS.xlsx)
+    "JEFFERSON ANDRES OSORIO": "JEFFERSON ANDRES OSORIO BUSTAMANTE",
+    "JEFFERSON OSORIO BUSTAMANTE": "JEFFERSON ANDRES OSORIO BUSTAMANTE",
     "OSCAR DARIO CASTAÑEDA": "OSCAR DARIO CASTAÑEDA GARAY",
 }
 
@@ -499,6 +500,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "costo_real": float(costo_real),
             "comentarios": limpiar_comentarios(r["Realimentación"]),
             "_tipo_match": tipo_match,  # uso interno para construir "paros", no va al tablero
+            "_actividad": r.get("Actividades"),  # uso interno: consolidar el costo por actividad
         })
     df = pd.DataFrame(registros)
     # El export de OT trae una fila por cada ACTIVIDAD de la OT (columna
@@ -506,9 +508,16 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
     # se repite. Se consolida a una fila por OT sumando el costo de todas sus
     # actividades (confirmado con Mariana contra Mantum: OT 000022 = 128.242,85
     # y OT 000182 = 243.749,90, ambas = suma de sus filas).
-    costo_por_ot = df.groupby("ot", sort=False)["costo_real"].sum()
+    # Además trae una fila por cada RECURSO asignado (columnas "Código
+    # recurso"/"Cantidad real"), repitiendo el mismo "Total Real" de la
+    # actividad en cada una (5-oct-2026: OT 000040 = 39 filas de 24.318,47).
+    # Por eso se toma un solo Total Real por (OT, actividad) antes de sumar;
+    # sumar todas las filas multiplicaba el costo por el número de recursos.
+    costo_por_ot = (df.drop_duplicates(subset=["ot", "_actividad"], keep="first")
+                      .groupby("ot", sort=False)["costo_real"].sum())
     df = df.drop_duplicates(subset=["ot"], keep="first").copy()
     df["costo_real"] = df["ot"].map(costo_por_ot)
+    df = df.drop(columns=["_actividad"])
     return df.reset_index(drop=True)
 
 

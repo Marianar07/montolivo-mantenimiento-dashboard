@@ -213,7 +213,10 @@ repite. `construir_ot()` consolida a una fila por `Código O.T.` sumando el
 `Total Real` de todas sus filas. Confirmado por Mariana contra Mantum: OT
 000022 = $128.242,85 y OT 000182 = $243.749,90 (= suma de sus filas, aunque
 en la 000182 las 5 filas traen el mismo valor). No contar filas como OT ni
-tomar un solo costo por OT.
+tomar un solo costo por OT. Además trae una fila por cada **recurso**
+asignado, repitiendo el `Total Real` de la actividad (OT 000040 = 39 filas
+de $24.318,47): se toma un solo valor por (OT, actividad) antes de sumar.
+Con esa corrección (6-oct-2026) el costo total bajó de $23,1 M a $17,8 M.
 
 ### Enlace SS -> OT
 
