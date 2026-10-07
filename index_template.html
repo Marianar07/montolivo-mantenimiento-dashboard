@@ -1240,7 +1240,7 @@ function renderResumen(el){
   `)}
 
   <div class="card">
-    <div class="card-head"><h3>SS recibidas por semana (lunes a sábado)</h3></div>
+    <div class="card-head"><h3>SS recibidas por semana (lunes a domingo)</h3></div>
     ${chartSSSemanal()}
   </div>
 
@@ -1616,11 +1616,11 @@ function chartTipoMensual(rows, fechaKey){
   const labelMesCorto = k => { const [yy,mm]=k.split('-').map(Number); return `${MESES[mm-1]} ${yy}`; };
   return groupedBarChart(todos, series, colores, {labelFn:labelMesCorto, fill:true, showValues:true});
 }
-// "SS recibidas por semana (lunes a sábado)" (pedido de Mariana, 7-oct-2026,
+// "SS recibidas por semana (lunes a domingo)" (pedido de Mariana, 7-oct-2026,
 // Resumen, debajo de la fila "Trabajo"): SS por fecha de solicitud, una barra
 // por semana desde el 1-ago-2026 hasta hoy — rango fijo, no usa el filtro de
-// fechas (sí el de lugar). Solo cuenta lunes a sábado: las SS creadas en
-// domingo se dejan por fuera y se dice cuántas son.
+// fechas (sí el de lugar). Semana completa: las SS del domingo también
+// cuentan (Mariana lo cambió; al principio era lunes a sábado).
 const SS_SEMANAL_DESDE = new Date(2026, 7, 1);
 function chartSSSemanal(){
   const hoy = new Date(); hoy.setHours(0,0,0,0);
@@ -1629,26 +1629,24 @@ function chartSSSemanal(){
   const semanas = [];
   for(let l = lunesDe(SS_SEMANAL_DESDE); l <= hoy; l = new Date(l.getFullYear(), l.getMonth(), l.getDate()+7)) semanas.push(clave(l));
   const valores = Object.fromEntries(semanas.map(k=>[k,0]));
-  let domingos = 0;
   DATA.ss.forEach(r=>{
     if(!r.fecha_ss || (FILTER.lugarGlobal && FILTER.lugar && r.lugar!==FILTER.lugar)) return;
     const d = parseD(r.fecha_ss);
     if(d < SS_SEMANAL_DESDE) return;
-    if(d.getDay()===0){ domingos++; return; }
     const k = clave(lunesDe(d));
     if(k in valores) valores[k]++;
   });
   const fmtDM = d => `${d.getDate()}/${d.getMonth()+1}`;
   const etiqueta = k => {
     const [y,m,dd] = k.split('-').map(Number);
-    const ini = new Date(y,m-1,dd), fin = new Date(y,m-1,dd+5);
+    const ini = new Date(y,m-1,dd), fin = new Date(y,m-1,dd+6);
     const desde = ini < SS_SEMANAL_DESDE ? SS_SEMANAL_DESDE : ini;
     return `${fmtDM(desde)}–${fmtDM(fin)}${fin >= hoy ? ' (en curso)' : ''}`;
   };
   const total = Object.values(valores).reduce((a,b)=>a+b,0);
-  const completas = semanas.filter(k=>{ const [y,m,dd]=k.split('-').map(Number); return new Date(y,m-1,dd) >= SS_SEMANAL_DESDE && new Date(y,m-1,dd+5) < hoy; });
+  const completas = semanas.filter(k=>{ const [y,m,dd]=k.split('-').map(Number); return new Date(y,m-1,dd) >= SS_SEMANAL_DESDE && new Date(y,m-1,dd+6) < hoy; });
   const prom = completas.length ? completas.reduce((a,k)=>a+valores[k],0)/completas.length : null;
-  return `<div class="section-note" style="margin:0 0 10px;padding:0;">${total} SS de lunes a sábado desde el 1 de agosto de 2026${prom!=null ? ` · promedio <b>${prom.toFixed(1).replace('.',',')}</b> por semana (semanas completas)` : ''}${domingos ? ` · ${domingos} SS creadas en domingo no se cuentan` : ''}. No usa el filtro de fechas de arriba.</div>`
+  return `<div class="section-note" style="margin:0 0 10px;padding:0;">${total} SS desde el 1 de agosto de 2026${prom!=null ? ` · promedio <b>${prom.toFixed(1).replace('.',',')}</b> por semana (semanas completas)` : ''}. No usa el filtro de fechas de arriba.</div>`
     + `<div style="overflow-x:auto">${groupedBarChart(semanas, [{label:'SS recibidas', values:valores}], ['var(--chart-1)'], {labelFn:etiqueta, fill:true, showValues:true})}</div>`;
 }
 // "OT por lugar y tipo de mantenimiento" (pedido de Mariana): una barra

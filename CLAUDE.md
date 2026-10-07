@@ -440,14 +440,15 @@ en el rango, marcados "Inactivo"): cada técnico con estado ahora
 (en sitio/programado), OT con duración, tiempo programado, tiempo trabajado,
 libres y % ocupación.
 
-### "SS recibidas por semana (lunes a sábado)" (Resumen Gerencial)
+### "SS recibidas por semana (lunes a domingo)" (Resumen Gerencial)
 
 Pedido de Mariana (7-oct-2026), tarjeta a todo el ancho debajo de la fila
-"Trabajo" (`chartSSSemanal()`): una barra por semana (lunes–sábado) con las
+"Trabajo" (`chartSSSemanal()`): una barra por semana (lunes–domingo) con las
 SS por `fecha_ss`, **desde el 1-ago-2026 hasta hoy, rango fijo** (no usa el
-filtro de fechas; sí el de lugar). Las SS creadas en domingo no se cuentan
-(la nota dice cuántas son: 35 el 7-oct-2026). La semana actual se marca
-"(en curso)"; el promedio por semana usa solo semanas completas.
+filtro de fechas; sí el de lugar). Primero fue lunes a sábado, pero Mariana
+la cambió a semana completa: los puntos de venta también reportan el
+domingo (35 SS el 7-oct-2026). La semana actual se marca "(en curso)"; el
+promedio por semana usa solo semanas completas.
 
 ### "OT por tipo de mantenimiento — histórico por mes" (Resumen Gerencial)
 
