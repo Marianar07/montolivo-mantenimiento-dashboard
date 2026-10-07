@@ -2072,6 +2072,8 @@ function referenciaFiltro(){
 function calcularUbicacionTecnicos(referencia){
   const ahora = referencia || new Date();
   const ahoraMs = ahora.getTime();
+  const diaDe = v => { const d = new Date(v); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); };
+  const diaRef = diaDe(ahora);
   const ESTADO_PRIORIDAD = {conflicto:0, en_sitio:1, programado:2, sin_asignacion:3};
   const rows = tecnicosInternosList().map(tecnico=>{
     const otsTec = DATA.ot.filter(r=>
@@ -2088,14 +2090,19 @@ function calcularUbicacionTecnicos(referencia){
     if(abiertas.length >= 2){
       return {tecnico, estado:'conflicto', equipo:null, lugar:null, otCodigo:abiertas.map(r=>r.ot).join(', '), desde:null};
     }
+    // Programado se evalúa por DÍA, no por hora (pedido de Mariana, 7-oct-2026:
+    // los datos se actualizan una vez al día): cuenta si el día de referencia
+    // está entre el día de Inicio Programado y el de Fin Programado. Si tiene
+    // varias OT ese día se muestran todas, empezando por la más temprana.
     const programadas = otsTec.filter(r=>
       !r.inicio_real && r.inicio_programado && r.fin_programado &&
-      ahoraMs >= new Date(r.inicio_programado).getTime() && ahoraMs <= new Date(r.fin_programado).getTime()
+      diaRef >= diaDe(r.inicio_programado) && diaRef <= diaDe(r.fin_programado)
     );
     if(programadas.length){
-      programadas.sort((a,b)=> Math.abs(new Date(a.inicio_programado)-ahoraMs) - Math.abs(new Date(b.inicio_programado)-ahoraMs));
+      programadas.sort((a,b)=> new Date(a.inicio_programado) - new Date(b.inicio_programado));
       const r = programadas[0];
-      return {tecnico, estado:'programado', equipo:r.equipo, lugar:r.lugar, otCodigo:r.ot, desde:r.inicio_programado};
+      const unicos = arr => [...new Set(arr.filter(Boolean))].join(' · ');
+      return {tecnico, estado:'programado', equipo:unicos(programadas.map(p=>p.equipo)), lugar:unicos(programadas.map(p=>p.lugar)), otCodigo:programadas.map(p=>p.ot).join(', '), desde:r.inicio_programado};
     }
     return {tecnico, estado:'sin_asignacion', equipo:null, lugar:null, otCodigo:null, desde:null};
   }).sort((a,b)=> ESTADO_PRIORIDAD[a.estado]-ESTADO_PRIORIDAD[b.estado]);
@@ -2322,7 +2329,7 @@ function renderTecnicos(el){
   </div>
   <div class="card section-block">
     <div class="card-head"><h3>Ubicación del técnico</h3></div>
-    <div class="section-note" style="margin:0 0 10px;">Respeta el filtro de fecha de arriba, evaluado al instante ${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})} (${FILTER.hasta && FILTER.hasta.getTime()<new Date().getTime() ? 'el final del rango seleccionado' : 'la hora real actual, avanza a medida que pasa el día'}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real a esa hora (sigue ahí hasta que se cierre). "Programado" = no está en sitio, pero tiene una OT sin iniciar cuya ventana programada (Fecha Inicio Programado - Fecha Fin Programado) incluye ese momento. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
+    <div class="section-note" style="margin:0 0 10px;">Respeta el filtro de fecha de arriba, evaluado al instante ${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})} (${FILTER.hasta && FILTER.hasta.getTime()<new Date().getTime() ? 'el final del rango seleccionado' : 'la hora real actual, avanza a medida que pasa el día'}). "En sitio" = tiene una OT con Fecha Inicio Real sin Fecha Fin Real a esa hora (sigue ahí hasta que se cierre). "Programado" = no está en sitio, pero tiene una OT sin iniciar programada para ese día (el día está entre el de Fecha Inicio Programado y el de Fecha Fin Programado, sin importar la hora); si tiene varias ese día se listan todas. "⚠ Varios servicios abiertos" = tiene 2 o más OT abiertas al mismo tiempo — inconsistencia de datos a revisar, no se elige una al azar.</div>
     ${simpleTable(ubicacionRows, [
       {key:'tecnico', label:'Técnico'},
       {key:'estado', label:'Estado', fmt:v=>{
