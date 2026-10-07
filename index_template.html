@@ -1241,7 +1241,12 @@ function renderResumen(el){
 
   <div class="card">
     <div class="card-head"><h3>SS recibidas por semana (lunes a domingo)</h3></div>
-    ${chartSSSemanal()}
+    ${chartSemanal(DATA.ss, 'fecha_ss', 'SS', 'SS recibidas')}
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3>OT realizadas por semana (lunes a domingo)</h3></div>
+    ${chartSemanal(DATA.ot, 'fin_real', 'OT realizadas', 'OT realizadas')}
   </div>
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
@@ -1621,17 +1626,19 @@ function chartTipoMensual(rows, fechaKey){
 // por semana desde el 1-ago-2026 hasta hoy — rango fijo, no usa el filtro de
 // fechas (sí el de lugar). Semana completa: las SS del domingo también
 // cuentan (Mariana lo cambió; al principio era lunes a sábado).
+// La misma función hace "OT realizadas por semana" (Mariana, 7-oct-2026):
+// OT contadas por su Fecha Fin Real, igual que "OT realizadas por día".
 const SS_SEMANAL_DESDE = new Date(2026, 7, 1);
-function chartSSSemanal(){
+function chartSemanal(rows, fechaKey, nombre, serie){
   const hoy = new Date(); hoy.setHours(0,0,0,0);
   const lunesDe = d => { const x = new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return x; };
   const clave = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   const semanas = [];
   for(let l = lunesDe(SS_SEMANAL_DESDE); l <= hoy; l = new Date(l.getFullYear(), l.getMonth(), l.getDate()+7)) semanas.push(clave(l));
   const valores = Object.fromEntries(semanas.map(k=>[k,0]));
-  DATA.ss.forEach(r=>{
-    if(!r.fecha_ss || (FILTER.lugarGlobal && FILTER.lugar && r.lugar!==FILTER.lugar)) return;
-    const d = parseD(r.fecha_ss);
+  rows.forEach(r=>{
+    if(!r[fechaKey] || (FILTER.lugarGlobal && FILTER.lugar && r.lugar!==FILTER.lugar)) return;
+    const d = parseD(r[fechaKey]);
     if(d < SS_SEMANAL_DESDE) return;
     const k = clave(lunesDe(d));
     if(k in valores) valores[k]++;
@@ -1646,8 +1653,8 @@ function chartSSSemanal(){
   const total = Object.values(valores).reduce((a,b)=>a+b,0);
   const completas = semanas.filter(k=>{ const [y,m,dd]=k.split('-').map(Number); return new Date(y,m-1,dd) >= SS_SEMANAL_DESDE && new Date(y,m-1,dd+6) < hoy; });
   const prom = completas.length ? completas.reduce((a,k)=>a+valores[k],0)/completas.length : null;
-  return `<div class="section-note" style="margin:0 0 10px;padding:0;">${total} SS desde el 1 de agosto de 2026${prom!=null ? ` · promedio <b>${prom.toFixed(1).replace('.',',')}</b> por semana (semanas completas)` : ''}. No usa el filtro de fechas de arriba.</div>`
-    + `<div style="overflow-x:auto">${groupedBarChart(semanas, [{label:'SS recibidas', values:valores}], ['var(--chart-1)'], {labelFn:etiqueta, fill:true, showValues:true})}</div>`;
+  return `<div class="section-note" style="margin:0 0 10px;padding:0;">${total} ${nombre} desde el 1 de agosto de 2026${prom!=null ? ` · promedio <b>${prom.toFixed(1).replace('.',',')}</b> por semana (semanas completas)` : ''}. No usa el filtro de fechas de arriba.</div>`
+    + `<div style="overflow-x:auto;padding-top:8px">${groupedBarChart(semanas, [{label:serie, values:valores}], ['var(--chart-1)'], {labelFn:etiqueta, fill:true, showValues:true})}</div>`;
 }
 // "OT por lugar y tipo de mantenimiento" (pedido de Mariana): una barra
 // horizontal por lugar, segmentada por tipo (mismos colores que el histórico

@@ -450,6 +450,11 @@ la cambió a semana completa: los puntos de venta también reportan el
 domingo (35 SS el 7-oct-2026). La semana actual se marca "(en curso)"; el
 promedio por semana usa solo semanas completas.
 
+Debajo, con la misma función (`chartSemanal(rows, fechaKey, …)`), **"OT
+realizadas por semana (lunes a domingo)"** (Mariana, 7-oct-2026): OT con
+`Fecha Fin Real`, contadas por esa fecha (mismo criterio que "OT realizadas
+por día"), mismo rango fijo desde el 1-ago-2026.
+
 ### "OT por tipo de mantenimiento — histórico por mes" (Resumen Gerencial)
 
 Pedido de Mariana (reemplazó a "OT por tipo y severidad" y luego al
