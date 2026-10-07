@@ -25,6 +25,7 @@ conocidas del CMMS.
 
 import sys
 import re
+import unicodedata
 import json
 from pathlib import Path
 from datetime import datetime, date
@@ -421,6 +422,52 @@ def limpiar_comentarios_ss(texto):
     return "\n".join(partes) or None
 
 
+# Frases que demuestran que el equipo está PARADO (Mariana, 7-oct-2026): una
+# SS sobre un equipo que provoca paro solo es paro si su descripción o sus
+# comentarios dicen que el equipo no se puede usar. Pedir un cambio de
+# caucho, perilla o extractor no es paro; tampoco el funcionamiento reducido
+# ("no extrae bien", "poca llama"). El horno que no lava/no desagua SÍ es paro.
+# Se busca sin tildes y en minúscula.
+PARO_EVIDENCIA_RE = [re.compile(p) for p in (
+    r"\bno (enciende|prende|funciona|sirve|arranca|calienta|enfria|congela|extrae|absorbe"
+    r"|lava|desagua|cocina|abre|cierra|gira)\b(?! bien| correctamente)",
+    r"\bno (esta|estan) (funcionando|encendiendo|prendiendo|extrayendo|calentando|enfriando"
+    r"|sirviendo|trabajando|lavando)\b(?! bien| correctamente)",
+    r"\bno (se )?deja (lavar|hacer|cocinar|usar|utilizar|prender)",
+    r"\bse apaga", r"fuera de servicio", r"\bparad[oa]\b", r"\bapagad[oa]\b",
+    r"\bsin funcionar", r"\bdejo de (funcionar|servir|enfriar|calentar)",
+    r"\bno (hay|tenemos) (gas|llama)", r"\bno podemos (trabajar|cocinar|usar)", r"\binservible",
+)]
+
+
+def _sin_tildes(texto):
+    return "".join(c for c in unicodedata.normalize("NFD", str(texto).lower())
+                   if unicodedata.category(c) != "Mn")
+
+
+def evidencia_paro_ss(r):
+    """Frase de la SS (Descripción + comentarios escritos por personas, sin los
+    cierres automáticos por OT) que demuestra que el equipo está parado, o
+    None si no hay ninguna."""
+    partes = [r["Descripción"]] if pd.notna(r["Descripción"]) else []
+    if pd.notna(r.get("Comentarios")):
+        for seg in str(r["Comentarios"]).split("SEPARADOR-COMENTARIOS"):
+            if "Cierre automático" in seg or "automática" in seg:
+                continue
+            partes.append(seg.split(" / ")[-1])
+    original = " ".join(str(p) for p in partes)
+    texto = _sin_tildes(original)
+    for rx in PARO_EVIDENCIA_RE:
+        m = rx.search(texto)
+        if m:
+            # Quitar tildes no cambia la longitud, así que la frase se
+            # devuelve tal como la escribieron.
+            if len(texto) == len(original):
+                return original[m.start():m.end()].strip().lower()
+            return m.group(0)
+    return None
+
+
 def severidad_desde_prioridad(valor):
     if pd.isna(valor):
         return None
@@ -599,8 +646,13 @@ def construir_paros_correctivos(ot_df, ss, crit, disp_by_code, lugar_to_ai):
       - SS abiertas SIN OT sobre el mismo equipo = un solo paro (la misma
         falla reportada varias veces).
       - SS "No aprobada" no generan paro (duplicada/mal creada).
-      - OT correctivas sobre equipos que generan paro que NO vienen de
-        ninguna SS también son paro; arrancan en la Fecha Creación de la OT.
+
+    Solo cuentan las SS cuyo texto demuestra que el equipo está parado
+    (`evidencia_paro_ss`, Mariana 7-oct-2026): pedir un cambio de caucho o de
+    extractor sobre un equipo que provoca paro no es un paro. Las OT
+    correctivas sin SS ya NO cuentan como paro: los paros de las OT se
+    registran en Mantum y salen en su informe de paros (pendiente de
+    integrar al tablero).
     """
     provoca_paro_set = set(crit[crit["Provoca Paro?"] == "Sí"]["Código"])
     crit_map = crit.drop_duplicates("Código").set_index("Código")["Criticidad"]
@@ -615,6 +667,11 @@ def construir_paros_correctivos(ot_df, ss, crit, disp_by_code, lugar_to_ai):
         cod = str(entidad).split("|", 1)[0].strip()
         if cod not in provoca_paro_set or r["Estado"] == "No aprobada":
             continue
+        evidencia = evidencia_paro_ss(r)
+        if not evidencia:
+            continue
+        r = r.copy()
+        r["_evidencia"] = evidencia
         ot_cod = ot_desde_columna_ots(r["OTs"]) or ot_por_ss_desc.get(r["Código"])
         if ot_cod not in ot_idx:
             ot_cod = None
@@ -626,12 +683,6 @@ def construir_paros_correctivos(ot_df, ss, crit, disp_by_code, lugar_to_ai):
             clave = ("ss", r["Código"])
         g = grupos.setdefault(clave, {"ss": [], "ot": ot_cod, "equipo_cod": cod})
         g["ss"].append(r)
-
-    # OT correctivas sobre equipos que generan paro sin SS enlazada
-    for o in ot_idx.values():
-        if (o["tipo"] == "Correctivo" and o["equipo_cod"] in provoca_paro_set
-                and ("ot", o["ot"]) not in grupos):
-            grupos[("ot", o["ot"])] = {"ss": [], "ot": o["ot"], "equipo_cod": o["equipo_cod"]}
 
     def ts(v):
         return pd.Timestamp(v) if v is not None and pd.notna(v) else None
@@ -692,6 +743,8 @@ def construir_paros_correctivos(ot_df, ss, crit, disp_by_code, lugar_to_ai):
             "tecnico": o["tecnico"] if o is not None else None,
             "estado": o["estado"] if o is not None else None,
             "ss_codigo": ", ".join(ss_codigos) if ss_codigos else None,
+            # frase de la SS que demuestra que el equipo está parado
+            "evidencia": " · ".join(dict.fromkeys(x["_evidencia"] for x in g["ss"])),
         })
     registros.sort(key=lambda x: x["inicio"] or "")
     return registros
@@ -861,7 +914,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     provoca_paro_n = int((crit["Provoca Paro?"] == "Sí").sum())
     print(f"Activos que 'Provoca Paro?' = Sí: {provoca_paro_n} de {len(crit)} en el maestro")
     estados_paro = Counter(p["estado_paro"] for p in paros)
-    print(f"Paros correctivos (desde SS/OT): {len(paros)} - " + ", ".join(
+    print(f"Paros correctivos (SS que dicen que el equipo está parado): {len(paros)} - " + ", ".join(
         f"{k}: {estados_paro.get(k, 0)}" for k in ("Fuera de servicio", "En reparación", "Finalizado")))
     horas_prog = sum(p['duracion_h'] or 0 for p in paros_programados)
     print(f"Paradas programadas (preventivo, equipos que generan paro): {len(paros_programados)} ({horas_prog:.1f} h)")

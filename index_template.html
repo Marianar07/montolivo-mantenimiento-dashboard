@@ -1294,6 +1294,7 @@ function renderResumen(el){
       {key:'ot', label:'OT'},
       {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
       {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
+      {key:'evidencia', label:'Qué dice la SS', fmt:v=> v? `<span class="wrap-text">“${esc(v)}”</span>` : '—'},
       {key:'equipo', label:'Artículo / equipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico asignado', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
@@ -1968,8 +1969,8 @@ function renderParos(el){
   }).sort((a,b)=>a.promedio-b.promedio);
 
   el.innerHTML = `
-  ${sectionTitle('Paros por equipo', `${paros.length} paros con fecha de paro en el rango seleccionado (correctivos y preventivos sobre equipos que generan paro, finalizados incluidos) — el módulo de paros del sistema aún no reporta datos propios`)}
-  <div class="callout info"><b>Cómo se mide un paro correctivo:</b> empieza cuando se reporta una <b>SS</b> sobre un equipo marcado en Mantum como "Provoca paro" (si la OT se creó sin SS, empieza en la creación de la OT). <b>Fuera de servicio</b> = reportado, todavía nadie empezó a trabajar (sin OT o sin Fecha Inicio Real). <b>En reparación</b> = la OT ya tiene Fecha Inicio Real. <b>Finalizado</b> = la OT tiene Fecha Fin Real (o la SS se cerró). Varias SS del mismo equipo abiertas a la vez, o enlazadas a la misma OT, cuentan como un solo paro. Los <b>preventivos</b> solo cuentan desde que el técnico inicia (En mantenimiento → Finalizado).</div>
+  ${sectionTitle('Paros por equipo', `${paros.length} paros con fecha de paro en el rango seleccionado (correctivos y preventivos sobre equipos que generan paro, finalizados incluidos)`)}
+  <div class="callout info"><b>Cómo se mide un paro correctivo:</b> empieza cuando se reporta una <b>SS</b> sobre un equipo marcado en Mantum como "Provoca paro" <b>y el texto de la SS dice que el equipo está parado</b> (no enciende, no funciona, no extrae, se apaga, no lava…; columna "Qué dice la SS"). Pedir un cambio de caucho, perilla o extractor, o un funcionamiento a medias ("no extrae bien", "poca llama"), no es paro. Los paros registrados en las OT de Mantum se agregarán cuando llegue su informe de paros. <b>Fuera de servicio</b> = reportado, todavía nadie empezó a trabajar (sin OT o sin Fecha Inicio Real). <b>En reparación</b> = la OT ya tiene Fecha Inicio Real. <b>Finalizado</b> = la OT tiene Fecha Fin Real (o la SS se cerró). Varias SS del mismo equipo abiertas a la vez, o enlazadas a la misma OT, cuentan como un solo paro. Los <b>preventivos</b> solo cuentan desde que el técnico inicia (En mantenimiento → Finalizado).</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total de paros del periodo', value:paros.length})}
     ${kpiCard({label:'Días promedio parado', value:fmtDiasDeHoras(promHorasParado)})}
@@ -1992,6 +1993,7 @@ function renderParos(el){
         {key:'ot', label:'OT'},
         {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
         {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
+        {key:'evidencia', label:'Qué dice la SS', fmt:v=> v? `<span class="wrap-text">“${esc(v)}”</span>` : '—'},
         {key:'equipo', label:'Equipo'},
         {key:'lugar', label:'Lugar'},
         {key:'inicio', label:'Inicio del paro', fmt:fmtDate},

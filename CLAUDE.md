@@ -173,10 +173,29 @@ Estados:
 - **Finalizado**: la OT tiene `Fecha Fin Real` (o la SS se cerró sin OT →
   su `Fecha de respuesta`). Duración = fin − inicio del paro.
 
+**Solo si la SS demuestra que el equipo está parado** (Mariana, 7-oct-2026):
+muchas SS sobre equipos que provocan paro son solo un mantenimiento de algo
+que no para el equipo (cambio de caucho, perilla, extractor…). Una SS cuenta
+como paro solo si su `Descripción` o sus `Comentarios` escritos por personas
+(sin los "Cierre automático… por la OT") traen una frase de equipo parado —
+`PARO_EVIDENCIA_RE` / `evidencia_paro_ss()` en el script: no enciende, no
+funciona, no extrae/absorbe, no está extrayendo, se apaga, fuera de servicio,
+parado, no lava / no desagua (decisión de Mariana: el horno que no lava sí es
+paro). El funcionamiento reducido **no** es paro ("no extrae bien", "poca
+llama", "no está funcionando correctamente"). La frase va en el campo
+`evidencia` y se muestra en la columna "Qué dice la SS". Si Mariana reporta
+un paro que no se detectó (o uno de más), ajustar la lista de frases.
+7-oct-2026: 8 de 46 SS sobre equipos que provocan paro (antes 51 paros).
+
+**Paros de las OT = informe de paros de Mantum** (pendiente): en Mantum el
+paro se registra en la OT y sale en un informe de paros aparte; Mariana lo va
+a descargar. Cuando llegue, integrarlo como fuente oficial de paros desde OT.
+Mientras tanto las OT correctivas sin SS **ya no** cuentan como paro (antes
+sí, arrancando en la `Fecha Creación` de la OT).
+
 Agrupación: SS enlazadas a la misma OT = un paro (arranca en la SS más
-antigua); SS abiertas sin OT del mismo equipo = un paro; SS "No aprobada" no
-son paro; OT correctivas sobre equipos que generan paro sin ninguna SS
-también son paro (arrancan en la `Fecha Creación` de la OT). El inicio nunca
+antigua con evidencia); SS abiertas sin OT del mismo equipo = un paro; SS
+"No aprobada" no son paro. El inicio nunca
 es posterior a la `Fecha Inicio Real` (hay OT registradas después de hacer
 el trabajo). El enlace SS → OT usa la columna `OTs` del export de SS (trae
 el **código** de la OT, verificado 92/92) y, de respaldo, la referencia
