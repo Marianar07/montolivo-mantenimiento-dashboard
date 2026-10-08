@@ -539,6 +539,19 @@ línea vertical en sus horas laborales del rango (mismos `tecConsiderados` y
 números de la tarjeta Técnicos), y botón "Ver detalle por semana" que abre
 `tablaHorasSemanales()` en un modal.
 
+**Bitácora de Mantum (`...ExpoDataBitacora.xlsx`) — por fuera del tablero**
+(Mariana, 8-oct-2026: "dejémosla por fuera por el momento, no sé cómo
+utilizarla"). Trae un registro por bloque de trabajo de cada técnico
+(Ejecutor, Fecha, Rango "[07:00 - 12:00]", Tiempo [h], Tipo Registro
+"OT-000123" o actividad sin OT como Capacitación, Entidad). Se probó usarla
+para el tiempo trabajado (desde 1-sep: 886 h vs. 1243 h por duración de OT;
+Juan José 127 h vs. 317 h) y para "último registro" en Ubicación del
+técnico, pero a Mariana le pareció confuso. No sirve para el "ahora": se
+registra después (mediana ~19 h, solo 47% el mismo día). La propuesta quedó
+en `git stash` ("Propuesta bitacora tecnicos"). El script no la lee; no
+integrarla sin que Mariana lo pida. Opción simple que se le ofreció: solo
+una columna "Horas en bitácora" junto a "Horas trabajadas" para comparar.
+
 **No volver a un modelo de horas uniformes por día** (p. ej. dividir 42h
 entre 6 o 7 días parejo) — el horario real no es uniforme (8h L-J, 7h V,
 3h S), y el domingo no suma al tiempo programado.
