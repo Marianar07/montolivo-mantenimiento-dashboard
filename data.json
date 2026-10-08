@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-08T08:07:25",
+  "generado": "2026-10-08T08:17:00",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -13983,21 +13983,21 @@
   ],
   "paros": [
     {
-      "id_paro": 1,
-      "ot": "000153",
-      "equipo": "ESTANTERIA DE PRODUCTOS SECOS PDV VIVA ENVIGADO",
-      "equipo_cod": "EU-0042",
-      "lugar": "ACTIVOS NO MANTENIBLES (NO CUENTAN EN TARIFA)",
-      "criticidad": "Baja",
-      "inicio": "2026-09-08T08:00:00",
-      "inicio_trabajo": null,
-      "iniciado": false,
+      "id_paro": 2,
+      "ot": "000240",
+      "equipo": "LICUADORA",
+      "equipo_cod": "LC-0035",
+      "lugar": "UNICENTRO MEDELLÍN",
+      "criticidad": "Alta",
+      "inicio": "2026-09-25T11:00:00",
+      "inicio_trabajo": "2026-09-25T07:30:00",
+      "iniciado": true,
       "fin": null,
       "duracion_h": null,
-      "estado_paro": "Fuera de servicio",
-      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, JEFFERSON ANDRES OSORIO BUSTAMANTE",
+      "estado_paro": "En reparación",
+      "tecnico": "JEFFERSON ANDRES OSORIO BUSTAMANTE",
       "estado": "Abierta",
-      "ss_codigo": null,
+      "ss_codigo": "00415",
       "tipo_ot": "Correctiva programada",
       "evidencia": "Fallo"
     }
