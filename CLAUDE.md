@@ -623,6 +623,11 @@ En el archivo de Criticidad/Disponibilidad, los activos cuya `Instalación`
 empieza con `"ANM |"` (Activos No Mantenibles) se excluyen del directorio
 de equipos del tablero — no son equipos operativos de mantenimiento.
 
+El directorio de equipos (pestaña "Equipos") muestra la columna **"Genera
+paro"** (`provoca_paro`, de `Provoca Paro?` en Datos Generales de Equipos) y
+un filtro Sí/No (pedido de Mariana, 8-oct-2026). 8-oct-2026: 175 de 2400
+activos generan paro, todos mantenibles y de criticidad Alta.
+
 ### Limitaciones de datos conocidas (comunicadas a Mariana, no ocultarlas)
 
 - El módulo de Disponibilidad del CMMS todavía muestra 100% de

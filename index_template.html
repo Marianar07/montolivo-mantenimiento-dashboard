@@ -2454,7 +2454,7 @@ function renderTecnicos(el){
 
 /* ============ TAB: Equipos ============ */
 // Filtros de la pestaña (se conservan cuando otro filtro vuelve a dibujar el tablero)
-let eqState = { mant:'mantenible', crit:'', term:'' };
+let eqState = { mant:'mantenible', crit:'', paro:'', term:'' };
 function renderDisponibilidad(el){
   const opt = (v,l,cur)=>`<option value="${v}"${v===cur?' selected':''}>${l}</option>`;
   el.innerHTML = `
@@ -2467,6 +2467,7 @@ function renderDisponibilidad(el){
       <input class="searchbox" type="text" id="eqSearch" placeholder="Buscar equipo, código o lugar..." value="${esc(eqState.term)}">
       <select id="eqMantenible">${opt('mantenible','Mantenibles',eqState.mant)}${opt('no_mantenible','No mantenibles',eqState.mant)}${opt('','Todos',eqState.mant)}</select>
       <select id="eqCrit">${opt('','Toda criticidad',eqState.crit)}${opt('Alta','Alta',eqState.crit)}${opt('Media','Media',eqState.crit)}${opt('Baja','Baja',eqState.crit)}</select>
+      <select id="eqParo">${opt('','Genera paro: todos',eqState.paro)}${opt('Sí','Genera paro: Sí',eqState.paro)}${opt('No','Genera paro: No',eqState.paro)}</select>
     </div>
     <div id="eqTableWrap"></div>
   </div>
@@ -2477,6 +2478,7 @@ function renderDisponibilidad(el){
     {key:'lugar', label:'Lugar'},
     {key:'mantenible', label:'Tipo', fmt:v=>v?'Mantenible':'No mantenible'},
     {key:'criticidad', label:'Criticidad', fmt:v=>v?`<span class="badge ${v==='Alta'?'bad':v==='Media'?'warn':'good'}">${v}</span>`:'—'},
+    {key:'provoca_paro', label:'Genera paro', fmt:v=>v==='Sí'?'<span class="badge bad">Sí</span>':(v||'—')},
     {key:'disponibilidad_pct', label:'Disponibilidad', num:true, fmt:v=>v==null ? '—' : fmtPct(v*100)}, // sin dato = activo nuevo de "Datos Generales Activos" que aún no está en Disponibilidad
   ];
   let eqPager = null;
@@ -2485,12 +2487,14 @@ function renderDisponibilidad(el){
   function refresh(){
     eqState.mant = document.getElementById('eqMantenible').value;
     eqState.crit = document.getElementById('eqCrit').value;
+    eqState.paro = document.getElementById('eqParo').value;
     eqState.term = document.getElementById('eqSearch').value;
     let rows = DATA.equipos;
     if(FILTER.lugarGlobal && FILTER.lugar) rows = rows.filter(r=>r.lugar===FILTER.lugar);
     if(eqState.mant==='mantenible') rows = rows.filter(r=>r.mantenible);
     else if(eqState.mant==='no_mantenible') rows = rows.filter(r=>!r.mantenible);
     if(eqState.crit) rows = rows.filter(r=>r.criticidad===eqState.crit);
+    if(eqState.paro) rows = rows.filter(r=>r.provoca_paro===eqState.paro);
     if(eqState.term){
       const t = eqState.term.toLowerCase();
       rows = rows.filter(r=>['codigo','equipo','lugar','criticidad'].some(k=>String(r[k]??'').toLowerCase().includes(t)));
@@ -2509,6 +2513,7 @@ function renderDisponibilidad(el){
   document.getElementById('eqSearch').addEventListener('input', refresh);
   document.getElementById('eqMantenible').addEventListener('change', refresh);
   document.getElementById('eqCrit').addEventListener('change', refresh);
+  document.getElementById('eqParo').addEventListener('change', refresh);
 }
 
 /* ============ TAB: Solicitudes de Servicio ============ */

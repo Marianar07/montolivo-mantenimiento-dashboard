@@ -662,11 +662,14 @@ def construir_equipos(disp, crit):
         instalacion = r["Instalación de Proceso"]
         mantenible = not (isinstance(instalacion, str) and instalacion.startswith("ANM"))
         criticidad = None
+        provoca_paro = None
         if r["Código"] in crit_idx.index:
             fila_crit = crit_idx.loc[r["Código"]]
             if isinstance(fila_crit, pd.DataFrame):
                 fila_crit = fila_crit.iloc[0]
             criticidad = fila_crit["Criticidad"]
+            if pd.notna(fila_crit["Provoca Paro?"]):
+                provoca_paro = str(fila_crit["Provoca Paro?"]).strip()  # "Sí" / "No"
 
         disponibilidad_pct = r["Disponibilidad [%]"]
         registros.append({
@@ -675,6 +678,7 @@ def construir_equipos(disp, crit):
             "lugar": lugar_desde_instalacion(instalacion),
             "criticidad": criticidad,
             "mantenible": mantenible,
+            "provoca_paro": provoca_paro,
             "disponibilidad_pct": None if pd.isna(disponibilidad_pct) else float(disponibilidad_pct),
             "horas_paro_correctivo": float(r["Tiempo Paro Correctivo [Horas]"]) if pd.notna(r["Tiempo Paro Correctivo [Horas]"]) else 0.0,
         })
