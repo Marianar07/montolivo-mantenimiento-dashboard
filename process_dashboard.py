@@ -25,7 +25,6 @@ conocidas del CMMS.
 
 import sys
 import re
-import unicodedata
 import json
 from pathlib import Path
 from datetime import datetime, date
@@ -124,6 +123,8 @@ def encontrar_archivos(carpeta: Path):
     proveedores_path = elegir("Datos Generales de Proveedores", proveedores_candidatos) if proveedores_candidatos else None
     activos_candidatos = buscar(["datos generales activos"])
     activos_path = elegir("Datos Generales Activos", activos_candidatos) if activos_candidatos else None
+    paros_candidatos = buscar(["paros"])
+    paros_path = elegir("Informe de paros", paros_candidatos) if paros_candidatos else None
 
     # OT y SS: de los archivos restantes, identificar por columnas propias
     # de cada export (más confiable que el nombre de archivo, que el CMMS
@@ -135,6 +136,8 @@ def encontrar_archivos(carpeta: Path):
         excluidos.add(tecnicos_path)
     if proveedores_path:
         excluidos.add(proveedores_path)
+    if paros_path:
+        excluidos.add(paros_path)  # trae "Código O.T.": no confundirlo con el export de OT
     restantes = [a for a in archivos if a not in excluidos]
     ot_candidatos = [a for a in restantes if _es_ot(a)]
     ss_candidatos = [a for a in restantes if _es_ss(a)]
@@ -142,7 +145,7 @@ def encontrar_archivos(carpeta: Path):
     ot_path = elegir("OT (Órdenes de Trabajo)", ot_candidatos)
     ss_path = elegir("SS (Solicitudes de Servicio)", [a for a in ss_candidatos if a != ot_path])
 
-    return ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path
+    return ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path
 
 
 # ============================================================
@@ -176,8 +179,8 @@ def cargar_criticidad(path):
     """'Datos Generales de Equipos.xlsx' - maestro consolidado de activos,
     hoja única 'Sheet'. Trae, entre otras, las columnas 'Código',
     'Criticidad' (Alta/Media/Baja) y 'Provoca Paro?' (Sí/No) - esta última
-    es la clasificación oficial del CMMS que usa construir_paros() para
-    decidir qué correctivos cuentan como paro (ver nota ahí)."""
+    se usa en el reporte de consola (los paros salen del informe de paros
+    de Mantum, ver cargar_paros)."""
     crit = pd.read_excel(path, sheet_name="Sheet", dtype={"Código": str})
     return crit
 
@@ -422,52 +425,6 @@ def limpiar_comentarios_ss(texto):
     return "\n".join(partes) or None
 
 
-# Frases que demuestran que el equipo está PARADO (Mariana, 7-oct-2026): una
-# SS sobre un equipo que provoca paro solo es paro si su descripción o sus
-# comentarios dicen que el equipo no se puede usar. Pedir un cambio de
-# caucho, perilla o extractor no es paro; tampoco el funcionamiento reducido
-# ("no extrae bien", "poca llama"). El horno que no lava/no desagua SÍ es paro.
-# Se busca sin tildes y en minúscula.
-PARO_EVIDENCIA_RE = [re.compile(p) for p in (
-    r"\bno (enciende|prende|funciona|sirve|arranca|calienta|enfria|congela|extrae|absorbe"
-    r"|lava|desagua|cocina|abre|cierra|gira)\b(?! bien| correctamente)",
-    r"\bno (esta|estan) (funcionando|encendiendo|prendiendo|extrayendo|calentando|enfriando"
-    r"|sirviendo|trabajando|lavando)\b(?! bien| correctamente)",
-    r"\bno (se )?deja (lavar|hacer|cocinar|usar|utilizar|prender)",
-    r"\bse apaga", r"fuera de servicio", r"\bparad[oa]\b", r"\bapagad[oa]\b",
-    r"\bsin funcionar", r"\bdejo de (funcionar|servir|enfriar|calentar)",
-    r"\bno (hay|tenemos) (gas|llama)", r"\bno podemos (trabajar|cocinar|usar)", r"\binservible",
-)]
-
-
-def _sin_tildes(texto):
-    return "".join(c for c in unicodedata.normalize("NFD", str(texto).lower())
-                   if unicodedata.category(c) != "Mn")
-
-
-def evidencia_paro_ss(r):
-    """Frase de la SS (Descripción + comentarios escritos por personas, sin los
-    cierres automáticos por OT) que demuestra que el equipo está parado, o
-    None si no hay ninguna."""
-    partes = [r["Descripción"]] if pd.notna(r["Descripción"]) else []
-    if pd.notna(r.get("Comentarios")):
-        for seg in str(r["Comentarios"]).split("SEPARADOR-COMENTARIOS"):
-            if "Cierre automático" in seg or "automática" in seg:
-                continue
-            partes.append(seg.split(" / ")[-1])
-    original = " ".join(str(p) for p in partes)
-    texto = _sin_tildes(original)
-    for rx in PARO_EVIDENCIA_RE:
-        m = rx.search(texto)
-        if m:
-            # Quitar tildes no cambia la longitud, así que la frase se
-            # devuelve tal como la escribieron.
-            if len(texto) == len(original):
-                return original[m.start():m.end()].strip().lower()
-            return m.group(0)
-    return None
-
-
 def severidad_desde_prioridad(valor):
     if pd.isna(valor):
         return None
@@ -580,8 +537,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
     de SS SÍ trae el CÓDIGO de la OT (número sin ceros a la izquierda, p.ej.
     8 -> OT 000008), no su Id interno: en las 92 SS que la traen, el equipo
     de la SS coincide con el de la OT. Un comentario anterior decía lo
-    contrario (confundía ese número con la columna Id de la OT). Los paros
-    (`construir_paros_correctivos`) usan esa columna para enlazar SS -> OT.
+    contrario (confundía ese número con la columna Id de la OT).
     """
     ot_por_ss = {r["ss_codigo"]: r["ot"] for r in ot_df.to_dict(orient="records") if r["viene_ss"]}
 
@@ -615,99 +571,50 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
 
 
 # ============================================================
-# PAROS (a partir de OT correctivas resueltas a un equipo/lugar)
+# PAROS (informe de paros de Mantum)
 # ============================================================
 
-def ot_desde_columna_ots(valor):
-    """Columna "OTs" del export de SS -> código de OT ("165.0" -> "000165")."""
-    if pd.isna(valor):
-        return None
-    try:
-        return str(int(float(str(valor).split(",")[0]))).zfill(6)
-    except ValueError:
-        return None
+def cargar_paros(path):
+    """'Datos generales de paros de equipos discriminados por O.T..xlsx' -
+    informe de paros de Mantum (hoja única 'Sheet'). Es la fuente oficial
+    de paros (Mariana, 8-oct-2026): solo cuentan los paros que aparecen
+    aquí; ya no se derivan de SS ni de OT."""
+    return pd.read_excel(path, sheet_name=0, dtype={"Código O.T.": str})
 
 
-def construir_paros_correctivos(ot_df, ss, crit, disp_by_code, lugar_to_ai):
-    """Paros correctivos (definición de Mariana, 28-sep-2026): un paro EMPIEZA
-    cuando se reporta una SS sobre un equipo marcado 'Provoca Paro?' = 'Sí'
-    en Datos Generales de Equipos, y pasa por tres estados:
-      - "Fuera de servicio": reportado, pero el trabajo no ha empezado (no
-        hay OT todavía, o la OT no tiene Fecha Inicio Real).
-      - "En reparación": la OT ya tiene Fecha Inicio Real, sin Fecha Fin Real.
-      - "Finalizado": la OT tiene Fecha Fin Real (o, si la SS se cerró sin
-        OT, su Fecha de respuesta).
-    Duración del paro = desde la SS (fecha de solicitud) hasta el fin.
-
-    Agrupación (un paro por falla, no por reporte):
-      - SS enlazadas a la misma OT (columna "OTs", o la referencia "SS-xxxxx"
-        en la Descripción de la OT) = un solo paro; arranca en la SS más
-        antigua.
-      - SS abiertas SIN OT sobre el mismo equipo = un solo paro (la misma
-        falla reportada varias veces).
-      - SS "No aprobada" no generan paro (duplicada/mal creada).
-
-    Solo cuentan las SS cuyo texto demuestra que el equipo está parado
-    (`evidencia_paro_ss`, Mariana 7-oct-2026): pedir un cambio de caucho o de
-    extractor sobre un equipo que provoca paro no es un paro. Las OT
-    correctivas sin SS ya NO cuentan como paro: los paros de las OT se
-    registran en Mantum y salen en su informe de paros (pendiente de
-    integrar al tablero).
-    """
-    provoca_paro_set = set(crit[crit["Provoca Paro?"] == "Sí"]["Código"])
+def construir_paros(paros_raw, ot_df, crit, disp_by_code, lugar_to_ai):
+    """Un registro por fila del informe de paros. Devuelve (correctivos,
+    preventivos) según el 'Tipo O.T.' de la OT del paro (Preventivo ->
+    preventivos; cualquier otro tipo -> correctivos).
+    Estado: 'Finalizado' si trae 'Fecha fin paro'; si no, 'En reparación'
+    cuando la OT ya tiene Fecha Inicio Real, o 'Fuera de servicio'."""
+    if paros_raw is None:
+        return [], []
     crit_map = crit.drop_duplicates("Código").set_index("Código")["Criticidad"]
     ot_idx = {r["ot"]: r for r in ot_df.to_dict(orient="records")}
-    ot_por_ss_desc = {r["ss_codigo"]: r["ot"] for r in ot_idx.values() if r["viene_ss"]}
-
-    grupos = {}  # clave -> {"ss": [filas SS], "ot": código OT o None, "equipo_cod": ...}
-    for _, r in ss.iterrows():
-        entidad = r["Entidad"]
-        if pd.isna(entidad) or "|" not in str(entidad):
-            continue
-        cod = str(entidad).split("|", 1)[0].strip()
-        if cod not in provoca_paro_set or r["Estado"] == "No aprobada":
-            continue
-        evidencia = evidencia_paro_ss(r)
-        if not evidencia:
-            continue
-        r = r.copy()
-        r["_evidencia"] = evidencia
-        ot_cod = ot_desde_columna_ots(r["OTs"]) or ot_por_ss_desc.get(r["Código"])
-        if ot_cod not in ot_idx:
-            ot_cod = None
-        if ot_cod:
-            clave = ("ot", ot_cod)
-        elif pd.isna(r["Fecha de respuesta"]):
-            clave = ("equipo_abierto", cod)
-        else:
-            clave = ("ss", r["Código"])
-        g = grupos.setdefault(clave, {"ss": [], "ot": ot_cod, "equipo_cod": cod})
-        g["ss"].append(r)
 
     def ts(v):
         return pd.Timestamp(v) if v is not None and pd.notna(v) else None
 
-    registros = []
-    for g in grupos.values():
-        o = ot_idx.get(g["ot"]) if g["ot"] else None
-        inicio_trabajo = ts(o["inicio_real"]) if o is not None else None
-        # El paro arranca en la SS más antigua; si no hay SS, en la creación
-        # de la OT. Si el trabajo empezó antes (OT registrada después de
-        # hacerlo), se toma esa fecha para no dar duraciones negativas.
-        candidatos = [ts(x["Fecha de solicitud"]) for x in g["ss"]]
-        if not any(candidatos) and o is not None:
-            candidatos = [ts(o["fecha_creacion"])]
-        candidatos = [c for c in candidatos + [inicio_trabajo] if c is not None]
-        if not candidatos:
+    correctivos, preventivos = [], []
+    for _, r in paros_raw.iterrows():
+        entidad = r["Equipo"]
+        if pd.isna(entidad):
             continue
-        inicio = min(candidatos)
-
-        if o is not None:
-            fin = ts(o["fin_real"])
+        if "|" in str(entidad):
+            cod, nombre = [p.strip() for p in str(entidad).split("|", 1)]
         else:
-            respuestas = [x["Fecha de respuesta"] for x in g["ss"]]
-            fin = max(respuestas) if respuestas and all(pd.notna(x) for x in respuestas) else None
+            cod, nombre = str(entidad).strip(), str(entidad).strip()
+        _, equipo, lugar, _ = resolver_equipo(cod, entidad, disp_by_code, lugar_to_ai)
 
+        ot_cod = r.get("Código O.T.")
+        ot_cod = str(ot_cod).strip().zfill(6) if pd.notna(ot_cod) and str(ot_cod).strip() else None
+        o = ot_idx.get(ot_cod)
+        if lugar is None and o is not None:
+            lugar = o["lugar"]
+
+        inicio, fin = ts(r["Fecha inicio paro"]), ts(r["Fecha fin paro"])
+        inicio_trabajo = ts(o["inicio_real"]) if o is not None else ts(r.get("Fecha incio O.T."))
         if fin is not None:
             estado_paro = "Finalizado"
         elif inicio_trabajo is not None:
@@ -715,107 +622,32 @@ def construir_paros_correctivos(ot_df, ss, crit, disp_by_code, lugar_to_ai):
         else:
             estado_paro = "Fuera de servicio"
 
-        if o is not None and o["equipo_cod"] == g["equipo_cod"]:
-            equipo, lugar, criticidad = o["equipo"], o["lugar"], o["criticidad"]
-        else:
-            fila = g["ss"][0]
-            _, equipo, lugar, _ = resolver_equipo(g["equipo_cod"], fila["Entidad"], disp_by_code, lugar_to_ai)
-            if equipo is None:
-                equipo = str(fila["Entidad"]).split("|", 1)[1].strip()
-            criticidad = crit_map.get(g["equipo_cod"])
-
-        dur = round((fin - inicio).total_seconds() / 3600, 2) if fin is not None else None
-        ss_codigos = sorted(str(x["Código"]).zfill(5) for x in g["ss"])
-        if not ss_codigos and o is not None and o["viene_ss"]:
-            ss_codigos = [o["ss_codigo"]]
-        registros.append({
-            "ot": g["ot"],
-            "equipo": equipo,
-            "equipo_cod": g["equipo_cod"],
+        motivo = " · ".join(str(x) for x in (r.get("Parado por"), r.get("Tipo paro"), r.get("Descripción"))
+                            if pd.notna(x) and str(x).strip())
+        registro = {
+            "id_paro": int(r["Id"]) if pd.notna(r.get("Id")) else None,
+            "ot": ot_cod,
+            "equipo": equipo or nombre,
+            "equipo_cod": cod,
             "lugar": lugar,
-            "criticidad": criticidad,
-            "inicio": a_iso(inicio),                  # inicio del paro (SS)
-            "inicio_trabajo": a_iso(inicio_trabajo),  # Fecha Inicio Real de la OT
+            "criticidad": crit_map.get(cod),
+            "inicio": a_iso(inicio),
+            "inicio_trabajo": a_iso(inicio_trabajo),
             "iniciado": inicio_trabajo is not None,
             "fin": a_iso(fin),
-            "duracion_h": dur,
+            "duracion_h": round((fin - inicio).total_seconds() / 3600, 2) if fin is not None and inicio is not None else None,
             "estado_paro": estado_paro,
             "tecnico": o["tecnico"] if o is not None else None,
             "estado": o["estado"] if o is not None else None,
-            "ss_codigo": ", ".join(ss_codigos) if ss_codigos else None,
-            # frase de la SS que demuestra que el equipo está parado
-            "evidencia": " · ".join(dict.fromkeys(x["_evidencia"] for x in g["ss"])),
-        })
-    registros.sort(key=lambda x: x["inicio"] or "")
-    return registros
-
-
-def construir_paros(ot_df, ot_raw, crit, tipo="Correctivo", solo_iniciadas=False):
-    """Una OT cuenta como paro (o parada programada, si tipo='Preventivo')
-    solo si su equipo_cod resuelto está marcado 'Provoca Paro?' = 'Sí' en
-    'Datos Generales de Equipos.xlsx' - la clasificación oficial del CMMS
-    (columna propia del maestro de activos, cargado en `crit`). Ya NO se usa
-    la marca ANM ni el prefijo AI- para esta decisión (esos criterios eran
-    una aproximación de cuando no existía esta columna; ver CLAUDE.md).
-
-    tipo="Correctivo" (default) -> paros reales no programados. Un
-    correctivo SÍ cuenta como paro aunque todavía no tenga Fecha Inicio Real
-    (queda como "pendiente de iniciar") porque el equipo ya está averiado y
-    fuera de servicio esperando técnico.
-
-    tipo="Preventivo" -> paradas programadas (mismo filtro de equipo, para
-    el mantenimiento planeado sobre equipos que sí generan paro). A
-    diferencia del correctivo, un preventivo NO es una parada real hasta que
-    el técnico efectivamente empieza (Fecha Inicio Real) - antes de eso el
-    equipo sigue funcionando normalmente, solo hay una visita programada.
-    Por eso se llama con solo_iniciadas=True."""
-    provoca_paro_set = set(crit[crit["Provoca Paro?"] == "Sí"]["Código"])
-
-    ot_raw_idx = ot_raw.set_index("Código O.T.")
-    condicion = (
-        (ot_df["tipo"] == tipo)
-        & (ot_df["equipo_cod"].isin(provoca_paro_set))
-    )
-    if solo_iniciadas:
-        condicion = condicion & ot_df["inicio_real"].notna()
-    # ot_df ya viene consolidado a una fila por OT (ver construir_ot), así que
-    # cada OT cuenta como un solo paro.
-    filtradas = ot_df[condicion]
-
-    registros = []
-    for _, r in filtradas.iterrows():
-        fila_raw = ot_raw_idx.loc[r["ot"]]
-        if isinstance(fila_raw, pd.DataFrame):
-            fila_raw = fila_raw.iloc[0]
-
-        inicio_real = fila_raw["Fecha Inicio Real"]
-        inicio_prog = fila_raw["Fecha Inicio Programado"]
-        fin_real = fila_raw["Fecha Fin Real"]
-
-        iniciado = pd.notna(inicio_real)
-        inicio_efectivo = inicio_real if iniciado else inicio_prog
-
-        dur = None
-        if iniciado and pd.notna(fin_real):
-            dur = round((fin_real - inicio_real).total_seconds() / 3600, 2)
-
-        registros.append({
-            "ot": r["ot"],
-            "equipo": r["equipo"],
-            "equipo_cod": r["equipo_cod"],
-            "lugar": r["lugar"],
-            "criticidad": r["criticidad"],
-            "inicio": a_iso(inicio_efectivo),
-            "iniciado": bool(iniciado),
-            "fin": a_iso(fin_real),
-            "duracion_h": dur,
-            "tecnico": r["tecnico"],
-            "estado": r["estado"],
-            "ss_codigo": r["ss_codigo"] if r["viene_ss"] else None,
-            "estado_paro": ("Finalizado" if pd.notna(fin_real)
-                            else "En mantenimiento" if iniciado else "Programado"),
-        })
-    return registros
+            "ss_codigo": o["ss_codigo"] if o is not None and o["viene_ss"] else None,
+            "tipo_ot": r.get("Tipo O.T.") if pd.notna(r.get("Tipo O.T.")) else None,
+            # motivo registrado en Mantum (Parado por / Tipo paro / Descripción)
+            "evidencia": motivo or None,
+        }
+        (preventivos if registro["tipo_ot"] == "Preventivo" else correctivos).append(registro)
+    correctivos.sort(key=lambda x: x["inicio"] or "")
+    preventivos.sort(key=lambda x: x["inicio"] or "")
+    return correctivos, preventivos
 
 
 # ============================================================
@@ -857,7 +689,7 @@ def construir_criticidad_totales(crit):
 # ENSAMBLAJE FINAL
 # ============================================================
 
-def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None, proveedores_path=None, activos_path=None):
+def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None, proveedores_path=None, activos_path=None, paros_path=None):
     ot_raw = cargar_ot(ot_path)
     ss_raw = cargar_ss(ss_path)
     disp, periodo_texto = cargar_disponibilidad(disp_path)
@@ -875,8 +707,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
-    paros = construir_paros_correctivos(ot_df, ss_raw, crit, disp_by_code, lugar_to_ai)
-    paros_programados = construir_paros(ot_df, ot_raw, crit, tipo="Preventivo", solo_iniciadas=True)
+    paros_raw = cargar_paros(paros_path) if paros_path else None
+    paros, paros_programados = construir_paros(paros_raw, ot_df, crit, disp_by_code, lugar_to_ai)
     equipos, total_maestro = construir_equipos(disp, crit)
     criticidad_totales = construir_criticidad_totales(crit)
 
@@ -913,11 +745,11 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     print(f"SS procesadas: {len(ss_df)}")
     provoca_paro_n = int((crit["Provoca Paro?"] == "Sí").sum())
     print(f"Activos que 'Provoca Paro?' = Sí: {provoca_paro_n} de {len(crit)} en el maestro")
-    estados_paro = Counter(p["estado_paro"] for p in paros)
-    print(f"Paros correctivos (SS que dicen que el equipo está parado): {len(paros)} - " + ", ".join(
+    estados_paro = Counter(p["estado_paro"] for p in paros + paros_programados)
+    print(f"Paros (informe de paros de Mantum): {len(paros)} correctivos, {len(paros_programados)} preventivos - " + ", ".join(
         f"{k}: {estados_paro.get(k, 0)}" for k in ("Fuera de servicio", "En reparación", "Finalizado")))
-    horas_prog = sum(p['duracion_h'] or 0 for p in paros_programados)
-    print(f"Paradas programadas (preventivo, equipos que generan paro): {len(paros_programados)} ({horas_prog:.1f} h)")
+    for p in paros + paros_programados:
+        print(f"   paro: OT {p['ot']} | {p['equipo_cod']} | {p['equipo']} | {p['lugar']} | {p['inicio']} -> {p['fin'] or 'sin fin'}")
     mantenibles = sum(1 for e in equipos if e["mantenible"])
     print(f"Equipos en directorio: {len(equipos)} de {total_maestro} en el maestro ({mantenibles} mantenibles, {len(equipos)-mantenibles} no mantenibles)")
     print(f"Criticidad: {criticidad_totales}")
@@ -981,6 +813,7 @@ def main():
         tecnicos_path = None
         proveedores_path = None
         activos_path = None
+        paros_path = None
         for carpeta in (CARPETA_DATOS, CARPETA_BASE):
             candidatos_act = [a for a in carpeta.glob("*.xlsx") if "datos generales activos" in a.name.lower()]
             if candidatos_act and activos_path is None:
@@ -991,9 +824,12 @@ def main():
             candidatos_prov = [a for a in carpeta.glob("*.xlsx") if "proveedores" in a.name.lower()]
             if candidatos_prov and proveedores_path is None:
                 proveedores_path = sorted(candidatos_prov, key=lambda a: a.stat().st_mtime, reverse=True)[0]
+            candidatos_paros = [a for a in carpeta.glob("*.xlsx") if "paros" in a.name.lower()]
+            if candidatos_paros and paros_path is None:
+                paros_path = sorted(candidatos_paros, key=lambda a: a.stat().st_mtime, reverse=True)[0]
     else:
         carpeta = CARPETA_DATOS if any(CARPETA_DATOS.glob("*.xlsx")) else CARPETA_BASE
-        ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path = encontrar_archivos(carpeta)
+        ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path = encontrar_archivos(carpeta)
 
     print(f"OT:           {ot_path.name}")
     print(f"SS:           {ss_path.name}")
@@ -1008,9 +844,13 @@ def main():
         print(f"Proveedores:  {proveedores_path.name}")
     else:
         print("Proveedores:  no encontrado (Datos Generales de Proveedores.xlsx) - se omite el aviso de cruce")
+    if paros_path:
+        print(f"Paros:        {paros_path.name}")
+    else:
+        print("Paros:        no encontrado (informe de paros de Mantum) - el tablero no mostrará paros")
     print()
 
-    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path)
+    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path)
     data = limpiar_nan(data)
 
     SALIDA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")

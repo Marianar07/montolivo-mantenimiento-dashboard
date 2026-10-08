@@ -137,74 +137,28 @@ directo** — se pierde la mayoría de la cobertura.
 
 ### Paros por equipo
 
-Un "paro" es una OT de tipo Correctivo cuyo equipo (`equipo_cod`, ya resuelto
-con la lógica de la sección anterior) está marcado `Provoca Paro?` = `"Sí"`
-en **`Datos Generales de Equipos.xlsx`** (el maestro de activos que también
-trae la `Criticidad`, ver arriba). Es la clasificación oficial del CMMS
-sobre qué activos, al fallar, generan un paro real de operación —
-`construir_paros()` arma este set directamente desde el dataframe de
-criticidad ya cargado (`crit`), sin necesitar un archivo aparte.
+**Fuente única: informe de paros de Mantum** (Mariana, 8-oct-2026: "solo
+dejar los que realmente aparecen marcados como paros en el nuevo archivo").
+Archivo `Datos generales de paros de equipos discriminados por O.T..xlsx`
+(nombre contiene "paros"; opcional — si no está, el tablero no muestra
+paros). Columnas: `Id`, `Equipo` ("CÓDIGO | NOMBRE"), `Fecha inicio paro`,
+`Fecha fin paro`, `Duración`, `Descripción`, `Parado por`, `Tipo paro`,
+`Código O.T.`, `Tipo O.T.`, etc. `cargar_paros()` / `construir_paros()`:
+un paro por fila; `Tipo O.T.` = Preventivo → `paros_programados`, el resto →
+`paros`. Estado: **Finalizado** si trae `Fecha fin paro`; si no, **En
+reparación** si la OT tiene `Fecha Inicio Real`, si no **Fuera de
+servicio**. La columna "Motivo (Mantum)" = Parado por · Tipo paro ·
+Descripción. Ojo: este archivo trae "Código O.T." — `encontrar_archivos()`
+lo excluye para no confundirlo con el export de OT. 8-oct-2026: 1 paro
+(EU-0042, OT 000153, desde 8-sep, sin fecha de fin).
 
-**Historial:** antes de tener la columna `Provoca Paro?`, el criterio era
-una aproximación: contaba como paro cualquier correctivo cuyo equipo/lugar
-se hubiera podido resolver (`equipo_especifico` o `instalacion_pdv`, ver
-sección anterior) — usando de forma indirecta la marca de activos "no
-mantenibles" ANM y el prefijo `AI-` de los activos sustitutos de punto de
-venta. Ese proxy sobrestimaba los paros: los activos `AI-xxxx |
-ADECUACIÓN E INSTALACIÓN <lugar>` (los sustitutos que se usan solo para
-poder ubicar equipo/lugar cuando la OT referencia el punto de venta, no un
-equipo puntual — ver sección anterior) casi todos están marcados `"No"` en
-`Provoca Paro?`, porque no son equipos reales. **No volver a ese criterio
-(ANM/`AI-`) para decidir qué es un paro** — usar siempre `Provoca Paro?`.
-(La marca ANM se sigue usando, sin relación con esto, para excluir activos
-del directorio de equipos en la pestaña "Equipos" — ver más abajo.)
-
-El sistema CMMS todavía no tiene un módulo de paros propio con datos
-reales — este indicador sigue siendo un cálculo derivado, no un reporte
-nativo.
-
-**Paros correctivos arrancan en la SS** (definición de Mariana, 28-sep-2026,
-`construir_paros_correctivos()`): un paro empieza cuando se reporta una SS
-sobre un equipo con `Provoca Paro?` = "Sí" (código de la `Entidad` de la SS).
-Estados:
-- **Fuera de servicio**: reportado, nadie ha empezado a trabajar (la SS no
-  tiene OT todavía, o la OT no tiene `Fecha Inicio Real`).
-- **En reparación**: la OT tiene `Fecha Inicio Real` y no `Fecha Fin Real`.
-- **Finalizado**: la OT tiene `Fecha Fin Real` (o la SS se cerró sin OT →
-  su `Fecha de respuesta`). Duración = fin − inicio del paro.
-
-**Solo si la SS demuestra que el equipo está parado** (Mariana, 7-oct-2026):
-muchas SS sobre equipos que provocan paro son solo un mantenimiento de algo
-que no para el equipo (cambio de caucho, perilla, extractor…). Una SS cuenta
-como paro solo si su `Descripción` o sus `Comentarios` escritos por personas
-(sin los "Cierre automático… por la OT") traen una frase de equipo parado —
-`PARO_EVIDENCIA_RE` / `evidencia_paro_ss()` en el script: no enciende, no
-funciona, no extrae/absorbe, no está extrayendo, se apaga, fuera de servicio,
-parado, no lava / no desagua (decisión de Mariana: el horno que no lava sí es
-paro). El funcionamiento reducido **no** es paro ("no extrae bien", "poca
-llama", "no está funcionando correctamente"). La frase va en el campo
-`evidencia` y se muestra en la columna "Qué dice la SS". Si Mariana reporta
-un paro que no se detectó (o uno de más), ajustar la lista de frases.
-7-oct-2026: 8 de 46 SS sobre equipos que provocan paro (antes 51 paros).
-
-**Paros de las OT = informe de paros de Mantum** (pendiente): en Mantum el
-paro se registra en la OT y sale en un informe de paros aparte; Mariana lo va
-a descargar. Cuando llegue, integrarlo como fuente oficial de paros desde OT.
-Mientras tanto las OT correctivas sin SS **ya no** cuentan como paro (antes
-sí, arrancando en la `Fecha Creación` de la OT).
-
-Agrupación: SS enlazadas a la misma OT = un paro (arranca en la SS más
-antigua con evidencia); SS abiertas sin OT del mismo equipo = un paro; SS
-"No aprobada" no son paro. El inicio nunca
-es posterior a la `Fecha Inicio Real` (hay OT registradas después de hacer
-el trabajo). El enlace SS → OT usa la columna `OTs` del export de SS (trae
-el **código** de la OT, verificado 92/92) y, de respaldo, la referencia
-"SS-xxxxx" en la Descripción de la OT.
-
-**Preventivos** (`paros_programados`, `construir_paros(..., tipo="Preventivo",
-solo_iniciadas=True)`): solo cuentan desde que el técnico inicia — estados
-"En mantenimiento" → "Finalizado". El estado lo calcula el script en
-`estado_paro`; el tablero lo pinta con `badgeEstadoParo()`.
+**Historial (ya no se usa, no volver sin que Mariana lo pida):** antes los
+paros se derivaban — correctivos desde SS sobre equipos con `Provoca Paro?`
+= "Sí" cuyo texto decía que el equipo estaba parado (`PARO_EVIDENCIA_RE`),
+y preventivos desde OT preventivas iniciadas sobre esos equipos (7-oct-2026:
+8 correctivos, 44 preventivos). Antes aún, cualquier correctivo resuelto a
+equipo/lugar (proxy ANM/`AI-`, sobrestimaba). Ese código se quitó del
+script; está en el historial de git (commit 239f1fd y anteriores).
 
 En el Resumen, la tarjeta "Paros en el periodo" tiene tres filas
 (pedido de Mariana): **Correctivos** y **Preventivos** (solo cantidad y
