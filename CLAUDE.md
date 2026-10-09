@@ -597,6 +597,13 @@ técnicos internos: su trabajo pasado se muestra en "Capacidad y ocupación"
 el conteo "Técnicos en sitio / programados" del Resumen
 (`tecnicosInternosList()` los excluye).
 
+**Técnicos ocultos** (`TECNICOS_OCULTOS` en `process_dashboard.py` →
+`DATA.tecnicos_ocultos`): Mariana, 9-oct-2026, pidió no mostrar más a
+Oscar Darío Castañeda (inactivo) en ninguna parte — tarjeta y gráfica de
+Técnicos del Resumen, "Tiempos por técnico", "Capacidad y ocupación" ni la
+gráfica semanal. `calcularCapacidadTecnicos()` los quita de `capRows`. Siguen
+siendo internos: sus OT no pasan a proveedores.
+
 **No usar "no está en TECNICOS.xlsx" como sinónimo de "proveedor"** — esa
 fue la definición vieja de "tercero" (una sola tabla); ahora hay que
 distinguir proveedor registrado vs. "otro" usando también el maestro de

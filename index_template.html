@@ -2215,7 +2215,10 @@ function calcularCapacidadTecnicos(){
     // Sin tope, un técnico puede pasar lo programado: libres no baja de 0.
     return {tecnico, ot:c.ot, horasDisp:horasDisponibles, horasTrab:c.horas, ocupacion, libres:Math.max(0, horasDisponibles-c.horas), otsList};
   });
-  const capRows = capRowsAll.filter(r=>esInterno(r.tecnico)).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
+  // DATA.tecnicos_ocultos (p. ej. Oscar): internos que no se muestran en
+  // ninguna tabla ni gráfica de técnicos.
+  const ocultos = new Set(DATA.tecnicos_ocultos || []);
+  const capRows = capRowsAll.filter(r=>esInterno(r.tecnico) && !ocultos.has(r.tecnico)).sort((a,b)=>(b.ocupacion||0)-(a.ocupacion||0));
   // Sin tabla "Otros" (pedido de Mariana): todo ejecutor no interno va en
   // "Servicios de proveedores"; si no está en el maestro de proveedores ni en
   // PROVEEDORES_EXTRA se marca "No registrado".

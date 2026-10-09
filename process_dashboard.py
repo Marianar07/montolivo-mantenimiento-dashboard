@@ -278,6 +278,12 @@ ALIAS_TECNICOS = {
 }
 
 
+# Técnicos internos que no se muestran en el tablero (Mariana, 9-oct-2026:
+# Oscar ya no se muestra en el Resumen, "Tiempos por técnico" ni "Capacidad
+# y ocupación"). Siguen siendo internos: sus OT no pasan a proveedores.
+TECNICOS_OCULTOS = ["OSCAR DARIO CASTAÑEDA GARAY"]
+
+
 def cargar_tecnicos(path):
     """TECNICOS.xlsx - maestro de técnicos internos (planta), hoja única,
     columnas NOMBRE/CEDULA/CIUDAD. Un técnico que aparece en el campo
@@ -737,6 +743,9 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
         # TECNICOS.xlsx (ya no trabajan en la compañía): no aparecen en
         # "Ubicación del técnico" ni en el conteo de técnicos en sitio.
         "tecnicos_inactivos": tecnicos_inactivos,
+        # internos que el tablero no muestra en ninguna tabla/gráfica de
+        # técnicos (ver TECNICOS_OCULTOS).
+        "tecnicos_ocultos": TECNICOS_OCULTOS,
         # maestro de proveedores (Datos Generales de Proveedores.xlsx), solo
         # de referencia - no se usa para clasificar terceros (ver
         # cargar_proveedores). None si el archivo no se encontró.
