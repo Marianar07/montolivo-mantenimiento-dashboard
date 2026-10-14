@@ -1526,7 +1526,11 @@ function normBusqueda(t){ return String(t??'').normalize('NFD').replace(/[\u0300
 // todo listado de OT o SS (filas con campo `comentarios`). OT = Realimentación
 // del CMMS; SS = historial de estados de la columna "Comentarios".
 const colComentarios = {key:'comentarios', label:'Comentarios', fmt:v=>v?`<div class="celda-comentario">${esc(v)}</div>`:'—'};
+// Columna "Descripción" (pedido de Mariana, 14-oct-2026): se agrega sola a
+// todo listado de OT (filas con `ot` y `descripcion`), antes de Comentarios.
+const colDescripcionOT = {key:'descripcion', label:'Descripción', fmt:v=>v?`<div class="celda-comentario">${esc(v)}</div>`:'—'};
 function modalFiltrable(titulo, rows, cols, opts={}){
+  if(rows.some(r=>'ot' in r && 'descripcion' in r) && !cols.some(c=>c.key==='descripcion')) cols = [...cols, colDescripcionOT];
   if(rows.some(r=>'comentarios' in r) && !cols.some(c=>c.key==='comentarios')) cols = [...cols, colComentarios];
   const filtros = (opts.filtros || [['tipo','Tipo'],['estado','Estado'],['severidad','Severidad'],['lugar','Lugar']])
     .map(([k,l])=>({k, l, vals:[...new Set(rows.map(r=>r[k]).filter(v=>v!=null && v!==''))].sort((a,b)=>String(a).localeCompare(String(b)))}))
@@ -1889,6 +1893,7 @@ function renderOT(el){
     {key:'equipo', label:'Equipo'},
     {key:'tecnico', label:'Técnico', fmt:shortTecnico},
     {key:'costo_real', label:'Costo', num:true, fmt:fmtMoney},
+    colDescripcionOT,
     {key:'comentarios', label:'Comentarios'},
   ];
   function currentFiltered(){

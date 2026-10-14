@@ -317,6 +317,12 @@ O.T.` (`estado==='Abierta'`).
   SS = columna `Comentarios` del export (historial "Estado / Persona /
   fecha / texto", más reciente primero, un renglón por cambio;
   `limpiar_comentarios_ss()` parte por "SEPARADOR-COMENTARIOS").
+- **Columna Descripción en OT** (pedido de Mariana, 14-oct-2026): la
+  `Descripción` de la OT (`limpiar_descripcion_ot()`: entidad, actividad y,
+  si viene de una SS, su texto) va antes de Comentarios en todos los
+  listados de OT: `modalFiltrable()` la agrega sola a filas con `ot` y
+  `descripcion` (`colDescripcionOT`), y está en las tablas de la pestaña
+  Órdenes de Trabajo (completa y de proveedores).
 - **Costo total mantenimiento** es clicable → tabla de costo por lugar (OT,
   correctivo, preventivo, correctiva programada, total y % del total), con
   buscador; respeta el filtro de fechas/lugar como el resto del Resumen.

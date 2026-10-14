@@ -424,6 +424,17 @@ def limpiar_comentarios(texto):
 # La columna "Comentarios" del export de SS trae el historial de estados
 # ("Estado / Persona / fecha / texto"), más reciente primero, separados por
 # el texto literal "SEPARADOR-COMENTARIOS" -> uno por línea.
+# Descripción de la OT (pedido de Mariana, 14-oct-2026: se muestra en todos
+# los listados de OT). Trae "Entidad a intervenir / Actividad de
+# mantenimiento incluida / SS-xxxxx ..." con espacios y saltos de sobra.
+def limpiar_descripcion_ot(texto):
+    if pd.isna(texto):
+        return None
+    lineas = [l.strip() for l in str(texto).splitlines()]
+    limpio = re.sub(r"\n{3,}", "\n\n", "\n".join(lineas)).strip()
+    return limpio or None
+
+
 def limpiar_comentarios_ss(texto):
     if pd.isna(texto):
         return None
@@ -508,6 +519,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "criticidad": criticidad,
             "tecnico": None if pd.isna(r["Ejecutores"]) else str(r["Ejecutores"]),
             "costo_real": float(costo_real),
+            "descripcion": limpiar_descripcion_ot(r["Descripción"]),
             "comentarios": limpiar_comentarios(r["Realimentación"]),
             "_tipo_match": tipo_match,  # uso interno para construir "paros", no va al tablero
             "_actividad": r.get("Actividades"),  # uso interno: consolidar el costo por actividad
