@@ -1322,6 +1322,7 @@ function renderResumen(el){
   const colsCostoOT = [
     {key:'ot', label:'O.T.'},
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+    {key:'severidad', label:'Sev.', fmt:v=>esc(v??'—')},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
     {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
@@ -1425,6 +1426,7 @@ function renderResumen(el){
   const colsListadoOT = extra => [
     {key:'ot', label:'O.T.'},
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+    {key:'severidad', label:'Sev.', fmt:v=>esc(v??'—')},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
     {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},

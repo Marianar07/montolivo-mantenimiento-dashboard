@@ -298,8 +298,8 @@ O.T.` (`estado==='Abierta'`).
   162 de 244 el 29-sep-2026.)
 - **OT de proveedores**: OT con algún ejecutor proveedor (`esOTProveedor`,
   incluye `PROVEEDORES_EXTRA`), con tipo y filas **Abiertas** / **Cerradas**
-  clicables → listado con columna Proveedor (Mariana quitó las filas por
-  nombre de proveedor).
+  clicables → listado con columnas Proveedor y Severidad (Mariana quitó
+  las filas por nombre de proveedor; Severidad la pidió el 14-oct-2026).
 - **OT sin técnico asignado**: OT con `Ejecutores` vacío; clic → listado.
 - **Costos** (pedido de Mariana): las tarjetas de OT **no** muestran costo
   (se quitó); el costo va solo en los listados: todos los de este bloque
