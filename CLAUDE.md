@@ -190,6 +190,10 @@ tomar un solo costo por OT. Además trae una fila por cada **recurso**
 asignado, repitiendo el `Total Real` de la actividad (OT 000040 = 39 filas
 de $24.318,47): se toma un solo valor por (OT, actividad) antes de sumar.
 Con esa corrección (6-oct-2026) el costo total bajó de $23,1 M a $17,8 M.
+14-oct-2026: al cerrarse, la OT 000040 pasó a `Total Real` = $15.187.886
+(39 repuestos asignados) y el costo total subió de $26,6 M a $41,8 M.
+Mariana confirmó subirlo así: es el valor que reporta Mantum, no un error
+del tablero.
 
 ### Enlace SS -> OT
 
