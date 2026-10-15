@@ -391,7 +391,10 @@ Programados / Sin asignación (mismas categorías de "Ubicación del técnico",
 hora** (Mariana, 7-oct-2026: los datos se actualizan una vez al día): basta
 con que el día de referencia esté entre el día de Inicio Programado y el de
 Fin Programado de una OT sin iniciar; si tiene varias ese día se listan
-todas. "En sitio" sigue siendo OT con inicio real y sin fin real. Además (pedido de Mariana): **Tiempo programado (h)** (antes "Horas legales") = horas hábiles del rango (42 h/semana,
+todas. "En sitio" sigue siendo OT con inicio real y sin fin real. Cuentan
+OT de **cualquier tipo** (15-oct-2026: antes solo Correctivo/Preventivo, y
+la 000393 "Correctiva programada, Sistemática" dejaba a Alejandro sin
+asignación). Además (pedido de Mariana): **Tiempo programado (h)** (antes "Horas legales") = horas hábiles del rango (42 h/semana,
 `horasDisponiblesRango`) × técnicos considerados (internos activos + los
 inactivos que trabajaron en el rango); **Tiempo trabajado (h)** = suma de la
 duración real de las OT, sin tope; **Ocupación** = trabajado / programado. Sale de

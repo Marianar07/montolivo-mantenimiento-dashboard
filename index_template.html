@@ -2132,9 +2132,10 @@ function calcularUbicacionTecnicos(referencia){
   const diaRef = diaDe(ahora);
   const ESTADO_PRIORIDAD = {conflicto:0, en_sitio:1, programado:2, sin_asignacion:3};
   const rows = tecnicosInternosList().map(tecnico=>{
-    const otsTec = DATA.ot.filter(r=>
-      (r.tipo==='Correctivo' || r.tipo==='Preventivo') && splitTecnicos(r.tecnico).includes(tecnico)
-    );
+    // Todas las OT, sin filtrar por tipo: antes solo contaban Correctivo y
+    // Preventivo, y una OT "Correctiva programada, Sistemática" (000393,
+    // 15-oct-2026) dejaba a Alejandro como sin asignación.
+    const otsTec = DATA.ot.filter(r=> splitTecnicos(r.tecnico).includes(tecnico));
     const abiertas = otsTec.filter(r=>
       r.inicio_real && new Date(r.inicio_real).getTime() <= ahoraMs &&
       (!r.fin_real || new Date(r.fin_real).getTime() > ahoraMs)
