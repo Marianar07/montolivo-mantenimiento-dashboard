@@ -451,6 +451,18 @@ __DATA_JSON__
 
 <script>
 const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+// Tipos de OT con el nombre de Mantum (Mariana, 16-oct-2026): ya no se
+// traducen a "Correctivo"/"Preventivo". Estos dos son los grupos que antes
+// se llamaban así (cumplimiento, costos, colores de las gráficas).
+const TIPO_CORR = 'Correctiva programada';
+const TIPO_PREV = 'Sistemática';
+// Opciones de los filtros de tipo: todos los tipos presentes, los dos
+// principales primero.
+function tipoOptionsOT(){
+  const cnt = {}; DATA.ot.forEach(r=>{ const t=r.tipo||'Sin tipo'; cnt[t]=(cnt[t]||0)+1; });
+  const ord = t => t===TIPO_CORR?0 : t===TIPO_PREV?1 : 2;
+  return Object.keys(cnt).sort((a,b)=>ord(a)-ord(b) || cnt[b]-cnt[a]).map(t=>`<option>${esc(t)}</option>`).join('');
+}
 
 /* ============ Helpers ============ */
 function parseD(s){ return s ? new Date(s) : null; }
@@ -980,8 +992,8 @@ function buildPagedTable(containerId, allRows, columns, opts={}){
 /* ============ TAB: Resumen Gerencial ============ */
 function renderResumen(el){
   const ot = getFilteredOT();
-  const correctivas = ot.filter(r=>r.tipo==='Correctivo');
-  const preventivas = ot.filter(r=>r.tipo==='Preventivo');
+  const correctivas = ot.filter(r=>r.tipo===TIPO_CORR);
+  const preventivas = ot.filter(r=>r.tipo===TIPO_PREV);
 
   const cerradasPrev = preventivas.filter(r=>r.estado==='Cerrada');
   const cumplidasPrev = cerradasPrev.filter(r=> r.fin_real && r.fin_programado && new Date(r.fin_real) <= new Date(r.fin_programado));
@@ -1039,8 +1051,8 @@ function renderResumen(el){
   const tiposHtml = rows => {
     // Se agrupa por el nombre corto (antes de la coma) para que
     // "Correctiva" y "Correctiva, Correctiva programada" no salgan repetidos.
-    const c = groupCount(rows, r=>tipoCorto(r.tipo));
-    const orden = t => t==='Correctivo'?0 : t==='Preventivo'?1 : 2;
+    const c = groupCount(rows, r=>r.tipo||'Sin tipo');
+    const orden = t => t===TIPO_CORR?0 : t===TIPO_PREV?1 : 2;
     c.sort((a,b)=>orden(a.key)-orden(b.key) || b.count-a.count);
     return `<div class="tipo-line">${c.map(x=>`<span>${esc(x.key)}: <b>${x.count}</b></span>`).join('') || 'Sin OT'}</div>`;
   };
@@ -1074,8 +1086,8 @@ function renderResumen(el){
   const costoServicios = costoDe(otProveedores);
   const otManoObra = ot.filter(r=>!otProvSet.has(r.ot));
   const costoManoObra = costoDe(otManoObra);
-  const costoManoObraCorr = costoDe(otManoObra.filter(r=>r.tipo==='Correctivo'));
-  const costoManoObraPrev = costoDe(otManoObra.filter(r=>r.tipo==='Preventivo'));
+  const costoManoObraCorr = costoDe(otManoObra.filter(r=>r.tipo===TIPO_CORR));
+  const costoManoObraPrev = costoDe(otManoObra.filter(r=>r.tipo===TIPO_PREV));
   // OT creadas en Mantum después de su Fecha Inicio Real (registradas
   // cuando el trabajo ya había empezado) - pedido de Mariana.
   const otCreadaTarde = ot.filter(r=>r.inicio_real && r.fecha_creacion && new Date(r.fecha_creacion) > new Date(r.inicio_real));
@@ -1084,8 +1096,8 @@ function renderResumen(el){
   const creadaTardeHtml = `<div class="sev-list"><button type="button" class="sev-row sev-row-alerta" id="otCreadaTardeBtn" title="OT cuya fecha de creación es posterior a su fecha de inicio real"><span style="white-space:nowrap"><span class="status-dot bad"></span> Creadas después del inicio: <b>${otCreadaTarde.length}</b></span><span class="sev-time">›</span></button></div>`;
   const cumplimientosHtml = `<div class="sev-list">
       <div class="sev-time" style="padding:0 6px;">Cumplimiento</div>
-      ${miniMeter('Preventivo', cumplimientoPrev, stCumpl, `${cumplidasPrev.length} de ${preventivas.length}`)}
-      ${miniMeter('Correctivo', cumplimientoCorrectivo, stCumplCorrectivo, `${correctivoCumpl.si} de ${correctivas.length}`)}
+      ${miniMeter('Sistemática', cumplimientoPrev, stCumpl, `${cumplidasPrev.length} de ${preventivas.length}`)}
+      ${miniMeter('Correctiva programada', cumplimientoCorrectivo, stCumplCorrectivo, `${correctivoCumpl.si} de ${correctivas.length}`)}
     </div>`;
 
   const parosPeriodo = [
@@ -1214,8 +1226,8 @@ function renderResumen(el){
   ${sectionTitle('Indicadores clave del periodo')}
 
   ${kpiGroup('Lo más importante', `
-    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctivo ${fmtMoney(costoCorrectivo)} · Preventivo ${fmtMoney(costoPreventivo)}<div class="sev-time" style="margin-top:4px;">Clic para ver el costo por lugar</div>`, hero:true, accent:'c2', id:'costoTotalCard', clickable:true})}
-    ${kpiCard({label:'Costo mano de obra', value:fmtMoney(costoManoObra), sub:`Correctivo ${fmtMoney(costoManoObraCorr)} · Preventivo ${fmtMoney(costoManoObraPrev)}<div class="sev-time" style="margin-top:4px;">Sin OT de proveedores · clic para ver por lugar</div>`, hero:true, accent:'c1', id:'costoManoObraCard', clickable:true})}
+    ${kpiCard({label:'Costo total mantenimiento', value:fmtMoney(costoTotal), sub:`Correctiva programada ${fmtMoney(costoCorrectivo)} · Sistemática ${fmtMoney(costoPreventivo)}<div class="sev-time" style="margin-top:4px;">Clic para ver el costo por lugar</div>`, hero:true, accent:'c2', id:'costoTotalCard', clickable:true})}
+    ${kpiCard({label:'Costo mano de obra', value:fmtMoney(costoManoObra), sub:`Correctiva programada ${fmtMoney(costoManoObraCorr)} · Sistemática ${fmtMoney(costoManoObraPrev)}<div class="sev-time" style="margin-top:4px;">Sin OT de proveedores · clic para ver por lugar</div>`, hero:true, accent:'c1', id:'costoManoObraCard', clickable:true})}
     ${kpiCard({label:'Costo repuestos', value:'Sin datos', sub:'Mantum todavía no reporta el costo de repuestos por OT — se mostrará aquí cuando esté disponible', hero:true, id:'costoRepuestosCard'})}
     ${kpiCard({label:'Costo servicios (proveedores)', value:fmtMoney(costoServicios), sub:`${tiposHtml(otProveedores)}OT de proveedores · clic para ver`, hero:true, accent:'c3', id:'costoServiciosCard', clickable:true})}
   `, true)}
@@ -1259,7 +1271,7 @@ function renderResumen(el){
       ${chartTipoMensual(ot)}
     </div>
     <div class="card">
-      <div class="card-head"><h3>OT correctivas por lugar</h3></div>
+      <div class="card-head"><h3>OT Correctiva programada por lugar</h3></div>
       <div id="topLugaresWrap"></div>
     </div>
   </div>
@@ -1323,7 +1335,7 @@ function renderResumen(el){
   const modalOT = (titulo, rows, cols) => modalFiltrable(titulo, rows, [...cols, colCosto], {costo:true});
   const colsCostoOT = [
     {key:'ot', label:'O.T.'},
-    {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+    {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v||'—')}</span>`},
     {key:'severidad', label:'Sev.', fmt:v=>esc(v??'—')},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
     {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
@@ -1378,15 +1390,15 @@ function renderResumen(el){
       if(!m.has(k)) m.set(k, {lugar:k, n:0, corr:0, prev:0, otro:0, costo_real:0});
       const c = m.get(k), v = r.costo_real||0;
       c.n++; c.costo_real += v;
-      if(r.tipo==='Correctivo') c.corr += v; else if(r.tipo==='Preventivo') c.prev += v; else c.otro += v;
+      if(r.tipo===TIPO_CORR) c.corr += v; else if(r.tipo===TIPO_PREV) c.prev += v; else c.otro += v;
     });
     const filas = [...m.values()].sort((a,b)=>b.costo_real-a.costo_real);
     modalFiltrable(titulo, filas, [
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v)}</span>`},
       {key:'n', label:'OT', num:true},
-      {key:'corr', label:'Correctivo', num:true, fmt:fmtMoney},
-      {key:'prev', label:'Preventivo', num:true, fmt:fmtMoney},
-      {key:'otro', label:'Correctiva programada', num:true, fmt:fmtMoney},
+      {key:'corr', label:'Correctiva programada', num:true, fmt:fmtMoney},
+      {key:'prev', label:'Sistemática', num:true, fmt:fmtMoney},
+      {key:'otro', label:'Otros tipos', num:true, fmt:fmtMoney},
       {key:'costo_real', label:'Costo total', num:true, fmt:v=>`<b>${fmtMoney(v)}</b>`},
       {key:'_pct', label:'% del total', num:true, fmt:(v,r)=>total? fmtPct(r.costo_real/total*100) : '—'},
     ], {costo:true, filtros:[], placeholder:'Buscar lugar...'});
@@ -1416,7 +1428,7 @@ function renderResumen(el){
       .sort((a,b)=>new Date(b.fin_real||0)-new Date(a.fin_real||0));
     modalOT(`OT cerradas — severidad ${sev}`, detalle, [
       {key:'ot', label:'O.T.'},
-      {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+      {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v||'—')}</span>`},
       {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
@@ -1427,7 +1439,7 @@ function renderResumen(el){
   }));
   const colsListadoOT = extra => [
     {key:'ot', label:'O.T.'},
-    {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc((v||'—').split(',')[0])}</span>`},
+    {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v||'—')}</span>`},
     {key:'severidad', label:'Sev.', fmt:v=>esc(v??'—')},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
     {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
@@ -1543,7 +1555,7 @@ function modalFiltrable(titulo, rows, cols, opts={}){
   openModal(`${titulo} (${rows.length})`, `
     <div class="modal-filters">
       <input class="searchbox" type="text" id="mfBuscar" placeholder="${esc(opts.placeholder||'Buscar por OT, equipo, lugar, técnico...')}">
-      ${filtros.map(f=>`<select data-mf="${esc(f.k)}"><option value="">${esc(f.l)}: todos</option>${f.vals.map(v=>`<option value="${esc(v)}">${esc(String(v).split(',')[0])}</option>`).join('')}</select>`).join('')}
+      ${filtros.map(f=>`<select data-mf="${esc(f.k)}"><option value="">${esc(f.l)}: todos</option>${f.vals.map(v=>`<option value="${esc(v)}">${esc(String(v))}</option>`).join('')}</select>`).join('')}
     </div>
     <div class="tipo-line" id="mfResumen" style="margin-bottom:8px;font-size:13px;"></div>
     <div id="mfTabla"></div>`);
@@ -1568,13 +1580,13 @@ function renderTopLugaresWrap(){
   if(!wrap) return;
   // Sin filtro de mes propio ni total (pedido de Mariana): usa el mismo
   // filtro de fechas/lugar de arriba que el resto del Resumen.
-  const correctivasCard = getFilteredOT().filter(r=>r.tipo==='Correctivo');
+  const correctivasCard = getFilteredOT().filter(r=>r.tipo===TIPO_CORR);
   wrap.innerHTML = topLugaresAverias(correctivasCard);
   // Clic en la cantidad → todas las OT correctivas de ese lugar en el rango.
   wrap.querySelectorAll('[data-lugar-ot]').forEach(btn=>btn.addEventListener('click', ()=>{
     const lugar = btn.dataset.lugarOt;
     const rows = correctivasCard.filter(r=>(r.lugar||'Sin lugar')===lugar).sort((a,b)=>new Date(b.fecha_creacion)-new Date(a.fecha_creacion));
-    modalFiltrable(`OT correctivas — ${lugar}`, rows, [
+    modalFiltrable(`OT Correctiva programada — ${lugar}`, rows, [
       {key:'ot', label:'O.T.'},
       {key:'severidad', label:'Sev.'},
       {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
@@ -1598,14 +1610,14 @@ const HISTORICO_DESDE = '2026-08';
 // Colores por tipo compartidos por los históricos y las gráficas por lugar:
 // Correctivo azul, Preventivo naranja; el resto (otros tipos de OT y los
 // tipos de SS) en orden de frecuencia con la paleta extra.
-const tipoCorto = t => (t||'Sin tipo').split(',')[0];
+const tipoCorto = t => t||'Sin tipo';
 function tiposYColores(rows){
-  const ORDEN_TIPO = {'Correctivo':0, 'Preventivo':1};
+  const ORDEN_TIPO = {[TIPO_CORR]:0, [TIPO_PREV]:1};
   const cnt = {}; rows.forEach(r=>{ const t=tipoCorto(r.tipo); cnt[t]=(cnt[t]||0)+1; });
   const tipos = Object.keys(cnt).sort((a,b)=>(ORDEN_TIPO[a]??2)-(ORDEN_TIPO[b]??2) || cnt[b]-cnt[a] || a.localeCompare(b));
   // Paleta corporativa en orden; Correctivo/Preventivo fijos, el resto toma
   // el siguiente color libre (así en SS el tipo más frecuente sale en vino).
-  const COLOR_TIPO = {'Correctivo':'var(--chart-1)', 'Preventivo':'var(--chart-2)'};
+  const COLOR_TIPO = {[TIPO_CORR]:'var(--chart-1)', [TIPO_PREV]:'var(--chart-2)'};
   const paleta = [1,2,3,4,5,6].map(i=>`var(--chart-${i})`);
   const usados = new Set(tipos.map(t=>COLOR_TIPO[t]).filter(Boolean));
   const libres = paleta.filter(c=>!usados.has(c));
@@ -1775,7 +1787,7 @@ function renderOT(el){
   const sinIniciar = abiertas.filter(r=>!(r.avance>0)).length;
   const conAvance = abiertas.filter(r=>r.avance>0).length;
 
-  const porTipo = ['Correctivo','Preventivo'].map(t=>{
+  const porTipo = [TIPO_CORR,TIPO_PREV].map(t=>{
     const rows = all.filter(r=>r.tipo===t);
     return {tipo:t, n:rows.length, desvio:avgDesvioInicio(rows), duracionProg:avgDuracionProgramada(rows), duracion:avgDuracion(rows), cumpl:cumplimientoStats(rows)};
   });
@@ -1840,7 +1852,7 @@ function renderOT(el){
     ${reprogramar.length!==nReprogramar ? `<div class="callout info">Algunas OT tienen más de un técnico asignado y aparecen una vez por técnico, igual que en el listado completo (${reprogramar.length} filas para ${nReprogramar} OT).</div>` : ''}
     <div class="card-head">
       <input class="searchbox" type="text" id="otReprogSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
-      <select id="otReprogTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
+      <select id="otReprogTipo"><option value="">Todos los tipos</option>${tipoOptionsOT()}</select>
     </div>
     <div id="otReprogTableWrap"></div>
   </div>
@@ -1856,7 +1868,7 @@ function renderOT(el){
     <div class="card-head">
       <input class="searchbox" type="text" id="otSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
       <select id="otEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
-      <select id="otTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
+      <select id="otTipo"><option value="">Todos los tipos</option>${tipoOptionsOT()}</select>
     </div>
     <div id="otTableWrap"></div>
   </div>
@@ -1866,7 +1878,7 @@ function renderOT(el){
     <div class="card-head">
       <input class="searchbox" type="text" id="otTercerosSearch" placeholder="Buscar por OT, equipo, lugar, técnico...">
       <select id="otTercerosEstado"><option value="">Todos los estados</option><option>Abierta</option><option>Cerrada</option></select>
-      <select id="otTercerosTipo"><option value="">Todos los tipos</option><option>Correctivo</option><option>Preventivo</option></select>
+      <select id="otTercerosTipo"><option value="">Todos los tipos</option>${tipoOptionsOT()}</select>
     </div>
     <div id="otTercerosTableWrap"></div>
   </div>
@@ -2675,8 +2687,8 @@ function renderSS(el){
 /* ============ TAB: Costos ============ */
 function renderCostos(el){
   const ot = getFilteredOT();
-  const correctivo = ot.filter(r=>r.tipo==='Correctivo');
-  const preventivo = ot.filter(r=>r.tipo==='Preventivo');
+  const correctivo = ot.filter(r=>r.tipo===TIPO_CORR);
+  const preventivo = ot.filter(r=>r.tipo===TIPO_PREV);
   const total = ot.reduce((s,r)=>s+(r.costo_real||0),0);
   const cCorr = correctivo.reduce((s,r)=>s+(r.costo_real||0),0);
   const cPrev = preventivo.reduce((s,r)=>s+(r.costo_real||0),0);
@@ -2693,8 +2705,8 @@ function renderCostos(el){
   <div class="callout info">El <b>Costo total</b> es la suma de todos los mantenimientos (correctivos y preventivos) realizados dentro del rango de fechas seleccionado arriba.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Costo total', value:fmtMoney(total)})}
-    ${kpiCard({label:'Costo correctivo', value:fmtMoney(cCorr), sub:`${correctivo.length} OT`})}
-    ${kpiCard({label:'Costo preventivo', value:fmtMoney(cPrev), sub:`${preventivo.length} OT`})}
+    ${kpiCard({label:'Costo Correctiva programada', value:fmtMoney(cCorr), sub:`${correctivo.length} OT`})}
+    ${kpiCard({label:'Costo Sistemática', value:fmtMoney(cPrev), sub:`${preventivo.length} OT`})}
   </div>
   <div class="grid2">
     <div class="card">

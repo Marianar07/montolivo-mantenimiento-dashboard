@@ -399,11 +399,9 @@ def resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai):
 # TRANSFORMACIÓN OT
 # ============================================================
 
-TIPO_OT = {
-    "Correctiva programada": "Correctivo",
-    "Correctiva de Emergencia": "Correctivo",
-    "Sistemática": "Preventivo",
-}
+# El tipo de OT se deja tal cual viene de Mantum (Mariana, 16-oct-2026):
+# antes se traducía "Correctiva programada" -> "Correctivo" y "Sistemática"
+# -> "Preventivo", pero en Mantum no existen esos nombres y confundía.
 
 SS_REF_RE = re.compile(r"SS-0*(\d+)")
 
@@ -501,7 +499,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
 
         registros.append({
             "ot": r["Código O.T."],
-            "tipo": TIPO_OT.get(r["Tipo"], r["Tipo"]),
+            "tipo": r["Tipo"],
             "severidad": severidad_desde_prioridad(r["Prioridad"]),
             "viene_ss": bool(viene_ss),
             "ss_codigo": ss_ref if viene_ss else None,
@@ -602,7 +600,7 @@ def cargar_paros(path):
 
 def construir_paros(paros_raw, ot_df, crit, disp_by_code, lugar_to_ai):
     """Un registro por fila del informe de paros. Devuelve (correctivos,
-    preventivos) según el 'Tipo O.T.' de la OT del paro (Preventivo ->
+    preventivos) según el 'Tipo O.T.' de la OT del paro (Sistemática ->
     preventivos; cualquier otro tipo -> correctivos).
     Estado: 'Finalizado' si trae 'Fecha fin paro'; si no, 'En reparación'
     cuando la OT ya tiene Fecha Inicio Real, o 'Fuera de servicio'."""
@@ -662,7 +660,7 @@ def construir_paros(paros_raw, ot_df, crit, disp_by_code, lugar_to_ai):
             # motivo registrado en Mantum (Parado por / Tipo paro / Descripción)
             "evidencia": motivo or None,
         }
-        (preventivos if registro["tipo_ot"] == "Preventivo" else correctivos).append(registro)
+        (preventivos if "Sistemática" in str(registro["tipo_ot"] or "") else correctivos).append(registro)
     correctivos.sort(key=lambda x: x["inicio"] or "")
     preventivos.sort(key=lambda x: x["inicio"] or "")
     return correctivos, preventivos

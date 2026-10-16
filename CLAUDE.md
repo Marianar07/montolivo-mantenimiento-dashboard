@@ -178,6 +178,21 @@ rango, finalizados incluidos — mismo criterio y mismo total que "Paros en el
 periodo" del Resumen Gerencial. "Frecuencia de mantenimiento por equipo"
 usa las OT creadas en el rango.
 
+### Tipos de OT: nombres de Mantum tal cual
+
+Mariana, 16-oct-2026: "Correctivo" y "Preventivo" no existen en Mantum.
+Antes el script traducía `Correctiva programada` → "Correctivo" y
+`Sistemática` → "Preventivo" (y dejaba sin traducir los combinados, que
+salían repetidos). Ahora el `Tipo` va tal cual a todo el tablero:
+Correctiva programada, Sistemática, "Correctiva programada, Sistemática",
+"Correctiva, Correctiva programada", Correctiva — sin cortar en la coma.
+En `index_template.html`, `TIPO_CORR` = 'Correctiva programada' y
+`TIPO_PREV` = 'Sistemática' son los dos grupos de cumplimiento, costos y
+colores (vino/bronce). Donde este archivo dice "Correctivo"/"Preventivo"
+para OT, léase esos dos tipos. Los paros siguen como "Correctivos" /
+"Preventivos" (preventivo = `Tipo O.T.` del informe de paros contiene
+"Sistemática"). No volver a traducir sin que Mariana lo pida.
+
 ### Una fila por OT (el export trae una fila por actividad)
 
 El export de OT trae **una fila por cada actividad** de la OT (columna
