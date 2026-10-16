@@ -178,6 +178,16 @@ rango, finalizados incluidos — mismo criterio y mismo total que "Paros en el
 periodo" del Resumen Gerencial. "Frecuencia de mantenimiento por equipo"
 usa las OT creadas en el rango.
 
+### Regla general: todo con las palabras de Mantum
+
+Mariana, 16-oct-2026: "nada se debe traducir, todo debe ser palabras de
+Mantum". Ningún valor que venga del CMMS (tipo, prioridad, estado, etc.) se
+renombra ni se recorta en el script ni en el tablero. Prioridad de OT va
+tal cual ("1-Alta", "2-Media", "3-Baja"; las SS traen "Alta/Media/Baja") y
+en la UI se llama **Prioridad** (antes "Severidad", que no existe en
+Mantum). Antes de crear una etiqueta o agrupar valores nuevos, usar el
+nombre de Mantum.
+
 ### Tipos de OT: nombres de Mantum tal cual
 
 Mariana, 16-oct-2026: "Correctivo" y "Preventivo" no existen en Mantum.

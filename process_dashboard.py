@@ -440,13 +440,6 @@ def limpiar_comentarios_ss(texto):
     return "\n".join(partes) or None
 
 
-def severidad_desde_prioridad(valor):
-    if pd.isna(valor):
-        return None
-    partes = str(valor).split("-", 1)
-    return partes[-1].strip() if len(partes) > 1 else str(valor).strip()
-
-
 def extraer_ss_ref(descripcion):
     if pd.isna(descripcion):
         return None
@@ -500,7 +493,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
         registros.append({
             "ot": r["Código O.T."],
             "tipo": r["Tipo"],
-            "severidad": severidad_desde_prioridad(r["Prioridad"]),
+            "severidad": str(r["Prioridad"]).strip() if pd.notna(r["Prioridad"]) else None,  # tal cual Mantum ("1-Alta")
             "viene_ss": bool(viene_ss),
             "ss_codigo": ss_ref if viene_ss else None,
             "fecha_creacion_ss": fecha_creacion_ss,

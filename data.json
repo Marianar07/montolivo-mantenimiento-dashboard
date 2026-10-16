@@ -1,11 +1,11 @@
 {
-  "generado": "2026-10-16T11:47:43",
+  "generado": "2026-10-16T11:59:56",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
       "ot": "000001",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00001",
       "fecha_creacion_ss": "2026-05-19T10:51:00",
@@ -28,7 +28,7 @@
     {
       "ot": "000002",
       "tipo": "Sistemática",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -51,7 +51,7 @@
     {
       "ot": "000003",
       "tipo": "Sistemática",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -74,7 +74,7 @@
     {
       "ot": "000004",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -97,7 +97,7 @@
     {
       "ot": "000005",
       "tipo": "Sistemática",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -120,7 +120,7 @@
     {
       "ot": "000006",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -143,7 +143,7 @@
     {
       "ot": "000007",
       "tipo": "Sistemática",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -166,7 +166,7 @@
     {
       "ot": "000008",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00004",
       "fecha_creacion_ss": "2026-08-21T15:20:00",
@@ -189,7 +189,7 @@
     {
       "ot": "000009",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00006",
       "fecha_creacion_ss": "2026-08-21T16:08:00",
@@ -212,7 +212,7 @@
     {
       "ot": "000011",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -235,7 +235,7 @@
     {
       "ot": "000012",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00007",
       "fecha_creacion_ss": "2026-08-21T18:19:00",
@@ -258,7 +258,7 @@
     {
       "ot": "000013",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00008",
       "fecha_creacion_ss": "2026-08-26T10:42:00",
@@ -281,7 +281,7 @@
     {
       "ot": "000014",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00009",
       "fecha_creacion_ss": "2026-08-26T14:47:00",
@@ -304,7 +304,7 @@
     {
       "ot": "000015",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -327,7 +327,7 @@
     {
       "ot": "000016",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -350,7 +350,7 @@
     {
       "ot": "000017",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -373,7 +373,7 @@
     {
       "ot": "000018",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -396,7 +396,7 @@
     {
       "ot": "000019",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -419,7 +419,7 @@
     {
       "ot": "000020",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -442,7 +442,7 @@
     {
       "ot": "000021",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -465,7 +465,7 @@
     {
       "ot": "000022",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -488,7 +488,7 @@
     {
       "ot": "000023",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -511,7 +511,7 @@
     {
       "ot": "000024",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -534,7 +534,7 @@
     {
       "ot": "000025",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -557,7 +557,7 @@
     {
       "ot": "000026",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -580,7 +580,7 @@
     {
       "ot": "000027",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -603,7 +603,7 @@
     {
       "ot": "000028",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -626,7 +626,7 @@
     {
       "ot": "000029",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -649,7 +649,7 @@
     {
       "ot": "000030",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -672,7 +672,7 @@
     {
       "ot": "000031",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -695,7 +695,7 @@
     {
       "ot": "000032",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00003",
       "fecha_creacion_ss": "2026-08-21T09:02:00",
@@ -718,7 +718,7 @@
     {
       "ot": "000033",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -741,7 +741,7 @@
     {
       "ot": "000034",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -764,7 +764,7 @@
     {
       "ot": "000035",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -787,7 +787,7 @@
     {
       "ot": "000036",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -810,7 +810,7 @@
     {
       "ot": "000037",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -833,7 +833,7 @@
     {
       "ot": "000038",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -856,7 +856,7 @@
     {
       "ot": "000039",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -879,7 +879,7 @@
     {
       "ot": "000040",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -902,7 +902,7 @@
     {
       "ot": "000041",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -925,7 +925,7 @@
     {
       "ot": "000043",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -948,7 +948,7 @@
     {
       "ot": "000044",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -971,7 +971,7 @@
     {
       "ot": "000045",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -994,7 +994,7 @@
     {
       "ot": "000046",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1017,7 +1017,7 @@
     {
       "ot": "000047",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1040,7 +1040,7 @@
     {
       "ot": "000048",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1063,7 +1063,7 @@
     {
       "ot": "000049",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1086,7 +1086,7 @@
     {
       "ot": "000050",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1109,7 +1109,7 @@
     {
       "ot": "000051",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1132,7 +1132,7 @@
     {
       "ot": "000052",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1155,7 +1155,7 @@
     {
       "ot": "000053",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1178,7 +1178,7 @@
     {
       "ot": "000054",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1201,7 +1201,7 @@
     {
       "ot": "000055",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1224,7 +1224,7 @@
     {
       "ot": "000056",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1247,7 +1247,7 @@
     {
       "ot": "000057",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1270,7 +1270,7 @@
     {
       "ot": "000058",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1293,7 +1293,7 @@
     {
       "ot": "000059",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1316,7 +1316,7 @@
     {
       "ot": "000060",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1339,7 +1339,7 @@
     {
       "ot": "000061",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1362,7 +1362,7 @@
     {
       "ot": "000062",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1385,7 +1385,7 @@
     {
       "ot": "000063",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1408,7 +1408,7 @@
     {
       "ot": "000064",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1431,7 +1431,7 @@
     {
       "ot": "000065",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1454,7 +1454,7 @@
     {
       "ot": "000066",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00043",
       "fecha_creacion_ss": "2026-09-04T15:35:06",
@@ -1477,7 +1477,7 @@
     {
       "ot": "000067",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00043",
       "fecha_creacion_ss": "2026-09-04T15:35:06",
@@ -1500,7 +1500,7 @@
     {
       "ot": "000068",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00078",
       "fecha_creacion_ss": "2026-09-07T11:11:00",
@@ -1523,7 +1523,7 @@
     {
       "ot": "000069",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1546,7 +1546,7 @@
     {
       "ot": "000071",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00067",
       "fecha_creacion_ss": "2026-09-06T16:53:46",
@@ -1569,7 +1569,7 @@
     {
       "ot": "000073",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1592,7 +1592,7 @@
     {
       "ot": "000074",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1615,7 +1615,7 @@
     {
       "ot": "000075",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1638,7 +1638,7 @@
     {
       "ot": "000076",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1661,7 +1661,7 @@
     {
       "ot": "000077",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1684,7 +1684,7 @@
     {
       "ot": "000078",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1707,7 +1707,7 @@
     {
       "ot": "000079",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1730,7 +1730,7 @@
     {
       "ot": "000080",
       "tipo": "Sistemática",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1753,7 +1753,7 @@
     {
       "ot": "000081",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1776,7 +1776,7 @@
     {
       "ot": "000082",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00099",
       "fecha_creacion_ss": "2026-09-07T16:17:34",
@@ -1799,7 +1799,7 @@
     {
       "ot": "000083",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00062",
       "fecha_creacion_ss": "2026-09-06T08:56:49",
@@ -1822,7 +1822,7 @@
     {
       "ot": "000084",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00054",
       "fecha_creacion_ss": "2026-09-05T06:49:54",
@@ -1845,7 +1845,7 @@
     {
       "ot": "000085",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": true,
       "ss_codigo": "00052",
       "fecha_creacion_ss": "2026-09-05T06:46:27",
@@ -1868,7 +1868,7 @@
     {
       "ot": "000086",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00028",
       "fecha_creacion_ss": "2026-09-01T11:14:19",
@@ -1891,7 +1891,7 @@
     {
       "ot": "000087",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1914,7 +1914,7 @@
     {
       "ot": "000088",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1937,7 +1937,7 @@
     {
       "ot": "000089",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1960,7 +1960,7 @@
     {
       "ot": "000090",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -1983,7 +1983,7 @@
     {
       "ot": "000091",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2006,7 +2006,7 @@
     {
       "ot": "000092",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00084",
       "fecha_creacion_ss": "2026-09-07T11:45:11",
@@ -2029,7 +2029,7 @@
     {
       "ot": "000093",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2052,7 +2052,7 @@
     {
       "ot": "000094",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2075,7 +2075,7 @@
     {
       "ot": "000095",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2098,7 +2098,7 @@
     {
       "ot": "000096",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2121,7 +2121,7 @@
     {
       "ot": "000097",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2144,7 +2144,7 @@
     {
       "ot": "000098",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2167,7 +2167,7 @@
     {
       "ot": "000099",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2190,7 +2190,7 @@
     {
       "ot": "000101",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00029",
       "fecha_creacion_ss": "2026-09-01T11:16:49",
@@ -2213,7 +2213,7 @@
     {
       "ot": "000102",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00104",
       "fecha_creacion_ss": "2026-09-07T17:58:17",
@@ -2236,7 +2236,7 @@
     {
       "ot": "000103",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00110",
       "fecha_creacion_ss": "2026-09-07T18:07:45",
@@ -2259,7 +2259,7 @@
     {
       "ot": "000105",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00143",
       "fecha_creacion_ss": "2026-09-10T04:50:00",
@@ -2282,7 +2282,7 @@
     {
       "ot": "000106",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2305,7 +2305,7 @@
     {
       "ot": "000107",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00161",
       "fecha_creacion_ss": "2026-09-10T12:24:00",
@@ -2328,7 +2328,7 @@
     {
       "ot": "000109",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00158",
       "fecha_creacion_ss": "2026-09-10T12:22:00",
@@ -2351,7 +2351,7 @@
     {
       "ot": "000112",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00152",
       "fecha_creacion_ss": "2026-09-10T11:32:00",
@@ -2374,7 +2374,7 @@
     {
       "ot": "000115",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00070",
       "fecha_creacion_ss": "2026-09-06T22:21:00",
@@ -2397,7 +2397,7 @@
     {
       "ot": "000117",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2420,7 +2420,7 @@
     {
       "ot": "000119",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00214",
       "fecha_creacion_ss": "2026-09-11T15:39:27",
@@ -2443,7 +2443,7 @@
     {
       "ot": "000120",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00213",
       "fecha_creacion_ss": "2026-09-11T15:00:18",
@@ -2466,7 +2466,7 @@
     {
       "ot": "000121",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2489,7 +2489,7 @@
     {
       "ot": "000122",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00093",
       "fecha_creacion_ss": "2026-09-07T13:19:00",
@@ -2512,7 +2512,7 @@
     {
       "ot": "000123",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00059",
       "fecha_creacion_ss": "2026-09-05T10:41:00",
@@ -2535,7 +2535,7 @@
     {
       "ot": "000124",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2558,7 +2558,7 @@
     {
       "ot": "000125",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00219",
       "fecha_creacion_ss": "2026-09-11T16:38:00",
@@ -2581,7 +2581,7 @@
     {
       "ot": "000126",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00030",
       "fecha_creacion_ss": "2026-09-01T12:10:02",
@@ -2604,7 +2604,7 @@
     {
       "ot": "000127",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00243",
       "fecha_creacion_ss": "2026-09-11T19:36:09",
@@ -2627,7 +2627,7 @@
     {
       "ot": "000128",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2650,7 +2650,7 @@
     {
       "ot": "000129",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2673,7 +2673,7 @@
     {
       "ot": "000130",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00284",
       "fecha_creacion_ss": "2026-09-14T07:56:04",
@@ -2696,7 +2696,7 @@
     {
       "ot": "000131",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00268",
       "fecha_creacion_ss": "2026-09-12T22:36:17",
@@ -2719,7 +2719,7 @@
     {
       "ot": "000132",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00260",
       "fecha_creacion_ss": "2026-09-12T13:47:37",
@@ -2742,7 +2742,7 @@
     {
       "ot": "000133",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00166",
       "fecha_creacion_ss": "2026-09-10T13:42:10",
@@ -2765,7 +2765,7 @@
     {
       "ot": "000134",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00164",
       "fecha_creacion_ss": "2026-09-10T13:26:32",
@@ -2788,7 +2788,7 @@
     {
       "ot": "000137",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00283",
       "fecha_creacion_ss": "2026-09-13T23:19:03",
@@ -2811,7 +2811,7 @@
     {
       "ot": "000138",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2834,7 +2834,7 @@
     {
       "ot": "000139",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2857,7 +2857,7 @@
     {
       "ot": "000140",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2880,7 +2880,7 @@
     {
       "ot": "000141",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2903,7 +2903,7 @@
     {
       "ot": "000142",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2926,7 +2926,7 @@
     {
       "ot": "000143",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2949,7 +2949,7 @@
     {
       "ot": "000144",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -2972,7 +2972,7 @@
     {
       "ot": "000145",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00290",
       "fecha_creacion_ss": "2026-09-14T12:20:47",
@@ -2995,7 +2995,7 @@
     {
       "ot": "000148",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00178",
       "fecha_creacion_ss": "2026-09-10T22:21:20",
@@ -3018,7 +3018,7 @@
     {
       "ot": "000149",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3041,7 +3041,7 @@
     {
       "ot": "000150",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3064,7 +3064,7 @@
     {
       "ot": "000151",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00293",
       "fecha_creacion_ss": "2026-09-14T13:14:22",
@@ -3087,7 +3087,7 @@
     {
       "ot": "000152",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3110,7 +3110,7 @@
     {
       "ot": "000153",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3133,7 +3133,7 @@
     {
       "ot": "000154",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3156,7 +3156,7 @@
     {
       "ot": "000155",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3179,7 +3179,7 @@
     {
       "ot": "000156",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3202,7 +3202,7 @@
     {
       "ot": "000157",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3225,7 +3225,7 @@
     {
       "ot": "000158",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3248,7 +3248,7 @@
     {
       "ot": "000159",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3271,7 +3271,7 @@
     {
       "ot": "000160",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3294,7 +3294,7 @@
     {
       "ot": "000161",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3317,7 +3317,7 @@
     {
       "ot": "000162",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3340,7 +3340,7 @@
     {
       "ot": "000163",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3363,7 +3363,7 @@
     {
       "ot": "000164",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3386,7 +3386,7 @@
     {
       "ot": "000165",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00320",
       "fecha_creacion_ss": "2026-09-16T11:09:34",
@@ -3409,7 +3409,7 @@
     {
       "ot": "000166",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00296",
       "fecha_creacion_ss": "2026-09-14T13:34:12",
@@ -3432,7 +3432,7 @@
     {
       "ot": "000167",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00321",
       "fecha_creacion_ss": "2026-09-16T12:37:28",
@@ -3455,7 +3455,7 @@
     {
       "ot": "000168",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3478,7 +3478,7 @@
     {
       "ot": "000169",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3501,7 +3501,7 @@
     {
       "ot": "000170",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3524,7 +3524,7 @@
     {
       "ot": "000171",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00210",
       "fecha_creacion_ss": "2026-09-11T14:16:18",
@@ -3547,7 +3547,7 @@
     {
       "ot": "000172",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3570,7 +3570,7 @@
     {
       "ot": "000173",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3593,7 +3593,7 @@
     {
       "ot": "000174",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3616,7 +3616,7 @@
     {
       "ot": "000175",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00252",
       "fecha_creacion_ss": "2026-09-11T21:45:56",
@@ -3639,7 +3639,7 @@
     {
       "ot": "000176",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3662,7 +3662,7 @@
     {
       "ot": "000177",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00334",
       "fecha_creacion_ss": "2026-09-17T13:21:00",
@@ -3685,7 +3685,7 @@
     {
       "ot": "000178",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3708,7 +3708,7 @@
     {
       "ot": "000179",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3731,7 +3731,7 @@
     {
       "ot": "000180",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3754,7 +3754,7 @@
     {
       "ot": "000181",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00308",
       "fecha_creacion_ss": "2026-09-15T14:29:07",
@@ -3777,7 +3777,7 @@
     {
       "ot": "000182",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3800,7 +3800,7 @@
     {
       "ot": "000183",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3823,7 +3823,7 @@
     {
       "ot": "000184",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3846,7 +3846,7 @@
     {
       "ot": "000185",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00316",
       "fecha_creacion_ss": "2026-09-16T09:25:00",
@@ -3869,7 +3869,7 @@
     {
       "ot": "000186",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00246",
       "fecha_creacion_ss": "2026-09-11T19:50:00",
@@ -3892,7 +3892,7 @@
     {
       "ot": "000187",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00215",
       "fecha_creacion_ss": "2026-09-11T16:08:04",
@@ -3915,7 +3915,7 @@
     {
       "ot": "000188",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3938,7 +3938,7 @@
     {
       "ot": "000189",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3961,7 +3961,7 @@
     {
       "ot": "000190",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -3984,7 +3984,7 @@
     {
       "ot": "000192",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4007,7 +4007,7 @@
     {
       "ot": "000193",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4030,7 +4030,7 @@
     {
       "ot": "000194",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4053,7 +4053,7 @@
     {
       "ot": "000195",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4076,7 +4076,7 @@
     {
       "ot": "000196",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4099,7 +4099,7 @@
     {
       "ot": "000197",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4122,7 +4122,7 @@
     {
       "ot": "000198",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4145,7 +4145,7 @@
     {
       "ot": "000200",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4168,7 +4168,7 @@
     {
       "ot": "000201",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00033",
       "fecha_creacion_ss": "2026-09-02T16:13:29",
@@ -4191,7 +4191,7 @@
     {
       "ot": "000202",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4214,7 +4214,7 @@
     {
       "ot": "000203",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4237,7 +4237,7 @@
     {
       "ot": "000205",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4260,7 +4260,7 @@
     {
       "ot": "000208",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4283,7 +4283,7 @@
     {
       "ot": "000209",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4306,7 +4306,7 @@
     {
       "ot": "000210",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4329,7 +4329,7 @@
     {
       "ot": "000211",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4352,7 +4352,7 @@
     {
       "ot": "000212",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4375,7 +4375,7 @@
     {
       "ot": "000213",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00194",
       "fecha_creacion_ss": "2026-09-11T09:07:56",
@@ -4398,7 +4398,7 @@
     {
       "ot": "000214",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00383",
       "fecha_creacion_ss": "2026-09-23T11:35:53",
@@ -4421,7 +4421,7 @@
     {
       "ot": "000215",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00324",
       "fecha_creacion_ss": "2026-09-16T16:48:07",
@@ -4444,7 +4444,7 @@
     {
       "ot": "000216",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4467,7 +4467,7 @@
     {
       "ot": "000217",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4490,7 +4490,7 @@
     {
       "ot": "000218",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4513,7 +4513,7 @@
     {
       "ot": "000219",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4536,7 +4536,7 @@
     {
       "ot": "000220",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4559,7 +4559,7 @@
     {
       "ot": "000221",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4582,7 +4582,7 @@
     {
       "ot": "000222",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4605,7 +4605,7 @@
     {
       "ot": "000223",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4628,7 +4628,7 @@
     {
       "ot": "000224",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00394",
       "fecha_creacion_ss": "2026-09-24T09:13:43",
@@ -4651,7 +4651,7 @@
     {
       "ot": "000225",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4674,7 +4674,7 @@
     {
       "ot": "000226",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00258",
       "fecha_creacion_ss": "2026-09-12T11:44:34",
@@ -4697,7 +4697,7 @@
     {
       "ot": "000227",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4720,7 +4720,7 @@
     {
       "ot": "000228",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4743,7 +4743,7 @@
     {
       "ot": "000229",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00129",
       "fecha_creacion_ss": "2026-09-08T19:12:00",
@@ -4766,7 +4766,7 @@
     {
       "ot": "000230",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00168",
       "fecha_creacion_ss": "2026-09-10T15:25:46",
@@ -4789,7 +4789,7 @@
     {
       "ot": "000231",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00422",
       "fecha_creacion_ss": "2026-09-25T09:12:00",
@@ -4812,7 +4812,7 @@
     {
       "ot": "000232",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00397",
       "fecha_creacion_ss": "2026-09-24T10:25:30",
@@ -4835,7 +4835,7 @@
     {
       "ot": "000233",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00396",
       "fecha_creacion_ss": "2026-09-24T10:22:44",
@@ -4858,7 +4858,7 @@
     {
       "ot": "000234",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00249",
       "fecha_creacion_ss": "2026-09-11T21:23:55",
@@ -4881,7 +4881,7 @@
     {
       "ot": "000235",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00082",
       "fecha_creacion_ss": "2026-09-07T11:43:00",
@@ -4904,7 +4904,7 @@
     {
       "ot": "000236",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00230",
       "fecha_creacion_ss": "2026-09-11T17:55:40",
@@ -4927,7 +4927,7 @@
     {
       "ot": "000237",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00412",
       "fecha_creacion_ss": "2026-09-24T17:18:09",
@@ -4950,7 +4950,7 @@
     {
       "ot": "000238",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00423",
       "fecha_creacion_ss": "2026-09-25T09:47:00",
@@ -4973,7 +4973,7 @@
     {
       "ot": "000239",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -4996,7 +4996,7 @@
     {
       "ot": "000240",
       "tipo": "Correctiva, Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00415",
       "fecha_creacion_ss": "2026-09-24T17:56:22",
@@ -5019,7 +5019,7 @@
     {
       "ot": "000241",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5042,7 +5042,7 @@
     {
       "ot": "000242",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5065,7 +5065,7 @@
     {
       "ot": "000243",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5088,7 +5088,7 @@
     {
       "ot": "000244",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5111,7 +5111,7 @@
     {
       "ot": "000245",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5134,7 +5134,7 @@
     {
       "ot": "000246",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00443",
       "fecha_creacion_ss": "2026-09-26T08:57:00",
@@ -5157,7 +5157,7 @@
     {
       "ot": "000247",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00444",
       "fecha_creacion_ss": "2026-09-26T11:43:52",
@@ -5180,7 +5180,7 @@
     {
       "ot": "000248",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00454",
       "fecha_creacion_ss": "2026-09-26T17:44:13",
@@ -5203,7 +5203,7 @@
     {
       "ot": "000249",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5226,7 +5226,7 @@
     {
       "ot": "000250",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5249,7 +5249,7 @@
     {
       "ot": "000251",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00442",
       "fecha_creacion_ss": "2026-09-26T05:52:27",
@@ -5272,7 +5272,7 @@
     {
       "ot": "000252",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00471",
       "fecha_creacion_ss": "2026-09-28T11:17:00",
@@ -5295,7 +5295,7 @@
     {
       "ot": "000253",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00248",
       "fecha_creacion_ss": "2026-09-11T20:24:36",
@@ -5318,7 +5318,7 @@
     {
       "ot": "000254",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00450",
       "fecha_creacion_ss": "2026-09-26T16:22:22",
@@ -5341,7 +5341,7 @@
     {
       "ot": "000255",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00359",
       "fecha_creacion_ss": "2026-09-20T13:27:43",
@@ -5364,7 +5364,7 @@
     {
       "ot": "000256",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5387,7 +5387,7 @@
     {
       "ot": "000257",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5410,7 +5410,7 @@
     {
       "ot": "000258",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00476",
       "fecha_creacion_ss": "2026-09-28T11:51:54",
@@ -5433,7 +5433,7 @@
     {
       "ot": "000259",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00466",
       "fecha_creacion_ss": "2026-09-28T08:18:44",
@@ -5456,7 +5456,7 @@
     {
       "ot": "000260",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5479,7 +5479,7 @@
     {
       "ot": "000261",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5502,7 +5502,7 @@
     {
       "ot": "000262",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5525,7 +5525,7 @@
     {
       "ot": "000263",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": true,
       "ss_codigo": "00253",
       "fecha_creacion_ss": "2026-09-11T22:29:59",
@@ -5548,7 +5548,7 @@
     {
       "ot": "000264",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00222",
       "fecha_creacion_ss": "2026-09-11T16:46:00",
@@ -5571,7 +5571,7 @@
     {
       "ot": "000265",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": true,
       "ss_codigo": "00427",
       "fecha_creacion_ss": "2026-09-25T15:55:30",
@@ -5594,7 +5594,7 @@
     {
       "ot": "000266",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5617,7 +5617,7 @@
     {
       "ot": "000267",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00374",
       "fecha_creacion_ss": "2026-09-22T14:27:00",
@@ -5640,7 +5640,7 @@
     {
       "ot": "000268",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5663,7 +5663,7 @@
     {
       "ot": "000269",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5686,7 +5686,7 @@
     {
       "ot": "000270",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5709,7 +5709,7 @@
     {
       "ot": "000271",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5732,7 +5732,7 @@
     {
       "ot": "000272",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5755,7 +5755,7 @@
     {
       "ot": "000273",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5778,7 +5778,7 @@
     {
       "ot": "000274",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00402",
       "fecha_creacion_ss": "2026-09-24T11:00:06",
@@ -5801,7 +5801,7 @@
     {
       "ot": "000275",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00300",
       "fecha_creacion_ss": "2026-09-15T07:41:29",
@@ -5824,7 +5824,7 @@
     {
       "ot": "000276",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00235",
       "fecha_creacion_ss": "2026-09-11T18:07:34",
@@ -5847,7 +5847,7 @@
     {
       "ot": "000277",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5870,7 +5870,7 @@
     {
       "ot": "000278",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00493",
       "fecha_creacion_ss": "2026-09-30T09:12:45",
@@ -5893,7 +5893,7 @@
     {
       "ot": "000279",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5916,7 +5916,7 @@
     {
       "ot": "000280",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5939,7 +5939,7 @@
     {
       "ot": "000281",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5962,7 +5962,7 @@
     {
       "ot": "000282",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -5985,7 +5985,7 @@
     {
       "ot": "000283",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00502",
       "fecha_creacion_ss": "2026-09-30T12:53:08",
@@ -6008,7 +6008,7 @@
     {
       "ot": "000284",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00257",
       "fecha_creacion_ss": "2026-09-12T11:35:45",
@@ -6031,7 +6031,7 @@
     {
       "ot": "000285",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6054,7 +6054,7 @@
     {
       "ot": "000286",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6077,7 +6077,7 @@
     {
       "ot": "000287",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00358",
       "fecha_creacion_ss": "2026-09-20T13:25:42",
@@ -6100,7 +6100,7 @@
     {
       "ot": "000288",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6123,7 +6123,7 @@
     {
       "ot": "000289",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00515",
       "fecha_creacion_ss": "2026-10-01T11:32:00",
@@ -6146,7 +6146,7 @@
     {
       "ot": "000290",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00513",
       "fecha_creacion_ss": "2026-10-01T10:29:00",
@@ -6169,7 +6169,7 @@
     {
       "ot": "000291",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6192,7 +6192,7 @@
     {
       "ot": "000292",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6215,7 +6215,7 @@
     {
       "ot": "000293",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6238,7 +6238,7 @@
     {
       "ot": "000294",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6261,7 +6261,7 @@
     {
       "ot": "000295",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00446",
       "fecha_creacion_ss": "2026-09-26T11:59:03",
@@ -6284,7 +6284,7 @@
     {
       "ot": "000296",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00314",
       "fecha_creacion_ss": "2026-09-15T19:33:42",
@@ -6307,7 +6307,7 @@
     {
       "ot": "000297",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00425",
       "fecha_creacion_ss": "2026-09-25T13:05:02",
@@ -6330,7 +6330,7 @@
     {
       "ot": "000298",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00529",
       "fecha_creacion_ss": "2026-10-02T11:30:47",
@@ -6353,7 +6353,7 @@
     {
       "ot": "000299",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6376,7 +6376,7 @@
     {
       "ot": "000300",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00132",
       "fecha_creacion_ss": "2026-09-09T14:12:00",
@@ -6399,7 +6399,7 @@
     {
       "ot": "000301",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00455",
       "fecha_creacion_ss": "2026-09-27T12:40:08",
@@ -6422,7 +6422,7 @@
     {
       "ot": "000302",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00318",
       "fecha_creacion_ss": "2026-09-16T10:39:00",
@@ -6445,7 +6445,7 @@
     {
       "ot": "000303",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6468,7 +6468,7 @@
     {
       "ot": "000304",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6491,7 +6491,7 @@
     {
       "ot": "000305",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00539",
       "fecha_creacion_ss": "2026-10-03T06:47:13",
@@ -6514,7 +6514,7 @@
     {
       "ot": "000306",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00297",
       "fecha_creacion_ss": "2026-09-14T15:21:31",
@@ -6537,7 +6537,7 @@
     {
       "ot": "000307",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00525",
       "fecha_creacion_ss": "2026-10-02T08:49:00",
@@ -6560,7 +6560,7 @@
     {
       "ot": "000308",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00524",
       "fecha_creacion_ss": "2026-10-02T08:46:29",
@@ -6583,7 +6583,7 @@
     {
       "ot": "000309",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00511",
       "fecha_creacion_ss": "2026-10-01T08:42:08",
@@ -6606,7 +6606,7 @@
     {
       "ot": "000310",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00313",
       "fecha_creacion_ss": "2026-09-15T19:31:14",
@@ -6629,7 +6629,7 @@
     {
       "ot": "000311",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00312",
       "fecha_creacion_ss": "2026-09-15T19:28:13",
@@ -6652,7 +6652,7 @@
     {
       "ot": "000312",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00311",
       "fecha_creacion_ss": "2026-09-15T19:22:14",
@@ -6675,7 +6675,7 @@
     {
       "ot": "000313",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00310",
       "fecha_creacion_ss": "2026-09-15T19:16:45",
@@ -6698,7 +6698,7 @@
     {
       "ot": "000314",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": true,
       "ss_codigo": "00430",
       "fecha_creacion_ss": "2026-09-25T15:58:31",
@@ -6721,7 +6721,7 @@
     {
       "ot": "000315",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00564",
       "fecha_creacion_ss": "2026-10-05T08:52:13",
@@ -6744,7 +6744,7 @@
     {
       "ot": "000316",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00462",
       "fecha_creacion_ss": "2026-09-27T23:51:16",
@@ -6767,7 +6767,7 @@
     {
       "ot": "000317",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6790,7 +6790,7 @@
     {
       "ot": "000318",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -6813,7 +6813,7 @@
     {
       "ot": "000319",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00566",
       "fecha_creacion_ss": "2026-10-05T10:44:42",
@@ -6836,7 +6836,7 @@
     {
       "ot": "000320",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00554",
       "fecha_creacion_ss": "2026-10-04T08:25:11",
@@ -6859,7 +6859,7 @@
     {
       "ot": "000321",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00549",
       "fecha_creacion_ss": "2026-10-03T18:32:09",
@@ -6882,7 +6882,7 @@
     {
       "ot": "000322",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00568",
       "fecha_creacion_ss": "2026-10-05T10:48:02",
@@ -6905,7 +6905,7 @@
     {
       "ot": "000323",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00575",
       "fecha_creacion_ss": "2026-10-05T14:23:33",
@@ -6928,7 +6928,7 @@
     {
       "ot": "000326",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00576",
       "fecha_creacion_ss": "2026-10-05T14:34:29",
@@ -6951,7 +6951,7 @@
     {
       "ot": "000327",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00437",
       "fecha_creacion_ss": "2026-09-25T19:01:05",
@@ -6974,7 +6974,7 @@
     {
       "ot": "000328",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00582",
       "fecha_creacion_ss": "2026-10-06T08:24:04",
@@ -6997,7 +6997,7 @@
     {
       "ot": "000329",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00027",
       "fecha_creacion_ss": "2026-09-01T10:22:21",
@@ -7020,7 +7020,7 @@
     {
       "ot": "000330",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00585",
       "fecha_creacion_ss": "2026-10-06T11:23:15",
@@ -7043,7 +7043,7 @@
     {
       "ot": "000332",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7066,7 +7066,7 @@
     {
       "ot": "000333",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00586",
       "fecha_creacion_ss": "2026-10-06T13:40:00",
@@ -7089,7 +7089,7 @@
     {
       "ot": "000334",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00090",
       "fecha_creacion_ss": "2026-09-07T13:14:00",
@@ -7112,7 +7112,7 @@
     {
       "ot": "000335",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00494",
       "fecha_creacion_ss": "2026-09-30T09:43:00",
@@ -7135,7 +7135,7 @@
     {
       "ot": "000336",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00569",
       "fecha_creacion_ss": "2026-10-05T11:40:56",
@@ -7158,7 +7158,7 @@
     {
       "ot": "000337",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00594",
       "fecha_creacion_ss": "2026-10-07T07:39:18",
@@ -7181,7 +7181,7 @@
     {
       "ot": "000338",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00591",
       "fecha_creacion_ss": "2026-10-06T17:47:00",
@@ -7204,7 +7204,7 @@
     {
       "ot": "000339",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00191",
       "fecha_creacion_ss": "2026-09-10T22:50:00",
@@ -7227,7 +7227,7 @@
     {
       "ot": "000340",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00477",
       "fecha_creacion_ss": "2026-09-28T11:59:30",
@@ -7250,7 +7250,7 @@
     {
       "ot": "000341",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00608",
       "fecha_creacion_ss": "2026-10-07T11:33:54",
@@ -7273,7 +7273,7 @@
     {
       "ot": "000342",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00559",
       "fecha_creacion_ss": "2026-10-04T10:24:39",
@@ -7296,7 +7296,7 @@
     {
       "ot": "000343",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7319,7 +7319,7 @@
     {
       "ot": "000344",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7342,7 +7342,7 @@
     {
       "ot": "000345",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00607",
       "fecha_creacion_ss": "2026-10-07T11:27:33",
@@ -7365,7 +7365,7 @@
     {
       "ot": "000346",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00601",
       "fecha_creacion_ss": "2026-10-07T10:53:02",
@@ -7388,7 +7388,7 @@
     {
       "ot": "000347",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00563",
       "fecha_creacion_ss": "2026-10-04T22:20:11",
@@ -7411,7 +7411,7 @@
     {
       "ot": "000348",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00612",
       "fecha_creacion_ss": "2026-10-07T13:55:40",
@@ -7434,7 +7434,7 @@
     {
       "ot": "000349",
       "tipo": "Correctiva",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00615",
       "fecha_creacion_ss": "2026-10-07T18:17:22",
@@ -7457,7 +7457,7 @@
     {
       "ot": "000350",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00600",
       "fecha_creacion_ss": "2026-10-07T09:56:00",
@@ -7480,7 +7480,7 @@
     {
       "ot": "000351",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00632",
       "fecha_creacion_ss": "2026-10-08T13:05:00",
@@ -7503,7 +7503,7 @@
     {
       "ot": "000352",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7526,7 +7526,7 @@
     {
       "ot": "000353",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00627",
       "fecha_creacion_ss": "2026-10-08T12:04:00",
@@ -7549,7 +7549,7 @@
     {
       "ot": "000354",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00461",
       "fecha_creacion_ss": "2026-09-27T14:00:24",
@@ -7572,7 +7572,7 @@
     {
       "ot": "000355",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00182",
       "fecha_creacion_ss": "2026-09-10T22:22:00",
@@ -7595,7 +7595,7 @@
     {
       "ot": "000356",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00625",
       "fecha_creacion_ss": "2026-10-08T12:31:31",
@@ -7618,7 +7618,7 @@
     {
       "ot": "000357",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00660",
       "fecha_creacion_ss": "2026-10-09T12:32:28",
@@ -7641,7 +7641,7 @@
     {
       "ot": "000358",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00656",
       "fecha_creacion_ss": "2026-10-09T12:20:45",
@@ -7664,7 +7664,7 @@
     {
       "ot": "000359",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00646",
       "fecha_creacion_ss": "2026-10-08T21:51:34",
@@ -7687,7 +7687,7 @@
     {
       "ot": "000361",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00666",
       "fecha_creacion_ss": "2026-10-09T15:20:36",
@@ -7710,7 +7710,7 @@
     {
       "ot": "000362",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7733,7 +7733,7 @@
     {
       "ot": "000363",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7756,7 +7756,7 @@
     {
       "ot": "000364",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7779,7 +7779,7 @@
     {
       "ot": "000365",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": true,
       "ss_codigo": "00655",
       "fecha_creacion_ss": "2026-10-09T12:14:00",
@@ -7802,7 +7802,7 @@
     {
       "ot": "000366",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7825,7 +7825,7 @@
     {
       "ot": "000367",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00700",
       "fecha_creacion_ss": "2026-10-10T16:28:24",
@@ -7848,7 +7848,7 @@
     {
       "ot": "000368",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00729",
       "fecha_creacion_ss": "2026-10-13T09:26:00",
@@ -7871,7 +7871,7 @@
     {
       "ot": "000369",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00611",
       "fecha_creacion_ss": "2026-10-07T13:53:10",
@@ -7894,7 +7894,7 @@
     {
       "ot": "000370",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00718",
       "fecha_creacion_ss": "2026-10-12T15:42:10",
@@ -7917,7 +7917,7 @@
     {
       "ot": "000371",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00623",
       "fecha_creacion_ss": "2026-10-08T11:56:00",
@@ -7940,7 +7940,7 @@
     {
       "ot": "000372",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7963,7 +7963,7 @@
     {
       "ot": "000375",
       "tipo": "Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -7986,7 +7986,7 @@
     {
       "ot": "000373",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00622",
       "fecha_creacion_ss": "2026-10-08T10:05:56",
@@ -8009,7 +8009,7 @@
     {
       "ot": "000374",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00620",
       "fecha_creacion_ss": "2026-10-08T10:03:00",
@@ -8032,7 +8032,7 @@
     {
       "ot": "000376",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00621",
       "fecha_creacion_ss": "2026-10-08T10:04:00",
@@ -8055,7 +8055,7 @@
     {
       "ot": "000377",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8078,7 +8078,7 @@
     {
       "ot": "000378",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8101,7 +8101,7 @@
     {
       "ot": "000379",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8124,7 +8124,7 @@
     {
       "ot": "000380",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00731",
       "fecha_creacion_ss": "2026-10-13T11:38:55",
@@ -8147,7 +8147,7 @@
     {
       "ot": "000381",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8170,7 +8170,7 @@
     {
       "ot": "000382",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8193,7 +8193,7 @@
     {
       "ot": "000383",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00167",
       "fecha_creacion_ss": "2026-09-10T13:46:46",
@@ -8216,7 +8216,7 @@
     {
       "ot": "000384",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00432",
       "fecha_creacion_ss": "2026-09-25T16:01:00",
@@ -8239,7 +8239,7 @@
     {
       "ot": "000385",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00645",
       "fecha_creacion_ss": "2026-10-08T21:49:04",
@@ -8262,7 +8262,7 @@
     {
       "ot": "000386",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00526",
       "fecha_creacion_ss": "2026-10-02T11:06:28",
@@ -8285,7 +8285,7 @@
     {
       "ot": "000387",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": true,
       "ss_codigo": "00046",
       "fecha_creacion_ss": "2026-09-04T18:07:58",
@@ -8308,7 +8308,7 @@
     {
       "ot": "000388",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00174",
       "fecha_creacion_ss": "2026-09-10T18:47:17",
@@ -8331,7 +8331,7 @@
     {
       "ot": "000389",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8354,7 +8354,7 @@
     {
       "ot": "000390",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8377,7 +8377,7 @@
     {
       "ot": "000391",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8400,7 +8400,7 @@
     {
       "ot": "000392",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00662",
       "fecha_creacion_ss": "2026-10-09T14:40:00",
@@ -8423,7 +8423,7 @@
     {
       "ot": "000393",
       "tipo": "Correctiva programada, Sistemática",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8446,7 +8446,7 @@
     {
       "ot": "000394",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8469,7 +8469,7 @@
     {
       "ot": "000395",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8492,7 +8492,7 @@
     {
       "ot": "000396",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8515,7 +8515,7 @@
     {
       "ot": "000397",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00408",
       "fecha_creacion_ss": "2026-09-24T11:58:15",
@@ -8538,7 +8538,7 @@
     {
       "ot": "000399",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8561,7 +8561,7 @@
     {
       "ot": "000398",
       "tipo": "Correctiva programada",
-      "severidad": "Baja",
+      "severidad": "3-Baja",
       "viene_ss": true,
       "ss_codigo": "00695",
       "fecha_creacion_ss": "2026-10-10T12:38:00",
@@ -8584,7 +8584,7 @@
     {
       "ot": "000400",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00727",
       "fecha_creacion_ss": "2026-10-13T09:01:14",
@@ -8607,7 +8607,7 @@
     {
       "ot": "000401",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8630,7 +8630,7 @@
     {
       "ot": "000402",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8653,7 +8653,7 @@
     {
       "ot": "000403",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8676,7 +8676,7 @@
     {
       "ot": "000404",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": true,
       "ss_codigo": "00714",
       "fecha_creacion_ss": "2026-10-12T10:39:32",
@@ -8699,7 +8699,7 @@
     {
       "ot": "000405",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8722,7 +8722,7 @@
     {
       "ot": "000406",
       "tipo": "Correctiva programada",
-      "severidad": "Alta",
+      "severidad": "1-Alta",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8745,7 +8745,7 @@
     {
       "ot": "000407",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8768,7 +8768,7 @@
     {
       "ot": "000408",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00077",
       "fecha_creacion_ss": "2026-09-07T09:19:00",
@@ -8791,7 +8791,7 @@
     {
       "ot": "000409",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00229",
       "fecha_creacion_ss": "2026-09-11T17:48:19",
@@ -8814,7 +8814,7 @@
     {
       "ot": "000410",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00472",
       "fecha_creacion_ss": "2026-09-28T11:21:00",
@@ -8837,7 +8837,7 @@
     {
       "ot": "000411",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8860,7 +8860,7 @@
     {
       "ot": "000412",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": false,
       "ss_codigo": null,
       "fecha_creacion_ss": null,
@@ -8883,7 +8883,7 @@
     {
       "ot": "000413",
       "tipo": "Correctiva programada",
-      "severidad": "Media",
+      "severidad": "2-Media",
       "viene_ss": true,
       "ss_codigo": "00271",
       "fecha_creacion_ss": "2026-09-12T23:33:29",
