@@ -187,6 +187,12 @@ tal cual ("1-Alta", "2-Media", "3-Baja"; las SS traen "Alta/Media/Baja") y
 en la UI se llama **Prioridad** (antes "Severidad", que no existe en
 Mantum). Antes de crear una etiqueta o agrupar valores nuevos, usar el
 nombre de Mantum.
+Títulos de columna: la columna de equipo se llama **Entidades** en los
+listados de OT y **Entidad** en los de SS (Mariana, 16-oct-2026: "solo la de
+equipo"); en paros y en el directorio de Equipos sigue "Equipo" (así se
+llama en esos exports). "Técnico" y "Lugar" se quedan así (Mariana no quiso
+cambiarlos). En la tabla de la pestaña Órdenes de Trabajo, Comentarios usa el
+mismo formato que Descripción (`colComentarios`, celda con scroll).
 
 ### Tipos de OT: nombres de Mantum tal cual
 

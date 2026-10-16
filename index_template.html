@@ -1303,7 +1303,7 @@ function renderResumen(el){
       {key:'tipo', label:'Tipo'},
       {key:'severidad', label:'Prioridad'},
       {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
-      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'fecha_creacion', label:'Creación', fmt:fmtFechaHoraCorta},
       {key:'fin_real', label:'Fin real', fmt:fmtFechaHoraCorta},
@@ -1320,7 +1320,7 @@ function renderResumen(el){
       {key:'estado_paro', label:'Estado', fmt:(v,r)=> badgeEstadoParo(r)},
       {key:'evidencia', label:'Motivo (Mantum)', fmt:v=> v? `<span class="wrap-text">${esc(v)}</span>` : '—'},
       {key:'equipo_cod', label:'Código equipo', fmt:v=>esc(v??'—')},
-      {key:'equipo', label:'Artículo / equipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Equipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico asignado', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'inicio', label:'Fecha de paro', fmt:fmtFechaHoraCorta},
@@ -1338,7 +1338,7 @@ function renderResumen(el){
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v||'—')}</span>`},
     {key:'severidad', label:'Prioridad', fmt:v=>esc(v??'—')},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
-    {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'tecnico', label:'Ejecutor', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
     {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
@@ -1349,7 +1349,7 @@ function renderResumen(el){
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'severidad', label:'Prioridad'},
     {key:'estado', label:'Estado', fmt:(v,r)=>`<span class="badge ${r.fecha_respuesta?'good':'warn'}" style="white-space:normal;display:inline-block;">${esc(v??'—')}</span>`},
-    {key:'equipo', label:'Equipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'fecha_ss', label:'Solicitud', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
     {key:'fecha_esperada', label:'Esperada', fmt:fmtFechaHoraCorta},
@@ -1415,7 +1415,7 @@ function renderResumen(el){
     modalOT(`OT abiertas — prioridad ${sev}`, detalle, [
       {key:'ot', label:'O.T.'},
       {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
-      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
@@ -1429,7 +1429,7 @@ function renderResumen(el){
     modalOT(`OT cerradas — prioridad ${sev}`, detalle, [
       {key:'ot', label:'O.T.'},
       {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v||'—')}</span>`},
-      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
@@ -1442,7 +1442,7 @@ function renderResumen(el){
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v||'—')}</span>`},
     {key:'severidad', label:'Prioridad', fmt:v=>esc(v??'—')},
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
-    {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+    {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     ...extra,
     {key:'fecha_creacion', label:'Creación', fmt:v=>v?parseD(v).toLocaleDateString('es-CO'):'—'},
@@ -1485,7 +1485,7 @@ function renderResumen(el){
     // Columnas pedidas por Mariana (sin tipo ni costo).
     modalFiltrable('OT creadas después de su inicio real', detalle, [
       {key:'ot', label:'O.T.'},
-      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'fecha_creacion', label:'Fecha de creación', fmt:fmtFechaHoraCorta},
@@ -1507,7 +1507,7 @@ function renderResumen(el){
     const detalle = [...porOT.values()].sort((a,b)=>new Date(a.fin_real)-new Date(b.fin_real));
     modalOT('OT ejecutadas sin cerrar en el sistema', detalle, [
       {key:'ot', label:'O.T.'},
-      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'inicio_real', label:'Inicio real', fmt:fmtDate},
@@ -1524,7 +1524,7 @@ function renderResumen(el){
     const detalle = [...porOT.values()].sort((a,b)=>diasAtrasoOT(b)-diasAtrasoOT(a));
     modalOT('OT vencidas', detalle, [
       {key:'ot', label:'O.T.'},
-      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'inicio_programado', label:'Inicio programado', fmt:fmtDate},
       {key:'fin_programado', label:'Fin programado', fmt:fmtDate},
@@ -1590,7 +1590,7 @@ function renderTopLugaresWrap(){
       {key:'ot', label:'O.T.'},
       {key:'severidad', label:'Prioridad'},
       {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
-      {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
+      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
       {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
       {key:'fecha_creacion', label:'Creación', fmt:fmtFechaHoraCorta},
       {key:'fin_real', label:'Fin real', fmt:fmtFechaHoraCorta},
@@ -1886,7 +1886,7 @@ function renderOT(el){
   const cols = [
     {key:'ot', label:'OT'},
     {key:'tipo', label:'Tipo'},
-    {key:'severidad', label:'Sever.'},
+    {key:'severidad', label:'Prioridad'},
     {key:'viene_ss', label:'¿SS?', fmt:v=>v?'Sí':'No'},
     {key:'ss_codigo', label:'SS asociada', fmt:fmtSSParo},
     {key:'fecha_creacion', label:'Creación OT', fmt:fmtDate},
@@ -1906,11 +1906,11 @@ function renderOT(el){
     {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Cerrada'?'good':'warn'}">${v}</span>`},
     {key:'avance', label:'Avance', num:true, fmt:v=>v+'%'},
     {key:'lugar', label:'Lugar'},
-    {key:'equipo', label:'Equipo'},
+    {key:'equipo', label:'Entidades'},
     {key:'tecnico', label:'Técnico', fmt:shortTecnico},
     {key:'costo_real', label:'Costo', num:true, fmt:fmtMoney},
     colDescripcionOT,
-    {key:'comentarios', label:'Comentarios'},
+    colComentarios,
   ];
   function currentFiltered(){
     const term = document.getElementById('otSearch').value;
@@ -2075,7 +2075,7 @@ function renderParos(el){
     <div class="card-head"><h3>Frecuencia de mantenimiento por equipo</h3></div>
     <div class="section-note" style="margin:0 0 10px;">Cada cuánto recibe una intervención (correctiva o preventiva) cada equipo puntual — no es lo mismo que "paros": aquí cuenta toda OT resuelta a un equipo, sin filtrar por si provoca paro. Usa las OT creadas en el rango de fechas seleccionado arriba.</div>
     ${simpleTable(frecuencia, [
-      {key:'equipo', label:'Equipo'},
+      {key:'equipo', label:'Entidades'},
       {key:'lugar', label:'Lugar'},
       {key:'n', label:'Mantenimientos en el periodo', num:true},
       {key:'promedio', label:'Promedio de días entre mantenimientos', num:true, fmt:v=>v.toFixed(1)},
@@ -2416,7 +2416,7 @@ function renderTecnicos(el){
         const [cls,label] = map[v];
         return `<span class="badge ${cls}">${label}</span>`;
       }},
-      {key:'equipo', label:'Equipo'},
+      {key:'equipo', label:'Entidades'},
       {key:'lugar', label:'Lugar'},
       {key:'otCodigo', label:'O.T.'},
       {key:'desde', label:'Desde', fmt:v=> v? fmtDate(v) : '—'},
@@ -2642,8 +2642,8 @@ function renderSS(el){
   const cols = [
     {key:'ss', label:'SS'},
     {key:'tipo', label:'Tipo'},
-    {key:'severidad', label:'Sever.'},
-    {key:'equipo', label:'Equipo'},
+    {key:'severidad', label:'Prioridad'},
+    {key:'equipo', label:'Entidad'},
     {key:'lugar', label:'Lugar'},
     {key:'fecha_ss', label:'Fecha SS', fmt:fmtDate},
     {key:'fecha_esperada', label:'Fecha esperada', fmt:fmtDate},
@@ -2715,7 +2715,7 @@ function renderCostos(el){
     </div>
     <div class="card">
       <div class="card-head"><h3>Top 10 equipos por costo</h3></div>
-      ${porEquipo.length? rankedTable(porEquipo, {labelKey:{key:'equipo',label:'Equipo'}, countKey:{key:'costo',label:'Costo total'}, extraCols:[{key:'n',label:'Mantenimientos'}], noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
+      ${porEquipo.length? rankedTable(porEquipo, {labelKey:{key:'equipo',label:'Entidades'}, countKey:{key:'costo',label:'Costo total'}, extraCols:[{key:'n',label:'Mantenimientos'}], noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
     </div>
   </div>
   `;
