@@ -1037,10 +1037,12 @@ function renderResumen(el){
   // tipo que traiga el CMMS, p. ej. "Correctiva programada, Sistemática",
   // se muestra con su nombre para que la suma cuadre con el total).
   const tiposHtml = rows => {
-    const c = groupCount(rows, r=>r.tipo||'Sin tipo');
+    // Se agrupa por el nombre corto (antes de la coma) para que
+    // "Correctiva" y "Correctiva, Correctiva programada" no salgan repetidos.
+    const c = groupCount(rows, r=>tipoCorto(r.tipo));
     const orden = t => t==='Correctivo'?0 : t==='Preventivo'?1 : 2;
     c.sort((a,b)=>orden(a.key)-orden(b.key) || b.count-a.count);
-    return `<div class="tipo-line">${c.map(x=>`<span>${esc(x.key.split(',')[0])}: <b>${x.count}</b></span>`).join('') || 'Sin OT'}</div>`;
+    return `<div class="tipo-line">${c.map(x=>`<span>${esc(x.key)}: <b>${x.count}</b></span>`).join('') || 'Sin OT'}</div>`;
   };
   // OT de proveedores (ejecutor no interno que está en el maestro de
   // proveedores o en PROVEEDORES_EXTRA) y OT sin técnico asignado.
