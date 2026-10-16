@@ -344,7 +344,8 @@ O.T.` (`estado==='Abierta'`).
   y recalcula el costo total con lo filtrado.
 - **Columna Comentarios** (pedido de Mariana, 2-oct-2026): `modalFiltrable()`
   la agrega sola al final de todo listado cuyas filas traen `comentarios`
-  (OT y SS). OT = `Realimentación` (sin el bloque "Ejecutores:");
+  (OT y SS). OT = `Realimentación` completa, tal cual Mantum (incluye el bloque
+  "Ejecutores:", Mariana 16-oct-2026);
   SS = columna `Comentarios` del export (historial "Estado / Persona /
   fecha / texto", más reciente primero, un renglón por cambio;
   `limpiar_comentarios_ss()` parte por "SEPARADOR-COMENTARIOS").

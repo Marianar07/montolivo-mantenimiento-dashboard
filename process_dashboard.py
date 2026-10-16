@@ -405,18 +405,12 @@ def resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai):
 
 SS_REF_RE = re.compile(r"SS-0*(\d+)")
 
-# La Realimentación de una OT repite, por cada visita, un bloque
-# "Ejecutores:\n<NOMBRE>\n..." - ese nombre ya está en la columna Técnico,
-# así que se recorta del texto de comentarios para no duplicarlo.
-EJECUTORES_RE = re.compile(r"Ejecutores:\n[^\n]*\n")
-
-
+# La Realimentación de una OT va completa, tal cual Mantum (Mariana,
+# 16-oct-2026), incluido el bloque "Ejecutores:\n<NOMBRE>" de cada visita.
 def limpiar_comentarios(texto):
     if pd.isna(texto):
         return None
-    limpio = EJECUTORES_RE.sub("", str(texto))
-    limpio = re.sub(r"\n{3,}", "\n\n", limpio).strip()
-    return limpio or None
+    return str(texto).strip() or None
 
 
 # La columna "Comentarios" del export de SS trae el historial de estados
