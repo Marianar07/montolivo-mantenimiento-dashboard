@@ -51,6 +51,11 @@ redespliega automáticamente en el mismo enlace.
    activos nuevos y las columnas `Código Instalación de Proceso` / `Nombre
    Instalación de Proceso`. 5-oct-2026: 2400 activos, 77 nuevos frente a
    Disponibilidad, 15 trasladados, 0 sin criticidad.
+   **Activos eliminados en Mantum**: los que siguen en Disponibilidad pero ya
+   no vienen en el maestro salen del directorio y del total de equipos, pero
+   se quedan para ubicar el lugar de OT/SS viejas (el script los lista).
+   19-oct-2026: 2447 activos; Mariana eliminó a propósito 30 "ADECUACIÓN E
+   INSTALACIÓN" (AI-0101, AI-0103, …).
 
    Además, opcionalmente, **`TECNICOS.xlsx`** (nombre contiene "tecnicos")
    — maestro de técnicos de planta, columnas `NOMBRE`, `CEDULA`, `CIUDAD`.

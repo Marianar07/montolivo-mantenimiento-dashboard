@@ -201,7 +201,12 @@ def integrar_activos(path, disp, crit):
         trasladados de punto de venta) y su nombre;
       - en `crit`, toma 'Provoca Paro?' de este archivo y conserva la
         'Criticidad' de Datos Generales de Equipos; los activos nuevos quedan
-        sin criticidad (None) hasta que llegue un export que la traiga.
+        sin criticidad (None) hasta que llegue un export que la traiga;
+      - los activos de Disponibilidad que ya no están en el maestro se
+        eliminaron en Mantum (Mariana, 19-oct-2026: 30 'ADECUACIÓN E
+        INSTALACIÓN' AI-xxxx, a propósito): se quedan en `disp` para que las
+        OT/SS viejas sobre ellos sigan ubicando su lugar, pero salen del
+        directorio y del total de equipos (resumen['eliminados']).
     Devuelve (disp, crit, resumen) con `resumen` para el reporte de consola."""
     if path is None:
         # Sin 'Datos Generales Activos.xlsx': el export de Datos Generales de
@@ -254,8 +259,10 @@ def integrar_activos(path, disp, crit):
     solo_viejo = crit[~crit["Código"].isin(set(crit_new["Código"]))][["Código", "Nombre", "Provoca Paro?", "Criticidad"]]
     crit = pd.concat([crit_new, solo_viejo], ignore_index=True)
 
+    eliminados = sorted(set(disp["Código"]) - set(act["Codigo"]))
     resumen = {
         "activos": len(act),
+        "eliminados": eliminados,
         "nuevos": nuevos[["Codigo", "Nombre", "Instalación Proceso", "Provoca Paro"]].values.tolist(),
         "trasladados": trasladados,
         "sin_criticidad": int(crit["Criticidad"].isna().sum()),
@@ -657,9 +664,10 @@ def construir_paros(paros_raw, ot_df, crit, disp_by_code, lugar_to_ai):
 # EQUIPOS (directorio de disponibilidad/criticidad)
 # ============================================================
 
-def construir_equipos(disp, crit):
+def construir_equipos(disp, crit, eliminados=()):
     crit_idx = crit.set_index("Código")
     registros = []
+    disp = disp[~disp["Código"].isin(set(eliminados))]
     total_maestro = len(disp)
     for _, r in disp.iterrows():
         instalacion = r["Instalación de Proceso"]
@@ -716,7 +724,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
     paros_raw = cargar_paros(paros_path) if paros_path else None
     paros, paros_programados = construir_paros(paros_raw, ot_df, crit, disp_by_code, lugar_to_ai)
-    equipos, total_maestro = construir_equipos(disp, crit)
+    equipos, total_maestro = construir_equipos(disp, crit, resumen_activos["eliminados"] if resumen_activos else ())
     criticidad_totales = construir_criticidad_totales(crit)
 
     ot_records = ot_df.drop(columns=["_tipo_match"]).to_dict(orient="records")
@@ -767,6 +775,9 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
         ra = resumen_activos
         print(f"Datos Generales Activos: {ra['activos']} activos - {len(ra['nuevos'])} nuevos frente a Disponibilidad, "
               f"{ra['trasladados']} con ubicación actualizada, {ra['sin_criticidad']} sin criticidad")
+        if ra["eliminados"]:
+            print(f"   {len(ra['eliminados'])} activos de Disponibilidad ya no están en el maestro (eliminados en Mantum, "
+                  f"fuera del directorio): {', '.join(ra['eliminados'])}")
         for cod, nom, lugar, paro in ra["nuevos"]:
             print(f"   nuevo: {cod} | {nom} | {lugar} | provoca paro: {paro}")
     if tecnicos_internos is not None:
