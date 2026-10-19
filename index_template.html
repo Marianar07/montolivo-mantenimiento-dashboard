@@ -484,7 +484,7 @@ function inRange(dateStr, desde, hasta){
 function esc(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function shortTecnico(s){
   if(!s) return '—';
-  return s.split(',').map(n=>{ n=n.trim(); const p=n.split(' '); return p.length>=2? (p[0][0]+p[0].slice(1).toLowerCase()+' '+p[1][0].toUpperCase()+'.') : n; }).join(', ');
+  return s.split(',').map(n=>{ n=n.trim(); const p=n.split(/\s+/); return p.length>=2? (p[0][0]+p[0].slice(1).toLowerCase()+' '+p[1][0].toUpperCase()+'.') : n; }).join(', ');
 }
 function statusClass(value, thresholds, inverse){
   // thresholds = {good, warn} numeric cutoffs
