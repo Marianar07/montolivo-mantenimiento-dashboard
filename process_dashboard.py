@@ -576,8 +576,46 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
             "ot_asociada": ot_por_ss.get(r["Código"]),
             "descripcion": r["Descripción"],
             "comentarios": limpiar_comentarios_ss(r.get("Comentarios")),
+            "_solicitante": r.get("Solicitante"),
+            "_anm": es_activo_anm(equipo_cod, disp_by_code),
         })
-    return pd.DataFrame(registros)
+    df = pd.DataFrame(registros)
+    # Activos no mantenibles (mesas, mesones, avisos...): en Mantum su
+    # Instalación de Proceso es "ANM | ACTIVOS NO MANTENIBLES", no el punto de
+    # venta. Mariana, 20-oct-2026: el lugar se saca de la SS - el Solicitante
+    # es el usuario del punto ("LOS MOLINOS PDV"). Se toma el lugar que tienen
+    # las demás SS (no ANM) de ese mismo solicitante, para que quede con el
+    # mismo nombre de lugar que el resto del tablero.
+    lugar_por_solicitante = (df[~df["_anm"] & df["lugar"].notna()
+                                & df["_solicitante"].fillna("").str.strip().str.endswith("PDV")]
+                             .groupby("_solicitante")["lugar"].agg(lambda s: s.mode().iloc[0]))
+    anm = df["_anm"]
+    df.loc[anm, "lugar"] = df.loc[anm, "_solicitante"].map(lugar_por_solicitante).fillna(df.loc[anm, "lugar"])
+    return df.drop(columns=["_solicitante"])
+
+
+def es_activo_anm(equipo_cod, disp_by_code):
+    if equipo_cod is None or equipo_cod not in disp_by_code.index:
+        return False
+    row = disp_by_code.loc[equipo_cod]
+    if isinstance(row, pd.DataFrame):
+        row = row.iloc[0]
+    return str(row["Instalación de Proceso"]).startswith("ANM")
+
+
+def lugar_ot_anm_desde_ss(ot_df, ss_df):
+    """OT sobre activos no mantenibles: el lugar sale de su SS (la referencia
+    "SS-xxxxx" de la Descripción, o la SS que trae la OT en su columna OTs).
+    Si la OT no viene de una SS, queda como está."""
+    lugar_ss = ss_df.set_index("ss")["lugar"]
+    ss_por_ot = {o: s for s, o in zip(ss_df["ss"], ss_df["ot_asociada"]) if o}
+    anm_txt = ot_df["lugar"].fillna("").str.startswith("ACTIVOS NO MANTENIBLES")
+    for i in ot_df.index[anm_txt]:
+        ss_cod = ot_df.at[i, "ss_codigo"] or ss_por_ot.get(ot_df.at[i, "ot"])
+        lugar = lugar_ss.get(ss_cod) if ss_cod else None
+        if lugar and not lugar.startswith("ACTIVOS NO MANTENIBLES"):
+            ot_df.at[i, "lugar"] = lugar
+    return ot_df
 
 
 # ============================================================
@@ -722,6 +760,9 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
+    ot_df = lugar_ot_anm_desde_ss(ot_df, ss_df)
+    anm_ss = ss_df[ss_df["_anm"]]
+    ss_df = ss_df.drop(columns=["_anm"])
     paros_raw = cargar_paros(paros_path) if paros_path else None
     paros, paros_programados = construir_paros(paros_raw, ot_df, crit, disp_by_code, lugar_to_ai)
     equipos, total_maestro = construir_equipos(disp, crit, resumen_activos["eliminados"] if resumen_activos else ())
@@ -760,6 +801,12 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     # reporte rápido en consola para poder revisar antes de subir
     resueltas = ot_df["_tipo_match"].isin(["equipo_especifico", "instalacion_pdv"]).sum()
     print(f"OT procesadas: {len(ot_df)} (de las cuales {resueltas} con equipo/lugar resuelto)")
+    sin_lugar_anm = [r["ot"] for r in ot_records if (r["lugar"] or "").startswith("ACTIVOS NO MANTENIBLES")]
+    print(f"Activos no mantenibles: {len(anm_ss)} SS con lugar del Solicitante; "
+          f"OT que siguen como 'Activos no mantenibles' (sin SS): {sin_lugar_anm or 'ninguna'}")
+    for r in anm_ss.itertuples():
+        if (r.lugar or "").startswith("ACTIVOS NO MANTENIBLES"):
+            print(f"   SS {r.ss} sigue como 'Activos no mantenibles' (solicitante no es un PDV)")
     print(f"SS procesadas: {len(ss_df)}")
     provoca_paro_n = int((crit["Provoca Paro?"] == "Sí").sum())
     print(f"Activos que 'Provoca Paro?' = Sí: {provoca_paro_n} de {len(crit)} en el maestro")

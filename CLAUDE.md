@@ -698,6 +698,18 @@ En el archivo de Criticidad/Disponibilidad, los activos cuya `Instalación`
 empieza con `"ANM |"` (Activos No Mantenibles) se excluyen del directorio
 de equipos del tablero — no son equipos operativos de mantenimiento.
 
+**Lugar de OT/SS sobre activos ANM** (Mariana, 20-oct-2026: "el lugar lo
+debemos sacar de las SS"): mesas, mesones, avisos… tienen Instalación de
+Proceso "ANM | ACTIVOS NO MANTENIBLES", que salía como Lugar. Ahora la SS
+toma el lugar de su **Solicitante** (usuario del punto, "LOS MOLINOS PDV"):
+el lugar más común de las demás SS (no ANM) de ese solicitante, para usar el
+mismo nombre de lugar del resto del tablero (`construir_ss`). La OT toma el
+lugar de su SS (`lugar_ot_anm_desde_ss`: referencia SS-xxxxx de la
+Descripción o columna OTs de la SS); si no viene de una SS se queda "Activos
+no mantenibles" (20-oct-2026: solo la 000153). Se le ofreció usar la
+"Instalación Locativa" del maestro y dijo que no (p. ej. MA-0008 dice Puerta
+del Norte pero la SS 00284 la pidió La Central).
+
 El directorio de equipos (pestaña "Equipos") muestra la columna **"Genera
 paro"** (`provoca_paro`, de `Provoca Paro?` en Datos Generales de Equipos) y
 un filtro Sí/No (pedido de Mariana, 8-oct-2026). 8-oct-2026: 175 de 2400
