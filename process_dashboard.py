@@ -589,7 +589,8 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
     lugar_por_solicitante = (df[~df["_anm"] & df["lugar"].notna()
                                 & df["_solicitante"].fillna("").str.strip().str.endswith("PDV")]
                              .groupby("_solicitante")["lugar"].agg(lambda s: s.mode().iloc[0]))
-    anm = df["_anm"]
+    # Igual para las SS sin Entidad en Mantum (sin lugar; Mariana, 20-oct-2026).
+    anm = df["_anm"] | df["lugar"].isna()
     df.loc[anm, "lugar"] = df.loc[anm, "_solicitante"].map(lugar_por_solicitante).fillna(df.loc[anm, "lugar"])
     return df.drop(columns=["_solicitante"])
 
@@ -807,6 +808,8 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     for r in anm_ss.itertuples():
         if (r.lugar or "").startswith("ACTIVOS NO MANTENIBLES"):
             print(f"   SS {r.ss} sigue como 'Activos no mantenibles' (solicitante no es un PDV)")
+    ss_sin_lugar = ss_df.loc[ss_df["lugar"].isna(), "ss"].tolist()
+    print(f"SS sin lugar (sin Entidad y solicitante no es un PDV): {ss_sin_lugar or 'ninguna'}")
     print(f"SS procesadas: {len(ss_df)}")
     provoca_paro_n = int((crit["Provoca Paro?"] == "Sí").sum())
     print(f"Activos que 'Provoca Paro?' = Sí: {provoca_paro_n} de {len(crit)} en el maestro")

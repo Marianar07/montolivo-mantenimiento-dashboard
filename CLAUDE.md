@@ -706,7 +706,10 @@ el lugar más común de las demás SS (no ANM) de ese solicitante, para usar el
 mismo nombre de lugar del resto del tablero (`construir_ss`). La OT toma el
 lugar de su SS (`lugar_ot_anm_desde_ss`: referencia SS-xxxxx de la
 Descripción o columna OTs de la SS); si no viene de una SS se queda "Activos
-no mantenibles" (20-oct-2026: solo la 000153). Se le ofreció usar la
+no mantenibles" (20-oct-2026: solo la 000153). La misma regla del
+Solicitante se aplica a las **SS sin Entidad** en Mantum (antes "Sin lugar";
+20-oct-2026: 11, todas No aprobada; queda sin lugar solo la 00010, pedida
+por un técnico, no por un PDV). Se le ofreció usar la
 "Instalación Locativa" del maestro y dijo que no (p. ej. MA-0008 dice Puerta
 del Norte pero la SS 00284 la pidió La Central).
 
