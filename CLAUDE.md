@@ -448,11 +448,16 @@ libres y % ocupación.
 
 Pedido de Mariana (7-oct-2026), tarjeta a todo el ancho debajo de la fila
 "Trabajo" (`chartSSSemanal()`): una barra por semana (lunes–domingo) con las
-SS por `fecha_ss`, **desde el 1-ago-2026 hasta hoy, rango fijo** (no usa el
-filtro de fechas; sí el de lugar). Primero fue lunes a sábado, pero Mariana
+SS por `fecha_ss`, **desde el 1-ago-2026 hasta hoy, rango fijo** (no usa los
+filtros de arriba, ver abajo). Primero fue lunes a sábado, pero Mariana
 la cambió a semana completa: los puntos de venta también reportan el
 domingo (35 SS el 7-oct-2026). La semana actual se marca "(en curso)"; el
-promedio por semana usa solo semanas completas.
+promedio por semana usa solo semanas completas. Tiene dos filtros propios
+(Mariana, 19-oct-2026; `SS_SEM_FILTRO`, `renderSSSemanalWrap()`): **Lugar**
+(cualquier lugar de las SS: punto de venta, base de operaciones…) y
+**Abiertas / Cerradas** (por `Fecha de respuesta`). Son sus **únicos**
+filtros: no usa ni el de fechas ni el de lugar de arriba (Mariana). Se le ofreció filtro por
+ciudad y dijo que no: "por ciudad es más complicado", solo por lugar.
 
 Debajo, con la misma función (`chartSemanal(rows, fechaKey, …)`), **"OT
 realizadas por semana (lunes a domingo)"** (Mariana, 7-oct-2026): OT con
