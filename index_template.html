@@ -1832,7 +1832,7 @@ function chartSemanal(rows, fechaKey, nombre, serie, filtrosPropios, apilar){
 // mensual), ordenada por total. Respeta el filtro general; clic en el lugar
 // → listado de sus OT. Cuando una OT tiene varias entidades, el lugar viene
 // como "SAN DIEGO, SJ-0016 | ..." — se agrupa por la parte antes del código.
-function lugarCortoOT(r){ return (r.lugar||'Sin lugar').split(/, [A-Z]{1,4}-\d+ \|/)[0]; }
+function lugarCortoOT(r){ return (r.lugar||'Sin lugar').split(/, (?:[A-Z]{1,4}-\d+|MTV(?:-[A-Z0-9]+)+) \|/)[0]; }
 // También se usa para "SS por punto de venta" (attr='data-ss-lugar').
 function chartTipoLugar(rows, attr){
   attr = attr || 'data-tipo-lugar';

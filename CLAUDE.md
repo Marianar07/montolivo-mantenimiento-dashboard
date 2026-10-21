@@ -523,7 +523,10 @@ por tipo (mismos colores que el histórico mensual), ordenada por total, con
 la cantidad en cada segmento y el total al final. Respeta el filtro general.
 Clic en el nombre del lugar → listado de sus OT (`modalFiltrable`, con filtro
 de Tipo y costo). Las OT con varias entidades traen el lugar como
-"SAN DIEGO, SJ-0016 | ..." — `lugarCortoOT()` las agrupa en su lugar.
+"SAN DIEGO, SJ-0016 | ..." o, si la segunda entidad es otra ubicación,
+"BODEGAS, MTV-BO | BASE DE OPERACIONES" — `lugarCortoOT()` las agrupa en el
+primer lugar (21-oct-2026: antes no reconocía los códigos MTV-… y 5 OT salían
+con dos lugares en un mismo renglón en "OT realizadas por lugar y semana").
 
 ### Gráficas de SS (Resumen Gerencial)
 
