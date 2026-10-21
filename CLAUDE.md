@@ -231,16 +231,16 @@ en la 000182 las 5 filas traen el mismo valor). No contar filas como OT ni
 tomar un solo costo por OT. Además trae una fila por cada **recurso**
 asignado, repitiendo el `Total Real` de la actividad (OT 000040 = 39 filas de
 $15.187.886).
-**Regla actual (Mariana, 21-oct-2026): "el costo se debe sumar todo lo que
-diga en el excel por el momento"** → se suman TODAS las filas (costo total =
-suma de la columna Total Real: $671,4 M; la 000040 queda en $592,3 M, el 88%).
-Antes (6 al 21-oct) se tomaba un valor por (OT, actividad) ($59,1 M en total).
-Ninguna de las dos reglas da el costo de Mantum: en la OT 000298 Mantum dice
+Se toma **un solo valor por (OT, actividad)** antes de sumar.
+**No sumar todas las filas** (Mariana, 21-oct-2026: se probó un rato y la
+000040 daba $592,3 M frente a $15.163.567 en Mantum; "dejémoslo como estaba
+antes"). Ninguna regla da exacto el costo de Mantum: en la 000298 Mantum dice
 Personal 27.781,78 (horas × tarifa) + Costos consumo 59.654,70 = **87.436,48**
-y "real mecánica" 42.781 (= Total Real por actividad); sumando las filas da
-85.563,46. El export de OT no trae Personal ni Consumos; se le pidió a Mariana
-un export de Mantum con el costo por OT desglosado. Cuando llegue, usar ese
-total y llenar "Costo repuestos".
+y "real mecánica" 42.781 (= Total Real por actividad, lo que usa el tablero);
+en la 000040, Total Real 15.187.886,07 vs. 15.163.567 en Mantum (diferencia
+≈ 24.319, que era el Total Real de la 000040 antes de cargarle repuestos). El
+export de OT no trae Personal ni Consumos; pendiente entender con Mariana /
+conseguir un export con el costo por OT desglosado.
 
 ### Enlace SS -> OT
 
