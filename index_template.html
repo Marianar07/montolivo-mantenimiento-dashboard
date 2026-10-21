@@ -1312,15 +1312,9 @@ function renderResumen(el){
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
 
-  <div class="grid2">
-    <div class="card">
-      <div class="card-head"><h3>OT por tipo de mantenimiento — histórico por mes</h3></div>
-      ${chartTipoMensual(ot)}
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>OT Correctiva programada por lugar</h3></div>
-      <div id="topLugaresWrap"></div>
-    </div>
+  <div class="card">
+    <div class="card-head"><h3>OT por tipo de mantenimiento — histórico por mes</h3></div>
+    ${chartTipoMensual(ot)}
   </div>
 
   <div class="card">
@@ -1340,7 +1334,6 @@ function renderResumen(el){
   </div>
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
-  renderTopLugaresWrap();
   ['ss','ot'].forEach(tipo=>{
     renderSemanalWrap(tipo);
     ['Lugar','Estado'].forEach(c=>document.getElementById(tipo+'Sem'+c).addEventListener('change', ()=>{
@@ -1631,30 +1624,6 @@ function modalFiltrable(titulo, rows, cols, opts={}){
   selects.forEach(s=>s.addEventListener('change', pintar));
   pintar();
 }
-function renderTopLugaresWrap(){
-  const wrap = document.getElementById('topLugaresWrap');
-  if(!wrap) return;
-  // Sin filtro de mes propio ni total (pedido de Mariana): usa el mismo
-  // filtro de fechas/lugar de arriba que el resto del Resumen.
-  const correctivasCard = getFilteredOT().filter(r=>r.tipo===TIPO_CORR);
-  wrap.innerHTML = topLugaresAverias(correctivasCard);
-  // Clic en la cantidad → todas las OT correctivas de ese lugar en el rango.
-  wrap.querySelectorAll('[data-lugar-ot]').forEach(btn=>btn.addEventListener('click', ()=>{
-    const lugar = btn.dataset.lugarOt;
-    const rows = correctivasCard.filter(r=>(r.lugar||'Sin lugar')===lugar).sort((a,b)=>new Date(b.fecha_creacion)-new Date(a.fecha_creacion));
-    modalFiltrable(`OT Correctiva programada — ${lugar}`, rows, [
-      {key:'ot', label:'O.T.'},
-      {key:'severidad', label:'Prioridad'},
-      {key:'estado', label:'Estado', fmt:v=>`<span class="badge ${v==='Abierta'?'warn':'good'}">${esc(v??'—')}</span>`},
-      {key:'equipo', label:'Entidades', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
-      {key:'tecnico', label:'Técnico', fmt:v=>`<span class="wrap-text">${v?esc(shortTecnico(v)):'—'}</span>`},
-      {key:'fecha_creacion', label:'Creación', fmt:fmtFechaHoraCorta},
-      {key:'fin_real', label:'Fin real', fmt:fmtFechaHoraCorta},
-      {key:'avance', label:'% ejec.', num:true, fmt:v=>v==null?'—':fmtPct(v,0)},
-      {key:'costo_real', label:'Costo', num:true, fmt:v=>fmtMoney(v||0)},
-    ], {costo:true, filtros:[['estado','Estado'],['severidad','Prioridad']]});
-  }));
-}
 const ORDEN_SEVERIDAD = {Alta:0, Media:1, Baja:2, '1-Alta':0, '2-Media':1, '3-Baja':2};
 // Histórico mensual de OT por tipo de mantenimiento (pedido de Mariana;
 // reemplazó al de tipo × severidad). Mes = mes de la Fecha Creación, desde
@@ -1858,17 +1827,6 @@ function chartTipoLugar(rows, attr){
     </div>`).join('');
   const legend = tipos.map(t=>`<span><span class="sw" style="background:${colores[t]}"></span>${esc(t)} (${cnt[t]})</span>`).join('');
   return `<div class="legend" style="margin:0 0 10px">${legend}</div><div class="tl-chart">${html}</div>`;
-}
-// "OT correctivas por lugar" (antes "Top lugares con más averías
-// correctivas", solo 8): TODOS los lugares, con la cantidad clicable.
-function topLugaresAverias(correctivas){
-  const g = groupCount(correctivas, r=>r.lugar||'Sin lugar');
-  if(!g.length) return '<div class="empty">Sin correctivas en el periodo seleccionado</div>';
-  return simpleTable(g.map((x,i)=>({pos:i+1, lugar:x.key, n:x.count})), [
-    {key:'pos', label:'#', num:true},
-    {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v)}</span>`},
-    {key:'n', label:'OT', num:true, fmt:(v,r)=>`<button type="button" class="link-count" data-lugar-ot="${esc(r.lugar)}" title="Ver las OT correctivas de ${esc(r.lugar)}">${v}</button>`},
-  ], {scroll:true});
 }
 
 /* ============ TAB: Órdenes de Trabajo ============ */

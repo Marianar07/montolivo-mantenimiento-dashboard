@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-21T10:35:13",
+  "generado": "2026-10-21T10:37:45",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -15208,7 +15208,7 @@
     },
     {
       "ss": "00532",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Baja",
       "equipo": "DESMECHADORA",
       "criticidad": "Alta",
@@ -17668,7 +17668,7 @@
     },
     {
       "ss": "00773",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "TRAMPA DE GRASA HORNO",
       "criticidad": "Baja",
@@ -17683,7 +17683,7 @@
     },
     {
       "ss": "00774",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Baja",
       "equipo": "LAVAMANOS DE PEDAL",
       "criticidad": "Baja",
@@ -17983,7 +17983,7 @@
     },
     {
       "ss": "00793",
-      "tipo": "Correctiva Programada",
+      "tipo": "Correctivo Programado",
       "severidad": "Media",
       "equipo": "ADECUACIÓN E INSTALACIÓN PLAZA DE LAS AMÉRICAS",
       "criticidad": null,
@@ -18013,7 +18013,7 @@
     },
     {
       "ss": "00794",
-      "tipo": "Correctiva Programada",
+      "tipo": "Correctivo Programado",
       "severidad": "Alta",
       "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
       "criticidad": "Alta",
@@ -18208,7 +18208,7 @@
     },
     {
       "ss": "00811",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "HORNO PROTEINAS RATIONAL CDP IZQUIERDA",
       "criticidad": "Alta",
@@ -18358,7 +18358,7 @@
     },
     {
       "ss": "00812",
-      "tipo": "Mejora Programada",
+      "tipo": "Mejoras Tecnicas",
       "severidad": "Baja",
       "equipo": null,
       "criticidad": null,
@@ -18448,7 +18448,7 @@
     },
     {
       "ss": "00817",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA ENVIGADO",
       "criticidad": "Baja",
@@ -18463,7 +18463,7 @@
     },
     {
       "ss": "00825",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA CALI",
       "criticidad": null,
@@ -18478,7 +18478,7 @@
     },
     {
       "ss": "00826",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "ADECUACIÓN E INSTALACIÓN MALL PLAZA CALI",
       "criticidad": null,
@@ -18553,7 +18553,7 @@
     },
     {
       "ss": "00841",
-      "tipo": "Correctiva Programada",
+      "tipo": "Correctivo Programado",
       "severidad": "Media",
       "equipo": "LICUADORA INDUSTRIAL",
       "criticidad": "Media",
@@ -18778,7 +18778,7 @@
     },
     {
       "ss": "00855",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "HORNO DE LASAÑAS",
       "criticidad": "Alta",
@@ -18793,7 +18793,7 @@
     },
     {
       "ss": "00856",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Baja",
       "equipo": "GRANIZADORA 2T",
       "criticidad": "Alta",
@@ -18808,7 +18808,7 @@
     },
     {
       "ss": "00857",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA REFRIGERACION VERTICAL 1P DUKERS",
       "criticidad": "Alta",
@@ -18823,7 +18823,7 @@
     },
     {
       "ss": "00858",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA REFRIGERACION VERTICAL 3P IMBERA",
       "criticidad": "Alta",
@@ -18838,7 +18838,7 @@
     },
     {
       "ss": "00859",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA CONGELACION HORIZONTAL 2P CHALLENGER",
       "criticidad": "Alta",
@@ -18853,7 +18853,7 @@
     },
     {
       "ss": "00861",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA REFRIGERACION VERTICAL 3P IMBERA",
       "criticidad": "Alta",
@@ -18868,7 +18868,7 @@
     },
     {
       "ss": "00862",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Baja",
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA BARRANQUILLA",
       "criticidad": null,
@@ -18883,7 +18883,7 @@
     },
     {
       "ss": "00863",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA CONGELACION VERTICAL 2P TORNADO",
       "criticidad": "Alta",
@@ -18973,7 +18973,7 @@
     },
     {
       "ss": "00871",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "AVISO (LETRERO) DE MODA",
       "criticidad": "Baja",
@@ -19198,7 +19198,7 @@
     },
     {
       "ss": "00890",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
       "criticidad": "Alta",
@@ -19213,7 +19213,7 @@
     },
     {
       "ss": "00891",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA REFRIGERACION VERTICAL 2P DUKERS",
       "criticidad": "Alta",
@@ -19228,7 +19228,7 @@
     },
     {
       "ss": "00892",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA CONGELACION VERTICAL 2P DUKERS",
       "criticidad": "Alta",
@@ -19243,7 +19243,7 @@
     },
     {
       "ss": "00893",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "NEVERA CONGELACION VERTICAL 2P DUKERS",
       "criticidad": "Alta",
@@ -19258,7 +19258,7 @@
     },
     {
       "ss": "00894",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "HORNO PROTEINAS RATIONAL",
       "criticidad": "Alta",
@@ -19273,7 +19273,7 @@
     },
     {
       "ss": "00895",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "MESON LAVAPLATOS",
       "criticidad": "Media",
@@ -19303,7 +19303,7 @@
     },
     {
       "ss": "00902",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Media",
       "equipo": "LICUADORA",
       "criticidad": "Alta",
@@ -19468,7 +19468,7 @@
     },
     {
       "ss": "00908",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "NEVERA REFRIGERACION VERTICAL 1P DUKERS",
       "criticidad": "Alta",
@@ -19483,7 +19483,7 @@
     },
     {
       "ss": "00909",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Alta",
       "equipo": "NEVERA CONGELACION VERTICAL 1P TORNADO",
       "criticidad": "Alta",
@@ -19498,7 +19498,7 @@
     },
     {
       "ss": "00910",
-      "tipo": "Correctiva de Emergencia",
+      "tipo": "Correctivos de emergencia",
       "severidad": "Baja",
       "equipo": "ADECUACIÓN E INSTALACIÓN VIVA BARRANQUILLA",
       "criticidad": null,

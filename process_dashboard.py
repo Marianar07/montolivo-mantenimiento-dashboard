@@ -565,6 +565,24 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
 # TRANSFORMACIÓN SS
 # ============================================================
 
+# Tipos de SS que se suman a otro tipo de Mantum (Mariana, 21-oct-2026:
+# "Correctiva de Emergencia" va en "Correctivos de emergencia", "Mejora
+# Programada" en "Mejoras Tecnicas" y "Correctiva Programada" en "Correctivo
+# Programado"). El resto va tal cual Mantum.
+TIPOS_SS_SUMAR = {
+    "Correctiva de Emergencia": "Correctivos de emergencia",
+    "Mejora Programada": "Mejoras Tecnicas",
+    "Correctiva Programada": "Correctivo Programado",
+}
+
+
+def tipo_ss(valor):
+    if pd.isna(valor):
+        return valor
+    t = str(valor).strip()
+    return TIPOS_SS_SUMAR.get(t, t)
+
+
 def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df, crit_by_code):
     """`ot_asociada` se arma con la referencia de texto "SS-XXXXX" que se
     extrae de la Descripción de cada OT (columna `ss_codigo` de `ot_df`).
@@ -594,7 +612,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df, crit_by_code):
 
         registros.append({
             "ss": r["Código"],
-            "tipo": r["Tipo"],
+            "tipo": tipo_ss(r["Tipo"]),
             "severidad": r["Prioridad"],
             "equipo": nombre_resuelto,
             "criticidad": criticidad if pd.notna(criticidad) else None,

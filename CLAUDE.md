@@ -507,13 +507,11 @@ bronce, otros tipos como Correctiva programada en pizarra), con el número
 encima (`groupedBarChart` con `fill` y `showValues`). Incluye meses vacíos
 del medio. Respeta el filtro general.
 
-### "OT correctivas por lugar" (Resumen Gerencial)
+### "OT correctivas por lugar" (Resumen Gerencial) — eliminada
 
-Reemplazó a "Top lugares con más averías correctivas" (pedido de Mariana):
-muestra **todos** los lugares (no solo 8) con la cantidad de OT correctivas
-del rango del filtro general de arriba (ya **no** tiene selector de mes propio
-ni el total de correctivas, a pedido de Mariana); la cantidad es clicable → listado de esas OT con filtros y costo (`topLugaresAverias()`,
-`renderTopLugaresWrap()`).
+Mariana, 21-oct-2026: se quitó la tabla "OT Correctiva programada por lugar"
+(`topLugaresAverias`/`renderTopLugaresWrap`). El histórico mensual de OT por
+tipo quedó a todo el ancho. No volver a ponerla sin que ella lo pida.
 
 ### "OT por lugar y tipo de mantenimiento" (Resumen Gerencial)
 
@@ -545,7 +543,12 @@ tipo de SS; clic en el lugar → `modalSS`). Ambas reutilizan las funciones
 de las gráficas de OT; los colores por tipo salen de `tiposYColores()`
 (Correctivo vino, Preventivo bronce, el resto por frecuencia). Los tipos de
 SS se muestran tal cual vienen del CMMS (p. ej. "Correctivos de emergencia"
-y "Correctiva de Emergencia" quedan separados).
+y "Correctiva de Emergencia" quedaban separados).
+**Excepción (Mariana, 21-oct-2026):** `TIPOS_SS_SUMAR` / `tipo_ss()` en
+`process_dashboard.py` suman "Correctiva de Emergencia" → "Correctivos de
+emergencia", "Mejora Programada" → "Mejoras Tecnicas" y "Correctiva
+Programada" → "Correctivo Programado", en todo el tablero (21-oct-2026: 541,
+118 y 93 SS). Si aparece otro tipo de SS parecido, preguntarle antes de sumarlo.
 
 ### Ordenar tablas por columna
 
