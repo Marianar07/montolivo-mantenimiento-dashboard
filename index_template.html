@@ -376,6 +376,7 @@ tbody tr:nth-child(even):hover{background:var(--maroon-wash);}
 .badge.info{background:var(--info-bg);color:var(--info-text);border:1px solid var(--info-border);}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid-costos{grid-template-columns:2fr 3fr;} /* el top de equipos lleva lugar y mantenimientos */
 .grid2 > *{min-width:0;} /* deja que las tablas anchas hagan scroll dentro de su tarjeta */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 @media (max-width:900px){.grid2,.grid3{grid-template-columns:1fr;}}
@@ -2846,9 +2847,13 @@ function renderCostos(el){
   const cPrev = preventivo.reduce((s,r)=>s+(r.costo_real||0),0);
 
   const porLugar = groupSum(ot, r=>r.lugar, r=>r.costo_real||0).slice(0,10);
-  const porEquipo = groupSum(ot, r=>r.equipo, r=>r.costo_real||0).slice(0,10).map(x=>{
-    const n = ot.filter(r=>r.equipo===x.key).length;
-    return {equipo:x.key, n, costo:x.sum};
+  // Por equipo puntual (código), no por nombre: si no, "HORNO PROTEINAS
+  // RATIONAL" sumaba todos los hornos de todas las sedes.
+  const claveEquipo = r=>r.equipo_cod || `${r.equipo||'Sin dato'}\u0000${lugarCortoOT(r)}`;
+  const porEquipo = groupSum(ot, claveEquipo, r=>r.costo_real||0).slice(0,10).map(x=>{
+    const filas = ot.filter(r=>claveEquipo(r)===x.key);
+    const r0 = filas[0];
+    return {equipo:r0.equipo||'Sin dato', lugar:lugarCortoOT(r0), n:filas.length, costo:x.sum};
   });
 
   el.innerHTML = `
@@ -2860,14 +2865,14 @@ function renderCostos(el){
     ${kpiCard({label:'Costo Correctiva programada', value:fmtMoney(cCorr), sub:`${correctivo.length} OT`})}
     ${kpiCard({label:'Costo Sistemática', value:fmtMoney(cPrev), sub:`${preventivo.length} OT`})}
   </div>
-  <div class="grid2">
+  <div class="grid2 grid-costos">
     <div class="card">
       <div class="card-head"><h3>Costo por sede</h3></div>
       ${porLugar.length? rankedTable(porLugar.map(x=>({lugar:x.key, costo:x.sum})), {labelKey:{key:'lugar',label:'Lugar'}, countKey:{key:'costo',label:'Costo'}, noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
     </div>
     <div class="card">
       <div class="card-head"><h3>Top 10 equipos por costo</h3></div>
-      ${porEquipo.length? rankedTable(porEquipo, {labelKey:{key:'equipo',label:'Entidades'}, countKey:{key:'costo',label:'Costo total'}, extraCols:[{key:'n',label:'Mantenimientos'}], noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
+      ${porEquipo.length? rankedTable(porEquipo, {labelKey:{key:'equipo',label:'Entidades'}, countKey:{key:'costo',label:'Costo total'}, extraCols:[{key:'lugar',label:'Lugar'},{key:'n',label:'Mantenimientos'}], noBar:true, countFmt:fmtMoney}) : '<div class="empty">Sin datos</div>'}
     </div>
   </div>
   `;

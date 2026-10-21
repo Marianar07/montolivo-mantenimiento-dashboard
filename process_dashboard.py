@@ -411,6 +411,8 @@ def resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai):
 # -> "Preventivo", pero en Mantum no existen esos nombres y confundía.
 
 SS_REF_RE = re.compile(r"SS-0*(\d+)")
+# Separador de la 2.ª entidad de una OT (", SJ-0016 |" o ", MTV-BO |").
+OTRA_ENTIDAD_RE = re.compile(r", (?:[A-Z]{1,4}-\d+|MTV(?:-[A-Z0-9]+)+) \|")
 
 # La Realimentación de una OT va completa, tal cual Mantum (Mariana,
 # 16-oct-2026), incluido el bloque "Ejecutores:\n<NOMBRE>" de cada visita.
@@ -492,6 +494,13 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
         )
         if nombre_resuelto is None:
             nombre_resuelto = equipo_nombre_raw
+        # OT con varias entidades: el lugar llega como "SAN DIEGO, NC-0049 |
+        # NEVERA..." o "BODEGAS, MTV-BO | BASE DE OPERACIONES" -> se deja solo
+        # el primer lugar (21-oct-2026: salían renglones con dos lugares en
+        # costo por lugar, gráficas y filtros). La Entidades completa sigue en
+        # "equipo".
+        if lugar:
+            lugar = OTRA_ENTIDAD_RE.split(lugar)[0]
 
         criticidad = crit_map.get(cod_resuelto) if cod_resuelto else None
 

@@ -524,9 +524,16 @@ la cantidad en cada segmento y el total al final. Respeta el filtro general.
 Clic en el nombre del lugar → listado de sus OT (`modalFiltrable`, con filtro
 de Tipo y costo). Las OT con varias entidades traen el lugar como
 "SAN DIEGO, SJ-0016 | ..." o, si la segunda entidad es otra ubicación,
-"BODEGAS, MTV-BO | BASE DE OPERACIONES" — `lugarCortoOT()` las agrupa en el
-primer lugar (21-oct-2026: antes no reconocía los códigos MTV-… y 5 OT salían
-con dos lugares en un mismo renglón en "OT realizadas por lugar y semana").
+"BODEGAS, MTV-BO | BASE DE OPERACIONES" — desde el 21-oct-2026 el script
+(`construir_ot`, `OTRA_ENTIDAD_RE`) deja en `lugar` solo el primer lugar
+(antes salían renglones con dos lugares en costo por lugar, gráficas y
+filtros); `lugarCortoOT()` hace lo mismo en el tablero por si acaso. La
+Entidades completa sigue en `equipo`.
+
+**Costos (pestaña Costos de Mantenimiento)**: "Top 10 equipos por costo" agrupa
+por equipo puntual (`equipo_cod`) y muestra el Lugar (21-oct-2026: antes
+agrupaba por nombre y "HORNO PROTEINAS RATIONAL" sumaba los hornos de todas
+las sedes, 48 mantenimientos).
 
 ### Gráficas de SS (Resumen Gerencial)
 
