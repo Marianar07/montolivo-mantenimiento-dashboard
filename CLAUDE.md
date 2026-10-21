@@ -542,7 +542,9 @@ las sedes, 48 mantenimientos).
 
 Pedido de Mariana (1-oct-2026), al final del Resumen, lado a lado:
 **"SS por tipo — histórico por mes"** (`chartTipoMensual(ss, 'fecha_ss')`,
-desde agosto 2026 como el de OT) y **"SS por punto de venta"**
+desde agosto 2026 como el de OT; filtro propio **Abiertas / Cerradas**,
+`SS_HIST_ESTADO`, Mariana 21-oct-2026 — cerradas = con Fecha de respuesta =
+Ejecutada, Recibida a Satisfacción, Evaluada y No aprobada) y **"SS por punto de venta"**
 (`chartTipoLugar(ss, 'data-ss-lugar')`, barras por lugar segmentadas por
 tipo de SS; clic en el lugar → `modalSS`). Ambas reutilizan las funciones
 de las gráficas de OT; los colores por tipo salen de `tiposYColores()`

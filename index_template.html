@@ -1325,7 +1325,12 @@ function renderResumen(el){
   <div class="grid2">
     <div class="card">
       <div class="card-head"><h3>SS por tipo — histórico por mes</h3></div>
-      ${chartTipoMensual(ss, 'fecha_ss')}
+      <div style="display:flex;gap:8px;align-items:center;font-size:12.5px;margin-bottom:8px;">
+        <b>Filtrar:</b>
+        <label for="ssHistEstado">Estado</label>
+        <select id="ssHistEstado"><option value="">Abiertas y cerradas</option>${['Abiertas','Cerradas'].map(v=>`<option${v===SS_HIST_ESTADO?' selected':''}>${v}</option>`).join('')}</select>
+      </div>
+      <div id="ssHistWrap"></div>
     </div>
     <div class="card">
       <div class="card-head"><h3>SS por punto de venta</h3></div>
@@ -1334,6 +1339,14 @@ function renderResumen(el){
   </div>
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
+  const pintarSSHist = ()=>{
+    const wrap = document.getElementById('ssHistWrap');
+    const rows = ss.filter(r=>!SS_HIST_ESTADO || (SS_HIST_ESTADO==='Cerradas') === !!r.fecha_respuesta);
+    wrap.innerHTML = chartTipoMensual(rows, 'fecha_ss');
+    wrap.querySelectorAll('.chartwrap').forEach(wireBarClicks);
+  };
+  pintarSSHist();
+  document.getElementById('ssHistEstado').addEventListener('change', e=>{ SS_HIST_ESTADO = e.target.value; pintarSSHist(); });
   ['ss','ot'].forEach(tipo=>{
     renderSemanalWrap(tipo);
     ['Lugar','Estado'].forEach(c=>document.getElementById(tipo+'Sem'+c).addEventListener('change', ()=>{
@@ -1650,6 +1663,10 @@ function tiposYColores(rows){
   const colores = Object.fromEntries(tipos.map(t=>[t, COLOR_TIPO[t] || libres[Math.min(e++, libres.length-1)]]));
   return {tipos, colores, cnt};
 }
+// Filtro Abiertas/Cerradas de "SS por tipo — histórico por mes" (Mariana,
+// 21-oct-2026). Cerrada = con Fecha de respuesta (Ejecutada, Recibida a
+// Satisfacción, Evaluada, No aprobada); el resto abiertas.
+let SS_HIST_ESTADO = '';
 function chartTipoMensual(rows, fechaKey){
   fechaKey = fechaKey || 'fecha_creacion';
   const base = rows.filter(r=>{ const k=monthKey(r[fechaKey]); return k && k>=HISTORICO_DESDE; });
