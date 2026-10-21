@@ -1300,21 +1300,13 @@ function renderResumen(el){
   `)}
 
   <div class="card">
-    <div class="card-head"><h3>SS recibidas por semana (lunes a domingo)</h3>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;">
-        <b>Filtrar:</b>
-        <label for="ssSemLugar">Lugar</label>
-        <select id="ssSemLugar" style="max-width:280px"><option value="">Todos los lugares</option>${[...new Set(DATA.ss.map(r=>r.lugar||'Sin lugar'))].sort((a,b)=>a.localeCompare(b)).map(l=>`<option value="${esc(l)}"${l===SS_SEM_FILTRO.lugar?' selected':''}>${esc(l)}</option>`).join('')}</select>
-        <label for="ssSemEstado">Estado</label>
-        <select id="ssSemEstado"><option value="">Abiertas y cerradas</option>${['Abiertas','Cerradas'].map(v=>`<option${v===SS_SEM_FILTRO.estado?' selected':''}>${v}</option>`).join('')}</select>
-      </div>
-    </div>
+    <div class="card-head"><h3>SS recibidas por semana (lunes a domingo)</h3>${filtrosSemanal('ss')}</div>
     <div id="ssSemanalWrap"></div>
   </div>
 
   <div class="card">
-    <div class="card-head"><h3>OT realizadas por semana (lunes a domingo)</h3></div>
-    ${chartSemanal(DATA.ot, 'fin_real', 'OT realizadas', 'OT realizadas')}
+    <div class="card-head"><h3>OT realizadas por semana (lunes a domingo)</h3>${filtrosSemanal('ot')}</div>
+    <div id="otSemanalWrap"></div>
   </div>
 
   <div class="callout"><b>Nota de calidad de dato:</b> El cumplimiento por tipo puede estar sobreestimado — algunas fechas programadas de OT se cargan igual a la fecha real de ejecución, y el archivo de disponibilidad aún no registra paros reales para todos los equipos (ver pestaña "Equipos"). Ver también "Órdenes de Trabajo" para el detalle.</div>
@@ -1348,12 +1340,14 @@ function renderResumen(el){
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
   renderTopLugaresWrap();
-  renderSSSemanalWrap();
-  ['ssSemLugar','ssSemEstado'].forEach(id=>document.getElementById(id).addEventListener('change', ()=>{
-    SS_SEM_FILTRO.lugar = document.getElementById('ssSemLugar').value;
-    SS_SEM_FILTRO.estado = document.getElementById('ssSemEstado').value;
-    renderSSSemanalWrap();
-  }));
+  ['ss','ot'].forEach(tipo=>{
+    renderSemanalWrap(tipo);
+    ['Lugar','Estado'].forEach(c=>document.getElementById(tipo+'Sem'+c).addEventListener('change', ()=>{
+      SEMANAL[tipo].filtro.lugar = document.getElementById(tipo+'SemLugar').value;
+      SEMANAL[tipo].filtro.estado = document.getElementById(tipo+'SemEstado').value;
+      renderSemanalWrap(tipo);
+    }));
+  });
   // Clic en un lugar de "OT por lugar y tipo" → sus OT del rango (todos los tipos).
   el.querySelectorAll('[data-tipo-lugar]').forEach(btn=>btn.addEventListener('click', ()=>{
     const lugar = btn.dataset.tipoLugar;
@@ -1715,27 +1709,50 @@ const SS_SEMANAL_DESDE = new Date(2026, 7, 1);
 // (punto de venta, base de operaciones…) y Abiertas/Cerradas, por Fecha de
 // respuesta como en el resto del tablero. Son los únicos filtros de esta
 // gráfica: no usa ni el filtro de fechas ni el de lugar de arriba (Mariana).
-const SS_SEM_FILTRO = {lugar:'', estado:''};
-function renderSSSemanalWrap(){
-  const wrap = document.getElementById('ssSemanalWrap');
+// Mariana, 21-oct-2026: "OT realizadas por semana" lleva lo mismo (filtros
+// propios, barras cerradas azul / abiertas naranja y tabla por lugar). Las OT
+// se cuentan por Fecha Fin Real; abierta/cerrada = Estado O.T., así que las
+// abiertas son trabajo terminado que falta cerrar en Mantum.
+const SEMANAL = {
+  ss: {datos:()=>DATA.ss, fecha:'fecha_ss', cerrada:r=>!!r.fecha_respuesta, lugar:r=>r.lugar||'Sin lugar',
+       nombre:'SS', serie:'SS recibidas', titulo:'SS por lugar y semana',
+       notaAb:'abiertas (sin Fecha de respuesta)', filtro:{lugar:'', estado:''}},
+  ot: {datos:()=>DATA.ot, fecha:'fin_real', cerrada:r=>r.estado!=='Abierta', lugar:r=>lugarCortoOT(r),
+       nombre:'OT realizadas', serie:'OT realizadas', titulo:'OT realizadas por lugar y semana',
+       notaAb:'abiertas (Estado O.T. Abierta: con Fecha Fin Real pero sin cerrar en Mantum); semana según la Fecha Fin Real', filtro:{lugar:'', estado:''}},
+};
+function filtrosSemanal(tipo){
+  const cfg = SEMANAL[tipo], f = cfg.filtro;
+  const lugares = [...new Set(cfg.datos().filter(r=>r[cfg.fecha]).map(cfg.lugar))].sort((a,b)=>a.localeCompare(b));
+  return `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;">
+        <b>Filtrar:</b>
+        <label for="${tipo}SemLugar">Lugar</label>
+        <select id="${tipo}SemLugar" style="max-width:280px"><option value="">Todos los lugares</option>${lugares.map(l=>`<option value="${esc(l)}"${l===f.lugar?' selected':''}>${esc(l)}</option>`).join('')}</select>
+        <label for="${tipo}SemEstado">Estado</label>
+        <select id="${tipo}SemEstado"><option value="">Abiertas y cerradas</option>${['Abiertas','Cerradas'].map(v=>`<option${v===f.estado?' selected':''}>${v}</option>`).join('')}</select>
+      </div>`;
+}
+function renderSemanalWrap(tipo){
+  const cfg = SEMANAL[tipo];
+  const wrap = document.getElementById(tipo+'SemanalWrap');
   if(!wrap) return;
-  const {lugar, estado} = SS_SEM_FILTRO;
-  const rows = DATA.ss.filter(r=>(!lugar || (r.lugar||'Sin lugar')===lugar)
-    && (!estado || (estado==='Cerradas') === !!r.fecha_respuesta));
-  const nombre = 'SS' + (estado ? ' ' + estado.toLowerCase() : '') + (lugar ? ` de ${lugar}` : '');
-  // Mariana, 21-oct-2026: cerradas en azul y abiertas en naranja (por Fecha de respuesta).
+  const {lugar, estado} = cfg.filtro;
+  const rows = cfg.datos().filter(r=>(!lugar || cfg.lugar(r)===lugar)
+    && (!estado || (estado==='Cerradas') === cfg.cerrada(r)));
+  const nombre = cfg.nombre + (estado ? ' ' + estado.toLowerCase() : '') + (lugar ? ` de ${lugar}` : '');
+  // Mariana, 21-oct-2026: cerradas en azul y abiertas en naranja.
   const apilar = {series:[
-    {label:'Cerradas', color:'var(--ss-cerrada)', test:r=>!!r.fecha_respuesta},
-    {label:'Abiertas', color:'var(--ss-abierta)', test:r=>!r.fecha_respuesta},
+    {label:'Cerradas', color:'var(--ss-cerrada)', test:r=>cfg.cerrada(r)},
+    {label:'Abiertas', color:'var(--ss-abierta)', test:r=>!cfg.cerrada(r)},
   ]};
-  wrap.innerHTML = chartSemanal(rows, 'fecha_ss', nombre, 'SS recibidas', true, apilar) + tablaSSLugarSemana(rows);
+  wrap.innerHTML = chartSemanal(rows, cfg.fecha, nombre, cfg.serie, true, apilar) + tablaLugarSemana(rows, cfg);
   wrap.querySelectorAll('.chartwrap').forEach(wireBarClicks);
 }
-// Tabla "SS por lugar y semana" (Mariana, 21-oct-2026), debajo de la gráfica
+// Tabla "SS / OT realizadas por lugar y semana" (Mariana, 21-oct-2026), debajo de la gráfica
 // y con sus mismos filtros: una fila por lugar, por cada semana (lunes a
 // domingo, desde el 1-ago-2026) las SS abiertas / cerradas (por Fecha de
 // respuesta) y el total. Semanas más recientes primero.
-function tablaSSLugarSemana(rows){
+function tablaLugarSemana(rows, cfg){
   const hoy = new Date(); hoy.setHours(0,0,0,0);
   const lunesDe = d => { const x = new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return x; };
   const clave = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
@@ -1744,13 +1761,13 @@ function tablaSSLugarSemana(rows){
   const conDatos = new Set();
   const porLugar = new Map();
   rows.forEach(r=>{
-    if(!r.fecha_ss) return;
-    const d = parseD(r.fecha_ss);
+    if(!r[cfg.fecha]) return;
+    const d = parseD(r[cfg.fecha]);
     if(d < SS_SEMANAL_DESDE) return;
-    const k = clave(lunesDe(d)), l = r.lugar || 'Sin lugar';
+    const k = clave(lunesDe(d)), l = cfg.lugar(r);
     conDatos.add(k);
     if(!porLugar.has(l)) porLugar.set(l, {ab:{}, ce:{}, total:0});
-    const m = porLugar.get(l), g = r.fecha_respuesta ? 'ce' : 'ab';
+    const m = porLugar.get(l), g = cfg.cerrada(r) ? 'ce' : 'ab';
     m[g][k] = (m[g][k]||0)+1; m.total++;
   });
   if(!porLugar.size) return '';
@@ -1768,8 +1785,8 @@ function tablaSSLugarSemana(rows){
     + tres(sum(m,'ab'), sum(m,'ce'), total)
     + cols.map(k=>tres(m.ab[k], m.ce[k], (m.ab[k]||0)+(m.ce[k]||0))).join('') + '</tr>';
   const totalGeneral = filas.reduce((a,[,m])=>a+m.total,0);
-  return `<div class="card-head" style="margin-top:18px"><h3>SS por lugar y semana</h3></div>
-    <div class="section-note" style="margin:0 0 10px;padding:0;">Ab. = abiertas (sin Fecha de respuesta) · Cer. = cerradas · Tot. = total. Primero el total del periodo; luego las semanas (lunes a domingo), la más reciente primero. Usa los mismos filtros de la gráfica.</div>
+  return `<div class="card-head" style="margin-top:18px"><h3>${cfg.titulo}</h3></div>
+    <div class="section-note" style="margin:0 0 10px;padding:0;">Ab. = ${cfg.notaAb} · Cer. = cerradas · Tot. = total. Primero el total del periodo; luego las semanas (lunes a domingo), la más reciente primero. Usa los mismos filtros de la gráfica.</div>
     <div class="tablewrap" data-no-orden style="max-height:520px;overflow:auto"><table class="tabla-ss-semana"><thead>
       <tr><th rowspan="2" class="sem-lugar">Lugar</th><th colspan="3" class="num" style="text-align:center">Total</th>${cols.map(k=>`<th colspan="3" class="num" style="text-align:center">${fmtDM(k)}</th>`).join('')}</tr>
       <tr>${[...cols,'t'].map(()=>'<th class="num sem-ab">Ab.</th><th class="num sem-ce">Cer.</th><th class="num sem-total">Tot.</th>').join('')}</tr>

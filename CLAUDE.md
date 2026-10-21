@@ -490,6 +490,12 @@ Debajo, con la misma función (`chartSemanal(rows, fechaKey, …)`), **"OT
 realizadas por semana (lunes a domingo)"** (Mariana, 7-oct-2026): OT con
 `Fecha Fin Real`, contadas por esa fecha (mismo criterio que "OT realizadas
 por día"), mismo rango fijo desde el 1-ago-2026.
+Desde el 21-oct-2026 (Mariana) lleva lo mismo que la de SS: filtros propios
+de Lugar y Abiertas/Cerradas (ya no usa el filtro de lugar de arriba),
+barras cerradas azul / abiertas naranja (Estado O.T.; como se cuentan por
+Fecha Fin Real, las abiertas son trabajo terminado sin cerrar en Mantum) y
+la tabla "OT realizadas por lugar y semana". Ambas salen de la config
+`SEMANAL` (`filtrosSemanal`, `renderSemanalWrap`, `tablaLugarSemana`).
 
 ### "OT por tipo de mantenimiento — histórico por mes" (Resumen Gerencial)
 
