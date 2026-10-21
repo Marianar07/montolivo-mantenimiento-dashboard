@@ -229,13 +229,18 @@ repite. `construir_ot()` consolida a una fila por `Código O.T.` sumando el
 000022 = $128.242,85 y OT 000182 = $243.749,90 (= suma de sus filas, aunque
 en la 000182 las 5 filas traen el mismo valor). No contar filas como OT ni
 tomar un solo costo por OT. Además trae una fila por cada **recurso**
-asignado, repitiendo el `Total Real` de la actividad (OT 000040 = 39 filas
-de $24.318,47): se toma un solo valor por (OT, actividad) antes de sumar.
-Con esa corrección (6-oct-2026) el costo total bajó de $23,1 M a $17,8 M.
-14-oct-2026: al cerrarse, la OT 000040 pasó a `Total Real` = $15.187.886
-(39 repuestos asignados) y el costo total subió de $26,6 M a $41,8 M.
-Mariana confirmó subirlo así: es el valor que reporta Mantum, no un error
-del tablero.
+asignado, repitiendo el `Total Real` de la actividad (OT 000040 = 39 filas de
+$15.187.886).
+**Regla actual (Mariana, 21-oct-2026): "el costo se debe sumar todo lo que
+diga en el excel por el momento"** → se suman TODAS las filas (costo total =
+suma de la columna Total Real: $671,4 M; la 000040 queda en $592,3 M, el 88%).
+Antes (6 al 21-oct) se tomaba un valor por (OT, actividad) ($59,1 M en total).
+Ninguna de las dos reglas da el costo de Mantum: en la OT 000298 Mantum dice
+Personal 27.781,78 (horas × tarifa) + Costos consumo 59.654,70 = **87.436,48**
+y "real mecánica" 42.781 (= Total Real por actividad); sumando las filas da
+85.563,46. El export de OT no trae Personal ni Consumos; se le pidió a Mariana
+un export de Mantum con el costo por OT desglosado. Cuando llegue, usar ese
+total y llenar "Costo repuestos".
 
 ### Enlace SS -> OT
 

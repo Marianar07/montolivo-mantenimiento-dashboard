@@ -540,7 +540,6 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "descripcion": limpiar_descripcion_ot(r["Descripción"]),
             "comentarios": limpiar_comentarios(r["Realimentación"]),
             "_tipo_match": tipo_match,  # uso interno para construir "paros", no va al tablero
-            "_actividad": r.get("Actividades"),  # uso interno: consolidar el costo por actividad
         })
     df = pd.DataFrame(registros)
     # El export de OT trae una fila por cada ACTIVIDAD de la OT (columna
@@ -549,15 +548,15 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
     # actividades (confirmado con Mariana contra Mantum: OT 000022 = 128.242,85
     # y OT 000182 = 243.749,90, ambas = suma de sus filas).
     # Además trae una fila por cada RECURSO asignado (columnas "Código
-    # recurso"/"Cantidad real"), repitiendo el mismo "Total Real" de la
-    # actividad en cada una (5-oct-2026: OT 000040 = 39 filas de 24.318,47).
-    # Por eso se toma un solo Total Real por (OT, actividad) antes de sumar;
-    # sumar todas las filas multiplicaba el costo por el número de recursos.
-    costo_por_ot = (df.drop_duplicates(subset=["ot", "_actividad"], keep="first")
-                      .groupby("ot", sort=False)["costo_real"].sum())
+    # recurso"/"Cantidad real"), repitiendo el "Total Real" de la actividad.
+    # Mariana, 21-oct-2026: "el costo se debe sumar todo lo que diga en el
+    # excel por el momento" -> se suman TODAS las filas (antes se tomaba un
+    # valor por actividad). Ninguna de las dos reglas da el total de Mantum
+    # (Personal + Costos consumo): OT 000298 = 87.436,48 en Mantum, 85.563,46
+    # sumando filas, 42.781,73 una por actividad. El export no trae consumos.
+    costo_por_ot = df.groupby("ot", sort=False)["costo_real"].sum()
     df = df.drop_duplicates(subset=["ot"], keep="first").copy()
     df["costo_real"] = df["ot"].map(costo_por_ot)
-    df = df.drop(columns=["_actividad"])
     return df.reset_index(drop=True)
 
 
