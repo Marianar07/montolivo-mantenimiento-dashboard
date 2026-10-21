@@ -1325,12 +1325,7 @@ function renderResumen(el){
   <div class="grid2">
     <div class="card">
       <div class="card-head"><h3>SS por tipo — histórico por mes</h3></div>
-      <div style="display:flex;gap:8px;align-items:center;font-size:12.5px;margin-bottom:8px;">
-        <b>Filtrar:</b>
-        <label for="ssHistEstado">Estado</label>
-        <select id="ssHistEstado"><option value="">Abiertas y cerradas</option>${['Abiertas','Cerradas'].map(v=>`<option${v===SS_HIST_ESTADO?' selected':''}>${v}</option>`).join('')}</select>
-      </div>
-      <div id="ssHistWrap"></div>
+      ${chartTipoMensual(ss, 'fecha_ss')}
     </div>
     <div class="card">
       <div class="card-head"><h3>SS por punto de venta</h3></div>
@@ -1339,14 +1334,6 @@ function renderResumen(el){
   </div>
   `;
   el.querySelectorAll('.chartwrap').forEach(wireBarClicks);
-  const pintarSSHist = ()=>{
-    const wrap = document.getElementById('ssHistWrap');
-    const rows = ss.filter(r=>!SS_HIST_ESTADO || (SS_HIST_ESTADO==='Cerradas') === !!r.fecha_respuesta);
-    wrap.innerHTML = chartTipoMensual(rows, 'fecha_ss');
-    wrap.querySelectorAll('.chartwrap').forEach(wireBarClicks);
-  };
-  pintarSSHist();
-  document.getElementById('ssHistEstado').addEventListener('change', e=>{ SS_HIST_ESTADO = e.target.value; pintarSSHist(); });
   ['ss','ot'].forEach(tipo=>{
     renderSemanalWrap(tipo);
     ['Lugar','Estado'].forEach(c=>document.getElementById(tipo+'Sem'+c).addEventListener('change', ()=>{
@@ -1663,10 +1650,6 @@ function tiposYColores(rows){
   const colores = Object.fromEntries(tipos.map(t=>[t, COLOR_TIPO[t] || libres[Math.min(e++, libres.length-1)]]));
   return {tipos, colores, cnt};
 }
-// Filtro Abiertas/Cerradas de "SS por tipo — histórico por mes" (Mariana,
-// 21-oct-2026). Cerrada = con Fecha de respuesta (Ejecutada, Recibida a
-// Satisfacción, Evaluada, No aprobada); el resto abiertas.
-let SS_HIST_ESTADO = '';
 function chartTipoMensual(rows, fechaKey){
   fechaKey = fechaKey || 'fecha_creacion';
   const base = rows.filter(r=>{ const k=monthKey(r[fechaKey]); return k && k>=HISTORICO_DESDE; });
@@ -2762,6 +2745,7 @@ function renderSS(el){
       <input class="searchbox" type="text" id="ssSearch" placeholder="Buscar por SS, equipo, lugar...">
       <select id="ssEstado"><option value="">Todos los estados</option>${[...new Set(DATA.ss.map(r=>r.estado))].map(e=>`<option>${e}</option>`).join('')}</select>
       <select id="ssTipo"><option value="">Todos los tipos</option>${[...new Set(DATA.ss.map(r=>r.tipo))].map(e=>`<option>${e}</option>`).join('')}</select>
+      <select id="ssAbiertaCerrada" title="Cerradas = con Fecha de respuesta: Ejecutada, Recibida a Satisfacción, Evaluada y No aprobada"><option value="">Abiertas y cerradas</option><option>Abiertas</option><option>Cerradas</option></select>
     </div>
     <div id="ssTableWrap"></div>
   </div>
@@ -2792,7 +2776,11 @@ function renderSS(el){
   function refresh(){
     const est = document.getElementById('ssEstado').value;
     const tip = document.getElementById('ssTipo').value;
+    // Abiertas/Cerradas (Mariana, 21-oct-2026): cerrada = con Fecha de
+    // respuesta (Ejecutada, Recibida a Satisfacción, Evaluada, No aprobada).
+    const abCe = document.getElementById('ssAbiertaCerrada').value;
     let rows = all;
+    if(abCe) rows = rows.filter(r=>(abCe==='Cerradas') === !!r.fecha_respuesta);
     if(est) rows = rows.filter(r=>r.estado===est);
     if(tip) rows = rows.filter(r=>r.tipo===tip);
     ssPager.refresh(rows);
@@ -2802,6 +2790,7 @@ function renderSS(el){
   document.getElementById('ssSearch').addEventListener('input', refresh);
   document.getElementById('ssEstado').addEventListener('change', refresh);
   document.getElementById('ssTipo').addEventListener('change', refresh);
+  document.getElementById('ssAbiertaCerrada').addEventListener('change', refresh);
 
   document.getElementById('ssPorLugarWrap').innerHTML = simpleTable(groupSSPorLugar(all), [
     {key:'lugar', label:'Punto de venta'},

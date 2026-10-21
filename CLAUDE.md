@@ -284,6 +284,11 @@ En la pestaña **Solicitudes de Servicio**, las tarjetas **SS abiertas**
 reemplazaron a "Pendientes de gestión (Creada)" (pedido de Mariana,
 1-oct-2026: las pendientes no son solo las Creada). Se calculan por
 `Fecha de respuesta`, igual que en el Resumen.
+La tabla **"Histórico de Solicitudes de Servicio (SS)"** de esa pestaña tiene
+filtro **Abiertas / Cerradas** (`ssAbiertaCerrada`, Mariana 21-oct-2026),
+junto a los de Estado y Tipo: cerradas = con Fecha de respuesta = Ejecutada,
+Recibida a Satisfacción, Evaluada y No aprobada. (Primero se puso por error en
+la gráfica "SS por tipo — histórico por mes" del Resumen y se quitó de ahí.)
 
 Por lo tanto: "Fecha de respuesta" menos "Fecha de solicitud" **sí es un
 tiempo de solución válido**, calculado solo sobre las SS que ya están
@@ -542,9 +547,7 @@ las sedes, 48 mantenimientos).
 
 Pedido de Mariana (1-oct-2026), al final del Resumen, lado a lado:
 **"SS por tipo — histórico por mes"** (`chartTipoMensual(ss, 'fecha_ss')`,
-desde agosto 2026 como el de OT; filtro propio **Abiertas / Cerradas**,
-`SS_HIST_ESTADO`, Mariana 21-oct-2026 — cerradas = con Fecha de respuesta =
-Ejecutada, Recibida a Satisfacción, Evaluada y No aprobada) y **"SS por punto de venta"**
+desde agosto 2026 como el de OT) y **"SS por punto de venta"**
 (`chartTipoLugar(ss, 'data-ss-lugar')`, barras por lugar segmentadas por
 tipo de SS; clic en el lugar → `modalSS`). Ambas reutilizan las funciones
 de las gráficas de OT; los colores por tipo salen de `tiposYColores()`
