@@ -1252,9 +1252,9 @@ function renderResumen(el){
   // "SS por criticidad" (pedido de Mariana, 21-oct-2026): mismo cuadro que
   // "Por prioridad" de SS abiertas/cerradas, pero por la Criticidad del equipo
   // (Datos Generales de Equipos). Las SS sobre un lugar (ADECUACIÓN E
-  // INSTALACIÓN) o sin equipo quedan "Sin criticidad".
-  const ORDEN_CRIT = ['Alta','Media','Baja','Sin criticidad'];
-  const critDe = r => r.criticidad || 'Sin criticidad';
+  // INSTALACIÓN) o sin equipo quedan como "Locativas" (Mariana, 21-oct-2026).
+  const ORDEN_CRIT = ['Alta','Media','Baja','Locativas'];
+  const critDe = r => r.criticidad || 'Locativas';
   const filasCrit = (grupo, rows) => ORDEN_CRIT.filter(c=>rows.some(r=>critDe(r)===c)).map(c=>{
     const sub = rows.filter(r=>critDe(r)===c);
     return `<button type="button" class="sev-row" data-ss-grupo="${grupo}" data-ss-crit="${esc(c)}" title="Ver SS ${grupo} de criticidad ${esc(c)}"><span>${esc(c)}: <b>${sub.length}</b></span><span class="sev-time">${fmtDias(promDias(sub, diasSSR).prom)} ›</span></button>`;
@@ -1408,7 +1408,7 @@ function renderResumen(el){
     {key:'ss', label:'SS', fmt:v=>esc(v??'—')},
     {key:'tipo', label:'Tipo', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'severidad', label:'Prioridad'},
-    {key:'criticidad', label:'Criticidad', fmt:v=>esc(v||'—')},
+    {key:'criticidad', label:'Criticidad', fmt:v=>esc(v||'Locativas')},
     {key:'estado', label:'Estado', fmt:(v,r)=>`<span class="badge ${r.fecha_respuesta?'good':'warn'}" style="white-space:normal;display:inline-block;">${esc(v??'—')}</span>`},
     {key:'equipo', label:'Entidad', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
     {key:'lugar', label:'Lugar', fmt:v=>`<span class="wrap-text">${esc(v??'—')}</span>`},
@@ -1421,7 +1421,7 @@ function renderResumen(el){
   ];
   // Si ninguna SS del listado tiene respuesta (p. ej. SS abiertas) se quita
   // la columna "Respuesta" (pedido de Mariana: saldría toda en "—").
-  const modalSS = (titulo, rows) => modalFiltrable(titulo, rows.slice().sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss)),
+  const modalSS = (titulo, rows) => modalFiltrable(titulo, rows.map(r=>({...r, criticidad: critDe(r)})).sort((a,b)=>new Date(a.fecha_ss)-new Date(b.fecha_ss)),
     rows.some(r=>r.fecha_respuesta) ? colsSS : colsSS.filter(c=>c.key!=='fecha_respuesta'),
     {filtros:[['tipo','Tipo'],['estado','Estado'],['severidad','Prioridad'],['criticidad','Criticidad'],['lugar','Lugar']], placeholder:'Buscar por SS, equipo, lugar, OT...'});
   const ssTotEl = document.getElementById('ssTotalesCard');

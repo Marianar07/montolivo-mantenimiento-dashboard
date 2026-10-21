@@ -428,7 +428,7 @@ Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
   la toma de Datos Generales de Equipos, igual que en OT). Número grande =
   SS sobre equipos de criticidad Alta (y % de las SS); dos listas, Abiertas
   (días promedio abiertas) y Cerradas (solución promedio), con filas Alta /
-  Media / Baja / Sin criticidad clicables → `modalSS`. "Sin criticidad" =
+  Media / Baja / Locativas clicables → `modalSS`. "Locativas" (antes "Sin criticidad") =
   SS sobre un lugar (activo AI- "ADECUACIÓN E INSTALACIÓN") o sin equipo.
   Los listados de SS llevan columna y filtro Criticidad.
 
