@@ -214,6 +214,12 @@ para OT, léase esos dos tipos. Los paros siguen como "Correctivos" /
 "Preventivos" (preventivo = `Tipo O.T.` del informe de paros contiene
 "Sistemática"). No volver a traducir sin que Mariana lo pida.
 
+**Excepción (Mariana, 21-oct-2026):** "Correctiva", "Correctiva, Correctiva
+programada" y "Correctiva programada, Sistemática" se suman a **Correctiva
+programada** (`TIPOS_OT_A_CORRECTIVA_PROGRAMADA` / `tipo_ot()` en
+`process_dashboard.py`). Desde entonces en el tablero solo hay dos tipos de
+OT: Correctiva programada y Sistemática (21-oct-2026: 389 y 53).
+
 ### Una fila por OT (el export trae una fila por actividad)
 
 El export de OT trae **una fila por cada actividad** de la OT (columna
@@ -416,6 +422,16 @@ Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
   alguna OT enlazada no aparece en el export sale una fila "OT no
   encontrada" (hoy 0; 1-oct-2026: 77 de 397 con OT, 33 abierta / 44 cerrada).
 
+- **SS por criticidad** (pedido de Mariana, 21-oct-2026, `tarjetaSSCrit`,
+  entre SS cerradas y SS con OT asignada): mismo formato que "Por
+  prioridad", pero por la `Criticidad` del equipo de la SS (`construir_ss`
+  la toma de Datos Generales de Equipos, igual que en OT). Número grande =
+  SS sobre equipos de criticidad Alta (y % de las SS); dos listas, Abiertas
+  (días promedio abiertas) y Cerradas (solución promedio), con filas Alta /
+  Media / Baja / Sin criticidad clicables → `modalSS`. "Sin criticidad" =
+  SS sobre un lugar (activo AI- "ADECUACIÓN E INSTALACIÓN") o sin equipo.
+  Los listados de SS llevan columna y filtro Criticidad.
+
 **Códigos de SS**: en todo el tablero se muestran solo con el número
 (p. ej. `00016`), sin prefijo "SS-" (pedido de Mariana; ver `fmtSSParo()`).
 
@@ -424,7 +440,9 @@ Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 La tarjeta **"Técnicos"** (antes "Técnicos en sitio / programados") muestra
 la cantidad de técnicos internos activos y, debajo, cuántos están En sitio /
 Programados / Sin asignación (mismas categorías de "Ubicación del técnico",
-`calcularUbicacionTecnicos`). **"Programado" se evalúa por día, no por
+`calcularUbicacionTecnicos`). En la tabla "Ubicación del técnico" (pestaña Técnicos) va también la
+**Descripción** de la OT (Mariana, 21-oct-2026; si tiene varias OT
+programadas, una por OT con su código). **"Programado" se evalúa por día, no por
 hora** (Mariana, 7-oct-2026: los datos se actualizan una vez al día): basta
 con que el día de referencia esté entre el día de Inicio Programado y el de
 Fin Programado de una OT sin iniciar; si tiene varias ese día se listan
@@ -458,6 +476,15 @@ promedio por semana usa solo semanas completas. Tiene dos filtros propios
 **Abiertas / Cerradas** (por `Fecha de respuesta`). Son sus **únicos**
 filtros: no usa ni el de fechas ni el de lugar de arriba (Mariana). Se le ofreció filtro por
 ciudad y dijo que no: "por ciudad es más complicado", solo por lugar.
+Barras apiladas (Mariana, 21-oct-2026): **cerradas azul** abajo y **abiertas
+naranja** arriba (`--ss-cerrada` / `--ss-abierta`, `chartSemanal(..., apilar)`,
+`groupedBarChart({stacked:true})`), con el total encima. Excepción a la
+paleta vino/bronce, pedida por ella.
+Debajo, en la misma tarjeta y con los mismos filtros, la tabla **"SS por
+lugar y semana"** (`tablaSSLugarSemana()`): una fila por lugar, primero el
+total del periodo y luego cada semana (más reciente primero), cada una con
+Ab. / Cer. / Tot.; columnas coloreadas (abiertas naranja, cerradas azul,
+total gris) porque sin color era difícil de leer. Columna Lugar fija.
 
 Debajo, con la misma función (`chartSemanal(rows, fechaKey, …)`), **"OT
 realizadas por semana (lunes a domingo)"** (Mariana, 7-oct-2026): OT con

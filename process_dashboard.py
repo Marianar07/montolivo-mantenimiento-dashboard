@@ -458,6 +458,23 @@ def a_iso(valor):
     return str(valor)
 
 
+# Tipos de OT que se suman a "Correctiva programada" (Mariana, 21-oct-2026:
+# "Correctiva", "Correctiva, Correctiva programada" y "Correctiva programada,
+# Sistemática" van todas a Correctiva programada). El resto va tal cual Mantum.
+TIPOS_OT_A_CORRECTIVA_PROGRAMADA = {
+    "Correctiva",
+    "Correctiva, Correctiva programada",
+    "Correctiva programada, Sistemática",
+}
+
+
+def tipo_ot(valor):
+    if pd.isna(valor):
+        return valor
+    t = str(valor).strip()
+    return "Correctiva programada" if t in TIPOS_OT_A_CORRECTIVA_PROGRAMADA else t
+
+
 def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
     ss_by_code = ss.set_index("Código")
     crit_map = crit_by_code["Criticidad"]
@@ -493,7 +510,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
 
         registros.append({
             "ot": r["Código O.T."],
-            "tipo": r["Tipo"],
+            "tipo": tipo_ot(r["Tipo"]),
             "severidad": str(r["Prioridad"]).strip() if pd.notna(r["Prioridad"]) else None,  # tal cual Mantum ("1-Alta")
             "viene_ss": bool(viene_ss),
             "ss_codigo": ss_ref if viene_ss else None,
@@ -539,7 +556,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
 # TRANSFORMACIÓN SS
 # ============================================================
 
-def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
+def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df, crit_by_code):
     """`ot_asociada` se arma con la referencia de texto "SS-XXXXX" que se
     extrae de la Descripción de cada OT (columna `ss_codigo` de `ot_df`).
 
@@ -550,6 +567,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
     contrario (confundía ese número con la columna Id de la OT).
     """
     ot_por_ss = {r["ss_codigo"]: r["ot"] for r in ot_df.to_dict(orient="records") if r["viene_ss"]}
+    crit_map = crit_by_code["Criticidad"]
 
     registros = []
     for _, r in ss.iterrows():
@@ -559,15 +577,18 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df):
         else:
             equipo_cod, equipo_nombre_raw = [p.strip() for p in str(entidad_full).split("|", 1)]
 
-        _, nombre_resuelto, lugar, _ = resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai)
+        cod_resuelto, nombre_resuelto, lugar, _ = resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai)
         if nombre_resuelto is None:
             nombre_resuelto = equipo_nombre_raw
+        # Criticidad del equipo (Datos Generales de Equipos), igual que en OT.
+        criticidad = crit_map.get(cod_resuelto) if cod_resuelto else None
 
         registros.append({
             "ss": r["Código"],
             "tipo": r["Tipo"],
             "severidad": r["Prioridad"],
             "equipo": nombre_resuelto,
+            "criticidad": criticidad if pd.notna(criticidad) else None,
             "lugar": lugar,
             "fecha_ss": a_iso(r["Fecha de solicitud"]),
             "fecha_esperada": a_iso(r["Fecha esperada"]),
@@ -760,7 +781,7 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     disp_by_code, crit_by_code, lugar_to_ai = construir_indices(disp, crit)
 
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
-    ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df)
+    ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df, crit_by_code)
     ot_df = lugar_ot_anm_desde_ss(ot_df, ss_df)
     anm_ss = ss_df[ss_df["_anm"]]
     ss_df = ss_df.drop(columns=["_anm"])
