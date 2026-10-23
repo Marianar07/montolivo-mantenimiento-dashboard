@@ -325,6 +325,23 @@ PROVEEDORES_EXTRA = [
     "SEBASTIAN BUITRAGO GRACIANO",
 ]
 
+# Nombres que se quitan del campo Ejecutores de las OT (no cuentan como
+# técnico, proveedor ni "otro") - Mariana, 23-oct-2026: "ignorar ese nombre
+# de consultor mantum" (aparece en la OT 000184). Se comparan sin
+# mayúsculas ni espacios dobles.
+EJECUTORES_IGNORADOS = [
+    "Consultor Mántum S.A.S",
+]
+
+
+def limpiar_ejecutores(valor):
+    if pd.isna(valor):
+        return None
+    ignorados = {" ".join(n.split()).upper() for n in EJECUTORES_IGNORADOS}
+    nombres = [n.strip() for n in str(valor).split(",")]
+    nombres = [n for n in nombres if n and " ".join(n.split()).upper() not in ignorados]
+    return ", ".join(nombres) or None
+
 
 def cargar_proveedores(path):
     """Datos Generales de Proveedores.xlsx - maestro de proveedores/terceros
@@ -535,7 +552,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "equipo": nombre_resuelto,
             "equipo_cod": cod_resuelto,
             "criticidad": criticidad,
-            "tecnico": None if pd.isna(r["Ejecutores"]) else str(r["Ejecutores"]),
+            "tecnico": limpiar_ejecutores(r["Ejecutores"]),
             "costo_real": float(costo_real),
             "descripcion": limpiar_descripcion_ot(r["Descripción"]),
             "comentarios": limpiar_comentarios(r["Realimentación"]),

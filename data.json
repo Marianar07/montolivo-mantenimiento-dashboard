@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-23T09:13:10",
+  "generado": "2026-10-23T09:17:37",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -3838,7 +3838,7 @@
       "equipo": "AMASADORA",
       "equipo_cod": "EP-0026",
       "criticidad": "Media",
-      "tecnico": "Consultor  Mántum S.A.S, OSCAR DARIO CASTAÑEDA GARAY, ANDRES FELIPE LONDOÑO GUERRA",
+      "tecnico": "OSCAR DARIO CASTAÑEDA GARAY, ANDRES FELIPE LONDOÑO GUERRA",
       "costo_real": 97790.86,
       "descripcion": "ORGANIZAR TUBO CUARTO DE LAVADO, CAMBIAR CAJAS DE TOMA CORRIENTE,  MTTO AMASADORAS 26 Y 27\nEntidades a intervenir:\nAMASADORA\n\nActividades de mantenimiento incluidas:\nAMASADORA: MANTENIMIENTO PREVENTIVO AMASADORA\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir:\nBASE DE OPERACIONES\n\nActividades de mantenimiento incluidas:\nReparación Locativa General: Realizar reparación según condición",
       "comentarios": "Ejecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-18 10:20 a 11:30]\n\n-Actividades Realizadas:\nEP-0026-AMG-0014 | AMASADORA\n\n-Descripcion:\nse le hace mantenimiento y engrasa \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-09-18 13:00 a 15:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio de cajas metálicas por cajas plásticas y cambio de suiches en pasillo de plata se deja ok \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nOSCAR DARIO CASTAÑEDA GARAY\n\n\n[2026-09-18 13:00 a 15:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\ncambio de cajas metálicas por cajas plásticas y cambio de suiches en pasillo de plata se deja ok \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nANDRES FELIPE LONDOÑO GUERRA\n\n\n[2026-10-14 12:30 a 13:30]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nse cambia cajas metálicas por cajas plásticas \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nConsultor  Mántum S.A.S\n\n\n[2026-10-16 08:45 a 09:45]\n\n-Actividades Realizadas:\nEP-0027-AMG-0014 | AMASADORA\n\n-Descripcion:\nMantenimiento preventivo\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nConsultor  Mántum S.A.S\n\n\n[2026-10-16 09:45 a 10:20]\n\n-Actividades Realizadas:\nEP-0026-AMG-0014 | AMASADORA\n\n-Descripcion:\nMantenimiento preventivo amasadora 26\n\n---------------------------------------------------------------------------------------------\nEjecutores:\nConsultor  Mántum S.A.S\n\n\n[2026-10-16 10:20 a 10:50]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nReparación locativa completada\n\n---------------------------------------------------------------------------------------------"

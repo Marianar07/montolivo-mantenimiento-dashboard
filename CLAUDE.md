@@ -700,6 +700,11 @@ consola muestra otro nombre "no aparece en Datos Generales de Proveedores ni
 en PROVEEDORES_EXTRA", preguntarle a Mariana si es proveedor y agregarlo ahí
 (no a `TECNICOS.xlsx` ni a `ALIAS_TECNICOS`).
 
+**`EJECUTORES_IGNORADOS`** (en `process_dashboard.py`, `limpiar_ejecutores()`):
+nombres que se quitan del campo `Ejecutores` antes de todo (no cuentan como
+técnico, proveedor ni "otro"). Mariana, 23-oct-2026: "ignorar ese nombre de
+consultor mantum" — "Consultor  Mántum S.A.S", apareció en la OT 000184.
+
 **Técnicos inactivos:** `TECNICOS.xlsx` trae una columna `ESTADO`
 (ACTIVO/INACTIVO). INACTIVO = ya no trabaja en la compañía
 (`cargar_tecnicos_inactivos()` → `DATA.tecnicos_inactivos`). Siguen siendo
