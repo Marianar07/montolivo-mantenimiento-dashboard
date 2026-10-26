@@ -511,6 +511,12 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
         )
         if nombre_resuelto is None:
             nombre_resuelto = equipo_nombre_raw
+        # Mariana, 26-oct-2026: la Entidades se muestra con el nombre que trae
+        # Mantum ("LA COLINA"), no con el del activo sustituto "ADECUACIÓN E
+        # INSTALACIÓN ..."; el AI-xxxx solo se usa por dentro (criticidad).
+        cod_mostrar = cod_resuelto
+        if tipo_match == "instalacion_pdv":
+            nombre_resuelto, cod_mostrar = equipo_nombre_raw, equipo_cod
         # OT con varias entidades: el lugar llega como "SAN DIEGO, NC-0049 |
         # NEVERA..." o "BODEGAS, MTV-BO | BASE DE OPERACIONES" -> se deja solo
         # el primer lugar (21-oct-2026: salían renglones con dos lugares en
@@ -550,7 +556,7 @@ def construir_ot(ot, ss, disp_by_code, crit_by_code, lugar_to_ai):
             "avance": None if pd.isna(r["Ejecución (%)"]) else float(r["Ejecución (%)"]),
             "lugar": lugar,
             "equipo": nombre_resuelto,
-            "equipo_cod": cod_resuelto,
+            "equipo_cod": cod_mostrar,
             "criticidad": criticidad,
             "tecnico": limpiar_ejecutores(r["Ejecutores"]),
             "costo_real": float(costo_real),
@@ -625,8 +631,10 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df, crit_by_code):
         else:
             equipo_cod, equipo_nombre_raw = [p.strip() for p in str(entidad_full).split("|", 1)]
 
-        cod_resuelto, nombre_resuelto, lugar, _ = resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai)
-        if nombre_resuelto is None:
+        cod_resuelto, nombre_resuelto, lugar, tipo_match = resolver_equipo(equipo_cod, entidad_full, disp_by_code, lugar_to_ai)
+        if nombre_resuelto is None or tipo_match == "instalacion_pdv":
+            # Nombre de la Entidad tal cual Mantum, no "ADECUACIÓN E
+            # INSTALACIÓN ..." (Mariana, 26-oct-2026; ver construir_ot).
             nombre_resuelto = equipo_nombre_raw
         # Criticidad del equipo (Datos Generales de Equipos), igual que en OT.
         criticidad = crit_map.get(cod_resuelto) if cod_resuelto else None

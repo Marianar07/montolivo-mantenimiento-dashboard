@@ -132,6 +132,11 @@ El campo `Entidades` (OT) / `Entidad` (SS) tiene el formato
   `"ADECUACIÓN E INSTALACIÓN <lugar>"` y sirven de sustituto cuando la OT/SS
   solo referencia el punto de venta, no un equipo concreto). Este caso se
   marca `instalacion_pdv`.
+  **Ojo (Mariana, 26-oct-2026):** el activo AI- solo se usa por dentro
+  (lugar, criticidad). En el tablero, Entidad/Entidades y `equipo_cod`
+  muestran lo que trae Mantum ("MTV-PV-BG-LC" / "LA COLINA"), **nunca**
+  "ADECUACIÓN E INSTALACIÓN …" — salvo que en Mantum la OT/SS se haya
+  registrado directamente sobre el activo AI- (26-oct-2026: 30 SS, 6 OT).
 - Si no se encuentra ninguno de los dos casos, queda `solo_ubicacion` (se
   conoce el lugar pero no un activo) o `sin_dato` (nada resuelto).
 
