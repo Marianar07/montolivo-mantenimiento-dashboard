@@ -2653,7 +2653,8 @@ function renderDisponibilidad(el){
 }
 
 /* ============ TAB: Solicitudes de Servicio ============ */
-// Cumplimiento de una SS frente a su Fecha esperada (plazo de respuesta del
+// Cumplimiento de una SS frente a su Fecha esperada (solicitud + PLAZO_SS_DIAS
+// de process_dashboard.py: Alta 5, Media 30, Baja 45 días; antes era el plazo del
 // CMMS), en 3 valores - mismo criterio que cumplimientoOT():
 // 'si' = se respondió (Fecha de respuesta) en o antes de la Fecha esperada.
 // 'no' = respondió tarde, O sigue sin respuesta y ya se pasó la Fecha esperada.
@@ -2710,7 +2711,7 @@ function renderSS(el){
 
   el.innerHTML = `
   <div class="callout info"><b>Tiempo de solución</b> = Fecha de respuesta menos Fecha de solicitud. Fecha de respuesta marca el <b>cierre</b> de la solicitud (no una simple revisión) y solo se llena cuando la SS queda en estado <b>Ejecutada</b>, <b>Evaluada</b>, <b>Recibida a Satisfacción</b> o <b>No aprobada</b> — ${conRespuesta.length} de ${all.length} SS en el rango. Cualquier otro estado (Creada, Editada, Leída, Programada en O.T., Validada) sigue abierto y no tiene Fecha de respuesta — el filtro "Todos los estados" del histórico abajo siempre refleja los estados reales del CMMS.</div>
-  <div class="callout info"><b>Cumplimiento</b> = Fecha de respuesta vs. Fecha esperada (plazo del CMMS). <b>Cumplida</b> = respondida en o antes de la Fecha esperada. <b>Incumplida</b> = respondió tarde, o sigue abierta y ya se pasó la Fecha esperada. <b>Pendiente</b> = aún no llega la Fecha esperada. <b>Días de mora</b> = días pasados de la Fecha esperada (0 si está a tiempo) — ${cumplSS.total} de ${all.length} SS en el rango traen Fecha esperada.</div>
+  <div class="callout info"><b>Cumplimiento</b> = Fecha de respuesta vs. Fecha esperada = Fecha de solicitud + plazo por prioridad: <b>Alta 5 días, Media 30 días, Baja 45 días</b> (días calendario). <b>Cumplida</b> = respondida en o antes de la Fecha esperada. <b>Incumplida</b> = respondió tarde, o sigue abierta y ya se pasó la Fecha esperada. <b>Pendiente</b> = aún no llega la Fecha esperada. <b>Días de mora</b> = días pasados de la Fecha esperada (0 si está a tiempo) — ${cumplSS.total} de ${all.length} SS en el rango traen Fecha esperada.</div>
   <div class="kpi-row">
     ${kpiCard({label:'Total SS', value:all.length})}
     ${kpiPromedioDia('SS creadas por día (promedio)', ssDia)}

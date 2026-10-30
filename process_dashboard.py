@@ -610,6 +610,19 @@ def tipo_ss(valor):
     return TIPOS_SS_SUMAR.get(t, t)
 
 
+# Plazo de respuesta de las SS por Prioridad, en días calendario desde la
+# Fecha de solicitud (Mariana, 30-oct-2026). Reemplaza a la "Fecha esperada"
+# de Mantum (vencía casi el mismo día) para medir el cumplimiento.
+PLAZO_SS_DIAS = {"Alta": 5, "Media": 30, "Baja": 45}
+
+
+def fecha_esperada_ss(fecha_solicitud, prioridad):
+    dias = PLAZO_SS_DIAS.get(str(prioridad).strip()) if pd.notna(prioridad) else None
+    if dias is None or pd.isna(fecha_solicitud):
+        return None
+    return a_iso(pd.Timestamp(fecha_solicitud) + pd.Timedelta(days=dias))
+
+
 def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df, crit_by_code):
     """`ot_asociada` se arma con la referencia de texto "SS-XXXXX" que se
     extrae de la Descripción de cada OT (columna `ss_codigo` de `ot_df`).
@@ -647,7 +660,7 @@ def construir_ss(ss, disp_by_code, lugar_to_ai, ot_df, crit_by_code):
             "criticidad": criticidad if pd.notna(criticidad) else None,
             "lugar": lugar,
             "fecha_ss": a_iso(r["Fecha de solicitud"]),
-            "fecha_esperada": a_iso(r["Fecha esperada"]),
+            "fecha_esperada": fecha_esperada_ss(r["Fecha de solicitud"], r["Prioridad"]),
             "fecha_respuesta": a_iso(r["Fecha de respuesta"]),
             "estado": r["Estado"],
             "ot_asociada": ot_por_ss.get(r["Código"]),

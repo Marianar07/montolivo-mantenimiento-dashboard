@@ -410,6 +410,11 @@ Pedido de Mariana (29-sep-2026), mismo estilo que el bloque de OT:
 - **SS totales**: abiertas/cerradas (por `Fecha de respuesta`) y
   cumplimiento vs. Fecha esperada (`cumplimientoStatsSS()`, el mismo de la
   pestaña SS: cumplidas / incumplidas / pendientes). Clic → todas las SS.
+  **Fecha esperada** (Mariana, 30-oct-2026): ya no es la de Mantum (vencía
+  casi el mismo día); el script la calcula = Fecha de solicitud + plazo por
+  Prioridad, días calendario (`PLAZO_SS_DIAS`: Alta 5, Media 30, Baja 45).
+  30-oct-2026: 515 cumplidas, 206 incumplidas, 187 pendientes (antes 222 /
+  609 / 37, y 40 SS sin fecha esperada).
 - **SS abiertas** y **SS cerradas** (Mariana, 29-sep-2026: se quitaron las
   tarjetas por estado). Cerradas = Ejecutada, Evaluada y No aprobada; el
   resto abiertas — el código lo decide por `Fecha de respuesta`, que coincide
