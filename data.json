@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-30T08:24:40",
+  "generado": "2026-10-30T08:27:03",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -13294,6 +13294,29 @@
       "tecnico": "YOHAN ESTIBEN SANCHEZ NARANJO",
       "costo_real": 0.0,
       "descripcion": "PLANTA: MTTO DE EQUIPOS\nEntidades a intervenir:\nFOGON DOBLE\n\nActividades de mantenimiento incluidas:\nMANTENIMIENTO ESTUFA O FOGON INDUSTRIAL: MANTENIMIENTO PREVENTIVO FOGON INDUSTRIAL\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir:\nSELLADORA DE PEDAL\n\nActividades de mantenimiento incluidas:\nSELLADORA DE PEDAL: MANTENIMIENTO SELLADORA DE PEDAL",
+      "comentarios": null
+    },
+    {
+      "ot": "000605",
+      "tipo": "Correctiva programada",
+      "severidad": "2-Media",
+      "viene_ss": false,
+      "ss_codigo": null,
+      "fecha_creacion_ss": null,
+      "fecha_creacion": "2026-10-30T08:23:12",
+      "inicio_programado": "2026-10-30T07:30:00",
+      "fin_programado": "2026-10-30T10:30:00",
+      "inicio_real": null,
+      "fin_real": null,
+      "estado": "Abierta",
+      "avance": 0.0,
+      "lugar": "GRAN PLAZA",
+      "equipo": "GRAN PLAZA",
+      "equipo_cod": "MTV-PV-AN-GP",
+      "criticidad": null,
+      "tecnico": "PEDRO PABLO LOZADA PINEDA",
+      "costo_real": 0.0,
+      "descripcion": "PLAZA CENTRAL. REVISAR FUGA DE AGUA Y FILTRACION\n\nEntidad a intervenir:\nGRAN PLAZA\n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición",
       "comentarios": null
     }
   ],
