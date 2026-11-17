@@ -384,6 +384,18 @@ O.T.` (`estado==='Abierta'`).
 - **Costo total mantenimiento** es clicable → tabla de costo por lugar (OT,
   correctivo, preventivo, correctiva programada, total y % del total), con
   buscador; respeta el filtro de fechas/lugar como el resto del Resumen.
+- **Costo repuestos (17-nov-2026, Mariana)**: sale de
+  `...ExpoDataCostOT.xlsx` (nombre contiene "costot"; hoja `Costos`, fila 1 =
+  periodo, encabezados en la fila 2; columnas `OT`, `Costo` = total de la
+  línea, `Cantidad`, `Código item`…). `cargar_repuestos()` suma **todas** las
+  filas por OT (también las repetidas: así cuadra con Mantum, OT 000298
+  consumo 59.654,70 y personal 27.781,78). Cada OT lleva `costo_repuestos` y
+  `costo_mano_obra` = `Total Real` − repuestos. Tarjetas: **Costo repuestos**
+  = Σ repuestos (clic → OT con repuestos); **Costo mano de obra** y **Costo
+  servicios** = Total Real − repuestos (sin / con proveedores). Mano de obra +
+  Repuestos + Servicios = Costo total. 17-nov-2026: 19 OT, $31,6 M; OT 000260 =
+  1.328.836,41 − 1.191.727,08 = 137.109,33 de mano de obra. Opcional: si no
+  está, repuestos = 0. *Lo que sigue es la historia anterior:*
 - **Desglose del costo** ("Lo más importante", junto a "Costo total"): el
   export de OT solo trae `Total Real` por OT. **Costo servicios
   (proveedores)** = Total Real de las OT de proveedores (clicable).

@@ -125,6 +125,8 @@ def encontrar_archivos(carpeta: Path):
     activos_path = elegir("Datos Generales Activos", activos_candidatos) if activos_candidatos else None
     paros_candidatos = buscar(["paros"])
     paros_path = elegir("Informe de paros", paros_candidatos) if paros_candidatos else None
+    repuestos_candidatos = buscar(["expodatacostot", "costot"])
+    repuestos_path = elegir("Costos de OT (repuestos)", repuestos_candidatos) if repuestos_candidatos else None
 
     # OT y SS: de los archivos restantes, identificar por columnas propias
     # de cada export (más confiable que el nombre de archivo, que el CMMS
@@ -138,6 +140,8 @@ def encontrar_archivos(carpeta: Path):
         excluidos.add(proveedores_path)
     if paros_path:
         excluidos.add(paros_path)  # trae "Código O.T.": no confundirlo con el export de OT
+    if repuestos_path:
+        excluidos.add(repuestos_path)
     restantes = [a for a in archivos if a not in excluidos]
     ot_candidatos = [a for a in restantes if _es_ot(a)]
     ss_candidatos = [a for a in restantes if _es_ss(a)]
@@ -145,7 +149,7 @@ def encontrar_archivos(carpeta: Path):
     ot_path = elegir("OT (Órdenes de Trabajo)", ot_candidatos)
     ss_path = elegir("SS (Solicitudes de Servicio)", [a for a in ss_candidatos if a != ot_path])
 
-    return ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path
+    return ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path, repuestos_path
 
 
 # ============================================================
@@ -715,6 +719,22 @@ def lugar_ot_anm_desde_ss(ot_df, ss_df):
 # PAROS (informe de paros de Mantum)
 # ============================================================
 
+def cargar_repuestos(path):
+    """'...ExpoDataCostOT.xlsx' (Mariana, 17-nov-2026) - salidas de repuestos
+    por OT de Mantum, hoja 'Costos'. La fila 1 es el periodo ("Periodo: Desde
+    ... Hasta ..."), los encabezados están en la fila 2. Columnas: Documento,
+    Tipo (Salida), Código item, Nombre item, Costo, Cantidad, Fecha, OT, ...
+    'Costo' ya es el total de la línea (cantidad x valor unitario).
+    Se suman TODAS las filas, también las repetidas: así cuadra con Mantum
+    (OT 000298: 59.654,70 = "Costos consumo"; Total Real 87.436,48 - 59.654,70
+    = 27.781,78 = "Personal"). Devuelve {ot: costo_repuestos}."""
+    df = pd.read_excel(path, sheet_name=0, header=1, dtype={"OT": str})
+    df = df[df["OT"].notna()]
+    df["OT"] = df["OT"].str.strip().str.zfill(6)
+    costo = pd.to_numeric(df["Costo"], errors="coerce").fillna(0.0)
+    return costo.groupby(df["OT"]).sum().to_dict()
+
+
 def cargar_paros(path):
     """'Datos generales de paros de equipos discriminados por O.T..xlsx' -
     informe de paros de Mantum (hoja única 'Sheet'). Es la fuente oficial
@@ -835,7 +855,7 @@ def construir_criticidad_totales(crit):
 # ENSAMBLAJE FINAL
 # ============================================================
 
-def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None, proveedores_path=None, activos_path=None, paros_path=None):
+def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=None, proveedores_path=None, activos_path=None, paros_path=None, repuestos_path=None):
     ot_raw = cargar_ot(ot_path)
     ss_raw = cargar_ss(ss_path)
     disp, periodo_texto = cargar_disponibilidad(disp_path)
@@ -854,6 +874,19 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     ot_df = construir_ot(ot_raw, ss_raw, disp_by_code, crit_by_code, lugar_to_ai)
     ss_df = construir_ss(ss_raw, disp_by_code, lugar_to_ai, ot_df, crit_by_code)
     ot_df = lugar_ot_anm_desde_ss(ot_df, ss_df)
+    # Costo de repuestos por OT (Mariana, 17-nov-2026): el "Total Real" de la
+    # OT incluye los repuestos; mano de obra = Total Real - repuestos.
+    rep_por_ot = cargar_repuestos(repuestos_path) if repuestos_path else {}
+    ot_df["costo_repuestos"] = ot_df["ot"].map(rep_por_ot).fillna(0.0).astype(float)
+    ot_df["costo_mano_obra"] = ot_df["costo_real"] - ot_df["costo_repuestos"]
+    if repuestos_path:
+        sin_ot = sorted(set(rep_por_ot) - set(ot_df["ot"]))
+        negativos = ot_df[ot_df["costo_mano_obra"] < -0.5]
+        print(f"Repuestos: {len(rep_por_ot)} OT con repuestos, total ${sum(rep_por_ot.values()):,.0f}")
+        if sin_ot:
+            print(f"  AVISO: OT del archivo de repuestos que no están en el export de OT: {sin_ot}")
+        if len(negativos):
+            print(f"  AVISO: OT con repuestos mayores que su Total Real: {negativos['ot'].tolist()}")
     anm_ss = ss_df[ss_df["_anm"]]
     ss_df = ss_df.drop(columns=["_anm"])
     paros_raw = cargar_paros(paros_path) if paros_path else None
@@ -977,6 +1010,7 @@ def main():
         proveedores_path = None
         activos_path = None
         paros_path = None
+        repuestos_path = None
         for carpeta in (CARPETA_DATOS, CARPETA_BASE):
             candidatos_act = [a for a in carpeta.glob("*.xlsx") if "datos generales activos" in a.name.lower()]
             if candidatos_act and activos_path is None:
@@ -990,9 +1024,12 @@ def main():
             candidatos_paros = [a for a in carpeta.glob("*.xlsx") if "paros" in a.name.lower()]
             if candidatos_paros and paros_path is None:
                 paros_path = sorted(candidatos_paros, key=lambda a: a.stat().st_mtime, reverse=True)[0]
+            candidatos_rep = [a for a in carpeta.glob("*.xlsx") if "costot" in a.name.lower()]
+            if candidatos_rep and repuestos_path is None:
+                repuestos_path = sorted(candidatos_rep, key=lambda a: a.stat().st_mtime, reverse=True)[0]
     else:
         carpeta = CARPETA_DATOS if any(CARPETA_DATOS.glob("*.xlsx")) else CARPETA_BASE
-        ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path = encontrar_archivos(carpeta)
+        ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path, repuestos_path = encontrar_archivos(carpeta)
 
     print(f"OT:           {ot_path.name}")
     print(f"SS:           {ss_path.name}")
@@ -1011,9 +1048,13 @@ def main():
         print(f"Paros:        {paros_path.name}")
     else:
         print("Paros:        no encontrado (informe de paros de Mantum) - el tablero no mostrará paros")
+    if repuestos_path:
+        print(f"Repuestos:    {repuestos_path.name}")
+    else:
+        print("Repuestos:    no encontrado (ExpoDataCostOT) - costo repuestos = 0, mano de obra = Total Real")
     print()
 
-    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path)
+    data = construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path, proveedores_path, activos_path, paros_path, repuestos_path)
     data = limpiar_nan(data)
 
     SALIDA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
