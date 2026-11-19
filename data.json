@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-19T07:57:42",
+  "generado": "2026-11-19T08:09:29",
   "periodo_datos": "Periodo: Desde 2026-01-01 Hasta 2026-09-10",
   "ot": [
     {
@@ -6649,8 +6649,8 @@
       "costo_real": 276647.98,
       "descripcion": "PLANTA: REALIZAR RECORRIDO Y ESTAR PENDIENTE DE URGENCIAS\n\nEntidad a intervenir:\nBASE DE OPERACIONES\n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición",
       "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-10-01 07:00 a 11:00]\n\n-Actividades Realizadas:\nMTV-BO-C-001 | Reparación Locativa General\n\n-Descripcion:\nhace recorrido y se arreglan licuadoras \n\n---------------------------------------------------------------------------------------------",
-      "costo_repuestos": 208610.97999999998,
-      "costo_mano_obra": 68037.0
+      "costo_repuestos": 208610.98,
+      "costo_mano_obra": 68036.99999999997
     },
     {
       "ot": "000289",
@@ -8949,8 +8949,8 @@
       "costo_real": 395789.95,
       "descripcion": "VIVA LAURELES: SOLDAR, ORGANIZAR TOMA CORRIENTES, ARREGLAR BOTIQUIN, ORGANIZAR CABLEADO\n\nEntidad a intervenir:\nVIVA LAURELES\n\nActividad de mantenimiento incluida:\nReparación Locativa General: Realizar reparación según condición\n\nSS-00432 [Fecha Esperada] 2026-11-11 08:00 [Solicitante] VIVA LAURELES PDV [Descripción] SST me dicen que si me pueden colaborar con botiquín que esta flojo la palanca y no cierra la puertica del botiquín\nSS-00602 [Fecha Esperada] 2026-10-07 14:56 [Solicitante] VIVA LAURELES PDV [Descripción] me colaboran por favor poseta de lavadoe esta cortando por un borde ocasionando lesiones en los compañeros\nSS-00663 [Fecha Esperada] 2026-10-10 10:45 [Solicitante] VIVA LAURELES PDV [Descripción] tomacorriente en la cocina esta dañado varios cables están expuestos al calor y puede ocasionar un accidente\nSS-00741 [Fecha Esperada] 2026-10-14 09:32 [Solicitante] VIVA LAURELES PDV [Descripción] área de computador me colaboran por favor que hay cables expuestos solicita calidad",
       "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-10-14 07:30 a 11:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse organizan cableado de punto de servicio se solda rejilla de piso ,rejilla de nevera ,rejilla de horno proteínas,se organiza clavija de nevera y se arregla caja primeros auxilios \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJUAN JOSE MOSQUERA VARGAS\n\n\n[2026-10-14 07:30 a 11:30]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\nse organizan cableado de punto de servicio se solda rejilla de piso ,rejilla de nevera ,rejilla de horno proteínas,se organiza clavija de nevera y se arregla caja primeros auxilios \n\n---------------------------------------------------------------------------------------------",
-      "costo_repuestos": 259715.94999999998,
-      "costo_mano_obra": 136074.00000000003
+      "costo_repuestos": 259715.95,
+      "costo_mano_obra": 136074.0
     },
     {
       "ot": "000385",
@@ -11549,8 +11549,8 @@
       "costo_real": 895137.5,
       "descripcion": "PUERTA DEL NORTE: TAPAR HUECO, REJILLA Y GRANIZADORA, DUCTO\nEntidades a intervenir:\nPUERTA DEL NORTE\n\nActividades de mantenimiento incluidas:\nReparación Locativa General: Realizar reparación según condición\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir:\nGRANIZADORA 2T\n\nActividades de mantenimiento incluidas:\nReparación General: Realizar reparación según condición\n\nSS-00305 [Fecha Esperada] 2026-09-15 14:46 [Solicitante] PUERTA DEL NORTE PDV [Descripción]  hueco al lado donde está el computador\nSS-00417 [Fecha Esperada] 2026-11-10 09:00 [Solicitante] PUERTA DEL NORTE PDV [Descripción] sifón tapado\nSS-00837 [Fecha Esperada] 2026-10-17 11:00 [Solicitante] PUERTA DEL NORTE PDV [Descripción] Estamos avisando con tiempo para que vengan a reparar el botón de la granizadora está roto del tanque #2 el botón de la mezcladora",
       "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-10-23 07:30 a 09:06]\n\n-Actividades Realizadas:\nSE-0042-AMG-0002 | MTTO PREVENTIVO SISTEMA EXTRACCION\n\n-Descripcion:\nse realiza arreglo de suiche de granizadora, y mantenimiento de sistema de extracción \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-10-23 09:06 a 12:20]\n\n-Actividades Realizadas:\nGZ0036-C-001 | Reparación General\nMTV-PV-AN-PN-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------",
-      "costo_repuestos": 730714.7400000001,
-      "costo_mano_obra": 164422.7599999999
+      "costo_repuestos": 730714.74,
+      "costo_mano_obra": 164422.76
     },
     {
       "ot": "000489",
@@ -17874,8 +17874,8 @@
       "costo_real": 7236547.1899999995,
       "descripcion": "VIVA LAURELES: REJILLA LAVA PLATOS Y EMPAQUE ANNA\nEntidades a intervenir:\nVIVA LAURELES\n\nActividades de mantenimiento incluidas:\nReparación Locativa General: Realizar reparación según condición\n\n---------------------------------------------------------------------------------------------\n\nEntidades a intervenir:\nHORNO DE LASAÑAS\n\nActividades de mantenimiento incluidas:\nReparación General: Realizar reparación según condición\n\nSS-01198 [Fecha Esperada] 2026-11-06 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] me colaboran por favor con una rejilla para lavado\nSS-01218 [Fecha Esperada] 2026-11-07 11:00 [Solicitante] VIVA LAURELES PDV [Descripción] horno de lasañas se le revienta el caucho",
       "comentarios": "Ejecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-11-07 09:00 a 09:30]\n\n-Actividades Realizadas:\nHL-0018-C-001 | Reparación General\n\n-Descripcion:\nse lleva Revilla a punto de venta y se cambia el empaque ANNA DE LASAÑAS \n\n---------------------------------------------------------------------------------------------\nEjecutores:\nJONATHAN RESTREPO RAMIREZ\n\n\n[2026-11-07 09:30 a 10:00]\n\n-Actividades Realizadas:\nMTV-PV-AN-VL-C-001 | Reparación Locativa General\n\n-Descripcion:\n\n\n---------------------------------------------------------------------------------------------",
-      "costo_repuestos": 0.0,
-      "costo_mano_obra": 7236547.1899999995
+      "costo_repuestos": 7219537.93,
+      "costo_mano_obra": 17009.259999999776
     },
     {
       "ot": "000744",
