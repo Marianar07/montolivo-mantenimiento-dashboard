@@ -927,11 +927,11 @@ def construir_data_json(ot_path, ss_path, disp_path, crit_path, tecnicos_path=No
     # reporte rápido en consola para poder revisar antes de subir
     resueltas = ot_df["_tipo_match"].isin(["equipo_especifico", "instalacion_pdv"]).sum()
     print(f"OT procesadas: {len(ot_df)} (de las cuales {resueltas} con equipo/lugar resuelto)")
-    sin_lugar_anm = [r["ot"] for r in ot_records if (r["lugar"] or "").startswith("ACTIVOS NO MANTENIBLES")]
+    sin_lugar_anm = [r["ot"] for r in ot_records if isinstance(r["lugar"], str) and r["lugar"].startswith("ACTIVOS NO MANTENIBLES")]
     print(f"Activos no mantenibles: {len(anm_ss)} SS con lugar del Solicitante; "
           f"OT que siguen como 'Activos no mantenibles' (sin SS): {sin_lugar_anm or 'ninguna'}")
     for r in anm_ss.itertuples():
-        if (r.lugar or "").startswith("ACTIVOS NO MANTENIBLES"):
+        if isinstance(r.lugar, str) and r.lugar.startswith("ACTIVOS NO MANTENIBLES"):
             print(f"   SS {r.ss} sigue como 'Activos no mantenibles' (solicitante no es un PDV)")
     ss_sin_lugar = ss_df.loc[ss_df["lugar"].isna(), "ss"].tolist()
     print(f"SS sin lugar (sin Entidad y solicitante no es un PDV): {ss_sin_lugar or 'ninguna'}")
