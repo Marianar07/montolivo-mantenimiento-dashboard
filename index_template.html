@@ -670,6 +670,7 @@ const TABS = [
   {id:'ot', label:'Órdenes de Trabajo', render: renderOT},
   {id:'tecnicos', label:'Técnicos', render: renderTecnicos},
   {id:'ss', label:'Solicitudes de Servicio', render: renderSS},
+  {id:'ssnoaprobadas', label:'SS No aprobadas', render: renderSSNoAprobadas},
   {id:'paros', label:'Paros por Equipo', render: renderParos},
   {id:'disponibilidad', label:'Equipos', render: renderDisponibilidad},
   {id:'costos', label:'Costos de Mantenimiento', render: renderCostos},
@@ -2811,6 +2812,87 @@ function renderSS(el){
     {key:'pct', label:'% abiertas', num:true, fmt:v=>fmtPct(v)},
   ], {scroll:true});
   wireLugarFiltro('ssLugarSelect','ssLugarGlobal', ssLugarFiltro, ()=>renderSS(el));
+}
+
+/* ============ TAB: SS No aprobadas ============ */
+// Pedido de Mariana (25-nov-2026): pestaña con las SS en estado "No aprobada"
+// (toda la información + comentarios) y gráfica de cuántas se marcan como no
+// aprobadas por semana (lunes a domingo). La fecha en que se marcó = Fecha de
+// respuesta (en las No aprobada coincide con la fecha del comentario
+// "No aprobada / persona / fecha / texto"). El filtro de fechas de arriba se
+// aplica sobre esa fecha; el de lugar, como en el resto del tablero.
+function noAprobadaInfo(r){
+  const linea = String(r.comentarios||'').split('\n').find(l=>/^\s*No aprobada\s*\//i.test(l));
+  if(!linea) return {por:null, motivo:null};
+  const partes = linea.split(' / ');
+  return {por:(partes[1]||'').trim()||null, motivo:partes.slice(3).join(' / ').trim()||null};
+}
+function renderSSNoAprobadas(el){
+  const base = DATA.ss.filter(r=>r.estado==='No aprobada')
+    .map(r=>({...r, ...(()=>{ const i=noAprobadaInfo(r); return {_por:i.por, _motivo:i.motivo}; })(),
+      _dias: r.fecha_respuesta && r.fecha_ss ? (new Date(r.fecha_respuesta)-new Date(r.fecha_ss))/86400000 : null}));
+  const fechaNA = r => r.fecha_respuesta || r.fecha_ss;
+  const all = base.filter(r=>inRange(fechaNA(r), FILTER.desde, FILTER.hasta) && (!FILTER.lugarGlobal || !FILTER.lugar || r.lugar===FILTER.lugar));
+  const totalSSRango = DATA.ss.filter(r=>inRange(fechaNA(r), FILTER.desde, FILTER.hasta) && (!FILTER.lugarGlobal || !FILTER.lugar || r.lugar===FILTER.lugar)).length;
+  const dias = all.map(r=>r._dias).filter(v=>v!=null);
+  const promDias = dias.length ? dias.reduce((a,b)=>a+b,0)/dias.length : null;
+  const porPersona = groupCount(all, r=>r._por||'Sin dato').sort((a,b)=>b.count-a.count);
+  const porLugar = groupCount(all, r=>r.lugar||'Sin lugar').sort((a,b)=>b.count-a.count);
+  const opciones = (vals) => [...new Set(vals)].filter(Boolean).sort((a,b)=>a.localeCompare(b)).map(v=>`<option>${esc(v)}</option>`).join('');
+
+  el.innerHTML = `
+  <div class="callout info"><b>SS No aprobadas</b>: solicitudes que en Mantum quedaron en estado <b>No aprobada</b> (duplicadas, mal creadas o solucionadas de otra forma). La <b>fecha en que se marcó</b> es la Fecha de respuesta; el filtro de fechas de arriba se aplica sobre esa fecha. <b>Marcada por</b> y <b>Motivo</b> salen del comentario "No aprobada" de Mantum; la columna Comentarios trae el historial completo.</div>
+  <div class="kpi-row">
+    ${kpiCard({label:'SS no aprobadas', value:all.length, sub:`${totalSSRango ? fmtPct(all.length/totalSSRango*100) : '—'} de las ${totalSSRango} SS del rango`, accent:'c1'})}
+    ${kpiCard({label:'Días promedio hasta marcarla', value:promDias==null?'—':promDias.toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})+' días', sub:'Fecha de respuesta − Fecha de solicitud'})}
+    ${kpiCard({label:'Quién las marca', value:porPersona.length, sub:porPersona.slice(0,4).map(x=>`${esc(x.key)}: <b>${x.count}</b>`).join('<br>')})}
+    ${kpiCard({label:'Lugares con más no aprobadas', value:porLugar.length, sub:porLugar.slice(0,4).map(x=>`${esc(x.key)}: <b>${x.count}</b>`).join('<br>')})}
+  </div>
+  <div class="card section-block">
+    <div class="card-head"><h3>SS marcadas como No aprobada por semana (lunes a domingo)</h3></div>
+    <div id="ssNoAprobSemanal">${chartSemanal(base, 'fecha_respuesta', 'SS no aprobadas', 'SS no aprobadas', false)}</div>
+  </div>
+  <div class="card section-block">
+    ${sectionTitle('Listado de SS No aprobadas', `${all.length} SS en el rango seleccionado`)}
+    <div class="card-head">
+      <input class="searchbox" type="text" id="ssnaSearch" placeholder="Buscar por SS, entidad, lugar, motivo, comentario...">
+      <select id="ssnaLugar"><option value="">Todos los lugares</option>${opciones(all.map(r=>r.lugar))}</select>
+      <select id="ssnaTipo"><option value="">Todos los tipos</option>${opciones(all.map(r=>r.tipo))}</select>
+      <select id="ssnaPor"><option value="">Marcada por: todos</option>${opciones(all.map(r=>r._por))}</select>
+    </div>
+    <div id="ssnaTableWrap"></div>
+  </div>`;
+
+  const cols = [
+    {key:'ss', label:'SS'},
+    {key:'tipo', label:'Tipo'},
+    {key:'severidad', label:'Prioridad'},
+    {key:'criticidad', label:'Criticidad'},
+    {key:'equipo', label:'Entidad'},
+    {key:'lugar', label:'Lugar'},
+    {key:'fecha_ss', label:'Fecha de solicitud', fmt:fmtFechaHoraCorta},
+    {key:'fecha_respuesta', label:'Fecha no aprobada', fmt:fmtFechaHoraCorta},
+    {key:'_dias', label:'Días hasta marcarla', num:true, fmt:v=>v==null?'—':v.toFixed(1)},
+    {key:'_por', label:'Marcada por'},
+    {key:'_motivo', label:'Motivo (comentario No aprobada)', fmt:v=>v?`<div class="celda-comentario">${esc(v)}</div>`:'—'},
+    {key:'ot_asociada', label:'OT'},
+    {key:'descripcion', label:'Descripción', fmt:v=>v?`<div class="celda-comentario">${esc(v)}</div>`:'—'},
+    colComentarios,
+  ];
+  const ordenadas = all.slice().sort((a,b)=>String(fechaNA(b)).localeCompare(String(fechaNA(a))));
+  const pager = buildPagedTable('ssnaTableWrap', ordenadas, cols, {pageSize:15});
+  function refresh(){
+    const l = document.getElementById('ssnaLugar').value;
+    const t = document.getElementById('ssnaTipo').value;
+    const p = document.getElementById('ssnaPor').value;
+    const rows = ordenadas.filter(r=>(!l || r.lugar===l) && (!t || r.tipo===t) && (!p || r._por===p));
+    pager.refresh(rows);
+    const term = document.getElementById('ssnaSearch').value;
+    if(term) pager.setFilter(term);
+  }
+  ['ssnaLugar','ssnaTipo','ssnaPor'].forEach(id=>document.getElementById(id).addEventListener('change', refresh));
+  document.getElementById('ssnaSearch').addEventListener('input', refresh);
+  wireBarClicks(document.getElementById('ssNoAprobSemanal'));
 }
 
 /* ============ TAB: Costos ============ */

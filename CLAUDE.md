@@ -467,6 +467,19 @@ Reemplazó a la tarjeta suelta "Solicitudes de servicio" del grupo "Servicio".
 **Códigos de SS**: en todo el tablero se muestran solo con el número
 (p. ej. `00016`), sin prefijo "SS-" (pedido de Mariana; ver `fmtSSParo()`).
 
+### Pestaña "SS No aprobadas"
+
+Pedido de Mariana (25-nov-2026), `renderSSNoAprobadas()`, entre "Solicitudes
+de Servicio" y "Paros por Equipo": SS con Estado = "No aprobada". Fecha en
+que se marcó = `Fecha de respuesta` (el filtro de fechas de arriba se aplica
+sobre ella; el de lugar como en el resto). "Marcada por" y "Motivo" salen de
+la línea "No aprobada / persona / fecha / texto" de los comentarios
+(`noAprobadaInfo()`). Tarjetas (total y % de SS, días promedio hasta
+marcarla, quién las marca, lugares), gráfica por semana lunes–domingo por
+Fecha de respuesta (`chartSemanal`, desde el 1-ago) y tabla con toda la
+información + Comentarios, con buscador y filtros Lugar / Tipo / Marcada
+por. 25-nov-2026: 494 SS (Marcela Henao 379, Sebastián Buitrago 112).
+
 ### Horas de técnicos en el Resumen
 
 La tarjeta **"Técnicos"** (antes "Técnicos en sitio / programados") muestra
