@@ -476,9 +476,12 @@ sobre ella; el de lugar como en el resto). "Marcada por" y "Motivo" salen de
 la línea "No aprobada / persona / fecha / texto" de los comentarios
 (`noAprobadaInfo()`). Tarjetas (total y % de SS, días promedio hasta
 marcarla, quién las marca, lugares), gráfica por semana lunes–domingo por
-Fecha de respuesta (`chartSemanal`, desde el 1-ago) y tabla con toda la
-información + Comentarios, con buscador y filtros Lugar / Tipo / Marcada
-por. 25-nov-2026: 494 SS (Marcela Henao 379, Sebastián Buitrago 112).
+Fecha de respuesta (`chartSemanal`, desde el 1-ago) y tabla con buscador y
+filtros Lugar / Tipo / Marcada por. Columnas, en este orden (Mariana,
+25-nov-2026, quitó Tipo, Días hasta marcarla, OT y Comentarios): SS,
+Prioridad, Criticidad, Fecha de solicitud, Fecha no aprobada, Entidad, Lugar,
+Descripción, Motivo, Marcada por. 25-nov-2026: 494 SS (Marcela Henao 379,
+Sebastián Buitrago 112).
 
 ### Horas de técnicos en el Resumen
 
